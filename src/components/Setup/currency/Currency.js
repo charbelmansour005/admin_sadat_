@@ -379,7 +379,7 @@ const Currency = (props) => {
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="price" type="text" placeholder="back office rate" >
+                                            <input className="category" type="text" placeholder="back office rate" >
                                             </input>
                                         </div>
 
@@ -391,7 +391,7 @@ const Currency = (props) => {
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="price" type="text" placeholder="decimal number">
+                                            <input className="category" type="text" placeholder="decimal number">
                                             </input>
                                         </div>
 
