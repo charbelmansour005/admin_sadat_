@@ -177,7 +177,7 @@ const Categories = (props) => {
             lastModificationDate: "Today",
         },
         {
-            key: 20,
+            key: 21,
             name: "dfs",
             price: 6000,
             group: "group6",
