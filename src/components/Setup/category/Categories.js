@@ -216,7 +216,7 @@ const Categories = (props) => {
             left: '45%',
             right: 'auto',
             width: '40%',
-            height: '25%',
+            height: '35%',
             bottom: '50%',
 
             marginRight: '-50%',
@@ -463,44 +463,44 @@ const Categories = (props) => {
                                 </div>
 
                                 <div style={{ width: '100%', display: 'flex', marginTop: 10 }}>
-                                    <div style={{ width: '25%' }}>
+                                    <div style={{ width: '35%' }}>
                                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                                            <div style={{ width: '60%', display: 'flex' }} >
+                                            <div style={{ width: '100%', display: 'flex' }} >
                                                 <label>
-                                                    Category Name *
+                                                    Category *
                                                 </label>
                                             </div>
                                         </div>
 
                                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                                             <div style={{ width: '60%', display: 'flex' }}>
-                                                <input className="price" type="text" placeholder="category name">
+                                                <input className="category" type="text" placeholder="category name">
                                                 </input>
                                             </div>
 
                                         </div>
 
                                     </div>
-                                    <div style={{ width: '25%' }}>
+                                    <div style={{ width: '35%' }}>
                                         <div >
                                             <label>
                                                 Other Name
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="price" type="text" placeholder="other name" >
+                                            <input className="category" type="text" placeholder="other name" >
                                             </input>
                                         </div>
 
                                     </div>
-                                    <div style={{ width: '25%' }}>
+                                    <div style={{ width: '30%' }}>
                                         <div >
                                             <label>
                                                 sorting
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="price" type="text" placeholder="sorting">
+                                            <input className="category" type="text" placeholder="sorting">
                                             </input>
                                         </div>
 

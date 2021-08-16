@@ -89,6 +89,16 @@
     border: 1.8px solid lightgray;
     justify-content: center;
   }
+  .category{
+    width: 25vh;
+    display: flex;
+    padding-left: 10px;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1.8px solid lightgray;
+    justify-content: center;
+  }
   .menu{
     width: 30vh;
     display: flex;
