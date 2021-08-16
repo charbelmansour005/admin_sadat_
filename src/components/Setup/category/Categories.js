@@ -176,6 +176,15 @@ const Categories = (props) => {
             creationDate: "Today",
             lastModificationDate: "Today",
         },
+        {
+            key: 20,
+            name: "dfs",
+            price: 6000,
+            group: "group6",
+            creationDate: "Today",
+            lastModificationDate: "Today",
+        }
+      
     ];
     const customStyles = {
         content: {
