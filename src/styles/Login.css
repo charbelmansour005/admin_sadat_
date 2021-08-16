@@ -1,0 +1,156 @@
+.login-body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.item-title {
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-family: Ubuntu;
+  font-size: 25px;
+  opacity: 0.6;
+  color: var(--color-scheme);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.forgot {
+  font-size: small;
+  margin: auto;
+  color: black;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  outline: 0;
+  text-align: center;
+  align-content: center;
+}
+
+.wrong {
+  font-size: small;
+  margin: auto;
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  outline: 0;
+  text-align: center;
+  align-content: center;
+  visibility: hidden;
+}
+
+.forgot:hover {
+  color: #015bb6;
+}
+
+.username {
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+  text-overflow: clip;
+  border-width: 0.5px;
+  border-color: black;
+  outline-width: 0;
+  border-style: solid;
+  border-radius: 10px;
+  align-self: center;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: "Ubuntu";
+  margin-bottom: 20px;
+  transition: width 1s, border-width 2s, visibility 2s;
+}
+
+.username:focus {
+  width: 300px;
+  border-width: 2.5px;
+}
+
+.username:hover {
+  background-color: rgba(1, 139, 182, 0);
+}
+
+.username:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.username[l="1"] {
+  margin-top: 30px;
+  height: 35px;
+}
+
+.submit-button {
+  width: 250px;
+  height: 50px;
+  border-width: 0;
+  outline-width: 0;
+  border-radius: 30px;
+  color: white;
+  align-self: center;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: "Ubuntu";
+  font-size: large;
+  background-color: var(--color-scheme);
+  cursor: pointer;
+  transition: background-color 1s, width 1s;
+}
+
+.submit-button:hover {
+  width: 300px;
+  background-color: #015bb6;
+}
+
+.submit-button:focus {
+  width: 300px;
+  background-color: #015bb6;
+}
+
+.submit-button[l="1"] {
+  height: 35px;
+  font-size: medium;
+}
+
+@keyframes inAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes outAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

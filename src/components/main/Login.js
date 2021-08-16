@@ -1,0 +1,127 @@
+import React, { useState } from "react";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import { useHistory } from "react-router-dom";
+import "../../styles/Login.css";
+
+const Login = () => {
+  const [companyID, setCompanyID] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [wrongInfo, setWrongInfo] = useState(false);
+  let history = useHistory();
+  const signinHandler = (event) => {
+    event.preventDefault();
+    if (companyID === "1" && username === "m" && password === "m") {
+      history.push("/Home");
+    } else {
+      document.getElementById("wrong").style.visibility = "visible";
+      setWrongInfo((prev) => (prev === false ? true : prev));
+    }
+  };
+  const mountedStyle = { animation: "inAnimation 500ms ease-in" };
+  const unmountedStyle = {
+    animation: "outAnimation 500ms ease-out",
+    animationFillMode: "forwards",
+  };
+  const forgotHandler = () => {
+    setVisible((prev) => !prev);
+  };
+  const resetPassword = () => {};
+
+  return (
+    <div className="login-body">
+      <div className="login">
+        <AccountBoxIcon
+          style={{
+            height: "156px",
+            width: "156px",
+            alignSelf: "center",
+            color: "rgba(0,0,0,0.7)",
+          }}
+        />
+        <span
+          id="wrong"
+          className="wrong"
+          style={wrongInfo ? mountedStyle : unmountedStyle}
+        >
+          Company ID, username or password incorrect
+        </span>
+        <form
+          type="submit"
+          className="login"
+          onSubmit={signinHandler}
+          style={!visible ? mountedStyle : unmountedStyle}
+        >
+          <input
+            required
+            onChange={(event) => {
+              setCompanyID(event.target.value);
+            }}
+            placeholder="Company ID"
+            type="number"
+            className="username"
+          />
+          <input
+            required
+            onChange={(event) => {
+              setUsername(event.target.value);
+            }}
+            placeholder="Username"
+            type="text"
+            className="username"
+          />
+          <input
+            required
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+            placeholder="Password"
+            type="password"
+            className="username"
+          />
+          <input type="submit" value="Sign In" className="submit-button" />
+          <span
+            className="forgot"
+            onClick={forgotHandler}
+            style={!visible ? mountedStyle : unmountedStyle}
+          >
+            Forgot password?
+          </span>
+        </form>
+        <form
+          type="submit"
+          onSubmit={resetPassword}
+          className="login"
+          style={visible ? mountedStyle : unmountedStyle}
+        >
+          <span
+            className="forgot"
+            onClick={forgotHandler}
+            style={visible ? mountedStyle : unmountedStyle}
+          >
+            Sign In
+          </span>
+          <input
+            required
+            onChange={(event) => {
+              setCompanyID(event.target.value);
+            }}
+            placeholder="Enter your email"
+            type="email"
+            className="username"
+            l="1"
+          />
+          <input
+            type="submit"
+            value="Reset Password"
+            className="submit-button"
+            l="1"
+          />
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

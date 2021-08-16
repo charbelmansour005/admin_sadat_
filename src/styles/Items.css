@@ -1,0 +1,241 @@
+.item-title {
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-family: Ubuntu;
+  font-size: 25px;
+  opacity: 0.6;
+  color: var(--title);
+}
+
+.item-box {
+  border: 1px solid;
+  border-color: var(--border);
+  display: flex;
+  border-bottom: none;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: fit-content;
+  border-radius: 1px;
+  overflow-y: auto;
+}
+
+.item-search-box {
+  border-color: var(--border);
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: var(--header);
+}
+
+.item-search {
+  width: 400px;
+  height: 30px;
+  border-width: 2px;
+  border-color: var(--border);
+  outline-width: 0;
+  border-style: solid;
+  border-radius: 5px;
+  align-self: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+}
+
+.item-search:hover,
+.search:focus {
+  background-color: var(--focus);
+}
+
+.item-search-text {
+  text-overflow: clip;
+  height: 30px;
+  width: 380px;
+  border-width: 0;
+  outline-width: 0;
+  border-radius: 2px;
+  align-self: center;
+  text-align: left;
+  margin-inline-start: 5px;
+  box-sizing: border-box;
+  font-family: "Ubuntu";
+  font-size: medium;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.item-search-text::placeholder {
+  color: var(--search);
+  opacity: 0.8;
+  font-size: medium;
+}
+
+.item-search-text:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.item-add {
+  border-width: 0.5px;
+  border-color: var(--border);
+  outline-width: 0;
+  border-style: solid;
+  border-radius: 5px;
+  align-self: center;
+  justify-content: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: #018BB6;
+  transition: background-color 1s;
+}
+
+.item-add:hover,
+.add:focus {
+  background-color: var(--button-background-focus);
+}
+
+p {
+  font-family: "Ubuntu";
+  justify-self: center;
+  align-self: center;
+  padding-right: 5px;
+  font-size: medium;
+  color: white;
+}
+
+.item-holder {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 5px;
+  overflow: auto;
+}
+
+.item-table-holder {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+  border-bottom: 1px solid var(--border);
+  overflow: auto;
+}
+
+.item-head-holder {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+  border-bottom: 1px solid var(--border);
+  background: var(--header);
+}
+
+.item-table-holder:hover {
+  background-color: var(--table-hover);
+}
+
+.item-table {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.item-remove-items {
+  overflow-y: auto;
+  max-height: 34.1rem;
+}
+
+.item-mod-date {
+  font-family: "Ubuntu";
+  width: 250px;
+  text-align: center;
+  display: flex;
+}
+
+.item-name {
+  font-family: "Ubuntu";
+  width: 350px;
+  text-align: center;
+  display: flex;
+}
+
+.item-head-name {
+  font-family: "Ubuntu";
+  width: 350px;
+  text-align: center;
+  display: flex;
+  height: 30px;
+}
+
+.item-price {
+  font-family: "Ubuntu";
+  width: 100px;
+  text-align: center;
+  display: flex;
+}
+
+.item-sort {
+  cursor: pointer;
+  align-self: center;
+  font-size: larger;
+}
+
+.item-group {
+  font-family: "Ubuntu";
+  width: 150px;
+  text-align: center;
+  display: flex;
+}
+
+.item-group1 {
+  font-family: "Ubuntu";
+  width: 40px;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.item-creation-date {
+  font-family: "Ubuntu";
+  width: 200px;
+  text-align: center;
+  display: flex;
+}
+
+.item-modify-icon:hover {
+  color: var(--color-scheme);
+}
+
+.item-delete-icon:hover {
+  color: var(--color-scheme);
+}
+
+.item-trans-enter {
+  opacity: 0;
+}
+
+.item-trans-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.item-trans-exit {
+  opacity: 1;
+}
+
+.item-trans-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
