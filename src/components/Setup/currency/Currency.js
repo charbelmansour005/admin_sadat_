@@ -363,9 +363,9 @@ const Currency = (props) => {
                                             </div>
                                         </div>
 
-                                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                                        <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
                                             <div style={{ width: '60%', display: 'flex' }}>
-                                                <input className="price" type="text" placeholder="pos rate">
+                                                <input className="category" type="text" placeholder="pos rate">
                                                 </input>
                                             </div>
 
