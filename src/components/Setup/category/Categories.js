@@ -215,6 +215,14 @@ const Categories = (props) => {
             group: "group6",
             creationDate: "Today",
             lastModificationDate: "Today",
+        },
+        {
+            key: 27,
+            name: "dfs",
+            price: 6000,
+            group: "group6",
+            creationDate: "Today",
+            lastModificationDate: "Today",
         }
       
     ];
