@@ -363,9 +363,9 @@ const Currency = (props) => {
                                             </div>
                                         </div>
 
-                                        <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+                                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                                             <div style={{ width: '60%', display: 'flex' }}>
-                                                <input className="category" type="text" placeholder="pos rate">
+                                                <input className="price" type="text" placeholder="pos rate">
                                                 </input>
                                             </div>
 
@@ -379,7 +379,7 @@ const Currency = (props) => {
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="category" type="text" placeholder="back office rate" >
+                                            <input className="price" type="text" placeholder="back office rate" >
                                             </input>
                                         </div>
 
@@ -391,7 +391,7 @@ const Currency = (props) => {
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="category" type="text" placeholder="decimal number">
+                                            <input className="price" type="text" placeholder="decimal number">
                                             </input>
                                         </div>
 
