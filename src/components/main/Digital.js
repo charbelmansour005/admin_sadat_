@@ -25,7 +25,7 @@ const Digital = (props) => {
                     Digital
                 </h3>
             </div>
-        </div >
+        </div>
     )
 }
 export default Digital;
