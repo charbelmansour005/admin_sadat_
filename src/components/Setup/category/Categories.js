@@ -215,6 +215,14 @@ const Categories = (props) => {
             group: "group6",
             creationDate: "Today",
             lastModificationDate: "Today",
+        },
+        {
+            key: 27,
+            name: "hdhdhdhdhdhdh",
+            price: 6000,
+            group: "group6",
+            creationDate: "Today",
+            lastModificationDate: "Today",
         }
       
     ];
@@ -473,7 +481,7 @@ const Categories = (props) => {
                                 <div style={{ width: '100%', display: 'flex', marginTop: 10 }}>
                                     <div style={{ width: '35%' }}>
                                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                                            <div style={{ width: '100%', display: 'flex' }} >
+                                            <div style={{ width: '60%', display: 'flex',justifyContent:'flex-start' }} >
                                                 <label>
                                                     Category *
                                                 </label>
@@ -482,7 +490,7 @@ const Categories = (props) => {
 
                                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                                             <div style={{ width: '60%', display: 'flex' }}>
-                                                <input className="category" type="text" placeholder="category name">
+                                                <input className="price" type="text" placeholder="category name">
                                                 </input>
                                             </div>
 
@@ -496,7 +504,7 @@ const Categories = (props) => {
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="category" type="text" placeholder="other name" >
+                                            <input className="price" type="text" placeholder="other name" >
                                             </input>
                                         </div>
 
@@ -508,7 +516,7 @@ const Categories = (props) => {
                                             </label>
                                         </div>
                                         <div style={{}}>
-                                            <input className="category" type="text" placeholder="sorting">
+                                            <input className="price" type="text" placeholder="sorting">
                                             </input>
                                         </div>
 
