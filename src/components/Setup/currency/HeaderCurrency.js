@@ -3,11 +3,7 @@ import "../../../styles/Currency.css";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
-const HeaderCurrency = ({
-  name,
-  sortName,
-  sortBy
-}) => {
+const HeaderCurrency = ({ name, sortName, sortBy }) => {
   return (
     <div className="pay-head-holder">
       <div id={"" + name} className="pay-holder">
@@ -22,8 +18,6 @@ const HeaderCurrency = ({
             <ArrowDropDownIcon style={{ alignSelf: "center" }} />
           )}
         </div>
-
-
       </div>
       <div className="pay-group1">
         <div></div>

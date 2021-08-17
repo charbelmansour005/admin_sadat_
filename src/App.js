@@ -29,7 +29,6 @@ function App() {
           <Route exact path="/" component={Login} ></Route>
           <Route exact path="/Home" component={Home} ></Route>
           <Route exact path="/Dashboard" component={Dashboard} render={(props) => <Dashboard {...props} />} />
-
           <Route exact path="/AboutUs" component={AboutUs} render={(props) => <AboutUs {...props} />} />
           <Route exact path="/Settings" component={Settings} render={(props) => <Settings {...props} />} />
           <Route exact path="/Accounting" component={Accounting} render={(props) => <Accounting {...props} />} />

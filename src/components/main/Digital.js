@@ -1,31 +1,20 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import history from '../history'
-import '../../App.css';
-import Loadingbar from 'react-top-loading-bar'
+import React from "react";
+import { useEffect } from "react";
+import "../../App.css";
 
 const Digital = (props) => {
-    useEffect(() => {
+  useEffect(() => {
+    return () => {};
+  }, []);
 
-        return () => {
-        }
-    }, [])
+  return (
+    <div>
+      <div>asdasd</div>
 
-
-
-    return (
-        <div >
-            <div>
-                asdasd
-            </div>
-
-            <div>
-                <h3>
-                    Digital
-                </h3>
-            </div>
-        </div>
-    )
-}
+      <div>
+        <h3>Digital</h3>
+      </div>
+    </div>
+  );
+};
 export default Digital;
