@@ -218,7 +218,7 @@ const Categories = (props) => {
         },
         {
             key: 27,
-            name: "dfs",
+            name: "hdhdhdhdhdhdh",
             price: 6000,
             group: "group6",
             creationDate: "Today",
