@@ -86,7 +86,7 @@ const Login = () => {
             onClick={forgotHandler}
             style={!visible ? mountedStyle : unmountedStyle}
           >
-            Forgot password?
+            Forgot password?!!
           </span>
         </form>
         <form
