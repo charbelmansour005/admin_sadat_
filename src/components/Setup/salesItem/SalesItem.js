@@ -6,7 +6,6 @@ import AddIcon from "@material-ui/icons/Add";
 import TableItem from "./TableItem";
 import HeaderItem from "./HeaderItem";
 import cancel from '../../../assets/cancel.png'
-
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../../styles/Items.css";
 
