@@ -1,21 +1,14 @@
 import { useState, useEffect } from 'react'
 import history from '../history'
 import '../../App.css';
-
-
 import add from '../../assets/add.png'
 import minus from '../../assets/minus.png'
-
 import Categories from '../Setup/category/Categories';
 import Currency from '../Setup/currency/Currency';
 import SalesItem from '../Setup/salesItem/SalesItem';
 import Payment from '../Setup/payment/Payment';
 import VoidReason from '../Setup/voidreason/VoidReason';
 import Header from './Header';
-
-
-
-
 
 const Home = (props) => {
     const [isDashboard, setDashboard] = useState(false)
@@ -55,15 +48,9 @@ const Home = (props) => {
     const [currency, setCurrency] = useState(false)
     useEffect(() => {
         goToBackOffice()
-
-
         return () => {
         }
     }, [])
-
-
-
-
 
     let goToBackOffice = () => {
 
@@ -107,29 +94,23 @@ const Home = (props) => {
 
 
     }
-
     let goToAccounting = (e) => {
         e.preventDefault()
         setAccounting(true)
         checkAccounting()
     }
-
-
     let goToReservation = (e) => {
         e.preventDefault()
         setReservation(true)
 
         checkReservation()
     }
-
     let goToDigital = (e) => {
         e.preventDefault()
         setDigital(true)
         checkDigital()
 
     }
-
-
     let goToSetup = (e) => {
         e.preventDefault()
         setIsSetup(true)
@@ -183,7 +164,6 @@ const Home = (props) => {
             setCalendar(false)
         }
     }
-
     let goToSales = (e) => {
         e.preventDefault()
         history.push("/SalesItem")
@@ -200,7 +180,6 @@ const Home = (props) => {
         setCurrency(false)
 
     }
-
     let goToGroups = (e) => {
         e.preventDefault()
         setIsSales(false)
@@ -293,10 +272,6 @@ const Home = (props) => {
         history.push("/Currency")
         setPayment(false)
     }
-
-
-
-
     let checkStock = () => {
         if (stock === true) {
             setStock(false)
@@ -321,8 +296,6 @@ const Home = (props) => {
             setHomeSub(true)
         }
     }
-
-
     let checkAccounting = () => {
         if (isAccounting === true) {
             setAccounting(false)
@@ -331,7 +304,6 @@ const Home = (props) => {
             setAccounting(true)
         }
     }
-
     let checkReservation = () => {
         if (reservation === true) {
             setReservation(false)
@@ -341,19 +313,16 @@ const Home = (props) => {
         }
     }
 
-
-
-
     return (
         <div className="screen" >
             <div style={{ width: '100%', flex: 1, position: 'relative' }}>
                 <Header />
             </div>
 
-            <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', position: 'fixed' }}>
+            <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', position: 'fixed'}}>
 
 
-                <div style={{ width: '10%', height: '100%', backgroundColor: '#fafafa', justifyContent: 'center', marginTop: 10 }}>
+                <div style={{ width: '10%', height: '100%', backgroundColor: '#fafafa', justifyContent: 'center', marginTop: 10, overflow: 'auto'}}>
                     <div  onClick={goToBackOffice} onMouseEnter={() => setBackOffice(true)} onMouseLeave={() => setBackOffice(false)} style={{ position: 'relative', padding: 10, flexDirection: 'row', display: 'flex', flex: 1, justifyContent: 'flex-start', ...(isBackOffice ? { backgroundColor: 'darkgray' } : { backgroundColor: '#E8E8E8' }) }}>
                         <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-start', flexDirection: 'row', width: '10%' }} >
                             <div style={{ width: '80%' }}>
@@ -737,7 +706,7 @@ const Home = (props) => {
 
                 </div>
 
-                <div style={{ width: '90%', height: '100%', display: 'flex', marginTop: 10, marginLeft: 10 }}>
+                <div style={{ width: '90%', height: '100%', display: 'flex', marginTop: 10, marginLeft: 10, marginBottom: 50}}>
 
                     {
                         sales ?
