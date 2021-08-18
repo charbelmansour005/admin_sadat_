@@ -119,6 +119,7 @@
     justify-content: flex-start;
     padding: 5px;
     overflow: auto;
+    align-items: center;
   }
   
   .pay-remove-items {

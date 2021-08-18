@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Items.css";
 
 const TableItem = ({
+  key,
   name,
   price,
   group,

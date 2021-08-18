@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Categories.css";
 
 const TableCategory = ({
+  key,
   name,
   creationDate,
   lastModificationDate,

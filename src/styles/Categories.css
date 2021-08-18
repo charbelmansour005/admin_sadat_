@@ -117,6 +117,7 @@ p {
   flex-direction: row;
   justify-content: flex-start;
   padding: 5px;
+  align-items: center;
 }
 
 .cat-table-holder {

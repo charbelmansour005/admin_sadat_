@@ -117,6 +117,7 @@ p {
   flex: 1;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   padding: 5px;
   overflow: auto;
 }

@@ -16,7 +16,7 @@ const Settings = (props) => {
     window.addEventListener("online", () => alert("You are online"));
     window.addEventListener("offline", () => alert("You are offline"));
     return () => {};
-  }, []);
+  }, [currentUser]);
 
   let getAllPost = () => {
     fetch("https://jsonplaceholder.typicode.com/posts")

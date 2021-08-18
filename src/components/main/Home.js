@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import history from "../history";
 import "../../App.css";
 import add from "../../assets/add.png";
@@ -46,10 +46,6 @@ const Home = (props) => {
   const [payment, setPayment] = useState(false);
   const [iscurrency, setIsCurrency] = useState(false);
   const [currency, setCurrency] = useState(false);
-  useEffect(() => {
-    goToBackOffice();
-    return () => {};
-  }, []);
 
   let goToBackOffice = () => {
     const itemarray = [
@@ -425,6 +421,7 @@ const Home = (props) => {
                   borderWidth: 1,
                 }}
               ></div>
+
               <div
                 onMouseEnter={() => setIsReport(true)}
                 onMouseLeave={() => setIsReport(false)}
