@@ -8,6 +8,7 @@ import HeaderItem from "./HeaderItem";
 import cancel from "../../../assets/cancel.png";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../../styles/Items.css";
+import ModalItem from "./ModalItem";
 
 const tabledata = [
   {
@@ -132,7 +133,7 @@ const tabledata = [
   },
 ];
 
-const SalesItem = (props) => {
+const SalesItem = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
@@ -140,6 +141,15 @@ const SalesItem = (props) => {
   const [sortGroup, setSortGroup] = useState("0");
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
+  const [mod, setMod] = useState(false);
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      e.key === "Escape" && setMod(false);
+    });
+    return () => {
+      document.removeEventListener("keydown", (e) => e);
+    };
+  }, [mod]);
 
   const customStyles = {
     content: {
@@ -155,7 +165,6 @@ const SalesItem = (props) => {
     },
   };
   useEffect(() => {
-    setTData([]);
     setTData(tabledata);
   }, []);
   function GetSortOrder(prop) {
@@ -173,6 +182,26 @@ const SalesItem = (props) => {
       if (a[prop] < b[prop]) {
         return 1;
       } else if (a[prop] > b[prop]) {
+        return -1;
+      }
+      return 0;
+    };
+  }
+  function GetDateSortOrder(prop) {
+    return function (a, b) {
+      if (Date.parse(a[prop]) > Date.parse(b[prop])) {
+        return 1;
+      } else if (Date.parse(a[prop]) < Date.parse(b[prop])) {
+        return -1;
+      }
+      return 0;
+    };
+  }
+  function GetDateSortOrder2(prop) {
+    return function (a, b) {
+      if (Date.parse(a[prop]) < Date.parse(b[prop])) {
+        return 1;
+      } else if (Date.parse(a[prop]) > Date.parse(b[prop])) {
         return -1;
       }
       return 0;
@@ -249,12 +278,12 @@ const SalesItem = (props) => {
         setSortCreationDate("1");
         setSortLastModificationDate("0");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("creationDate"));
+          return prev.sort(GetDateSortOrder("creationDate"));
         });
       } else if (sortCreationDate === "1") {
         setSortCreationDate("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("creationDate"));
+          return prev.sort(GetDateSortOrder2("creationDate"));
         });
       } else setSortCreationDate("0");
     } else if (sort === "lastModDate") {
@@ -265,12 +294,12 @@ const SalesItem = (props) => {
         setSortCreationDate("0");
         setSortLastModificationDate("1");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("lastModificationDate"));
+          return prev.sort(GetDateSortOrder("lastModificationDate"));
         });
       } else if (sortLastModificationDate === "1") {
         setSortLastModificationDate("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("lastModificationDate"));
+          return prev.sort(GetDateSortOrder2("lastModificationDate"));
         });
       } else setSortLastModificationDate("0");
     }
@@ -338,11 +367,7 @@ const SalesItem = (props) => {
                 creationDate,
                 lastModificationDate,
               }) => (
-                <CSSTransition
-                  key={key}
-                  timeout={500}
-                  classNames="item-trans"
-                >
+                <CSSTransition key={key} timeout={500} classNames="item-trans">
                   <TableItem
                     key={key}
                     name={name}
@@ -358,6 +383,13 @@ const SalesItem = (props) => {
           </TransitionGroup>
         </div>
       </div>
+      {mod ? (
+        <TransitionGroup>
+          <CSSTransition key={1} timeout={2000} classNames="item-trans">
+            <ModalItem />
+          </CSSTransition>
+        </TransitionGroup>
+      ) : null}
       <div style={{ width: "50%" }}>
         <Modal
           appElement={document.getElementById("App")}

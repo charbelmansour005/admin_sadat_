@@ -2,13 +2,7 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import history from '../src/components/history';
-
-
-
-
-
 import Currency from './components/Setup/currency/Currency';
-
 import Categories from './components/Setup/category/Categories';
 import SalesItem from './components/Setup/salesItem/SalesItem';
 import Payment from './components/Setup/payment/Payment';

@@ -189,7 +189,6 @@ const Currency = (props) => {
     if (sort === "name") {
       if (sortName === "0") {
         setSortName("1");
-
         setTData((prev) => {
           return prev.sort(GetSortOrder("name"));
         });
@@ -244,11 +243,7 @@ const Currency = (props) => {
           <HeaderCurrency name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="pay-remove-items">
             {tData.map(({ key, name, type, accountNumber }) => (
-              <CSSTransition
-                key={key}
-                timeout={500}
-                classNames="pay-trans"
-              >
+              <CSSTransition key={key} timeout={500} classNames="pay-trans">
                 <TableCurrency name={name} handleDelete={handleDelete} />
               </CSSTransition>
             ))}

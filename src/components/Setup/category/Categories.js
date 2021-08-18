@@ -132,7 +132,7 @@ const tabledata = [
   },
 ];
 
-const Categories = (props) => {
+const Categories = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
@@ -174,6 +174,26 @@ const Categories = (props) => {
       return 0;
     };
   }
+  function GetDateSortOrder(prop) {
+    return function (a, b) {
+      if (Date.parse(a[prop]) > Date.parse(b[prop])) {
+        return 1;
+      } else if (Date.parse(a[prop]) < Date.parse(b[prop])) {
+        return -1;
+      }
+      return 0;
+    };
+  }
+  function GetDateSortOrder2(prop) {
+    return function (a, b) {
+      if (Date.parse(a[prop]) < Date.parse(b[prop])) {
+        return 1;
+      } else if (Date.parse(a[prop]) > Date.parse(b[prop])) {
+        return -1;
+      }
+      return 0;
+    };
+  }
   const handleSearch = (e) => {
     setTData(() => {
       return tabledata.filter((dat) =>
@@ -207,12 +227,12 @@ const Categories = (props) => {
         setSortCreationDate("1");
         setSortLastModificationDate("0");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("creationDate"));
+          return prev.sort(GetDateSortOrder("creationDate"));
         });
       } else if (sortCreationDate === "1") {
         setSortCreationDate("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("creationDate"));
+          return prev.sort(GetDateSortOrder2("creationDate"));
         });
       } else setSortCreationDate("0");
     } else if (sort === "lastModDate") {
@@ -221,12 +241,12 @@ const Categories = (props) => {
         setSortCreationDate("0");
         setSortLastModificationDate("1");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("lastModificationDate"));
+          return prev.sort(GetDateSortOrder("lastModificationDate"));
         });
       } else if (sortLastModificationDate === "1") {
         setSortLastModificationDate("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("lastModificationDate"));
+          return prev.sort(GetDateSortOrder2("lastModificationDate"));
         });
       } else setSortLastModificationDate("0");
     }
@@ -280,11 +300,7 @@ const Categories = (props) => {
           />
           <TransitionGroup className="cat-remove-items">
             {tData.map(({ key, name, creationDate, lastModificationDate }) => (
-              <CSSTransition
-                key={key}
-                timeout={500}
-                classNames="cat-trans"
-              >
+              <CSSTransition key={key} timeout={500} classNames="cat-trans">
                 <TableCategory
                   key={key}
                   name={name}
