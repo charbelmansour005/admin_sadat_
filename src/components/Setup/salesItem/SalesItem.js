@@ -145,12 +145,12 @@ const SalesItem = () => {
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setMod(false);
+      e.key === "+" && setMod(true);
     });
     return () => {
       document.removeEventListener("keydown", (e) => e);
     };
   }, [mod]);
-
   const customStyles = {
     content: {
       top: "40%",
@@ -167,6 +167,10 @@ const SalesItem = () => {
   useEffect(() => {
     setTData(tabledata);
   }, []);
+  function toggleModal() {
+    setMod((prev) => !prev);
+  }
+  const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   function GetSortOrder(prop) {
     return function (a, b) {
       if (a[prop] > b[prop]) {
@@ -328,7 +332,7 @@ const SalesItem = () => {
               onChange={handleSearch}
             />
           </div>
-          <div onClick={() => setModal(true)} className="item-add">
+          <div onClick={() => toggleModal()} className="item-add">
             <AddIcon
               style={{
                 marginLeft: "2px",
@@ -384,11 +388,13 @@ const SalesItem = () => {
         </div>
       </div>
       {mod ? (
-        <TransitionGroup>
-          <CSSTransition key={1} timeout={2000} classNames="item-trans">
-            <ModalItem />
-          </CSSTransition>
-        </TransitionGroup>
+        <CSSTransition timeout={2000} classNames="item-trans">
+          <ModalItem
+            toggleClose={toggleModal}
+            mod={mod}
+            mountedStyle={mountedStyle}
+          />
+        </CSSTransition>
       ) : null}
       <div style={{ width: "50%" }}>
         <Modal
