@@ -151,18 +151,18 @@ const Categories = () => {
     };
   }, [modal]);
   useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      e.key === "Tab" && e.preventDefault();
-    });
-    return () => {
-      document.removeEventListener("keydown", (e) => e);
-    };
-  }, []);
+    if (modal) {
+      document.getElementById("search-text").tabIndex = -1;
+    } else {
+      document.getElementById("search-text").tabIndex = 1;
+    }
+  }, [modal]);
   useEffect(() => {
     setTData(tabledata);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
+    setFirst(false);
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -288,6 +288,7 @@ const Categories = () => {
               }}
             />
             <input
+              id="search-text"
               type="text"
               className="cat-search-text"
               placeholder="Search..."

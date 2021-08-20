@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../../App.css";
-import Modal from "react-modal";
-import cancel from "../../../assets/cancel.png";
+import ModalVoid from "./ModalVoid";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../../styles/VoidReason.css";
 import TableVoid from "./TableVoid";
@@ -132,10 +131,44 @@ const tabledata = [
   },
 ];
 
-const VoidReason = (props) => {
+const VoidReason = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
+  const [first, setFirst] = useState(true);
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      e.key === "Escape" && setModal(false);
+      if (e.key === "+") {
+        setModal(true);
+        setFirst(false);
+      }
+    });
+    return () => {
+      document.removeEventListener("keydown", (e) => e);
+    };
+  }, [modal]);
+  useEffect(() => {
+    if (modal) {
+      document.getElementById("search-text").tabIndex = -1;
+    } else {
+      document.getElementById("search-text").tabIndex = 1;
+    }
+  }, [modal]);
+  function toggleModal() {
+    setModal((prev) => !prev);
+    setFirst(false);
+  }
+  const mountedStyle = { animation: "inAnimation 500ms ease-in" };
+  const unmountedStyle = {
+    animation: "outAnimation 500ms ease-out",
+    animationFillMode: "forwards",
+  };
+  const downStyle = { animation: "downAnimation 300ms ease-in" };
+  const upStyle = {
+    animation: "upAnimation 300ms ease-in ",
+    animationFillMode: "forwards",
+  };
   function GetSortOrder(prop) {
     return function (a, b) {
       if (a[prop] > b[prop]) {
@@ -162,19 +195,6 @@ const VoidReason = (props) => {
         dat.name.toLowerCase().includes(e.target.value.toLowerCase())
       );
     });
-  };
-  const customStyles = {
-    content: {
-      top: "40%",
-      left: "50%",
-      right: "auto",
-      width: "60%",
-      height: "40%",
-      bottom: "50%",
-
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
   };
   useEffect(() => {
     setTData(tabledata);
@@ -205,10 +225,10 @@ const VoidReason = (props) => {
 
   return (
     <div id="App" style={{ width: "176.2%", height: "100%" }}>
-      <h1 className="pay-title">Void Reason</h1>
-      <div className="pay-box">
-        <div className="pay-search-box">
-          <div className="pay-search">
+      <h1 className="void-title">Void Reason</h1>
+      <div className="void-box">
+        <div className="void-search-box">
+          <div className="void-search">
             <SearchIcon
               style={{
                 marginLeft: "2px",
@@ -220,13 +240,13 @@ const VoidReason = (props) => {
               }}
             />
             <input
+              id="search-text"
               type="text"
-              className="pay-search-text"
+              className="void-search-text"
               placeholder="Search..."
               onChange={handleSearch}
             />
           </div>
-
           <div>
             <select className="branch" defaultValue="All branches">
               <option>All branches</option>
@@ -235,7 +255,7 @@ const VoidReason = (props) => {
               <option>3</option>
             </select>
           </div>
-          <div className="pay-add" onClick={() => setModal(true)}>
+          <div className="void-add" onClick={() => setModal(true)}>
             <AddIcon
               style={{
                 marginLeft: "2px",
@@ -249,248 +269,27 @@ const VoidReason = (props) => {
             <p>New</p>
           </div>
         </div>
-        <div className="pay-table">
+        <div className="void-table">
           <HeaderVoid name="Name" sortName={sortName} sortBy={sortBy} />
-          <TransitionGroup className="pay-remove-items">
+          <TransitionGroup className="void-remove-items">
             {tData.map(({ key, name, type, accountNumber }) => (
-              <CSSTransition key={key} timeout={500} classNames="pay-trans">
+              <CSSTransition key={key} timeout={500} classNames="void-trans">
                 <TableVoid name={name} handleDelete={handleDelete} />
               </CSSTransition>
             ))}
           </TransitionGroup>
         </div>
       </div>
-      <div style={{ width: "50%" }}>
-        <Modal
-          appElement={document.getElementById("App")}
-          ariaHideApp={false}
-          isOpen={modal}
-          style={customStyles}
-        >
-          <div style={{ width: "100%", height: "100%" }}>
-            <div style={{ width: "100%", display: "flex" }}>
-              <div
-                style={{
-                  flex: 1,
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <div
-                  onClick={() => setModal(false)}
-                  style={{
-                    justifyContent: "flex-end",
-                    display: "flex",
-                    width: 30,
-                    height: 30,
-                  }}
-                >
-                  <img
-                    alt="null"
-                    src={cancel}
-                    style={{ width: 10, height: 10, position: "relative" }}
-                  ></img>
-                </div>
-              </div>
-            </div>
-            <div style={{ width: "100%", display: "flex", height: 50 }}>
-              <div style={{ width: "50%", flex: 1, justifyContent: "center" }}>
-                <button
-                  style={{
-                    border: "1px solid transparent",
-                    marginTop: 5,
-                    marginLeft: 5,
-                    width: 80,
-                    height: 30,
-                    backgroundColor: "#018BB6",
-                    color: "white",
-                    fontSize: 15,
-                    borderRadius: 5,
-                  }}
-                  type="submit"
-                  onClick={() => setModal(false)}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-
-            <div style={{ width: "100%", borderRadius: 2 }}>
-              <div style={{ width: "100%", height: "35%" }}>
-                <div style={{ width: "100%", display: "flex" }}>
-                  <div style={{ width: "50%" }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label>Void Description *</label>
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <input
-                          required
-                          placeholder="void Description"
-                          className="menu"
-                          type="text"
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ width: "100%", display: "flex" }}>
-                  <div style={{ width: "50%", marginTop: 10 }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: 15,
-                      }}
-                    >
-                      <div style={{}}>
-                        <input type="checkbox"></input>
-                      </div>
-                      <div style={{ width: "78%", marginLeft: 10 }}>
-                        <label>Discontinued</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    width: "90%",
-                    border: "1px solid lightgray",
-                    marginTop: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "100%",
-                      height: 40,
-                      backgroundColor: "#018BB6",
-                    }}
-                  >
-                    <label
-                      style={{
-                        fontSize: 15,
-                        marginLeft: 5,
-                        position: "absolute",
-                        marginTop: 7,
-                        color: "white",
-                      }}
-                    >
-                      Branch Exceptions
-                    </label>
-                  </div>
-
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "10%",
-                      display: "flex",
-                      marginTop: 10,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "10%",
-                        justifyContent: "flex-start",
-                        display: "flex",
-                      }}
-                    >
-                      <input type="checkbox" className="mandatory"></input>
-                    </div>
-                    <div
-                      style={{
-                        width: "5%",
-                        justifyContent: "flex-start",
-                        display: "flex",
-                        marginTop: 7,
-                      }}
-                    >
-                      <label>Branch1</label>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "10%",
-                      display: "flex",
-                      marginTop: 10,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "10%",
-                        justifyContent: "flex-start",
-                        display: "flex",
-                      }}
-                    >
-                      <input type="checkbox" className="mandatory"></input>
-                    </div>
-                    <div
-                      style={{
-                        width: "5%",
-                        justifyContent: "flex-start",
-                        display: "flex",
-                        marginTop: 7,
-                      }}
-                    >
-                      <label>Branch2</label>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "10%",
-                      display: "flex",
-                      marginTop: 10,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "10%",
-                        justifyContent: "flex-start",
-                        display: "flex",
-                      }}
-                    >
-                      <input type="checkbox" className="mandatory"></input>
-                    </div>
-                    <div
-                      style={{
-                        width: "5%",
-                        justifyContent: "flex-start",
-                        display: "flex",
-                        marginTop: 7,
-                      }}
-                    >
-                      <label>Branch3</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      </div>
+      {!first ? (
+        <ModalVoid
+          toggleClose={toggleModal}
+          mod={modal}
+          mountedStyle={mountedStyle}
+          unmountedStyle={unmountedStyle}
+          downStyle={downStyle}
+          upStyle={upStyle}
+        />
+      ) : null}
     </div>
   );
 };

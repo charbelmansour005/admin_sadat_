@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -9,14 +9,43 @@ const ModalItem = ({
   unmountedStyle,
   downStyle,
   upStyle,
+  handleSubmit,
 }) => {
+  const [name, setName] = useState("");
+  const [menuDesc, setMenuDesc] = useState("");
+  const [kitchenDesc, setKitchenDesc] = useState("");
+  const [price, setPrice] = useState();
+  const [func, setFunc] = useState("");
+  const [group, setGroup] = useState("");
+  const [otherDesc, setOtherDesc] = useState("");
+  const [pdaDesc, setPdaDesc] = useState("");
+  const [comments, setComments] = useState("");
+  const [modifiers, setModifiers] = useState([]);
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
       className="modal-item-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-item">
-        <form className="modal-item-form" type="submit">
+        <form
+          className="modal-item-form"
+          type="submit"
+          onSubmit={(e) =>
+            handleSubmit(
+              e,
+              name,
+              menuDesc,
+              kitchenDesc,
+              price,
+              func,
+              group,
+              otherDesc,
+              pdaDesc,
+              comments,
+              modifiers
+            )
+          }
+        >
           <div className="modal-item-header">
             Add New Item
             <div onClick={() => toggleClose()}>
@@ -29,6 +58,7 @@ const ModalItem = ({
             <div className="modal-item-desc">
               Description*
               <input
+                onChange={(e) => setName(e.target.value)}
                 required
                 placeholder="Item description"
                 className="modal-item-desc-input"
@@ -39,6 +69,7 @@ const ModalItem = ({
             <div className="modal-item-desc">
               Menu Description*
               <input
+                onChange={(e) => setMenuDesc(e.target.value)}
                 required
                 placeholder="Menu description"
                 className="modal-item-desc-input"
@@ -49,6 +80,7 @@ const ModalItem = ({
             <div className="modal-item-desc">
               Kitchen Description*
               <input
+                onChange={(e) => setKitchenDesc(e.target.value)}
                 required
                 placeholder="Kitchen description"
                 className="modal-item-desc-input"
@@ -60,7 +92,11 @@ const ModalItem = ({
             <div className="modal-item-price">
               <div className="modal-item-desc">
                 Price 1
-                <input placeholder="0" className="modal-item-price-input" />
+                <input
+                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="0"
+                  className="modal-item-price-input"
+                />
                 <input className="modal-item-price-input" />
               </div>
               <div className="modal-item-desc">
@@ -85,7 +121,11 @@ const ModalItem = ({
               {/*Function select*/}
               <div className="modal-item-desc">
                 Function*
-                <select required className="modal-item-function-input">
+                <select
+                  onChange={(e) => setFunc(e.target.value)}
+                  required
+                  className="modal-item-function-input"
+                >
                   <option value="" disabled selected defaultValue hidden>
                     Select function
                   </option>
@@ -104,7 +144,11 @@ const ModalItem = ({
               {/*Group select*/}
               <div className="modal-item-desc">
                 Group*
-                <select required className="modal-item-function-input">
+                <select
+                  onChange={(e) => setGroup(e.target.value)}
+                  required
+                  className="modal-item-function-input"
+                >
                   <option value="" disabled selected defaultValue hidden>
                     Select group
                   </option>
@@ -126,6 +170,7 @@ const ModalItem = ({
               <div className="modal-item-desc">
                 Other Description
                 <input
+                  onChange={(e) => setOtherDesc(e.target.value)}
                   placeholder="Other description"
                   className="modal-item-desc-input"
                 />
@@ -135,6 +180,7 @@ const ModalItem = ({
               <div className="modal-item-desc">
                 PDA Description
                 <input
+                  onChange={(e) => setPdaDesc(e.target.value)}
                   placeholder="PDA description"
                   className="modal-item-desc-input"
                 />
@@ -145,6 +191,7 @@ const ModalItem = ({
             <div className="modal-item-desc">
               Comments On Menu
               <input
+                onChange={(e) => setComments(e.target.value)}
                 placeholder="Comments on menu"
                 className="modal-item-desc-input"
               />
@@ -154,7 +201,7 @@ const ModalItem = ({
             <div className="modal-item-function">
               {/*Branch select*/}
               <div className="modal-item-desc">
-                <select required className="modal-item-function-input">
+                <select className="modal-item-function-input">
                   <option value="" selected disabled defaultValue hidden>
                     Select branch
                   </option>
@@ -179,7 +226,7 @@ const ModalItem = ({
               {/*Print out select*/}
               <div className="modal-item-desc">
                 Print Out 1
-                <select required className="modal-item-print-input">
+                <select className="modal-item-print-input">
                   <option className="modal-item-function-option" value="1">
                     1
                   </option>
@@ -193,7 +240,7 @@ const ModalItem = ({
               </div>
               <div className="modal-item-desc">
                 Print Out 2
-                <select required className="modal-item-print-input">
+                <select className="modal-item-print-input">
                   <option className="modal-item-function-option" value="1">
                     1
                   </option>
@@ -207,7 +254,7 @@ const ModalItem = ({
               </div>
               <div className="modal-item-desc">
                 Print Out 3
-                <select required className="modal-item-print-input">
+                <select className="modal-item-print-input">
                   <option className="modal-item-function-option" value="1">
                     1
                   </option>
@@ -227,7 +274,16 @@ const ModalItem = ({
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
                 Modifier 1
               </div>
-              <select className="modal-item-function-input">
+              <select
+                onChange={(e) =>
+                  setModifiers((prev) => {
+                    let arr = prev;
+                    arr[0] = e.target.value;
+                    return arr;
+                  })
+                }
+                className="modal-item-function-input"
+              >
                 <option
                   className="modal-item-function-option"
                   hidden
@@ -259,7 +315,16 @@ const ModalItem = ({
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
                 Modifier 2
               </div>
-              <select className="modal-item-function-input">
+              <select
+                onChange={(e) =>
+                  setModifiers((prev) => {
+                    let arr = prev;
+                    arr[1] = e.target.value;
+                    return arr;
+                  })
+                }
+                className="modal-item-function-input"
+              >
                 <option
                   className="modal-item-function-option"
                   hidden
@@ -292,7 +357,16 @@ const ModalItem = ({
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
                 Modifier 3
               </div>
-              <select className="modal-item-function-input">
+              <select
+                onChange={(e) =>
+                  setModifiers((prev) => {
+                    let arr = prev;
+                    arr[2] = e.target.value;
+                    return arr;
+                  })
+                }
+                className="modal-item-function-input"
+              >
                 <option
                   className="modal-item-function-option"
                   hidden

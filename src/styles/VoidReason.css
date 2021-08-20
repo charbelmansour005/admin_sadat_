@@ -1,228 +1,501 @@
-.pay-title {
-    text-align: left;
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    font-family: Ubuntu;
-    font-size: 25px;
-    opacity: 0.6;
-    color: var(--title);
-  }
-  
-  .pay-box {
-    border: 1px solid;
-    border-color: var(--border);
-    display: flex;
-    width: 100%;
-    border-bottom: none;
-    flex-direction: column;
-    margin-left: 20px;
-    margin-right: 20px;
-    height: fit-content;
-    border-radius: 1px;
-  }
-  
-  .pay-search-box {
-    border-color: var(--border);
-    height: fit-content;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background: var(--header);
-  }
-  
-  .pay-search {
-    width: 400px;
-    height: 30px;
-    border-width: 2px;
-    border-color: var(--border);
-    outline-width: 0;
-    border-style: solid;
-    border-radius: 5px;
-    align-self: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .pay-search:hover,
-  .search:focus {
-    background-color: var(--focus);
-  }
-  
-  .pay-search-text {
-    text-overflow: clip;
-    height: 30px;
-    width: 370px;
-    border-width: 0;
-    outline-width: 0;
-    border-radius: 2px;
-    align-self: center;
-    text-align: left;
-    margin-inline-start: 5px;
-    box-sizing: border-box;
-    font-family: "Ubuntu";
-    font-size: medium;
-    display: flex;
-    flex-direction: row;
-    background-color: rgba(0, 0, 0, 0);
-  }
-  
-  .pay-search-text::placeholder {
-    color: var(--search);
-    opacity: 0.8;
-    font-size: medium;
-  }
-  
-  .pay-search-text:focus::-webkit-input-placeholder {
-    color: transparent;
-  }
-  
-  .pay-add {
-    border-width: 0.5px;
-    border-color: var(--border);
-    outline-width: 0;
-    border-style: solid;
-    border-radius: 5px;
-    align-self: center;
-    justify-content: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    background-color: #018BB6;
-    border: 1px solid transparent;
-    transition: background-color 1s;
-  }
-  
-  .pay-add:hover,
-  .add:focus {
-    background-color: var(--button-background-focus);
-  }
-  
-  p {
-    font-family: "Ubuntu";
-    justify-self: center;
-    align-self: center;
-    padding-right: 5px;
-    font-size: medium;
-    color: white;
-  }
-  
-  .pay-holder {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 5px;
-    overflow: auto;
-    align-items: center;
-  }
-  
-  .pay-remove-items {
-    overflow-y: auto;
-    max-height: 31.7rem;
-  }
-  
-  .pay-table-holder {
-    display: flex;
-    flex: 1;
-  
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 5px;
-    border-bottom: 1px solid var(--border);
-  }
-  
-  .pay-head-holder {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 5px;
-    border-bottom: 1px solid var(--border);
-    background: var(--header);
-  }
-  
-  .pay-table-holder:hover {
-    background-color: var(--table-hover);
-  }
-  
-  .pay-table {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .pay-name {
-    font-family: "Ubuntu";
-    width: 350px;
-    text-align: center;
-    display: flex;
-  }
-  
-  .pay-price {
-    font-family: "Ubuntu";
-    width: 200px;
-    text-align: center;
-    display: flex;
-  }
-  
-  .pay-group {
-    font-family: "Ubuntu";
-    width: 200px;
-    text-align: center;
-    display: flex;
-  }
-  
-  .pay-head-name {
-    font-family: "Ubuntu";
-    width: 350px;
-    text-align: center;
-    display: flex;
-    height: 30px;
-  }
-  
-  .pay-sort {
-    cursor: pointer;
-    align-self: center;
-  }
-  
-  .pay-group1 {
-    font-family: "Ubuntu";
-    width: 40px;
-    justify-content: flex-end;
-    display: flex;
-  }
-  
-  .pay-modify-icon:hover {
-    color: var(--color-scheme);
-  }
-  
-  .pay-delete-icon:hover {
-    color: var(--color-scheme);
-  }
-  
-  .pay-trans-enter {
+.void-title {
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-family: Ubuntu;
+  font-size: 25px;
+  opacity: 0.6;
+  color: var(--title);
+}
+
+.void-box {
+  border: 1px solid;
+  border-color: var(--border);
+  display: flex;
+  width: 100%;
+  border-bottom: none;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: fit-content;
+  border-radius: 1px;
+}
+
+.void-search-box {
+  border-color: var(--border);
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: var(--header);
+}
+
+.void-search {
+  width: 400px;
+  height: 30px;
+  border-width: 2px;
+  border-color: var(--border);
+  outline-width: 0;
+  border-style: solid;
+  border-radius: 5px;
+  align-self: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+}
+
+.void-search:hover,
+.search:focus {
+  background-color: var(--focus);
+}
+
+.void-search-text {
+  text-overflow: clip;
+  height: 30px;
+  width: 370px;
+  border-width: 0;
+  outline-width: 0;
+  border-radius: 2px;
+  align-self: center;
+  text-align: left;
+  margin-inline-start: 5px;
+  box-sizing: border-box;
+  font-family: "Ubuntu";
+  font-size: medium;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.void-search-text::placeholder {
+  color: var(--search);
+  opacity: 0.8;
+  font-size: medium;
+}
+
+.void-search-text:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.void-add {
+  border-width: 0.5px;
+  border-color: var(--border);
+  outline-width: 0;
+  border-style: solid;
+  border-radius: 5px;
+  align-self: center;
+  justify-content: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  background-color: #018bb6;
+  border: 1px solid transparent;
+  transition: background-color 1s;
+}
+
+.void-add:hover,
+.add:focus {
+  background-color: var(--button-background-focus);
+}
+
+p {
+  font-family: "Ubuntu";
+  justify-self: center;
+  align-self: center;
+  padding-right: 5px;
+  font-size: medium;
+  color: white;
+}
+
+.void-holder {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 5px;
+  overflow: auto;
+  align-items: center;
+}
+
+.void-remove-items {
+  overflow-y: auto;
+  max-height: 31.7rem;
+}
+
+.void-table-holder {
+  display: flex;
+  flex: 1;
+
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.void-head-holder {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px;
+  border-bottom: 1px solid var(--border);
+  background: var(--header);
+}
+
+.void-table-holder:hover {
+  background-color: var(--table-hover);
+}
+
+.void-table {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.void-name {
+  font-family: "Ubuntu";
+  width: 350px;
+  text-align: center;
+  display: flex;
+}
+
+.void-price {
+  font-family: "Ubuntu";
+  width: 200px;
+  text-align: center;
+  display: flex;
+}
+
+.void-group {
+  font-family: "Ubuntu";
+  width: 200px;
+  text-align: center;
+  display: flex;
+}
+
+.void-head-name {
+  font-family: "Ubuntu";
+  width: 350px;
+  text-align: center;
+  display: flex;
+  height: 30px;
+}
+
+.void-sort {
+  cursor: pointer;
+  align-self: center;
+}
+
+.void-group1 {
+  font-family: "Ubuntu";
+  width: 40px;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.void-modify-icon:hover {
+  color: var(--color-scheme);
+}
+
+.void-delete-icon:hover {
+  color: var(--color-scheme);
+}
+
+.void-trans-enter {
+  opacity: 0;
+}
+
+.void-trans-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.void-trans-exit {
+  opacity: 1;
+}
+
+.void-trans-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.modal-void-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-void {
+  height: 400px;
+  width: 400px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-void-header {
+  height: 60px;
+  background-color: var(--color-scheme-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Ubuntu";
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  user-select: none;
+}
+
+.modal-void-close {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  color: white;
+}
+
+.modal-void-close:hover {
+  color: lightgray;
+}
+
+.modal-void-body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  max-height: 290px;
+  user-select: none;
+}
+
+.modal-void-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+  height: 50px;
+}
+
+.modal-void-save {
+  background: var(--color-scheme);
+  border-radius: 5px;
+  width: 70px;
+  height: 30px;
+  cursor: pointer;
+  font-family: "Ubuntu";
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  transition: opacity 500ms ease-in-out;
+}
+
+.modal-void-save:hover {
+  opacity: 1;
+}
+
+.modal-void-subtitle {
+  min-height: 40px;
+  background-color: var(--color-scheme);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: "Ubuntu";
+  color: white;
+  padding-left: 20px;
+  user-select: none;
+}
+
+.modal-void-form {
+  font-family: "Ubuntu";
+}
+
+.modal-void-desc {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-void-desc-hor {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  padding-right: 10px;
+  padding-top: 5px;
+  align-items: center;
+}
+
+.modal-check {
+  align-self: center;
+  margin-right: 20px;
+}
+
+.modal-void-price,
+.modal-void-function {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-void-desc-input {
+  margin-top: 10px;
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  font-family: "Ubuntu";
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.modal-void-desc-input::placeholder {
+  font-family: "Ubuntu";
+}
+
+.modal-void-desc-input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.modal-void-price-input {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  font-family: "Ubuntu";
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.modal-void-function-input {
+  margin-top: 10px;
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  font-family: "Ubuntu";
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.modal-void-print-input {
+  margin-top: 10px;
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  font-family: "Ubuntu";
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.modal-void-print-input:focus,
+.modal-void-print-input:hover,
+.modal-void-function-input:focus,
+.modal-void-function-input:hover,
+.modal-void-price-input:hover,
+.modal-void-price-input:focus,
+.modal-void-desc-input:focus,
+.modal-void-desc-input:hover,
+.modal-check:focus,
+.modal-check:hover {
+  box-shadow: 2px 2px var(--color-scheme-light);
+}
+
+.modal-void-function-option {
+  font-family: "Ubuntu";
+}
+
+.modal-void-price-input::placeholder {
+  font-family: "Ubuntu";
+}
+
+.modal-void-price-input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.modal-spacer {
+  border-top: 1px solid var(--color-scheme-dark);
+}
+
+.modal-void-branch {
+  background: var(--color-scheme);
+  border-radius: 5px;
+  width: 250px;
+  height: 30px;
+  cursor: pointer;
+  font-family: "Ubuntu";
+  color: white;
+  text-align: center;
+  padding-top: 5px;
+  opacity: 0.8;
+  transition: opacity 500ms ease-in-out;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.modal-void-branch:hover {
+  opacity: 1;
+}
+
+@keyframes inAnimation {
+  0% {
+    transform: translateY(-20%);
     opacity: 0;
+    visibility: hidden;
   }
-  
-  .pay-trans-enter-active {
+  100% {
+    transform: translateY(0%);
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    visibility: visible;
   }
-  
-  .pay-trans-exit {
+}
+
+@keyframes outAnimation {
+  0% {
     opacity: 1;
   }
-  
-  .pay-trans-exit-active {
+  100% {
     opacity: 0;
-    transition: opacity 500ms ease-in;
+    visibility: hidden;
   }
-  
+}
+
+@keyframes downAnimation {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes upAnimation {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-20%);
+  }
+}

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../../App.css";
-import Modal from "react-modal";
-import cancel from "../../../assets/cancel.png";
+import ModalPayment from "./ModalPayment";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../../styles/PaymentTypes.css";
 import TablePayment from "./TablePayment";
@@ -132,12 +131,46 @@ const tabledata = [
   },
 ];
 
-const Payment = (props) => {
+const Payment = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
   const [sortType, setSortType] = useState("0");
   const [sortAccountNumber, setSortAccountNumber] = useState("0");
+  const [first, setFirst] = useState(true);
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      e.key === "Escape" && setModal(false);
+      if (e.key === "+") {
+        setModal(true);
+        setFirst(false);
+      }
+    });
+    return () => {
+      document.removeEventListener("keydown", (e) => e);
+    };
+  }, [modal]);
+  useEffect(() => {
+    if (modal) {
+      document.getElementById("search-text").tabIndex = -1;
+    } else {
+      document.getElementById("search-text").tabIndex = 1;
+    }
+  }, [modal]);
+  function toggleModal() {
+    setModal((prev) => !prev);
+    setFirst(false);
+  }
+  const mountedStyle = { animation: "inAnimation 500ms ease-in" };
+  const unmountedStyle = {
+    animation: "outAnimation 500ms ease-out",
+    animationFillMode: "forwards",
+  };
+  const downStyle = { animation: "downAnimation 300ms ease-in" };
+  const upStyle = {
+    animation: "upAnimation 300ms ease-in ",
+    animationFillMode: "forwards",
+  };
   function GetSortOrder(prop) {
     return function (a, b) {
       if (a[prop] > b[prop]) {
@@ -164,19 +197,6 @@ const Payment = (props) => {
         dat.name.toLowerCase().includes(e.target.value.toLowerCase())
       );
     });
-  };
-  const customStyles = {
-    content: {
-      top: "40%",
-      left: "50%",
-      right: "auto",
-      width: "60%",
-      height: "40%",
-      bottom: "50%",
-
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
   };
   useEffect(() => {
     setTData(tabledata);
@@ -250,13 +270,14 @@ const Payment = (props) => {
               }}
             />
             <input
+              id="search-text"
               type="text"
               className="pay-search-text"
               placeholder="Search..."
               onChange={handleSearch}
             />
           </div>
-          <div className="pay-add" onClick={() => setModal(true)}>
+          <div className="pay-add" onClick={() => toggleModal()}>
             <AddIcon
               style={{
                 marginLeft: "2px",
@@ -282,11 +303,7 @@ const Payment = (props) => {
           />
           <TransitionGroup className="pay-remove-items">
             {tData.map(({ key, name, type, accountNumber }) => (
-              <CSSTransition
-                key={key}
-                timeout={500}
-                classNames="pay-trans"
-              >
+              <CSSTransition key={key} timeout={500} classNames="pay-trans">
                 <TablePayment
                   name={name}
                   type={type}
@@ -298,373 +315,16 @@ const Payment = (props) => {
           </TransitionGroup>
         </div>
       </div>
-
-      <div style={{ width: "50%" }}>
-        <Modal
-          appElement={document.getElementById("App")}
-          ariaHideApp={false}
-          isOpen={modal}
-          style={customStyles}
-        >
-          <div style={{ width: "100%", height: "100%" }}>
-            <div style={{ width: "100%", display: "flex" }}>
-              <div
-                style={{
-                  flex: 1,
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <div
-                  onClick={() => setModal(false)}
-                  style={{
-                    justifyContent: "flex-end",
-                    display: "flex",
-                    width: 30,
-                    height: 30,
-                  }}
-                >
-                  <img
-                    alt="null"
-                    src={cancel}
-                    style={{ width: 10, height: 10, position: "relative" }}
-                  ></img>
-                </div>
-              </div>
-            </div>
-            <div style={{ width: "100%", display: "flex", height: 50 }}>
-              <div style={{ width: "50%", flex: 1, justifyContent: "center" }}>
-                <button
-                  style={{
-                    border: "1px solid transparent",
-                    marginTop: 5,
-                    marginLeft: 5,
-                    width: 80,
-                    height: 30,
-                    backgroundColor: "#018BB6",
-                    color: "white",
-                    fontSize: 15,
-                    borderRadius: 5,
-                  }}
-                  type="submit"
-                  onClick={() => setModal(false)}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-
-            <div style={{ width: "100%", borderRadius: 2 }}>
-              <div style={{ width: "100%", height: "35%" }}>
-                <div style={{ width: "100%", display: "flex" }}>
-                  <div style={{ width: "50%" }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label>Payment Description *</label>
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <input
-                          required
-                          placeholder="payment Description"
-                          className="description"
-                          type="text"
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    width: "100%",
-                    height: 1,
-                    backgroundColor: "lightgray",
-                    marginTop: 7,
-                  }}
-                >
-                  {/* #018BB6 */}
-                </div>
-
-                <div style={{ width: "100%", display: "flex" }}>
-                  <div style={{ width: "50%", marginTop: 10 }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label>Payment Currency *</label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <select
-                          style={{ overflow: "scroll" }}
-                          defaultValue="Select Currency"
-                          className="menu"
-                        >
-                          <option disabled hidden>
-                            Select Currency
-                          </option>
-                          <option>LBP</option>
-                          <option>USD</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label style={{ paddingRight: 20 }}>
-                          Change Status *
-                        </label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <select
-                          style={{ overflow: "scroll" }}
-                          defaultValue="Select Status"
-                          className="menu"
-                        >
-                          <option disabled hidden>
-                            Select Status
-                          </option>
-                          <option>1</option>
-                          <option>2</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: 10,
-                      }}
-                    >
-                      <div style={{ width: "81%", display: "flex" }}>
-                        <label>Account Number</label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%", display: "flex" }}>
-                        <input
-                          placeholder="account no"
-                          className="menu"
-                          type="text"
-                        ></input>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: 10,
-                      }}
-                    >
-                      <div style={{ width: "81%", display: "flex" }}>
-                        <label>Message on Invoice</label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <select
-                          style={{ overflow: "scroll" }}
-                          defaultValue="Select message"
-                          className="menu"
-                        >
-                          <option disabled hidden>
-                            Select message
-                          </option>
-                          <option>1</option>
-                          <option>2</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: 15,
-                      }}
-                    >
-                      <div style={{}}>
-                        <input type="checkbox"></input>
-                      </div>
-                      <div style={{ width: "78%", marginLeft: 10 }}>
-                        <label>Open cash drawer</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      width: "50%",
-                      flexDirection: "column",
-                      flex: 1,
-                      justifyContent: "flex-start",
-                      display: "flex",
-                      marginTop: 10,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 8 }}
-                      >
-                        <label>Type *</label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <select
-                          style={{ overflow: "scroll" }}
-                          defaultValue="Select Type"
-                          className="menu"
-                        >
-                          <option disabled hidden>
-                            Select Type
-                          </option>
-                          <option>Credit </option>
-                          <option>Credit Card</option>
-                          <option>Check</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label style={{ paddingRight: 20 }}>Commission</label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%", display: "flex" }}>
-                        <input
-                          className="menu"
-                          placeholder="commission"
-                          type="text"
-                        ></input>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label style={{ paddingRight: 20 }}>
-                          Bank deposit Account Number
-                        </label>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%", display: "flex" }}>
-                        <input
-                          className="menu"
-                          placeholder="bank deposit"
-                          type="text"
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      </div>
+      {!first ? (
+        <ModalPayment
+          toggleClose={toggleModal}
+          mod={modal}
+          mountedStyle={mountedStyle}
+          unmountedStyle={unmountedStyle}
+          downStyle={downStyle}
+          upStyle={upStyle}
+        />
+      ) : null}
     </div>
   );
 };

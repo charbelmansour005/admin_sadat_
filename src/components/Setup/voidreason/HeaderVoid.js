@@ -5,10 +5,10 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const HeaderVoid = ({ name, sortName, sortBy }) => {
   return (
-    <div className="pay-head-holder">
-      <div id={"" + name} className="pay-holder">
-        <div className="pay-head-name">
-          <div onClick={() => sortBy("name")} className="pay-sort">
+    <div className="void-head-holder">
+      <div id={"" + name} className="void-holder">
+        <div className="void-head-name">
+          <div onClick={() => sortBy("name")} className="void-sort">
             {name}
           </div>
           {sortName === "1" && (
@@ -19,10 +19,10 @@ const HeaderVoid = ({ name, sortName, sortBy }) => {
           )}
         </div>
       </div>
-      <div className="pay-group1">
+      <div className="void-group1">
         <div></div>
       </div>
-      <div className="pay-group1">
+      <div className="void-group1">
         <div></div>
       </div>
     </div>

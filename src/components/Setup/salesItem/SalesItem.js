@@ -138,33 +138,32 @@ const SalesItem = () => {
   const [sortGroup, setSortGroup] = useState("0");
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
-  const [mod, setMod] = useState(false);
+  const [modal, setModal] = useState(false);
   const [first, setFirst] = useState(true);
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
-      e.key === "Escape" && setMod(false);
+      e.key === "Escape" && setModal(false);
       if (e.key === "+") {
-        setMod(true);
+        setModal(true);
         setFirst(false);
       }
     });
     return () => {
       document.removeEventListener("keydown", (e) => e);
     };
-  }, [mod]);
+  }, [modal]);
   useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      e.key === "Tab" && e.preventDefault();
-    });
-    return () => {
-      document.removeEventListener("keydown", (e) => e);
-    };
-  }, []);
+    if (modal) {
+      document.getElementById("search-text").tabIndex = -1;
+    } else {
+      document.getElementById("search-text").tabIndex = 1;
+    }
+  }, [modal]);
   useEffect(() => {
     setTData(tabledata);
   }, []);
   function toggleModal() {
-    setMod((prev) => !prev);
+    setModal((prev) => !prev);
     setFirst(false);
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
@@ -314,6 +313,41 @@ const SalesItem = () => {
       } else setSortLastModificationDate("0");
     }
   };
+  const handleModalSubmit = (
+    e,
+    name,
+    menuDesc,
+    kitchenDesc,
+    price,
+    func,
+    group,
+    otherDesc,
+    pdaDesc,
+    comments,
+    modifiers
+  ) => {
+    e.preventDefault();
+    let newItem = {
+      key: tData.length,
+      name: name,
+      menuDesc: menuDesc,
+      kitchenDesc: kitchenDesc,
+      price: price,
+      func: func,
+      group: group,
+      otherDesc: otherDesc,
+      pdaDesc: pdaDesc,
+      comments: comments,
+      modifiers: modifiers,
+      creationDate: Date(),
+      lastModificationDate: Date(),
+    };
+    setTData((prev) => {
+      return [...prev, newItem];
+    });
+    toggleModal();
+    e.target.reset();
+  };
 
   return (
     <div id="App" style={{ width: "117.5%", height: "100%" }}>
@@ -332,6 +366,7 @@ const SalesItem = () => {
               }}
             />
             <input
+              id="search-text"
               type="text"
               className="item-search-text"
               placeholder="Search..."
@@ -396,11 +431,12 @@ const SalesItem = () => {
       {!first ? (
         <ModalItem
           toggleClose={toggleModal}
-          mod={mod}
+          mod={modal}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}
           upStyle={upStyle}
+          handleSubmit={handleModalSubmit}
         />
       ) : null}
     </div>
