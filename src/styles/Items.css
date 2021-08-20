@@ -484,3 +484,31 @@ p {
     visibility: visible;
   }
 }
+
+@keyframes outAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes downAnimation {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes upAnimation {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-20%);
+  }
+}

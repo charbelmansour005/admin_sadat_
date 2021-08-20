@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../../App.css";
-import Modal from "react-modal";
-import cancel from "../../../assets/cancel.png";
+import ModalCategory from "./ModalCategory";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../../styles/Categories.css";
 import TableCategory from "./TableCategory";
@@ -138,22 +137,43 @@ const Categories = () => {
   const [sortName, setSortName] = useState("0");
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
-  const customStyles = {
-    content: {
-      top: "40%",
-      left: "45%",
-      right: "auto",
-      width: "40%",
-      height: "35%",
-      bottom: "50%",
-
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
-  };
+  const [first, setFirst] = useState(true);
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      e.key === "Escape" && setModal(false);
+      if (e.key === "+") {
+        setModal(true);
+        setFirst(false);
+      }
+    });
+    return () => {
+      document.removeEventListener("keydown", (e) => e);
+    };
+  }, [modal]);
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      e.key === "Tab" && e.preventDefault();
+    });
+    return () => {
+      document.removeEventListener("keydown", (e) => e);
+    };
+  }, []);
   useEffect(() => {
     setTData(tabledata);
   }, []);
+  function toggleModal() {
+    setModal((prev) => !prev);
+  }
+  const mountedStyle = { animation: "inAnimation 500ms ease-in" };
+  const unmountedStyle = {
+    animation: "outAnimation 500ms ease-out",
+    animationFillMode: "forwards",
+  };
+  const downStyle = { animation: "downAnimation 300ms ease-in" };
+  const upStyle = {
+    animation: "upAnimation 300ms ease-in ",
+    animationFillMode: "forwards",
+  };
   function GetSortOrder(prop) {
     return function (a, b) {
       if (a[prop] > b[prop]) {
@@ -274,7 +294,7 @@ const Categories = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="cat-add" onClick={() => setModal(true)}>
+          <div className="cat-add" onClick={() => toggleModal()}>
             <AddIcon
               style={{
                 marginLeft: "2px",
@@ -313,217 +333,16 @@ const Categories = () => {
           </TransitionGroup>
         </div>
       </div>
-
-      <div style={{ width: "50%" }}>
-        <Modal
-          appElement={document.getElementById("App")}
-          ariaHideApp={false}
-          isOpen={modal}
-          style={customStyles}
-        >
-          <div style={{ width: "100%", height: "100%" }}>
-            <div style={{ width: "100%", display: "flex" }}>
-              <div
-                style={{
-                  flex: 1,
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <div
-                  onClick={() => setModal(false)}
-                  style={{
-                    justifyContent: "flex-end",
-                    display: "flex",
-                    width: 30,
-                    height: 30,
-                  }}
-                >
-                  <img
-                    alt="null"
-                    src={cancel}
-                    style={{ width: 10, height: 10, position: "relative" }}
-                  ></img>
-                </div>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                height: 50,
-                marginTop: 15,
-              }}
-            >
-              <div style={{ width: "50%", flex: 1, justifyContent: "center" }}>
-                <label
-                  style={{
-                    border: "1px solid transparent",
-                    marginTop: 5,
-                    marginLeft: 5,
-                    width: 80,
-                    height: 30,
-                    fontSize: 15,
-                    color: "#018BB6",
-                  }}
-                >
-                  New Category
-                </label>
-              </div>
-              <div
-                style={{
-                  width: "50%",
-                  flex: 1,
-                  justifyContent: "flex-end",
-                  display: "flex",
-                }}
-              >
-                <button
-                  style={{
-                    border: "1px solid transparent",
-                    marginLeft: 5,
-                    width: 80,
-                    height: 30,
-                    backgroundColor: "#018BB6",
-                    color: "white",
-                    fontSize: 15,
-                    borderRadius: 5,
-                  }}
-                  type="submit"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: 1,
-                backgroundColor: "lightgray",
-                marginTop: 7,
-              }}
-            ></div>
-
-            <div style={{ width: "100%" }}>
-              <div style={{ width: "100%", height: "35%" }}>
-                <div style={{ width: "100%", display: "flex" }}>
-                  <div style={{ width: "50%" }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{ width: "81%", display: "flex", marginTop: 10 }}
-                      >
-                        <label>Predefined Categories</label>
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "81%" }}>
-                        <select
-                          style={{ overflow: "scroll" }}
-                          defaultValue="Select Predefined Categories"
-                          className="menu"
-                        >
-                          <option disabled hidden>
-                            Select Predefined Categories
-                          </option>
-                          <option>1</option>
-                          <option>2</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    width: "100%",
-                    height: 1,
-                    backgroundColor: "lightgray",
-                    marginTop: 7,
-                  }}
-                >
-                  {/* #018BB6 */}
-                </div>
-
-                <div style={{ width: "100%", display: "flex", marginTop: 10 }}>
-                  <div style={{ width: "35%" }}>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "60%",
-                          display: "flex",
-                          justifyContent: "flex-start",
-                        }}
-                      >
-                        <label>Category *</label>
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <div style={{ width: "60%", display: "flex" }}>
-                        <input
-                          className="price"
-                          type="text"
-                          placeholder="category name"
-                        ></input>
-                      </div>
-                    </div>
-                  </div>
-                  <div style={{ width: "35%" }}>
-                    <div>
-                      <label>Other Name</label>
-                    </div>
-                    <div style={{}}>
-                      <input
-                        className="price"
-                        type="text"
-                        placeholder="other name"
-                      ></input>
-                    </div>
-                  </div>
-                  <div style={{ width: "30%" }}>
-                    <div>
-                      <label>sorting</label>
-                    </div>
-                    <div style={{}}>
-                      <input
-                        className="price"
-                        type="text"
-                        placeholder="sorting"
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      </div>
+      {!first ? (
+        <ModalCategory
+          toggleClose={toggleModal}
+          mod={modal}
+          mountedStyle={mountedStyle}
+          unmountedStyle={unmountedStyle}
+          downStyle={downStyle}
+          upStyle={upStyle}
+        />
+      ) : null}
     </div>
   );
 };

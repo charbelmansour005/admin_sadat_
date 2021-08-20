@@ -2,10 +2,20 @@ import React from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 
-const ModalItem = ({ mod, mountedStyle, toggleClose }) => {
+const ModalItem = ({
+  mod,
+  mountedStyle,
+  toggleClose,
+  unmountedStyle,
+  downStyle,
+  upStyle,
+}) => {
   return (
-    <div style={mod ? mountedStyle : null} className="modal-item-wrapper">
-      <div className="modal-item">
+    <div
+      style={mod ? mountedStyle : unmountedStyle}
+      className="modal-item-wrapper"
+    >
+      <div style={mod ? downStyle : upStyle} className="modal-item">
         <form className="modal-item-form" type="submit">
           <div className="modal-item-header">
             Add New Item
