@@ -310,8 +310,11 @@ const Home = (props) => {
       >
         <div
           style={{
-            width: "10%",
+            width: "15%",
             height: "100%",
+            minWidth:150,
+            minHeight:150,
+            position:'initial',
             backgroundColor: "#fafafa",
             justifyContent: "center",
             marginTop: 10,
@@ -1442,9 +1445,10 @@ const Home = (props) => {
 
         <div
           style={{
-            width: "90%",
+            width: "85%",
             height: "100%",
             display: "flex",
+            
             marginTop: 10,
             marginLeft: 10,
             marginBottom: 50,

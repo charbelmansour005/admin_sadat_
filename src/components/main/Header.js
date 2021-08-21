@@ -8,108 +8,94 @@ import arrowdown from "../../assets/arrowdown.png";
 
 const Header = (props) => {
   useEffect(() => {
-    return () => {};
+    return () => { };
   }, []);
 
   return (
     <div className="header">
-      <div className="header">
-        <div style={{ display: "flex", width: "100%", height: 60 }}>
-          <div
-            style={{
-              width: "33%",
-              display: "flex",
-              justifyContent: "center",
-              marginLeft: 10,
-            }}
-          >
+
+      <div style={{ display: "flex", justifyContent: 'center', width: "100%", height: 60 }}>
+        <div
+          style={{ width:'100%', display: "flex", justifyContent: "center" }}
+        >
+          <div style={{ width: "50%", marginTop: 18,display:'flex',justifyContent:'flex-end',minWidth:150,minHeight:60 }}>
             <label
               style={{
-                width: "35%",
+                marginTop: 5,
+
                 textAlign: "center",
-                marginTop: 18,
                 color: "white",
+               
               }}
             >
               {" "}
-              RestoWeb
+              Back Office{" "}
             </label>
           </div>
+        </div>
 
-          <div
-            style={{ width: "35%", display: "flex", justifyContent: "center" }}
-          >
-            <div style={{ width: "35%", marginTop: 18 }}>
-              <label
-                style={{
-                  marginTop: 10,
-                  textAlign: "center",
-                  color: "white",
-                  width: "35%",
-                }}
-              >
-                {" "}
-                Back Office{" "}
-              </label>
-            </div>
+        <div
+          style={{
+
+            width: "50%",
+            marginTop:5,
+            minHeight:60,
+            minWidth:250,
+            flexDirection: "row",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ marginTop: 18, width: 40, height: 40 }}>
+            <img
+              alt="null"
+              style={{ width: 15, height: 15 }}
+              src={home}
+            ></img>
           </div>
 
           <div
-            style={{
-              width: "28%",
-              flexDirection: "row",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
+            style={{ marginTop: 18, marginLeft: 10, width: 40, height: 40 }}
           >
-            <div style={{ marginTop: 18, width: 40, height: 40 }}>
-              <img
-                alt="null"
-                style={{ width: 15, height: 15 }}
-                src={home}
-              ></img>
-            </div>
-
-            <div
-              style={{ marginTop: 18, marginLeft: 10, width: 40, height: 40 }}
-            >
-              <img
-                alt="null"
-                style={{ width: 15, height: 15 }}
-                src={bell}
-              ></img>
-            </div>
-            <div
-              style={{ marginTop: 18, marginLeft: 10, width: 40, height: 40 }}
-            >
-              <img
-                alt="null"
-                style={{ width: 15, height: 15 }}
-                src={settings}
-              ></img>
-            </div>
-            <div
-              style={{ marginTop: 18, marginLeft: 10, width: 40, height: 40 }}
-            >
-              <img
-                alt="null"
-                style={{ width: 15, height: 15 }}
-                src={user}
-              ></img>
-            </div>
-            <div style={{ marginTop: 18 }}>
-              <label style={{ width: "100%", color: "white" }}>Charbel</label>
-            </div>
-            <div style={{ marginTop: 18, marginLeft: 10 }}>
-              <img
-                alt="null"
-                style={{ width: 12, height: 12 }}
-                src={arrowdown}
-              ></img>
-            </div>
+            <img
+              alt="null"
+              style={{ width: 15, height: 15 }}
+              src={bell}
+            ></img>
+          </div>
+          <div
+            style={{ marginTop: 18, marginLeft: 10, width: 40, height: 40 }}
+          >
+            <img
+              alt="null"
+              style={{ width: 15, height: 15, minWidth: 15, minHeight: 15 }}
+              src={settings}
+            ></img>
+          </div>
+          <div
+            style={{ marginTop: 18, marginLeft: 10, width: 40, height: 40 }}
+          >
+            <img
+              alt="null"
+              style={{ width: 15, height: 15 }}
+              src={user}
+            ></img>
+          </div>
+          <div style={{ marginTop: 18 }}>
+            <label style={{ width: "100%", color: "white" }}>Charbel</label>
+          </div>
+          <div style={{
+            marginTop: 18, marginLeft: 10,minWidth:50,minHeight:50
+          }}>
+            <img
+              alt="null"
+              style={{ width: 12, height: 12 }}
+              src={arrowdown}
+            ></img>
           </div>
         </div>
       </div>
+
     </div>
   );
 };
