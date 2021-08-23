@@ -14,6 +14,7 @@ import Accounting from './components/main/Accounting';
 import Digital from './components/main/Digital';
 import Login from './components/main/Login';
 import Home from './components/main/Home';
+import Hm from './components/main/Hm';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/Payment" component={Payment} render={(props) => <Payment {...props} />} />
           <Route exact path="/VoidReason" component={VoidReason} render={(props) => <VoidReason {...props} />} />
           <Route exact path="/Currency" component={Currency} render={(props) => <Currency {...props} />} />
+          <Route exact path="/Hm" component={Hm} render={(props) => <Hm {...props} />} />
         </Switch>
       </Router>
     </div>

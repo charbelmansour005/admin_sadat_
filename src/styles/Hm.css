@@ -1,0 +1,120 @@
+.top-bar {
+  background-color: var(--color-scheme);
+  display: flex;
+  height: 10vh;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Ubuntu";
+  justify-content: space-between;
+}
+
+.rest {
+  margin-left: 5vw;
+  color: white;
+}
+
+.back {
+  margin-right: 25vw;
+  color: white;
+}
+
+.icons {
+  color: white;
+  margin-right: 3vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 25vw;
+  user-select: none;
+}
+
+.user-holder {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  align-items: center;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  font-family: "Ubuntu";
+}
+
+.index {
+  display: flex;
+  flex-direction: column;
+}
+
+.index0 {
+  display: flex;
+  flex-direction: row;
+  height: 7vh;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 300ms ease-in;
+}
+
+.index1 {
+  display: flex;
+  flex-direction: row;
+  height: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 10px;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: background-color 300ms ease-in;
+  opacity: 0;
+}
+
+.index0:hover,
+.index1:hover {
+  background-color: var(--table-hover);
+}
+
+@keyframes openAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes closeAnimation {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slideOpenAnimation {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 7vh;
+  }
+}
+
+@keyframes slideCloseAnimation {
+  0% {
+    opacity: 1;
+    height: 7vh;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+  }
+}
