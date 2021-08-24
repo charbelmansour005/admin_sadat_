@@ -125,8 +125,9 @@ const ModalItem = ({
                   onChange={(e) => setFunc(e.target.value)}
                   required
                   className="modal-item-function-input"
+                  defaultValue={"Select function"}
                 >
-                  <option value="" disabled selected defaultValue hidden>
+                  <option value="Select function" disabled>
                     Select function
                   </option>
                   <option className="modal-item-function-option" value="1">
@@ -148,8 +149,9 @@ const ModalItem = ({
                   onChange={(e) => setGroup(e.target.value)}
                   required
                   className="modal-item-function-input"
+                  defaultValue={"Select group"}
                 >
-                  <option value="" disabled selected defaultValue hidden>
+                  <option value="Select group" disabled>
                     Select group
                   </option>
                   <option className="modal-item-function-option" value="1">
@@ -201,8 +203,11 @@ const ModalItem = ({
             <div className="modal-item-function">
               {/*Branch select*/}
               <div className="modal-item-desc">
-                <select className="modal-item-function-input">
-                  <option value="" selected disabled defaultValue hidden>
+                <select
+                  defaultValue={"Select branch"}
+                  className="modal-item-function-input"
+                >
+                  <option value="Select branch" disabled>
                     Select branch
                   </option>
                   <option className="modal-item-function-option" value="1">
@@ -282,15 +287,10 @@ const ModalItem = ({
                     return arr;
                   })
                 }
+                defaultValue={"Null"}
                 className="modal-item-function-input"
               >
-                <option
-                  className="modal-item-function-option"
-                  hidden
-                  defaultValue
-                  disabled
-                  selected
-                >
+                <option value="Null" disabled>
                   Null
                 </option>
                 <option className="modal-item-function-option" value="1">
@@ -323,16 +323,10 @@ const ModalItem = ({
                     return arr;
                   })
                 }
+                defaultValue={"Null"}
                 className="modal-item-function-input"
               >
-                <option
-                  className="modal-item-function-option"
-                  hidden
-                  defaultValue
-                  disabled
-                  selected
-                  value=""
-                >
+                <option disabled value="Null">
                   Null
                 </option>
                 <option className="modal-item-function-option" value="1">
@@ -365,15 +359,10 @@ const ModalItem = ({
                     return arr;
                   })
                 }
+                defaultValue={"Null"}
                 className="modal-item-function-input"
               >
-                <option
-                  className="modal-item-function-option"
-                  hidden
-                  defaultValue
-                  disabled
-                  selected
-                >
+                <option disabled value="Null">
                   Null
                 </option>
                 <option className="modal-item-function-option" value="1">
