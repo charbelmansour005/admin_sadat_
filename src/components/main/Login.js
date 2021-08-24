@@ -13,7 +13,7 @@ const Login = () => {
   const signinHandler = (event) => {
     event.preventDefault();
     if (companyID === "1" && username === "m" && password === "m") {
-      history.push("/Hm");
+      history.push("/Home");
     } else {
       document.getElementById("wrong").style.visibility = "visible";
       setWrongInfo((prev) => (prev === false ? true : prev));

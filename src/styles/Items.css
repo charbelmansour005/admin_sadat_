@@ -11,7 +11,7 @@
 
 .item-box {
   border: 1px solid;
-  
+
   border-color: var(--border);
   display: flex;
   border-bottom: none;
@@ -165,18 +165,21 @@ p {
   width: 250px;
   text-align: center;
   display: flex;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .item-name {
   font-family: "Ubuntu";
-  width: 350px;
+  width: 250px;
   text-align: center;
   display: flex;
+  text-overflow: clip;
 }
 
 .item-head-name {
   font-family: "Ubuntu";
-  width: 350px;
+  width: 250px;
   text-align: center;
   display: flex;
   height: 30px;
@@ -197,9 +200,10 @@ p {
 
 .item-group {
   font-family: "Ubuntu";
-  width: 150px;
+  width: 300px;
   text-align: center;
-  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .item-group1 {
@@ -214,6 +218,8 @@ p {
   width: 200px;
   text-align: center;
   display: flex;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .item-modify-icon:hover {
