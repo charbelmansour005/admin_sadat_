@@ -224,7 +224,7 @@ const VoidReason = () => {
   };
 
   return (
-    <div id="App" style={{ width: "85%", height: "100%" }}>
+    <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="void-title">Void Reason</h1>
       <div className="void-box">
         <div className="void-search-box">
