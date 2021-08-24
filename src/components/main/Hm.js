@@ -38,16 +38,28 @@ const Hm = () => {
     <HashRouter history={history}>
       <div className="cont">
         <div className="top-bar">
-          <div className="rest">RestoWeb</div>
-          <div className="back">Back Office</div>
+
           <div className="icons">
-            <HomeIcon />
-            <NotificationsIcon />
-            <SettingsIcon />
-            <PersonIcon />
+            <div style={{ minWidth: 35, height: 25 }}>
+              <HomeIcon />
+            </div>
+            <div style={{ minWidth: 35, height: 25 }}>
+              <NotificationsIcon />
+            </div>
+            <div style={{ minWidth: 35, height: 25 }}>
+              <SettingsIcon />
+            </div>
+            <div style={{ minWidth: 35, height: 25 }}>
+              <PersonIcon />
+            </div>
+
             <div className="user-holder">
+
               Charbel
-              <ArrowDropDownIcon />
+              <div style={{ minWidth: 35, height: 25 }} >
+                <ArrowDropDownIcon />
+              </div>
+
             </div>
           </div>
         </div>
@@ -235,34 +247,38 @@ const Hm = () => {
               </div>
             </div>
           </div>
-          <Switch>
-            <Route
-              exact
-              path="/SalesItem"
-              component={SalesItem}
-              render={(props) => <SalesItem {...props} />}
-            />
-            <Route
-              path="/Categories"
-              component={Categories}
-              render={(props) => <Categories {...props} />}
-            />
-            <Route
-              path="/Payment"
-              component={Payment}
-              render={(props) => <Payment {...props} />}
-            />
-            <Route
-              path="/Void"
-              component={VoidReason}
-              render={(props) => <VoidReason {...props} />}
-            />
-            <Route
-              path="/Currency"
-              component={Currency}
-              render={(props) => <Currency {...props} />}
-            />
-          </Switch>
+          <div>
+
+
+            <Switch>
+              <Route
+                exact
+                path="/SalesItem"
+                component={SalesItem}
+                render={(props) => <SalesItem {...props} />}
+              />
+              <Route
+                path="/Categories"
+                component={Categories}
+                render={(props) => <Categories {...props} />}
+              />
+              <Route
+                path="/Payment"
+                component={Payment}
+                render={(props) => <Payment {...props} />}
+              />
+              <Route
+                path="/Void"
+                component={VoidReason}
+                render={(props) => <VoidReason {...props} />}
+              />
+              <Route
+                path="/Currency"
+                component={Currency}
+                render={(props) => <Currency {...props} />}
+              />
+            </Switch>
+          </div>
         </div>
       </div>
     </HashRouter>

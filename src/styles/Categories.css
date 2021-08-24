@@ -159,6 +159,7 @@ p {
 .cat-mod-date {
   font-family: "Ubuntu";
   width: 250px;
+  justify-content: center;
   text-align: center;
   display: flex;
 }
@@ -182,12 +183,14 @@ p {
   font-family: "Ubuntu";
   display: flex;
   width: 40px;
+  margin-top: 5px;
   justify-content: flex-end;
 }
 
 .cat-creation-date {
   font-family: "Ubuntu";
   width: 250px;
+  justify-content: center;
   text-align: center;
   display: flex;
 }

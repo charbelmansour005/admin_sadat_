@@ -165,6 +165,7 @@ p {
   width: 250px;
   text-align: center;
   display: flex;
+  justify-content: center;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -201,6 +202,8 @@ p {
 .item-group {
   font-family: "Ubuntu";
   width: 300px;
+  display: flex;
+  justify-content: center;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -209,6 +212,7 @@ p {
 .item-group1 {
   font-family: "Ubuntu";
   width: 40px;
+  margin-top: 5px;
   justify-content: flex-end;
   display: flex;
 }
@@ -216,6 +220,7 @@ p {
 .item-creation-date {
   font-family: "Ubuntu";
   width: 200px;
+  justify-content: center;
   text-align: center;
   display: flex;
   white-space: nowrap;

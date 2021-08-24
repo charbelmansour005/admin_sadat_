@@ -170,6 +170,7 @@ p {
 .pay-price {
   font-family: "Ubuntu";
   width: 200px;
+  justify-content: center;
   text-align: center;
   display: flex;
 }
@@ -177,6 +178,7 @@ p {
 .pay-group {
   font-family: "Ubuntu";
   width: 200px;
+  justify-content: center;
   text-align: center;
   display: flex;
 }
@@ -197,6 +199,7 @@ p {
 .pay-group1 {
   font-family: "Ubuntu";
   width: 40px;
+  margin-top: 10px;
   justify-content: flex-end;
   display: flex;
 }

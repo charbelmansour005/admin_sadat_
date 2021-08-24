@@ -1,11 +1,11 @@
 .top-bar {
   background-color: var(--color-scheme);
   display: flex;
-  height: 10vh;
+  height: 5vh;
   flex-direction: row;
   align-items: center;
   font-family: "Ubuntu";
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .rest {
@@ -40,6 +40,8 @@
 
 .user-holder {
   display: flex;
+  min-width: 35;
+  min-height: 25;
   flex-direction: row;
   cursor: pointer;
   align-items: center;
