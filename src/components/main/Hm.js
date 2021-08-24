@@ -56,7 +56,6 @@ const Hm = () => {
             <div className="index">
               <div
                 onClick={() => {
-                  setIndex11((prev) => (prev === true ? false : false));
                   setIndex01((prev) => !prev);
                 }}
                 className="index0"
@@ -85,47 +84,47 @@ const Hm = () => {
                 <Link
                   to="/SalesItem"
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Sales Item
                 </Link>
                 <div
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Groups
                 </div>
                 <div
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Divisions
                 </div>
                 <Link
                   to="/Categories"
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Categories
                 </Link>
                 <Link
                   to="/Payment"
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Payment Types
                 </Link>
                 <Link
                   to="/Void"
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Void Reasons
                 </Link>
                 <Link
                   to="/Currency"
                   className="index2"
-                  style={index11 ? slideOpen : slideClosed}
+                  style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Currencies
                 </Link>

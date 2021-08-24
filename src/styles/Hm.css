@@ -84,6 +84,8 @@
   background-color: rgba(0, 0, 0, 0.15);
   transition: background-color 300ms ease-in;
   opacity: 0;
+  color: black;
+  text-decoration: none;
 }
 
 .index2 {
@@ -98,12 +100,19 @@
   background-color: rgba(0, 0, 0, 0.1);
   transition: background-color 300ms ease-in;
   opacity: 0;
+  color: black;
+  text-decoration: none;
 }
 
 .index0:hover,
 .index1:hover,
 .index2:hover {
   background-color: var(--table-hover);
+}
+
+.index1:active,
+.index2:active {
+  color: black;
 }
 
 @keyframes openAnimation {
