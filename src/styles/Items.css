@@ -14,11 +14,12 @@
 
   border-color: var(--border);
   display: flex;
+  height: 50vh;
   border-bottom: none;
   flex-direction: column;
   margin-left: 20px;
   margin-right: 20px;
-  height: fit-content;
+  
   border-radius: 1px;
   overflow-y: auto;
 }
@@ -156,7 +157,7 @@ p {
 }
 
 .item-remove-items {
-  overflow-y: auto;
+  
   max-height: 31.7rem;
 }
 

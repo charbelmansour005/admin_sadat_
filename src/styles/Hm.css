@@ -1,7 +1,8 @@
 .top-bar {
   background-color: var(--color-scheme);
   display: flex;
-  height: 5vh;
+  height: 7vh;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   font-family: "Ubuntu";

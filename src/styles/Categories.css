@@ -15,10 +15,11 @@
   display: flex;
   border-bottom: none;
   flex-direction: column;
+  height: 50vh;
   margin-left: 20px;
   margin-right: 20px;
-  height: fit-content;
   border-radius: 1px;
+  overflow-y: auto;
 }
 
 .cat-search-box {
@@ -114,6 +115,7 @@ p {
 .cat-holder {
   display: flex;
   flex: 1;
+
   flex-direction: row;
   justify-content: flex-start;
   padding: 5px;
@@ -132,6 +134,7 @@ p {
 .cat-head-holder {
   display: flex;
   flex: 1;
+
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
@@ -152,7 +155,7 @@ p {
 }
 
 .cat-remove-items {
-  overflow-y: auto;
+ 
   max-height: 31.7rem;
 }
 

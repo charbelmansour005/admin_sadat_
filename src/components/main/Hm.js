@@ -247,9 +247,7 @@ const Hm = () => {
               </div>
             </div>
           </div>
-          <div>
-
-
+          <div style={{display:'flex',width:'100%'}}>
             <Switch>
               <Route
                 exact

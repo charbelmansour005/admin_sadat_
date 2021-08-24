@@ -18,7 +18,8 @@
   flex-direction: column;
   margin-left: 20px;
   margin-right: 20px;
-  height: fit-content;
+  height: 50vh;
+  overflow-y: auto;
   border-radius: 1px;
 }
 
@@ -123,7 +124,7 @@ p {
 }
 
 .pay-remove-items {
-  overflow-y: auto;
+  
   max-height: 31.7rem;
 }
 

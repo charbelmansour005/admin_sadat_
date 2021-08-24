@@ -13,12 +13,12 @@
   border: 1px solid;
   border-color: var(--border);
   display: flex;
-
+overflow-y: auto;
   border-bottom: none;
   flex-direction: column;
   margin-left: 20px;
   margin-right: 20px;
-  height: fit-content;
+  height: 50vh;
   border-radius: 1px;
 }
 
@@ -124,7 +124,7 @@ p {
 }
 
 .cur-remove-items {
-  overflow-y: auto;
+  
   max-height: 31.7rem;
 }
 
