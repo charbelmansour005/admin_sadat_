@@ -272,7 +272,7 @@ const Categories = () => {
     }
   };
   return (
-    <div id="App" style={{ width: "141%", height: "100%" }}>
+    <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="cat-title">Categories</h1>
       <div className="cat-box">
         <div className="cat-search-box">

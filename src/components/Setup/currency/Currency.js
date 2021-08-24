@@ -222,7 +222,7 @@ const Currency = (props) => {
   };
 
   return (
-    <div id="App" style={{ width: "249%", height: "100%" }}>
+    <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="cur-title">Currency</h1>
       <div className="cur-box">
         <div className="cur-search-box">

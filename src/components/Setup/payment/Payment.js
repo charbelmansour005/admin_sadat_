@@ -254,7 +254,7 @@ const Payment = () => {
   };
 
   return (
-    <div id="App" style={{ width: "152.3%", height: "100%" }}>
+    <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="pay-title">Payment Types</h1>
       <div className="pay-box">
         <div className="pay-search-box">

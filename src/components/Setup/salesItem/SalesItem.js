@@ -350,7 +350,10 @@ const SalesItem = () => {
   };
 
   return (
-    <div id="App" style={{ width: "90%", height: "90%",minWidth:250,minHeight:250 }}>
+    <div
+      id="App"
+      style={{ width: "100%", height: "100%", minWidth: 250, minHeight: 250 }}
+    >
       <h1 className="item-title">Sales Items</h1>
       <div className="item-box">
         <div className="item-search-box">
