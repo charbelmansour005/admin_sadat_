@@ -4,7 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Items.css";
 
 const TableItem = ({
-  key,
+  k,
   name,
   price,
   handleEdit,
@@ -13,6 +13,7 @@ const TableItem = ({
   creationDate,
   lastModificationDate,
   handleDelete,
+  handleEdit,
 }) => {
   return (
     <div className="item-table-holder">

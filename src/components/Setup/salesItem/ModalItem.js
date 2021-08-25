@@ -3,6 +3,7 @@ import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 
 const ModalItem = ({
+  m,
   mod,
   mountedStyle,
   toggleClose,
@@ -58,6 +59,7 @@ const ModalItem = ({
             <div className="modal-item-desc">
               Description*
               <input
+                id="desc"
                 onChange={(e) => setName(e.target.value)}
                 required
                 placeholder="Item description"
@@ -125,9 +127,9 @@ const ModalItem = ({
                   onChange={(e) => setFunc(e.target.value)}
                   required
                   className="modal-item-function-input"
-                  defaultValue={"Select function"}
+                  defaultValue={""}
                 >
-                  <option value="Select function" disabled>
+                  <option value="" disabled>
                     Select function
                   </option>
                   <option className="modal-item-function-option" value="1">
@@ -149,9 +151,9 @@ const ModalItem = ({
                   onChange={(e) => setGroup(e.target.value)}
                   required
                   className="modal-item-function-input"
-                  defaultValue={"Select group"}
+                  defaultValue={""}
                 >
-                  <option value="Select group" disabled>
+                  <option value="" disabled>
                     Select group
                   </option>
                   <option className="modal-item-function-option" value="1">
@@ -203,11 +205,8 @@ const ModalItem = ({
             <div className="modal-item-function">
               {/*Branch select*/}
               <div className="modal-item-desc">
-                <select
-                  defaultValue={"Select branch"}
-                  className="modal-item-function-input"
-                >
-                  <option value="Select branch" disabled>
+                <select defaultValue={""} className="modal-item-function-input">
+                  <option value="" disabled>
                     Select branch
                   </option>
                   <option className="modal-item-function-option" value="1">
@@ -287,10 +286,10 @@ const ModalItem = ({
                     return arr;
                   })
                 }
-                defaultValue={"Null"}
+                defaultValue={""}
                 className="modal-item-function-input"
               >
-                <option value="Null" disabled>
+                <option value="" disabled>
                   Null
                 </option>
                 <option className="modal-item-function-option" value="1">
@@ -323,10 +322,10 @@ const ModalItem = ({
                     return arr;
                   })
                 }
-                defaultValue={"Null"}
+                defaultValue={""}
                 className="modal-item-function-input"
               >
-                <option disabled value="Null">
+                <option disabled value="">
                   Null
                 </option>
                 <option className="modal-item-function-option" value="1">
@@ -359,10 +358,10 @@ const ModalItem = ({
                     return arr;
                   })
                 }
-                defaultValue={"Null"}
+                defaultValue={""}
                 className="modal-item-function-input"
               >
-                <option disabled value="Null">
+                <option disabled value="">
                   Null
                 </option>
                 <option className="modal-item-function-option" value="1">

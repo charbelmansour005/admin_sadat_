@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import "../../../App.css";
+import ModalDivision from "./ModalDivision";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import "../../../styles/Divisions.css";
+import TableDivision from "./TableDivision";
+import HeaderDivision from "./HeaderDivision";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
-import TableItem from "./TableItem";
-import HeaderItem from "./HeaderItem";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "../../../styles/Items.css";
-import ModalItem from "./ModalItem";
-import { useDispatch, useSelector } from "react-redux";
-import SalesEditModal from "./SalesEditModal";
-import { addItems, searchItems, deleteItems } from "../../../redux/actions";
+
 const tabledata = [
   {
     key: 1,
@@ -51,29 +49,97 @@ const tabledata = [
     creationDate: "11/05/04",
     lastModificationDate: "09/04/19",
   },
-
+  {
+    key: 6,
+    name: "Axel",
+    price: 78803,
+    group: "group1",
+    creationDate: "11/13/15",
+    lastModificationDate: "02/13/15",
+  },
+  {
+    key: 7,
+    name: "Cameron",
+    price: 85182,
+    group: "group1",
+    creationDate: "01/18/12",
+    lastModificationDate: "07/28/20",
+  },
+  {
+    key: 8,
+    name: "Clayton",
+    price: 19895,
+    group: "group1",
+    creationDate: "08/08/03",
+    lastModificationDate: "03/14/05",
+  },
+  {
+    key: 9,
+    name: "William",
+    price: 36299,
+    group: "group1",
+    creationDate: "12/16/02",
+    lastModificationDate: "05/22/08",
+  },
+  {
+    key: 10,
+    name: "Linus",
+    price: 48124,
+    group: "group1",
+    creationDate: "05/01/10",
+    lastModificationDate: "09/02/19",
+  },
+  {
+    key: 11,
+    name: "Leo",
+    price: 135478,
+    group: "group1",
+    creationDate: "02/26/20",
+    lastModificationDate: "10/01/04",
+  },
+  {
+    key: 12,
+    name: "Emery",
+    price: 110317,
+    group: "group1",
+    creationDate: "07/25/03",
+    lastModificationDate: "01/29/13",
+  },
+  {
+    key: 13,
+    name: "Jermaine",
+    price: 88685,
+    group: "group1",
+    creationDate: "07/21/18",
+    lastModificationDate: "10/23/19",
+  },
+  {
+    key: 14,
+    name: "Ivan",
+    price: 23597,
+    group: "group1",
+    creationDate: "05/12/04",
+    lastModificationDate: "04/21/03",
+  },
+  {
+    key: 15,
+    name: "Ian",
+    price: 197332,
+    group: "group1",
+    creationDate: "02/16/04",
+    lastModificationDate: "12/24/05",
+  },
 ];
 
-const SalesItem = () => {
+const Divisions = () => {
+  const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
-  const [sortPrice, setSortPrice] = useState("0");
-  const [sortGroup, setSortGroup] = useState("0");
+  const [sortGrp, setSortGrp] = useState("0");
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
-  const [modal, setModal] = useState(false);
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
-  const dispatch = useDispatch();
-  const { salesItems } = useSelector(
-    (state) => state.postReducer
-  );
-  const addItem = () => dispatch(addItems());
-  const deleteItem = (id) => dispatch(deleteItems(id));
-  const searchItem = (name) => dispatch(searchItems(name));
   useEffect(() => {
-    addItem()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -98,10 +164,6 @@ const SalesItem = () => {
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
-  }
-  function toggleEditModal() {
-    setModalEdit((prev) => !prev);
-    setModalEdit(false)
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -154,43 +216,22 @@ const SalesItem = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addItem()
-    }
-    else {
-      searchItem(e.target.value)
-    }
-
-  }
-
-  const handleDelete = (itemId) => {
-    salesItems.map((item) => {
-      if (item.itemId === itemId) {
-        deleteItem(itemId)
-      }
-    })
-
-
+    setTData(() => {
+      return tabledata.filter((dat) =>
+        dat.name.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+    });
   };
-
-  const handleEdit = (itemId) => {
-
-    salesItems.map((item) => {
-      if (item.itemId === itemId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
-      }
-    })
-  }
-
+  const handleDelete = (name) => {
+    setTData((prev) => {
+      return prev.filter((d) => d.name !== name);
+    });
+  };
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
         setSortName("1");
-        setSortPrice("0");
-        setSortGroup("0");
+        setSortGrp("0");
         setSortCreationDate("0");
         setSortLastModificationDate("0");
         setTData((prev) => {
@@ -202,45 +243,25 @@ const SalesItem = () => {
           return prev.sort(GetSortOrder2("name"));
         });
       } else setSortName("0");
-    } else if (sort === "price") {
-      if (sortPrice === "0") {
-        setSortName("0");
-        setSortPrice("1");
-        setSortGroup("0");
-        setSortCreationDate("0");
-        setSortLastModificationDate("0");
-        setTData((prev) => {
-          return prev.sort(GetSortOrder("price"));
-        });
-        console.log(tData);
-      } else if (sortPrice === "1") {
-        setSortPrice("2");
-        setTData((prev) => {
-          return prev.sort(GetSortOrder2("price"));
-        });
-        console.log(tData);
-      } else setSortPrice("0");
     } else if (sort === "group") {
-      if (sortGroup === "0") {
+      if (sortGrp === "0") {
         setSortName("0");
-        setSortPrice("0");
-        setSortGroup("1");
+        setSortGrp("1");
         setSortCreationDate("0");
         setSortLastModificationDate("0");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("group"));
+          return prev.sort(GetDateSortOrder("div"));
         });
-      } else if (sortGroup === "1") {
-        setSortGroup("2");
+      } else if (sortGrp === "1") {
+        setSortGrp("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("group"));
+          return prev.sort(GetDateSortOrder2("div"));
         });
-      } else setSortGroup("0");
+      } else setSortGrp("0");
     } else if (sort === "creationDate") {
       if (sortCreationDate === "0") {
         setSortName("0");
-        setSortPrice("0");
-        setSortGroup("0");
+        setSortGrp("0");
         setSortCreationDate("1");
         setSortLastModificationDate("0");
         setTData((prev) => {
@@ -255,8 +276,7 @@ const SalesItem = () => {
     } else if (sort === "lastModDate") {
       if (sortLastModificationDate === "0") {
         setSortName("0");
-        setSortPrice("0");
-        setSortGroup("0");
+        setSortGrp("0");
         setSortCreationDate("0");
         setSortLastModificationDate("1");
         setTData((prev) => {
@@ -270,52 +290,12 @@ const SalesItem = () => {
       } else setSortLastModificationDate("0");
     }
   };
-  const handleModalSubmit = (
-    e,
-    name,
-    menuDesc,
-    kitchenDesc,
-    price,
-    func,
-    group,
-    otherDesc,
-    pdaDesc,
-    comments,
-    modifiers
-  ) => {
-    e.preventDefault();
-    let newItem = {
-      key: tData.length,
-      name: name,
-      menuDesc: menuDesc,
-      kitchenDesc: kitchenDesc,
-      price: price,
-      func: func,
-      group: group,
-      otherDesc: otherDesc,
-      pdaDesc: pdaDesc,
-      comments: comments,
-      modifiers: modifiers,
-      creationDate: Date(),
-      lastModificationDate: Date(),
-    };
-    setTData((prev) => {
-      return [...prev, newItem];
-    });
-    toggleModal();
-    e.target.reset();
-  };
-  const handleEdit = (key) => {
-    let temp = tabledata.find((x) => x.key === key);
-    
-  };
-
   return (
-    <div id="App" style={{ width: "85%", height: "100%" }}>
-      <h1 className="item-title">Sales Items</h1>
-      <div className="item-box">
-        <div className="item-search-box">
-          <div className="item-search">
+    <div id="App" style={{ width: "100%", height: "100%" }}>
+      <h1 className="division-title">Divisions</h1>
+      <div className="division-box">
+        <div className="division-search-box">
+          <div className="division-search">
             <SearchIcon
               style={{
                 marginLeft: "2px",
@@ -329,12 +309,12 @@ const SalesItem = () => {
             <input
               id="search-text"
               type="text"
-              className="item-search-text"
+              className="division-search-text"
               placeholder="Search..."
               onChange={handleSearch}
             />
           </div>
-          <div onClick={() => toggleModal()} className="item-add">
+          <div className="division-add" onClick={() => toggleModal()}>
             <AddIcon
               style={{
                 marginLeft: "2px",
@@ -348,43 +328,33 @@ const SalesItem = () => {
             <p>New</p>
           </div>
         </div>
-        <div className="item-table">
-          <HeaderItem
+        <div className="division-table">
+          <HeaderDivision
             name="Name"
-            price="Price"
-            group="Group"
+            grp="Category"
             creationDate="Creation Date"
             lastModificationDate="Last Modification Date"
             sortName={sortName}
-            sortPrice={sortPrice}
-            sortGroup={sortGroup}
             sortCreationDate={sortCreationDate}
             sortLastModificationDate={sortLastModificationDate}
+            sortGrp={sortGrp}
             sortBy={sortBy}
           />
-
-          <TransitionGroup id="tg" className="item-remove-items">
-            {salesItems.map(
-              ({
-                key,
-                name,
-                itemId,
-                price,
-                group,
-                creationDate,
-                lastModificationDate,
-              }) => (
-                <CSSTransition key={key} timeout={500} classNames="item-trans">
-                  <TableItem
-                    k={key}
+          <TransitionGroup className="division-remove-items">
+            {tData.map(
+              ({ key, category, name, creationDate, lastModificationDate }) => (
+                <CSSTransition
+                  key={key}
+                  timeout={500}
+                  classNames="division-trans"
+                >
+                  <TableDivision
+                    key={key}
                     name={name}
-                    itemId={itemId}
-                    price={price}
-                    group={group}
+                    grp={category}
                     creationDate={creationDate}
                     lastModificationDate={lastModificationDate}
                     handleDelete={handleDelete}
-                    handleEdit={handleEdit}
                   />
                 </CSSTransition>
               )
@@ -393,23 +363,9 @@ const SalesItem = () => {
         </div>
       </div>
       {!first ? (
-        <ModalItem
-          m="modal"
+        <ModalDivision
           toggleClose={toggleModal}
           mod={modal}
-          mountedStyle={mountedStyle}
-          unmountedStyle={unmountedStyle}
-          downStyle={downStyle}
-          upStyle={upStyle}
-          handleSubmit={handleModalSubmit}
-        />
-      ) : null}
-
-      {modalEdit ? (
-        <SalesEditModal
-          toggleClose={toggleEditModal}
-          mod={modalEdit}
-          currentitem={currentItem}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}
@@ -419,4 +375,4 @@ const SalesItem = () => {
     </div>
   );
 };
-export default SalesItem;
+export default Divisions;
