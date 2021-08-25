@@ -15,42 +15,12 @@ function App() {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Login}></Route>
-          <Route
-            exact
-            path="/Dashboard"
-            component={Dashboard}
-            render={(props) => <Dashboard {...props} />}
-          />
-          <Route
-            exact
-            path="/AboutUs"
-            component={AboutUs}
-            render={(props) => <AboutUs {...props} />}
-          />
-          <Route
-            exact
-            path="/Settings"
-            component={Settings}
-            render={(props) => <Settings {...props} />}
-          />
-          <Route
-            exact
-            path="/Accounting"
-            component={Accounting}
-            render={(props) => <Accounting {...props} />}
-          />
-          <Route
-            exact
-            path="/Digital"
-            component={Digital}
-            render={(props) => <Digital {...props} />}
-          />
-          <Route
-            exact
-            path="/Home"
-            component={Hm}
-            render={(props) => <Hm {...props} />}
-          />
+          <Route exact path="/Dashboard" component={Dashboard} />
+          <Route exact path="/AboutUs" component={AboutUs} />
+          <Route exact path="/Settings" component={Settings} />
+          <Route exact path="/Accounting" component={Accounting} />
+          <Route exact path="/Digital" component={Digital} />
+          <Route exact path="/Home" component={Hm} />
         </Switch>
       </Router>
     </div>

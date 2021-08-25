@@ -4,13 +4,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Items.css";
 
 const TableItem = ({
-  key,
+  k,
   name,
   price,
   group,
   creationDate,
   lastModificationDate,
   handleDelete,
+  handleEdit,
 }) => {
   return (
     <div className="item-table-holder">
@@ -23,7 +24,10 @@ const TableItem = ({
       </div>
       <div className="item-group1">
         <div>
-          <CreateIcon className="item-modify-icon" />
+          <CreateIcon
+            onClick={() => handleEdit(k)}
+            className="item-modify-icon"
+          />
         </div>
       </div>
       <div className="item-group1">

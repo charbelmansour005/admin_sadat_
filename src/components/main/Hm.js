@@ -13,6 +13,8 @@ import Categories from "../Setup/category/Categories";
 import SalesItem from "../Setup/salesItem/SalesItem";
 import Payment from "../Setup/payment/Payment";
 import VoidReason from "../Setup/voidreason/VoidReason";
+import Groups from "../Setup/group/Groups";
+import Divisions from "../Setup/division/Divisions";
 
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
@@ -38,7 +40,6 @@ const Hm = () => {
     <HashRouter history={history}>
       <div className="cont">
         <div className="top-bar">
-
           <div className="icons">
             <div style={{ minWidth: 35, height: 25 }}>
               <HomeIcon />
@@ -54,12 +55,10 @@ const Hm = () => {
             </div>
 
             <div className="user-holder">
-
               Charbel
-              <div style={{ minWidth: 35, height: 25 }} >
+              <div style={{ minWidth: 35, height: 25 }}>
                 <ArrowDropDownIcon />
               </div>
-
             </div>
           </div>
         </div>
@@ -100,18 +99,20 @@ const Hm = () => {
                 >
                   Sales Item
                 </Link>
-                <div
+                <Link
+                  to="/Groups"
                   className="index2"
                   style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Groups
-                </div>
-                <div
+                </Link>
+                <Link
+                  to="/Divisions"
                   className="index2"
                   style={index11 && index01 ? slideOpen : slideClosed}
                 >
                   Divisions
-                </div>
+                </Link>
                 <Link
                   to="/Categories"
                   className="index2"
@@ -247,34 +248,15 @@ const Hm = () => {
               </div>
             </div>
           </div>
-          <div style={{display:'flex'}}>
+          <div style={{ display: "flex" }}>
             <Switch>
-              <Route
-                exact
-                path="/SalesItem"
-                component={SalesItem}
-                render={(props) => <SalesItem {...props} />}
-              />
-              <Route
-                path="/Categories"
-                component={Categories}
-                render={(props) => <Categories {...props} />}
-              />
-              <Route
-                path="/Payment"
-                component={Payment}
-                render={(props) => <Payment {...props} />}
-              />
-              <Route
-                path="/Void"
-                component={VoidReason}
-                render={(props) => <VoidReason {...props} />}
-              />
-              <Route
-                path="/Currency"
-                component={Currency}
-                render={(props) => <Currency {...props} />}
-              />
+              <Route exact path="/SalesItem" component={SalesItem} />
+              <Route path="/Categories" component={Categories} />
+              <Route path="/Payment" component={Payment} />
+              <Route path="/Void" component={VoidReason} />
+              <Route path="/Currency" component={Currency} />
+              <Route path="/Groups" component={Groups} />
+              <Route path="/Divisions" component={Divisions} />
             </Switch>
           </div>
         </div>

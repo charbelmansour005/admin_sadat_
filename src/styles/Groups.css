@@ -1,4 +1,4 @@
-.item-title {
+.grp-title {
   text-align: left;
   margin-top: 10px;
   margin-left: 20px;
@@ -9,20 +9,20 @@
   color: var(--title);
 }
 
-.item-box {
-  border: 1px solid;
-  max-height: 400px;
+.grp-box {
+  border: 0.7px solid;
   border-color: var(--border);
   display: flex;
-
+  border-bottom: none;
   flex-direction: column;
+  max-height: 400px;
   margin-left: 20px;
   margin-right: 20px;
+ overflow-y: auto;
   border-radius: 1px;
-  overflow-y: auto;
 }
 
-.item-search-box {
+.grp-search-box {
   border-color: var(--border);
   height: fit-content;
   display: flex;
@@ -34,7 +34,7 @@
   background: var(--header);
 }
 
-.item-search {
+.grp-search {
   width: 400px;
   height: 30px;
   border-width: 2px;
@@ -48,15 +48,15 @@
   flex-direction: row;
 }
 
-.item-search:hover,
-.search:focus {
+.grp-search:hover,
+.grp-search:focus {
   background-color: var(--focus);
 }
 
-.item-search-text {
+.grp-search-text {
   text-overflow: clip;
   height: 30px;
-  width: 380px;
+  width: 370px;
   border-width: 0;
   outline-width: 0;
   border-radius: 2px;
@@ -71,17 +71,17 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-.item-search-text::placeholder {
+.grp-search-text::placeholder {
   color: var(--search);
   opacity: 0.8;
   font-size: medium;
 }
 
-.item-search-text:focus::-webkit-input-placeholder {
+.grp-search-text:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.item-add {
+.grp-add {
   border-width: 0.5px;
   border-color: var(--border);
   outline-width: 0;
@@ -90,16 +90,16 @@
   align-self: center;
   justify-content: center;
   box-sizing: border-box;
+  border: 1px solid transparent;
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  border: 1px solid transparent;
   background-color: #018bb6;
   transition: background-color 1s;
 }
 
-.item-add:hover,
-.add:focus {
+.grp-add:hover,
+.grp-add:focus {
   background-color: var(--button-background-focus);
 }
 
@@ -112,27 +112,25 @@ p {
   color: white;
 }
 
-.item-holder {
+.grp-holder {
   display: flex;
   flex: 1;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
   padding: 5px;
-  overflow: auto;
+  align-items: center;
 }
 
-.item-table-holder {
+.grp-table-holder {
   display: flex;
   flex: 1;
   flex-direction: row;
   justify-content: flex-end;
   padding: 5px;
   border-bottom: 1px solid var(--border);
-  overflow: auto;
 }
 
-.item-head-holder {
+.grp-head-holder {
   display: flex;
   flex: 1;
   width: 100%;
@@ -143,115 +141,95 @@ p {
   background: var(--header);
 }
 
-.item-table-holder:hover {
+.grp-table-holder:hover {
   background-color: var(--table-hover);
 }
 
-.item-table {
+.grp-table {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.item-remove-items {
+.grp-remove-items {
+  
   max-height: 31.7rem;
 }
 
-.item-mod-date {
+.grp-div{
   font-family: "Ubuntu";
-  width: 250px;
+  width: 200px;
   text-align: center;
   display: flex;
+}
+
+.grp-mod-date {
+  font-family: "Ubuntu";
+  width: 250px;
   justify-content: center;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.item-name {
-  font-family: "Ubuntu";
-  width: 250px;
   text-align: center;
   display: flex;
-  text-overflow: clip;
 }
 
-.item-head-name {
+.grp-name {
   font-family: "Ubuntu";
-  width: 250px;
+  width: 200px;
+  text-align: center;
+  display: flex;
+}
+
+.grp-head-name {
+  font-family: "Ubuntu";
+  width: 200px;
   text-align: center;
   display: flex;
   height: 30px;
 }
 
-.item-price {
+.grp-group1 {
   font-family: "Ubuntu";
-  width: 100px;
-  text-align: center;
   display: flex;
-}
-
-.item-sort {
-  cursor: pointer;
-  align-self: center;
-  font-size: larger;
-}
-
-.item-group {
-  font-family: "Ubuntu";
-  width: 300px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.item-group1 {
-  font-family: "Ubuntu";
   width: 40px;
   margin-top: 5px;
   justify-content: flex-end;
-  display: flex;
 }
 
-.item-creation-date {
+.grp-creation-date {
   font-family: "Ubuntu";
-  width: 200px;
+  width: 250px;
   justify-content: center;
   text-align: center;
   display: flex;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
-.item-modify-icon:hover {
+.grp-modify-icon:hover {
   color: var(--color-scheme);
 }
 
-.item-delete-icon:hover {
+.grp-delete-icon:hover {
   color: var(--color-scheme);
 }
 
-.item-trans-enter {
+.grp-trans-enter {
   opacity: 0;
 }
 
-.item-trans-enter-active {
+.grp-trans-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
 
-.item-trans-exit {
+.grp-trans-exit {
   opacity: 1;
 }
 
-.item-trans-exit-active {
+.grp-trans-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in;
 }
 
-.modal-item-wrapper {
+.modal-grp-wrapper {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -264,16 +242,16 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-item {
+.modal-grp {
   height: 600px;
-  width: 800px;
+  width: 1000px;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.modal-item-header {
+.modal-grp-header {
   height: 60px;
   background-color: var(--color-scheme-dark);
   display: flex;
@@ -286,18 +264,18 @@ p {
   user-select: none;
 }
 
-.modal-item-close {
+.modal-grp-close {
   cursor: pointer;
   height: 20px;
   width: 20px;
   color: white;
 }
 
-.modal-item-close:hover {
+.modal-grp-close:hover {
   color: lightgray;
 }
 
-.modal-item-body {
+.modal-grp-body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -305,7 +283,7 @@ p {
   user-select: none;
 }
 
-.modal-item-footer {
+.modal-grp-footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -313,7 +291,7 @@ p {
   height: 50px;
 }
 
-.modal-item-save {
+.modal-grp-save {
   background: var(--color-scheme);
   border-radius: 5px;
   width: 70px;
@@ -329,11 +307,11 @@ p {
   transition: opacity 500ms ease-in-out;
 }
 
-.modal-item-save:hover {
+.modal-grp-save:hover {
   opacity: 1;
 }
 
-.modal-item-subtitle {
+.modal-grp-subtitle {
   min-height: 40px;
   background-color: var(--color-scheme);
   display: flex;
@@ -346,32 +324,32 @@ p {
   user-select: none;
 }
 
-.modal-item-form {
+.modal-grp-form {
   font-family: "Ubuntu";
 }
 
-.modal-item-desc {
+.modal-grp-desc {
   margin: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.modal-item-desc-hor {
+.modal-grp-desc-hor {
   margin: 10px;
   display: flex;
   flex-direction: row;
-  padding-right: 10px;
+  flex: 0.5;
   padding-top: 5px;
   align-items: center;
 }
 
 .modal-check {
   align-self: center;
-  margin-right: 20px;
+  margin-left: 70px;
 }
 
-.modal-item-price,
-.modal-item-function {
+.modal-grp-price,
+.modal-grp-function {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
@@ -379,7 +357,7 @@ p {
   justify-content: space-between;
 }
 
-.modal-item-desc-input {
+.modal-grp-desc-input {
   margin-top: 10px;
   width: 300px;
   height: 30px;
@@ -391,15 +369,15 @@ p {
   margin-right: 10px;
 }
 
-.modal-item-desc-input::placeholder {
+.modal-grp-desc-input::placeholder {
   font-family: "Ubuntu";
 }
 
-.modal-item-desc-input:focus::-webkit-input-placeholder {
+.modal-grp-desc-input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.modal-item-price-input {
+.modal-grp-price-input {
   margin-top: 10px;
   width: 100px;
   height: 30px;
@@ -411,7 +389,7 @@ p {
   margin-right: 10px;
 }
 
-.modal-item-function-input {
+.modal-grp-function-input {
   margin-top: 10px;
   width: 300px;
   height: 30px;
@@ -423,7 +401,7 @@ p {
   margin-right: 10px;
 }
 
-.modal-item-print-input {
+.modal-grp-print-input {
   margin-top: 10px;
   width: 150px;
   height: 30px;
@@ -435,28 +413,28 @@ p {
   margin-right: 10px;
 }
 
-.modal-item-print-input:focus,
-.modal-item-print-input:hover,
-.modal-item-function-input:focus,
-.modal-item-function-input:hover,
-.modal-item-price-input:hover,
-.modal-item-price-input:focus,
-.modal-item-desc-input:focus,
-.modal-item-desc-input:hover,
+.modal-grp-print-input:focus,
+.modal-grp-print-input:hover,
+.modal-grp-function-input:focus,
+.modal-grp-function-input:hover,
+.modal-grp-price-input:hover,
+.modal-grp-price-input:focus,
+.modal-grp-desc-input:focus,
+.modal-grp-desc-input:hover,
 .modal-check:focus,
 .modal-check:hover {
   box-shadow: 2px 2px var(--color-scheme-light);
 }
 
-.modal-item-function-option {
+.modal-grp-function-option {
   font-family: "Ubuntu";
 }
 
-.modal-item-price-input::placeholder {
+.modal-grp-price-input::placeholder {
   font-family: "Ubuntu";
 }
 
-.modal-item-price-input:focus::-webkit-input-placeholder {
+.modal-grp-price-input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -464,7 +442,7 @@ p {
   border-top: 1px solid var(--color-scheme-dark);
 }
 
-.modal-item-branch {
+.modal-grp-branch {
   background: var(--color-scheme);
   border-radius: 5px;
   width: 250px;
@@ -480,7 +458,7 @@ p {
   margin-right: 20px;
 }
 
-.modal-item-branch:hover {
+.modal-grp-branch:hover {
   opacity: 1;
 }
 
