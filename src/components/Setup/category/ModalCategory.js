@@ -1,8 +1,12 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
+ 
 import "../../../styles/Categories.css";
 import CloseIcon from "@material-ui/icons/Close";
 
-const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, upStyle }) => {
+const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, upStyle,props }) => {
+  useEffect(() => {
+
+  }, []);
   return (
     <div style={mod ? mountedStyle : unmountedStyle} className="modal-cat-wrapper">
       <div style={mod ? downStyle : upStyle} className="modal-cat">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../styles/Hm.css";
 import { Switch, Route, Link, HashRouter } from "react-router-dom";
 import history from "../history";
@@ -14,7 +14,9 @@ import SalesItem from "../Setup/salesItem/SalesItem";
 import Payment from "../Setup/payment/Payment";
 import VoidReason from "../Setup/voidreason/VoidReason";
 
+
 const Hm = () => {
+
   const closed = { animation: "closeAnimation 300ms ease-in" };
   const open = {
     animation: "openAnimation 300ms ease-in ",

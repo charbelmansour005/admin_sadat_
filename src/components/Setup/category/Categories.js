@@ -6,130 +6,13 @@ import "../../../styles/Categories.css";
 import TableCategory from "./TableCategory";
 import HeaderCategory from "./HeaderCategory";
 import SearchIcon from "@material-ui/icons/Search";
+import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 
-const tabledata = [
-  {
-    key: 1,
-    name: "Ivan",
-    price: 169564,
-    group: "group1",
-    creationDate: "02/01/21",
-    lastModificationDate: "09/06/02",
-  },
-  {
-    key: 2,
-    name: "Wylie",
-    price: 55483,
-    group: "group1",
-    creationDate: "09/15/08",
-    lastModificationDate: "07/05/10",
-  },
-  {
-    key: 3,
-    name: "Jakeem",
-    price: 132759,
-    group: "group1",
-    creationDate: "11/16/06",
-    lastModificationDate: "04/13/09",
-  },
-  {
-    key: 4,
-    name: "Adam",
-    price: 111594,
-    group: "group1",
-    creationDate: "10/05/18",
-    lastModificationDate: "01/12/14",
-  },
-  {
-    key: 5,
-    name: "Clayton",
-    price: 151077,
-    group: "group1",
-    creationDate: "11/05/04",
-    lastModificationDate: "09/04/19",
-  },
-  {
-    key: 6,
-    name: "Axel",
-    price: 78803,
-    group: "group1",
-    creationDate: "11/13/15",
-    lastModificationDate: "02/13/15",
-  },
-  {
-    key: 7,
-    name: "Cameron",
-    price: 85182,
-    group: "group1",
-    creationDate: "01/18/12",
-    lastModificationDate: "07/28/20",
-  },
-  {
-    key: 8,
-    name: "Clayton",
-    price: 19895,
-    group: "group1",
-    creationDate: "08/08/03",
-    lastModificationDate: "03/14/05",
-  },
-  {
-    key: 9,
-    name: "William",
-    price: 36299,
-    group: "group1",
-    creationDate: "12/16/02",
-    lastModificationDate: "05/22/08",
-  },
-  {
-    key: 10,
-    name: "Linus",
-    price: 48124,
-    group: "group1",
-    creationDate: "05/01/10",
-    lastModificationDate: "09/02/19",
-  },
-  {
-    key: 11,
-    name: "Leo",
-    price: 135478,
-    group: "group1",
-    creationDate: "02/26/20",
-    lastModificationDate: "10/01/04",
-  },
-  {
-    key: 12,
-    name: "Emery",
-    price: 110317,
-    group: "group1",
-    creationDate: "07/25/03",
-    lastModificationDate: "01/29/13",
-  },
-  {
-    key: 13,
-    name: "Jermaine",
-    price: 88685,
-    group: "group1",
-    creationDate: "07/21/18",
-    lastModificationDate: "10/23/19",
-  },
-  {
-    key: 14,
-    name: "Ivan",
-    price: 23597,
-    group: "group1",
-    creationDate: "05/12/04",
-    lastModificationDate: "04/21/03",
-  },
-  {
-    key: 15,
-    name: "Ian",
-    price: 197332,
-    group: "group1",
-    creationDate: "02/16/04",
-    lastModificationDate: "12/24/05",
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { catPost, deleteCat, searchCat } from "../../../redux/actions";
+
+
 
 const Categories = () => {
   const [modal, setModal] = useState(false);
@@ -138,13 +21,26 @@ const Categories = () => {
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
   const [first, setFirst] = useState(true);
+  const [currentItem, setCurrentItem] = useState({})
+  const [modalEdit, setModalEdit] = useState(false)
+
+  const { catItem } = useSelector(
+    (state) => state.postReducer
+  );
+  const addCategories = () => dispatch(catPost());
+  const deleteCateg = (id) => dispatch(deleteCat(id));
+  const searchCateg = (name) => dispatch(searchCat(name));
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    addCategories()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
         setModal(true);
         setFirst(false);
       }
+    
     });
     return () => {
       document.removeEventListener("keydown", (e) => e);
@@ -158,12 +54,18 @@ const Categories = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(tabledata);
+
+    
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
   }
+  function toggleEditModal() {
+    setModalEdit((prev) => !prev);
+    setModalEdit(false)
+  }
+
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
     animation: "outAnimation 500ms ease-out",
@@ -215,17 +117,38 @@ const Categories = () => {
     };
   }
   const handleSearch = (e) => {
-    setTData(() => {
-      return tabledata.filter((dat) =>
-        dat.name.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-    });
+    if (e.target.value === '') {
+      addCategories()
+    }
+    else {
+      searchCateg(e.target.value)
+    }
+
+  }
+
+  const handleDelete = (catId) => {
+    catItem.map((item) => {
+      if (item.catId === catId) {
+        deleteCateg(catId)
+      }
+    })
+
+
   };
-  const handleDelete = (name) => {
-    setTData((prev) => {
-      return prev.filter((d) => d.name !== name);
-    });
-  };
+
+  const handleEdit = (catId) => {
+
+    catItem.map((item) => {
+      if (item.catId === catId) {
+        setCurrentItem(item)
+        setModalEdit(true)
+        setModal(false)
+        setFirst(true)
+      }
+    })
+  }
+
+
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
@@ -290,6 +213,7 @@ const Categories = () => {
             <input
               id="search-text"
               type="text"
+             
               className="cat-search-text"
               placeholder="Search..."
               onChange={handleSearch}
@@ -320,14 +244,17 @@ const Categories = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="cat-remove-items">
-            {tData.map(({ key, name, creationDate, lastModificationDate }) => (
+            {catItem.map(({ key, catId, name, creationDate, lastModificationDate }) => (
+
               <CSSTransition key={key} timeout={500} classNames="cat-trans">
                 <TableCategory
                   key={key}
                   name={name}
+                  catId={catId}
                   creationDate={creationDate}
                   lastModificationDate={lastModificationDate}
                   handleDelete={handleDelete}
+                  handleEdit={handleEdit}
                 />
               </CSSTransition>
             ))}
@@ -338,12 +265,27 @@ const Categories = () => {
         <ModalCategory
           toggleClose={toggleModal}
           mod={modal}
+
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}
           upStyle={upStyle}
         />
       ) : null}
+
+      {
+        modalEdit ? (
+          <ModalEdit toggleClose={toggleEditModal}
+            mod={modalEdit}
+            currentitem={currentItem}
+            mountedStyle={mountedStyle}
+            unmountedStyle={unmountedStyle}
+            downStyle={downStyle}
+            upStyle={upStyle}>
+
+          </ModalEdit>
+        ) : null
+      }
     </div>
   );
 };

@@ -3,7 +3,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Currency.css";
 
-const TableCurrency = ({ name, handleDelete }) => {
+const TableCurrency = ({ name, handleDelete, currencyId, handleEdit }) => {
   return (
     <div className="cur-table-holder">
       <div id={"" + name} className="cur-holder">
@@ -11,13 +11,13 @@ const TableCurrency = ({ name, handleDelete }) => {
       </div>
       <div className="cur-group1">
         <div>
-          <CreateIcon className="cur-modify-icon" />
+          <CreateIcon onClick={() => handleEdit(currencyId)} className="cur-modify-icon" />
         </div>
       </div>
       <div className="cur-group1">
         <div>
           <DeleteIcon
-            onClick={() => handleDelete(name)}
+            onClick={() => handleDelete(currencyId)}
             className="cur-delete-icon"
           />
         </div>

@@ -3,7 +3,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/PaymentTypes.css";
 
-const TableVoid = ({ name, handleDelete }) => {
+const TableVoid = ({ name, handleDelete, voidId, handleEdit }) => {
   return (
     <div className="void-table-holder">
       <div id={"" + name} className="void-holder">
@@ -11,13 +11,13 @@ const TableVoid = ({ name, handleDelete }) => {
       </div>
       <div className="void-group1">
         <div>
-          <CreateIcon className="void-modify-icon" />
+          <CreateIcon onClick={() => handleEdit(voidId)} className="void-modify-icon" />
         </div>
       </div>
       <div className="void-group1">
         <div>
           <DeleteIcon
-            onClick={() => handleDelete(name)}
+            onClick={() => handleDelete(voidId)}
             className="void-delete-icon"
           />
         </div>

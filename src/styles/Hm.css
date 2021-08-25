@@ -53,9 +53,10 @@
   flex-direction: column;
   width: 15%;
   min-width: 200px;
+
   font-family: "Ubuntu";
   overflow-y: auto;
-  height: 90vh;
+  height: 100%;
 }
 
 .index {

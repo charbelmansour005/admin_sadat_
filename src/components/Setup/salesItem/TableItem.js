@@ -7,6 +7,8 @@ const TableItem = ({
   key,
   name,
   price,
+  handleEdit,
+  itemId,
   group,
   creationDate,
   lastModificationDate,
@@ -23,13 +25,13 @@ const TableItem = ({
       </div>
       <div className="item-group1">
         <div>
-          <CreateIcon className="item-modify-icon" />
+          <CreateIcon onClick={() => handleEdit(itemId)} className="item-modify-icon" />
         </div>
       </div>
       <div className="item-group1">
         <div>
           <DeleteIcon
-            onClick={() => handleDelete(name)}
+            onClick={() => handleDelete(itemId)}
             className="item-delete-icon"
           />
         </div>

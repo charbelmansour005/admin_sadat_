@@ -9,9 +9,11 @@ import Digital from "./components/main/Digital";
 import Login from "./components/main/Login";
 import Hm from "./components/main/Hm";
 
+
 function App() {
   return (
     <div>
+      
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Login}></Route>
