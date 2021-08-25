@@ -7,7 +7,6 @@ const TableItem = ({
   k,
   name,
   price,
-  handleEdit,
   itemId,
   group,
   creationDate,

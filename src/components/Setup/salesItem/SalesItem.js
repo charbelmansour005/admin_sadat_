@@ -305,10 +305,7 @@ const SalesItem = () => {
     toggleModal();
     e.target.reset();
   };
-  const handleEdit = (key) => {
-    let temp = tabledata.find((x) => x.key === key);
-    
-  };
+ 
 
   return (
     <div id="App" style={{ width: "85%", height: "100%" }}>
