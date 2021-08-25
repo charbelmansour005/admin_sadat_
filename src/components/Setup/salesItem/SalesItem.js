@@ -358,7 +358,7 @@ const SalesItem = () => {
       <div className="item-box">
         <div className="item-search-box">
           <div className="item-search">
-            <SearchIcon
+            <SearchIcon 
               style={{
                 marginLeft: "2px",
                 color: "rgba(0, 0, 0, 0.7)",
