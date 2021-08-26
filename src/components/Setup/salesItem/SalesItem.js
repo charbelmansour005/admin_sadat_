@@ -274,9 +274,13 @@ const SalesItem = () => {
     toggleModal();
     e.target.reset();
   };
+<<<<<<< HEAD
 
 
 
+=======
+ 
+>>>>>>> 9e71b13df664a7db216ad1c3c1efa3e679a73de3
 
   return (
     <div id="App" style={{ width: "85%", height: "100%" }}>
