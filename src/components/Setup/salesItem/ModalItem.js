@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
-
+import moment from 'react-moment'
+import { useDispatch, useSelector } from "react-redux";
 const ModalItem = ({
   m,
   mod,
@@ -15,13 +16,48 @@ const ModalItem = ({
   const [name, setName] = useState("");
   const [menuDesc, setMenuDesc] = useState("");
   const [kitchenDesc, setKitchenDesc] = useState("");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState('');
+  const [price2, setPrice2] = useState('');
+  const [price3, setPrice3] = useState('');
+  const [price4, setPrice4] = useState('');
   const [func, setFunc] = useState("");
   const [group, setGroup] = useState("");
   const [otherDesc, setOtherDesc] = useState("");
   const [pdaDesc, setPdaDesc] = useState("");
   const [comments, setComments] = useState("");
+  const [creationDate, setCreationDate] = useState('')
+  const [modDate, setModDate] = useState('')
   const [modifiers, setModifiers] = useState([]);
+  const { salesItems } = useSelector(
+    (state) => state.postReducer
+  );
+  let getCreatedDate = () => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+    var completeDateFormat = date + "/" + month + "/" + year;
+    setCreationDate(completeDateFormat)
+
+
+  }
+  let getModificationDate = () => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+    var completeDateFormat = date + "/" + month + "/" + year;
+
+    setModDate(completeDateFormat)
+  }
+  useEffect(() => {
+    getCreatedDate()
+    getModificationDate()
+  }, []);
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
@@ -35,15 +71,21 @@ const ModalItem = ({
             handleSubmit(
               e,
               name,
+              salesItems.length + 1,
               menuDesc,
               kitchenDesc,
               price,
+              price2,
+              price3,
+              price4,
               func,
               group,
               otherDesc,
               pdaDesc,
               comments,
-              modifiers
+              modifiers,
+              creationDate,
+              modDate
             )
           }
         >
@@ -55,7 +97,7 @@ const ModalItem = ({
           </div>
           <div className="modal-item-body">
             <div className="modal-item-subtitle">General</div>
-            {/*Description field*/}
+
             <div className="modal-item-desc">
               Description*
               <input
@@ -66,8 +108,7 @@ const ModalItem = ({
                 className="modal-item-desc-input"
               />
             </div>
-            {/**/}
-            {/*Menu description field*/}
+
             <div className="modal-item-desc">
               Menu Description*
               <input
@@ -77,8 +118,7 @@ const ModalItem = ({
                 className="modal-item-desc-input"
               />
             </div>
-            {/**/}
-            {/*Kitchen description field*/}
+
             <div className="modal-item-desc">
               Kitchen Description*
               <input
@@ -88,9 +128,9 @@ const ModalItem = ({
                 className="modal-item-desc-input"
               />
             </div>
-            {/**/}
+
             <div className="modal-spacer"></div>
-            {/*Prices fields*/}
+
             <div className="modal-item-price">
               <div className="modal-item-desc">
                 Price 1
@@ -99,28 +139,29 @@ const ModalItem = ({
                   placeholder="0"
                   className="modal-item-price-input"
                 />
-                <input className="modal-item-price-input" />
+                <input value={price} className="modal-item-price-input" />
               </div>
               <div className="modal-item-desc">
                 Price 2
-                <input placeholder="0" className="modal-item-price-input" />
-                <input className="modal-item-price-input" />
+
+                <input onChange={(e) => setPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                <input value={price2} className="modal-item-price-input" />
               </div>
               <div className="modal-item-desc">
                 Price 3
-                <input placeholder="0" className="modal-item-price-input" />
-                <input className="modal-item-price-input" />
+                <input onChange={(e) => setPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                <input value={price3} className="modal-item-price-input" />
               </div>
               <div className="modal-item-desc">
                 Price 4
-                <input placeholder="0" className="modal-item-price-input" />
-                <input className="modal-item-price-input" />
+                <input onChange={(e) => setPrice4(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                <input value={price4} className="modal-item-price-input" />
               </div>
             </div>
-            {/**/}
+
             <div className="modal-spacer"></div>
             <div className="modal-item-function">
-              {/*Function select*/}
+
               <div className="modal-item-desc">
                 Function*
                 <select
@@ -143,8 +184,7 @@ const ModalItem = ({
                   </option>
                 </select>
               </div>
-              {/**/}
-              {/*Group select*/}
+
               <div className="modal-item-desc">
                 Group*
                 <select
@@ -168,9 +208,9 @@ const ModalItem = ({
                 </select>
               </div>
             </div>
-            {/**/}
+
             <div className="modal-item-price">
-              {/*Other description field*/}
+
               <div className="modal-item-desc">
                 Other Description
                 <input
@@ -179,8 +219,7 @@ const ModalItem = ({
                   className="modal-item-desc-input"
                 />
               </div>
-              {/**/}
-              {/*PDA field*/}
+
               <div className="modal-item-desc">
                 PDA Description
                 <input
@@ -189,9 +228,9 @@ const ModalItem = ({
                   className="modal-item-desc-input"
                 />
               </div>
-              {/**/}
+
             </div>
-            {/*Comments field*/}
+
             <div className="modal-item-desc">
               Comments On Menu
               <input
@@ -200,10 +239,10 @@ const ModalItem = ({
                 className="modal-item-desc-input"
               />
             </div>
-            {/**/}
+
             <div className="modal-item-subtitle">Print Out</div>
             <div className="modal-item-function">
-              {/*Branch select*/}
+
               <div className="modal-item-desc">
                 <select defaultValue={""} className="modal-item-function-input">
                   <option value="" disabled>
@@ -220,14 +259,13 @@ const ModalItem = ({
                   </option>
                 </select>
               </div>
-              {/**/}
-              {/*Copy button*/}
+
               <div className="modal-item-branch">Copy All Branches</div>
             </div>
-            {/**/}
+
             <div className="modal-spacer"></div>
             <div className="modal-item-price">
-              {/*Print out select*/}
+
               <div className="modal-item-desc">
                 Print Out 1
                 <select className="modal-item-print-input">
@@ -270,11 +308,11 @@ const ModalItem = ({
                   </option>
                 </select>
               </div>
-              {/**/}
+
             </div>
             <div className="modal-item-subtitle">Modifiers</div>
             <div className="modal-item-price">
-              {/*Mod 1*/}
+
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
                 Modifier 1
               </div>
@@ -308,9 +346,9 @@ const ModalItem = ({
                 Mandatory
               </div>
             </div>
-            {/**/}
+
             <div className="modal-item-price">
-              {/*Mod 2*/}
+
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
                 Modifier 2
               </div>
@@ -344,9 +382,9 @@ const ModalItem = ({
                 Mandatory
               </div>
             </div>
-            {/**/}
+
             <div className="modal-item-price">
-              {/*Mod 3*/}
+
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
                 Modifier 3
               </div>
@@ -379,7 +417,7 @@ const ModalItem = ({
                 <input type="checkbox" className="modal-check"></input>
                 Mandatory
               </div>
-              {/**/}
+
             </div>
           </div>
           <div className="modal-item-footer">

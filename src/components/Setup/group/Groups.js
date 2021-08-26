@@ -7,129 +7,11 @@ import TableGroup from "./TableGroup";
 import HeaderGroup from "./HeaderGroup";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
+import { useDispatch, useSelector } from "react-redux";
+import EditGroupModal from "./EditGroupModal";
+import { addGroups, searchGroups, deleteGroups } from "../../../redux/actions";
 
-const tabledata = [
-  {
-    key: 1,
-    name: "Ivan",
-    price: 169564,
-    group: "group1",
-    creationDate: "02/01/21",
-    lastModificationDate: "09/06/02",
-  },
-  {
-    key: 2,
-    name: "Wylie",
-    price: 55483,
-    group: "group1",
-    creationDate: "09/15/08",
-    lastModificationDate: "07/05/10",
-  },
-  {
-    key: 3,
-    name: "Jakeem",
-    price: 132759,
-    group: "group1",
-    creationDate: "11/16/06",
-    lastModificationDate: "04/13/09",
-  },
-  {
-    key: 4,
-    name: "Adam",
-    price: 111594,
-    group: "group1",
-    creationDate: "10/05/18",
-    lastModificationDate: "01/12/14",
-  },
-  {
-    key: 5,
-    name: "Clayton",
-    price: 151077,
-    group: "group1",
-    creationDate: "11/05/04",
-    lastModificationDate: "09/04/19",
-  },
-  {
-    key: 6,
-    name: "Axel",
-    price: 78803,
-    group: "group1",
-    creationDate: "11/13/15",
-    lastModificationDate: "02/13/15",
-  },
-  {
-    key: 7,
-    name: "Cameron",
-    price: 85182,
-    group: "group1",
-    creationDate: "01/18/12",
-    lastModificationDate: "07/28/20",
-  },
-  {
-    key: 8,
-    name: "Clayton",
-    price: 19895,
-    group: "group1",
-    creationDate: "08/08/03",
-    lastModificationDate: "03/14/05",
-  },
-  {
-    key: 9,
-    name: "William",
-    price: 36299,
-    group: "group1",
-    creationDate: "12/16/02",
-    lastModificationDate: "05/22/08",
-  },
-  {
-    key: 10,
-    name: "Linus",
-    price: 48124,
-    group: "group1",
-    creationDate: "05/01/10",
-    lastModificationDate: "09/02/19",
-  },
-  {
-    key: 11,
-    name: "Leo",
-    price: 135478,
-    group: "group1",
-    creationDate: "02/26/20",
-    lastModificationDate: "10/01/04",
-  },
-  {
-    key: 12,
-    name: "Emery",
-    price: 110317,
-    group: "group1",
-    creationDate: "07/25/03",
-    lastModificationDate: "01/29/13",
-  },
-  {
-    key: 13,
-    name: "Jermaine",
-    price: 88685,
-    group: "group1",
-    creationDate: "07/21/18",
-    lastModificationDate: "10/23/19",
-  },
-  {
-    key: 14,
-    name: "Ivan",
-    price: 23597,
-    group: "group1",
-    creationDate: "05/12/04",
-    lastModificationDate: "04/21/03",
-  },
-  {
-    key: 15,
-    name: "Ian",
-    price: 197332,
-    group: "group1",
-    creationDate: "02/16/04",
-    lastModificationDate: "12/24/05",
-  },
-];
+
 
 const Groups = () => {
   const [modal, setModal] = useState(false);
@@ -139,7 +21,17 @@ const Groups = () => {
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
   const [first, setFirst] = useState(true);
+  const [currentItem, setCurrentItem] = useState({})
+  const [modalEdit, setModalEdit] = useState(false)
+  const dispatch = useDispatch();
+  const { groupItems } = useSelector(
+    (state) => state.postReducer
+  );
+  const addGroup = () => dispatch(addGroups());
+  const deleteGroup = (id) => dispatch(deleteGroups(id));
+  const searchGroup = (name) => dispatch(searchGroups(name));
   useEffect(() => {
+    addGroup()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -159,11 +51,15 @@ const Groups = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(tabledata);
+    setTData(groupItems);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
+  }
+  function toggleEditModal() {
+    setModalEdit((prev) => !prev);
+    setModalEdit(false)
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -216,17 +112,35 @@ const Groups = () => {
     };
   }
   const handleSearch = (e) => {
-    setTData(() => {
-      return tabledata.filter((dat) =>
-        dat.name.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-    });
+    if (e.target.value === '') {
+      addGroup()
+    }
+    else {
+      searchGroup(e.target.value)
+    }
+
+  }
+
+  const handleDelete = (groupId) => {
+    groupItems.map((item) => {
+      if (item.groupId === groupId) {
+        deleteGroup(groupId)
+      }
+    })
+
+
   };
-  const handleDelete = (name) => {
-    setTData((prev) => {
-      return prev.filter((d) => d.name !== name);
-    });
-  };
+  const handleEdit = (groupId) => {
+
+    groupItems.map((item) => {
+      if (item.groupId === groupId) {
+        setCurrentItem(item)
+        setModalEdit(true)
+        setModal(false)
+        setFirst(true)
+      }
+    })
+  }
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
@@ -290,6 +204,55 @@ const Groups = () => {
       } else setSortLastModificationDate("0");
     }
   };
+
+  const handleModalSubmit = (
+    e,
+    name,
+    groupId,
+    othername,
+    division,
+    tax1,
+    tax2,
+    tax3,
+    tax4,
+    tax5,
+    service,
+    discount,
+    revenue,
+    expense,
+    pdaDesc,
+    pdasorting,
+    createdData,
+    modificationDate
+  ) => {
+    e.preventDefault();
+    let newItem = {
+      key: tData.length,
+      name: name,
+      groupId: groupId,
+      othername: othername,
+      division: division,
+      tax1: tax1,
+      tax2: tax2,
+      tax3: tax3,
+      tax4: tax4,
+      tax5: tax5,
+      service: service,
+      discount: discount,
+      revenue: revenue,
+      expense: expense,
+      pdaDesc: pdaDesc,
+      pdasorting: pdasorting,
+      creationDate: createdData,
+      lastModificationDate: modificationDate,
+    };
+    groupItems.push(newItem)
+    console.log(groupItems)
+
+    toggleModal();
+    e.target.reset();
+  };
+
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="grp-title">Groups</h1>
@@ -331,7 +294,7 @@ const Groups = () => {
         <div className="grp-table">
           <HeaderGroup
             name="Name"
-            div="Division"
+            division="Division"
             creationDate="Creation Date"
             lastModificationDate="Last Modification Date"
             sortName={sortName}
@@ -341,16 +304,18 @@ const Groups = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="grp-remove-items">
-            {tData.map(
-              ({ key, div, name, creationDate, lastModificationDate }) => (
+            {groupItems.map(
+              ({ key, division, name, groupId, creationDate, lastModificationDate }) => (
                 <CSSTransition key={key} timeout={500} classNames="grp-trans">
                   <TableGroup
                     key={key}
                     name={name}
-                    div={div}
+                    division={division}
+                    groupId={groupId}
                     creationDate={creationDate}
                     lastModificationDate={lastModificationDate}
                     handleDelete={handleDelete}
+                    handleEdit={handleEdit}
                   />
                 </CSSTransition>
               )
@@ -362,6 +327,19 @@ const Groups = () => {
         <ModalGroup
           toggleClose={toggleModal}
           mod={modal}
+          handleSubmit={handleModalSubmit}
+          mountedStyle={mountedStyle}
+          unmountedStyle={unmountedStyle}
+          downStyle={downStyle}
+          upStyle={upStyle}
+        />
+      ) : null}
+
+      {modalEdit ? (
+        <EditGroupModal
+          toggleClose={toggleEditModal}
+          mod={modalEdit}
+          currentitem={currentItem}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}

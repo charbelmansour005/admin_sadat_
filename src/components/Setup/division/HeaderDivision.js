@@ -7,7 +7,7 @@ const HeaderDivision = ({
   name,
   creationDate,
   lastModificationDate,
-  grp,
+  category,
   sortName,
   sortCreationDate,
   sortLastModificationDate,
@@ -29,8 +29,8 @@ const HeaderDivision = ({
           )}
         </div>
         <div className="division-div">
-          <div onClick={() => sortBy("group")} className="item-sort">
-            {grp}
+          <div onClick={() => sortBy("category")} className="item-sort">
+            {category}
           </div>
           {sortGrp === "1" && (
             <ArrowDropUpIcon style={{ alignSelf: "center" }} />

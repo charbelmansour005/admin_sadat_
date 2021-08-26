@@ -5,11 +5,13 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const HeaderPaymentType = ({
   name,
-  type,
+  paymentType,
   accountNumber,
+  paymentStatus,
   sortName,
   sortType,
   sortAccountNumber,
+  sortStatus,
   sortBy,
 }) => {
   return (
@@ -28,7 +30,7 @@ const HeaderPaymentType = ({
         </div>
         <div className="pay-price">
           <div onClick={() => sortBy("type")} className="pay-sort">
-            {type}
+            {paymentType}
           </div>
           {sortType === "1" && (
             <ArrowDropUpIcon style={{ alignSelf: "center" }} />
@@ -45,6 +47,18 @@ const HeaderPaymentType = ({
             <ArrowDropUpIcon style={{ alignSelf: "center" }} />
           )}
           {sortAccountNumber === "2" && (
+            <ArrowDropDownIcon style={{ alignSelf: "center" }} />
+          )}
+        </div>
+
+        <div className="pay-group">
+          <div onClick={() => sortBy("status")} className="pay-sort">
+            {paymentStatus}
+          </div>
+          {sortStatus === "1" && (
+            <ArrowDropUpIcon style={{ alignSelf: "center" }} />
+          )}
+          {sortStatus === "2" && (
             <ArrowDropDownIcon style={{ alignSelf: "center" }} />
           )}
         </div>

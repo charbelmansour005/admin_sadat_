@@ -40,7 +40,7 @@ const Categories = () => {
         setModal(true);
         setFirst(false);
       }
-    
+
     });
     return () => {
       document.removeEventListener("keydown", (e) => e);
@@ -55,7 +55,7 @@ const Categories = () => {
   }, [modal]);
   useEffect(() => {
 
-    
+    setTData(catItem)
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -194,6 +194,32 @@ const Categories = () => {
       } else setSortLastModificationDate("0");
     }
   };
+  const handleModalSubmit = (
+    e,
+    catId,
+    pDefinedCat,
+    name,
+    othername,
+    sorting,
+    createdData,
+    modificationDate
+  ) => {
+    e.preventDefault();
+    let newItem = {
+      key: tData.length,
+      catId: catId,
+      pDefinedCat: pDefinedCat,
+      name: name,
+      othername: othername,
+      sorting: sorting,
+      creationDate: createdData,
+      lastModificationDate: modificationDate,
+    };
+    catItem.push(newItem)
+
+    toggleModal();
+    e.target.reset();
+  };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="cat-title">Categories</h1>
@@ -213,7 +239,7 @@ const Categories = () => {
             <input
               id="search-text"
               type="text"
-             
+
               className="cat-search-text"
               placeholder="Search..."
               onChange={handleSearch}
@@ -265,7 +291,7 @@ const Categories = () => {
         <ModalCategory
           toggleClose={toggleModal}
           mod={modal}
-
+          handleSubmit={handleModalSubmit}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}

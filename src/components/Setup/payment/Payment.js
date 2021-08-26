@@ -18,6 +18,7 @@ const Payment = () => {
   const [sortName, setSortName] = useState("0");
   const [sortType, setSortType] = useState("0");
   const [sortAccountNumber, setSortAccountNumber] = useState("0");
+  const [sortStatus, setSortStatus] = useState("0")
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({})
   const [modalEdit, setModalEdit] = useState(false)
@@ -97,7 +98,7 @@ const Payment = () => {
   }
 
   useEffect(() => {
-
+    settData(paymentItem)
   }, []);
 
   const handleDelete = (paymentId) => {
@@ -122,13 +123,14 @@ const Payment = () => {
     })
   }
 
-  
+
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
         setSortName("1");
         setSortType("0");
         setSortAccountNumber("0");
+        setSortStatus("0")
         settData((prev) => {
           return prev.sort(GetSortOrder("name"));
         });
@@ -143,6 +145,7 @@ const Payment = () => {
         setSortType("1");
         setSortName("0");
         setSortAccountNumber("0");
+        setSortStatus("0")
         settData((prev) => {
           return prev.sort(GetSortOrder("type"));
         });
@@ -157,6 +160,7 @@ const Payment = () => {
         setSortAccountNumber("1");
         setSortName("0");
         setSortType("0");
+        setSortStatus("0")
         settData((prev) => {
           return prev.sort(GetSortOrder("accountNumber"));
         });
@@ -167,8 +171,57 @@ const Payment = () => {
         });
       } else setSortAccountNumber("0");
     }
+    else if (sort === "status") {
+      if (sortStatus === "0") {
+        setSortAccountNumber("0");
+        setSortName("0");
+        setSortType("0");
+        setSortStatus("1")
+        settData((prev) => {
+          return prev.sort(GetSortOrder("status"));
+        });
+      } else if (sortStatus === "1") {
+        setSortStatus("2");
+        settData((prev) => {
+          return prev.sort(GetSortOrder2("status"));
+        });
+      } else setSortStatus("0");
+    }
   };
+  const handleModalSubmit = (
+    e,
+    paymentId,
+    name,
+    paymentCurrency,
+    paymentType,
+    paymentStatus,
+    paymentCommission,
+    accountNumber,
+    bdAccountNumber,
+    message,
+    createdData,
+    modificationDate
+  ) => {
+    e.preventDefault();
+    let newItem = {
+      key: tData.length,
+      paymentId: paymentId,
+      name: name,
+      paymentCurrency: paymentCurrency,
+      paymentType: paymentType,
+      paymentStatus: paymentStatus,
+      paymentCommission: paymentCommission,
+      accountNumber: accountNumber,
+      bdAccountNumber: bdAccountNumber,
+      message: message,
+      creationDate: createdData,
+      lastModificationDate: modificationDate,
+    };
+    paymentItem.push(newItem)
 
+    toggleModal();
+    e.target.reset();
+  };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="pay-title">Payment Types</h1>
@@ -210,21 +263,24 @@ const Payment = () => {
         <div className="pay-table">
           <HeaderPayment
             name="Name"
-            type="Type"
+            paymentType="Type"
             accountNumber="Account Number"
+            paymentStatus="Status"
             sortName={sortName}
             sortType={sortType}
             sortAccountNumber={sortAccountNumber}
+            sortStatus={sortStatus}
             sortBy={sortBy}
           />
           <TransitionGroup className="pay-remove-items">
-            {paymentItem.map(({ key, name, type, accountNumber,paymentId }) => (
+            {paymentItem.map(({ key, name, paymentType, accountNumber, paymentId,paymentStatus }) => (
               <CSSTransition key={key} timeout={500} classNames="pay-trans">
                 <TablePayment
                   name={name}
-                  type={type}
+                  paymentType={paymentType}
                   paymentId={paymentId}
                   accountNumber={accountNumber}
+                  paymentStatus={paymentStatus}
                   handleEdit={handleEdit}
                   handleDelete={handleDelete}
                 />
@@ -237,6 +293,7 @@ const Payment = () => {
         <ModalPayment
           toggleClose={toggleModal}
           mod={modal}
+          handleSubmit={handleModalSubmit}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}
@@ -245,15 +302,15 @@ const Payment = () => {
       ) : null}
 
       {modalEdit ? (
-      <ModalPaymentEdit
-        toggleClose={toggleEditModal}
-        mod={modalEdit}
-        currentitem={currentItem}
-        mountedStyle={mountedStyle}
-        unmountedStyle={unmountedStyle}
-        downStyle={downStyle}
-        upStyle={upStyle}
-      />
+        <ModalPaymentEdit
+          toggleClose={toggleEditModal}
+          mod={modalEdit}
+          currentitem={currentItem}
+          mountedStyle={mountedStyle}
+          unmountedStyle={unmountedStyle}
+          downStyle={downStyle}
+          upStyle={upStyle}
+        />
       ) : null}
     </div>
   );

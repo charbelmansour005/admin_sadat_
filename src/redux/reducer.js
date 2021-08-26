@@ -1,13 +1,15 @@
-// import { GET_POSTS, ADD_POST, DELETE_ITEM, SAVE_USER } from "./actions";
 
-import { EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS } from "./actions";
+
+import { EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION } from "./actions";
 
 const initialState = {
   catItem: [],
   paymentItem: [],
   voidItem: [],
-  currencyItem: [],
-  salesItems: []
+  currencyItems: [],
+  salesItems: [],
+  groupItems: [],
+  divisionItems: []
 
 };
 
@@ -18,6 +20,7 @@ function postReducer(state = initialState, action) {
         ...state,
         catItem: action.payload,
       };
+
     case ADD_VOID:
       return {
         ...state,
@@ -26,7 +29,7 @@ function postReducer(state = initialState, action) {
     case ADD_CURRENCY:
       return {
         ...state,
-        currencyItem: action.payload,
+        currencyItems: action.payload,
       };
     case ADD_ITEMS:
       return {
@@ -53,11 +56,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state, voidItem: state.voidItem.filter((data) => data.voidId !== action.payload)
       }
-    case DELETE_CURRENCY:
 
-      return {
-        ...state, currencyItem: state.currencyItem.filter((data) => data.currencyId !== action.payload)
-      }
 
     case SEARCH_CAT:
 
@@ -82,13 +81,55 @@ function postReducer(state = initialState, action) {
     case SEARCH_CURRENCY:
 
       return {
-        ...state, currencyItem: state.currencyItem.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
+        ...state, currencyItems: state.currencyItems.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
       }
     case ADD_PAYMENT:
       return {
         ...state,
         paymentItem: action.payload,
       };
+
+
+
+    case ADD_GROUPS:
+      return {
+        ...state,
+        groupItems: action.payload,
+      };
+
+    case DELETE_GROUPS:
+
+      return {
+        ...state, groupItems: state.groupItems.filter((data) => data.groupId !== action.payload)
+      }
+
+    case SEARCH_GROUPS:
+
+      return {
+        ...state, groupItems: state.groupItems.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
+      }
+
+    case ADD_DIVISION:
+      return {
+        ...state,
+        divisionItems: action.payload,
+      };
+    case DELETE_DIVISION:
+
+      return {
+        ...state, divisionItems: state.divisionItems.filter((data) => data.divisionId !== action.payload)
+      }
+    case SEARCH_DIVISION:
+
+      return {
+        ...state, divisionItems: state.divisionItems.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
+      }
+
+    case DELETE_CURRENCY:
+
+      return {
+        ...state, currencyItems: state.currencyItems.filter((data) => data.currencyId !== action.payload)
+      }
 
     default:
       return state;

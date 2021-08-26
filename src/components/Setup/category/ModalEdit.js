@@ -24,6 +24,20 @@ const ModalEdit = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, 
                     else {
                         item.name = catName
                     }
+                if (othercatName === '') {
+                    item.othername = currentitem.othername
+                }
+                else {
+
+                    item.othername = othercatName
+                }
+                if (sorting === '') {
+                    item.sorting = currentitem.sorting
+                }
+                else {
+
+                    item.sorting = sorting
+                }
             })
         }
 
@@ -32,10 +46,7 @@ const ModalEdit = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, 
 
     }
 
-    let changevalue = (e) => {
-        setCatName(e.target.value)
 
-    }
 
     return (
         <div style={mod ? mountedStyle : unmountedStyle} className="modal-cat-wrapper">
@@ -56,7 +67,7 @@ const ModalEdit = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, 
                             <input
                                 defaultValue={currentitem.name}
                                 required
-                                onChange={(name1) => changevalue(name1)}
+                                onChange={(e) => setCatName(e.target.value)}
                                 placeholder="Category name"
                                 className="modal-cat-desc-input"
                             />
@@ -64,7 +75,8 @@ const ModalEdit = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, 
                         <div className="modal-cat-desc">
                             Other name*
                             <input
-                                defaultValue={currentitem.name}
+                                defaultValue={currentitem.othername}
+                                onChange={(e) => setOtherCat(e.target.value)}
                                 required
                                 placeholder="Other name"
                                 className="modal-cat-desc-input"
@@ -73,6 +85,8 @@ const ModalEdit = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, 
                         <div className="modal-cat-desc">
                             Sorting*
                             <input
+                                defaultValue={currentitem.sorting}
+                                onChange={(e) => setSorting(e.target.value)}
                                 required
                                 placeholder="Sorting"
                                 className="modal-cat-desc-input"

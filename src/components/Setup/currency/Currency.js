@@ -20,11 +20,11 @@ const Currency = (props) => {
   const [currentItem, setCurrentItem] = useState({})
   const [modalEdit, setModalEdit] = useState(false)
   const dispatch = useDispatch();
-  const { currencyItem } = useSelector(
+  const { currencyItems } = useSelector(
     (state) => state.postReducer
   );
   const addCurrencies = () => dispatch(addCurrency());
-  const deleteCurrencies = (id) => dispatch(deleteCurrency(id));
+  const deleteCurrencies = (currencyId) => dispatch(deleteCurrency(currencyId));
   const searchCurrencies = (name) => dispatch(searchCurrency(name));
 
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
@@ -39,6 +39,7 @@ const Currency = (props) => {
   };
   useEffect(() => {
     addCurrencies()
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -96,7 +97,7 @@ const Currency = (props) => {
   }
 
   const handleDelete = (currencyId) => {
-    currencyItem.map((item) => {
+    currencyItems.map((item) => {
       if (item.currencyId === currencyId) {
         deleteCurrencies(currencyId)
       }
@@ -104,10 +105,9 @@ const Currency = (props) => {
 
 
   };
-
   const handleEdit = (currencyId) => {
 
-    currencyItem.map((item) => {
+    currencyItems.map((item) => {
       if (item.currencyId === currencyId) {
         setCurrentItem(item)
         setModalEdit(true)
@@ -117,7 +117,7 @@ const Currency = (props) => {
     })
   }
   useEffect(() => {
-    //  setTData(tabledata);
+    setTData(currencyItems)
     return () => { };
   }, []);
 
@@ -179,13 +179,15 @@ const Currency = (props) => {
         <div className="cur-table">
           <HeaderCurrency name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="cur-remove-items">
-            {currencyItem.map(({ key, name, currencyId }) => (
+            {currencyItems.map(({ key, name, currencyId, symbol }) => (
               <CSSTransition key={key} timeout={500} classNames="cur-trans">
                 <TableCurrency
-                  currencyId={currencyId}
-                  handleEdit={handleEdit}
+                  key={key}
                   name={name}
-                  handleDelete={handleDelete} />
+                  currencyId={currencyId}
+                  symbol={symbol}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit} />
               </CSSTransition>
             ))}
           </TransitionGroup>

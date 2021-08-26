@@ -12,8 +12,13 @@ const ModalPaymentEdit = ({
   upStyle,
 }) => {
   const [paymentDesc, setPaymentDesc] = useState('')
+  const [paymentCurrency, setPaymentCurrency] = useState('')
   const [accountnumber, setAccountNumber] = useState('')
   const [type, setType] = useState('')
+  const [status, setStatus] = useState('')
+  const [Commission, setCommission] = useState('')
+  const [bankdeposit, setBankDeposit] = useState('')
+  const [message, setMessage] = useState('')
   const { paymentItem } = useSelector(
     (state) => state.postReducer
   );
@@ -36,10 +41,41 @@ const ModalPaymentEdit = ({
           }
 
           if (type === '') {
-            item.type = currentitem.type
+            item.paymentType = currentitem.paymentType
           }
           else {
-            item.type = type
+            item.paymentType = type
+          }
+
+          if (status === '') {
+            item.paymentStatus = currentitem.paymentStatus
+          }
+          else {
+            item.paymentStatus = status
+          }
+          if (paymentCurrency === '') {
+            item.paymentCurrency = currentitem.paymentCurrency
+          }
+          else {
+            item.paymentCurrency = paymentCurrency
+          }
+          if (Commission === '') {
+            item.paymentCommission = currentitem.paymentCommission
+          }
+          else {
+            item.paymentCommission = Commission
+          }
+          if (bankdeposit === '') {
+            item.bdAccountNumber = currentitem.bdAccountNumber
+          }
+          else {
+            item.bdAccountNumber = bankdeposit
+          }
+          if (message === '') {
+            item.message = currentitem.message
+          }
+          else {
+            item.message = message
           }
         }
       })
@@ -80,9 +116,9 @@ const ModalPaymentEdit = ({
             <div className="modal-pay-price">
               <div className="modal-pay-desc">
                 Payment Currency*
-                <select required className="modal-pay-function-input">
-                  <option value="" disabled selected defaultValue hidden>
-                    Select currency
+                <select onChange={(e) => setPaymentCurrency(e.target.value)} required className="modal-pay-function-input">
+                  <option value={currentitem.paymentCurrency} disabled selected defaultValue >
+                    {currentitem.paymentCurrency}
                   </option>
                   <option className="modal-pay-function-option" value="1">
                     1
@@ -97,9 +133,9 @@ const ModalPaymentEdit = ({
               </div>
               <div className="modal-pay-desc">
                 Type*
-                <select onChange={(e) => setType(e.target.value)} required className="modal-pay-function-input">
-                  <option value={currentitem.type} disabled selected defaultValue >
-                    {currentitem.type}
+                <select defaultValue={currentitem.paymentType} onChange={(e) => setType(e.target.value)} required className="modal-pay-function-input">
+                  <option value={currentitem.paymentType} disabled selected defaultValue >
+                    {currentitem.paymentType}
                   </option>
 
                   <option className="modal-pay-function-option" value="1">
@@ -117,9 +153,9 @@ const ModalPaymentEdit = ({
             <div className="modal-pay-price">
               <div className="modal-pay-desc">
                 Status*
-                <select required className="modal-pay-function-input">
-                  <option value="" disabled selected defaultValue hidden>
-                    Select status
+                <select onChange={(e) => setStatus(e.target.value)} required className="modal-pay-function-input">
+                  <option value={currentitem.paymentStatus} disabled selected defaultValue >
+                    {currentitem.paymentStatus}
                   </option>
                   <option className="modal-pay-function-option" value="1">
                     1
@@ -135,6 +171,8 @@ const ModalPaymentEdit = ({
               <div className="modal-pay-desc">
                 Commission
                 <input
+                  defaultValue={currentitem.paymentCommission}
+                  onChange={(e) => setCommission(e.target.value)}
                   placeholder="Commission"
                   className="modal-pay-desc-input"
                 />
@@ -153,6 +191,8 @@ const ModalPaymentEdit = ({
               <div className="modal-pay-desc">
                 Bank Deposit Account Number
                 <input
+                  defaultValue={currentitem.bdAccountNumber}
+                  onChange={(e) => setBankDeposit(e.target.value)}
                   placeholder="Bank deposit"
                   className="modal-pay-desc-input"
                 />
@@ -161,6 +201,8 @@ const ModalPaymentEdit = ({
             <div className="modal-pay-desc">
               Message on Invoice
               <input
+                defaultValue={currentitem.message}
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="Enter message"
                 className="modal-pay-desc-input"
               />

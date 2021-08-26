@@ -10,49 +10,7 @@ import ModalItem from "./ModalItem";
 import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
 import { addItems, searchItems, deleteItems } from "../../../redux/actions";
-const tabledata = [
-  {
-    key: 1,
-    name: "Ivan",
-    price: 169564,
-    group: "group1",
-    creationDate: "02/01/21",
-    lastModificationDate: "09/06/02",
-  },
-  {
-    key: 2,
-    name: "Wylie",
-    price: 55483,
-    group: "group1",
-    creationDate: "09/15/08",
-    lastModificationDate: "07/05/10",
-  },
-  {
-    key: 3,
-    name: "Jakeem",
-    price: 132759,
-    group: "group1",
-    creationDate: "11/16/06",
-    lastModificationDate: "04/13/09",
-  },
-  {
-    key: 4,
-    name: "Adam",
-    price: 111594,
-    group: "group1",
-    creationDate: "10/05/18",
-    lastModificationDate: "01/12/14",
-  },
-  {
-    key: 5,
-    name: "Clayton",
-    price: 151077,
-    group: "group1",
-    creationDate: "11/05/04",
-    lastModificationDate: "09/04/19",
-  },
 
-];
 
 const SalesItem = () => {
   const [tData, setTData] = useState([]);
@@ -93,7 +51,7 @@ const SalesItem = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(tabledata);
+    setTData(salesItems);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -254,6 +212,7 @@ const SalesItem = () => {
       } else setSortCreationDate("0");
     } else if (sort === "lastModDate") {
       if (sortLastModificationDate === "0") {
+
         setSortName("0");
         setSortPrice("0");
         setSortGroup("0");
@@ -273,42 +232,51 @@ const SalesItem = () => {
   const handleModalSubmit = (
     e,
     name,
+    itemId,
     menuDesc,
     kitchenDesc,
     price,
+    price2,
+    price3,
+    price4,
     func,
     group,
     otherDesc,
     pdaDesc,
     comments,
-    modifiers
+    modifiers,
+    createdData,
+    modificationDate
   ) => {
     e.preventDefault();
     let newItem = {
       key: tData.length,
       name: name,
+      itemId: itemId,
       menuDesc: menuDesc,
       kitchenDesc: kitchenDesc,
       price: price,
+      price2,
+      price3,
+      price4,
       func: func,
       group: group,
       otherDesc: otherDesc,
       pdaDesc: pdaDesc,
       comments: comments,
       modifiers: modifiers,
-      creationDate: Date(),
-      lastModificationDate: Date(),
+      creationDate: createdData,
+      lastModificationDate: modificationDate,
     };
-    setTData((prev) => {
-      return [...prev, newItem];
-    });
+    salesItems.push(newItem)
+    console.log(salesItems)
+
     toggleModal();
     e.target.reset();
   };
-  const handleEdit = (key) => {
-    let temp = tabledata.find((x) => x.key === key);
-    
-  };
+
+
+
 
   return (
     <div id="App" style={{ width: "85%", height: "100%" }}>

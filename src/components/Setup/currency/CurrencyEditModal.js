@@ -12,12 +12,12 @@ const CurrencyEditModal = ({
   upStyle,
 }) => {
   const [currencyName, setCurrencyName] = useState('')
-  const { currencyItem } = useSelector(
+  const { currencyItems } = useSelector(
     (state) => state.postReducer
   );
   let updateCurrency = (currencyId) => {
-    if (currencyItem.length > 0) {
-      currencyItem.map((item) => {
+    if (currencyItems.length > 0) {
+      currencyItems.map((item) => {
         if (item.currencyId === currencyId) {
           if (currencyName === '') {
             item.name = currentitem.name

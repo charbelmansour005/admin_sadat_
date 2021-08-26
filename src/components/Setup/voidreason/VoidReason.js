@@ -95,7 +95,7 @@ const VoidReason = () => {
   }
 
   useEffect(() => {
-    //setTData(tabledata);
+    setTData(voidItem);
     return () => { };
   }, []);
 

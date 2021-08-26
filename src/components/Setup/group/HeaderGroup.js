@@ -7,7 +7,7 @@ const HeaderGroup = ({
   name,
   creationDate,
   lastModificationDate,
-  div,
+  division,
   sortName,
   sortCreationDate,
   sortLastModificationDate,
@@ -29,8 +29,8 @@ const HeaderGroup = ({
           )}
         </div>
         <div className="grp-div">
-          <div onClick={() => sortBy("div")} className="item-sort">
-            {div}
+          <div onClick={() => sortBy("division")} className="item-sort">
+            {division}
           </div>
           {sortDiv === "1" && (
             <ArrowDropUpIcon style={{ alignSelf: "center" }} />
