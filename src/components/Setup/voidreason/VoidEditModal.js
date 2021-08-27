@@ -12,6 +12,7 @@ const VoidEditModal = ({
     upStyle,
 }) => {
     const [voidName, setVoidName] = useState('')
+    const [branchName, setbranchName] = useState('')
     const { voidItem } = useSelector(
         (state) => state.postReducer
     );
@@ -24,6 +25,12 @@ const VoidEditModal = ({
                     }
                     else {
                         item.name = voidName
+                    }
+                    if (branchName === '') {
+                        item.branchName = currentitem.branchName
+                    }
+                    else {
+                        item.branchName = branchName
                     }
 
                 }
@@ -60,7 +67,30 @@ const VoidEditModal = ({
                             />
                         </div>
 
+                        <div className="modal-void-subtitle">Branch Exceptions</div>
+                        <div className="modal-void-desc">
+                            <div className="modal-void-desc-hor">
+                                {
+                                    !currentitem.branchName == '' ? <input onChange={() => currentitem.branchName = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.branchName = 'branch1'} type="checkbox" className="modal-check"></input>
+                                }
 
+                                Branch 1
+                            </div>
+                            <div className="modal-void-desc-hor">
+                                <input type="checkbox" className="modal-check"></input>
+
+
+                                Branch 2
+                            </div>
+                            <div className="modal-void-desc-hor">
+                                <input type="checkbox" className="modal-check"></input>
+
+
+
+                                Branch 3
+                            </div>
+                        </div>
                     </div>
                     <div className="modal-void-footer">
                         <input type="submit" onClick={() => updateVoid(currentitem.voidId)} value="Edit" className="modal-void-save" />

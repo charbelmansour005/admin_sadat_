@@ -52,8 +52,10 @@ const SalesItem = () => {
   }, [modal]);
   useEffect(() => {
     setTData(salesItems);
+    console.log(salesItems)
   }, []);
   function toggleModal() {
+
     setModal((prev) => !prev);
     setFirst(false);
   }
@@ -244,35 +246,48 @@ const SalesItem = () => {
     otherDesc,
     pdaDesc,
     comments,
-    modifiers,
+    branch,
+    print1,
+    print2,
+    print3,
+    ItemAdd,
+    ItemRemove,
+    ItemAddOn,
     createdData,
     modificationDate
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
+
       name: name,
       itemId: itemId,
       menuDesc: menuDesc,
       kitchenDesc: kitchenDesc,
       price: price,
-      price2,
-      price3,
-      price4,
+      price2: price2,
+      price3: price3,
+      price4: price4,
       func: func,
       group: group,
       otherDesc: otherDesc,
       pdaDesc: pdaDesc,
       comments: comments,
-      modifiers: modifiers,
+      branch: branch,
+      print1: print1,
+      print2: print2,
+      print3: print3,
+      ItemAdd: ItemAdd,
+      ItemRemove: ItemRemove,
+      ItemAddOn: ItemAddOn,
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };
     salesItems.push(newItem)
     console.log(salesItems)
 
+
     toggleModal();
-    e.target.reset();
+    e.target.reset()
   };
 
 
@@ -334,7 +349,6 @@ const SalesItem = () => {
           <TransitionGroup id="tg" className="item-remove-items">
             {salesItems.map(
               ({
-                key,
                 name,
                 itemId,
                 price,
@@ -342,9 +356,8 @@ const SalesItem = () => {
                 creationDate,
                 lastModificationDate,
               }) => (
-                <CSSTransition key={key} timeout={500} classNames="item-trans">
+                <CSSTransition key={itemId} timeout={500} classNames="item-trans">
                   <TableItem
-                    k={key}
                     name={name}
                     itemId={itemId}
                     price={price}

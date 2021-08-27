@@ -29,6 +29,8 @@ const ModalGroup = ({
   const [expense, setExpense] = useState('')
   const [pdaDesc, setPdaExpense] = useState('')
   const [pdaSorting, setPdaSorting] = useState('')
+  const [pdaHideMenu, setPdaHideMenu] = useState('')
+  const [groupRemark, setGroupRemark] = useState('')
   const [creationDate, setCreationDate] = useState('')
   const [modDate, setModDate] = useState('')
 
@@ -83,8 +85,11 @@ const ModalGroup = ({
             expense,
             pdaDesc,
             pdaSorting,
+            pdaHideMenu,
+            groupRemark,
             creationDate,
-            modDate
+            modDate,
+
           )
         } >
           <div className="modal-grp-header">
@@ -139,29 +144,29 @@ const ModalGroup = ({
             <div className="modal-division-subtitle">Tax + Service</div>
             <div className="modal-grp-price">
               <div className="modal-grp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="tax1" onChange={(e) => setTax1(e.target.value)} type="checkbox" className="modal-check"></input>
                 Tax1
               </div>
               <div className="modal-grp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="tax2" onChange={(e) => setTax2(e.target.value)} type="checkbox" className="modal-check"></input>
                 Tax2
               </div>
               <div className="modal-grp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="tax3" onChange={(e) => setTax3(e.target.value)} type="checkbox" className="modal-check"></input>
                 Tax3
               </div>
             </div>
             <div className="modal-grp-price">
               <div className="modal-grp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="tax4" onChange={(e) => setTax4(e.target.value)} type="checkbox" className="modal-check"></input>
                 Tax4
               </div>
               <div className="modal-grp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="tax5" onChange={(e) => setTax5(e.target.value)} type="checkbox" className="modal-check"></input>
                 Tax5
               </div>
               <div className="modal-grp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="service" onChange={(e) => setService(e.target.value)} type="checkbox" className="modal-check"></input>
                 Service
               </div>
             </div>
@@ -226,11 +231,11 @@ const ModalGroup = ({
               </div>
             </div>
             <div className="modal-grp-desc-hor">
-              <input type="checkbox" className="modal-check"></input>
+              <input value="pdaHide" onChange={(e) => setPdaHideMenu(e.target.value)} type="checkbox" className="modal-check"></input>
               Hide this group on the PDA menu
             </div>
             <div className="modal-grp-desc-hor">
-              <input type="checkbox" className="modal-check"></input>
+              <input value="isGroupRemark" onChange={(e) => setGroupRemark(e.target.value)} type="checkbox" className="modal-check"></input>
               This group is a Remark (Modify)
             </div>
           </div>

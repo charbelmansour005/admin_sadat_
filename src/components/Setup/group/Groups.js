@@ -222,12 +222,15 @@ const Groups = () => {
     expense,
     pdaDesc,
     pdasorting,
+    pdaHideMenu,
+    groupRemark,
     createdData,
-    modificationDate
+    modificationDate,
+
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
+
       name: name,
       groupId: groupId,
       othername: othername,
@@ -243,8 +246,11 @@ const Groups = () => {
       expense: expense,
       pdaDesc: pdaDesc,
       pdasorting: pdasorting,
+      pdaHideMenu: pdaHideMenu,
+      groupRemark: groupRemark,
       creationDate: createdData,
       lastModificationDate: modificationDate,
+
     };
     groupItems.push(newItem)
     console.log(groupItems)
@@ -305,10 +311,10 @@ const Groups = () => {
           />
           <TransitionGroup className="grp-remove-items">
             {groupItems.map(
-              ({ key, division, name, groupId, creationDate, lastModificationDate }) => (
-                <CSSTransition key={key} timeout={500} classNames="grp-trans">
+              ({  division, name, groupId, creationDate, lastModificationDate }) => (
+                <CSSTransition key={groupId} timeout={500} classNames="grp-trans">
                   <TableGroup
-                    key={key}
+                   
                     name={name}
                     division={division}
                     groupId={groupId}

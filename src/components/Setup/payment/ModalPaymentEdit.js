@@ -19,6 +19,7 @@ const ModalPaymentEdit = ({
   const [Commission, setCommission] = useState('')
   const [bankdeposit, setBankDeposit] = useState('')
   const [message, setMessage] = useState('')
+  const [modDate, setModDate] = useState('')
   const { paymentItem } = useSelector(
     (state) => state.postReducer
   );

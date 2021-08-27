@@ -137,6 +137,28 @@ const VoidReason = () => {
       } else setSortName("0");
     }
   };
+  const handleModalSubmit = (
+    e,
+    voidId,
+    name,
+    branchName,
+    createdDate,
+    modificationDate
+  ) => {
+    e.preventDefault();
+    let newItem = {
+      
+      voidId: voidId,
+      name: name,
+      branchName: branchName,
+      creationDate: createdDate,
+      lastModificationDate: modificationDate,
+    };
+    voidItem.push(newItem)
+    console.log(voidItem)
+    toggleModal();
+    e.target.reset();
+  };
 
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
@@ -187,8 +209,8 @@ const VoidReason = () => {
         <div className="void-table">
           <HeaderVoid name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="void-remove-items">
-            {voidItem.map(({ key, name, voidId }) => (
-              <CSSTransition key={key} timeout={500} classNames="void-trans">
+            {voidItem.map(({  name, voidId }) => (
+              <CSSTransition key={voidId} timeout={500} classNames="void-trans">
                 <TableVoid
                   voidId={voidId}
                   handleEdit={handleEdit}
@@ -203,6 +225,7 @@ const VoidReason = () => {
         <ModalVoid
           toggleClose={toggleModal}
           mod={modal}
+          handleSubmit={handleModalSubmit}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}

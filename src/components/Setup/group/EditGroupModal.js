@@ -27,6 +27,9 @@ const EditGroupModal = ({
     const [pdaDesc, setPdaDesc] = useState('')
     const [pdaSorting, setPdaSorting] = useState('')
     const [modDate, setModDate] = useState('')
+    const [groupRemark, setGroupRemark] = useState('')
+    const [pdaHide, setPdaHide] = useState('')
+
     const { groupItems } = useSelector(
         (state) => state.postReducer
     );
@@ -95,6 +98,7 @@ const EditGroupModal = ({
                     else {
                         item.modDate = modDate
                     }
+
                 }
             })
         }
@@ -180,32 +184,47 @@ const EditGroupModal = ({
                         <div className="modal-division-subtitle">Tax + Service</div>
                         <div className="modal-grp-price">
                             <div className="modal-grp-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
+                                {
+                                    !currentitem.tax1 == '' ? <input onChange={() => currentitem.tax1 = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.tax1 = 'tax1'} type="checkbox" className="modal-check"></input>
+                                }
                                 Tax1
                             </div>
                             <div className="modal-grp-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
+                                {
+                                    !currentitem.tax2 == '' ? <input onChange={() => currentitem.tax2 = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.tax2 = 'tax2'} type="checkbox" className="modal-check"></input>
+                                }
                                 Tax2
                             </div>
                             <div className="modal-grp-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
+                                {
+                                    !currentitem.tax3 == '' ? <input onChange={() => currentitem.tax3 = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.tax3 = 'tax3'} type="checkbox" className="modal-check"></input>
+                                }
                                 Tax3
                             </div>
                         </div>
                         <div className="modal-grp-price">
                             <div className="modal-grp-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
+                                {
+                                    !currentitem.tax4 == '' ? <input onChange={() => currentitem.tax4 = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.tax4 = 'tax4'} type="checkbox" className="modal-check"></input>
+                                }
                                 Tax4
                             </div>
                             <div className="modal-grp-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
+                                {
+                                    !currentitem.tax5 == '' ? <input onChange={() => currentitem.tax5 = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.tax5 = 'tax5'} type="checkbox" className="modal-check"></input>
+                                }
                                 Tax5
                             </div>
                             <div className="modal-grp-desc-hor">
-                                <input
-                                    defaultValue={currentitem.service}
-                                    onChange={(e) => setService(e.target.value)}
-                                    type="checkbox" className="modal-check"></input>
+                                {
+                                    !currentitem.service == '' ? <input onChange={() => currentitem.service = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                        <input onChange={() => currentitem.service = 'service'} type="checkbox" className="modal-check"></input>
+                                }
                                 Service
                             </div>
                         </div>
@@ -272,11 +291,17 @@ const EditGroupModal = ({
                             </div>
                         </div>
                         <div className="modal-grp-desc-hor">
-                            <input type="checkbox" className="modal-check"></input>
+                            {
+                                !currentitem.pdaHideMenu == '' ? <input onChange={() => currentitem.pdaHideMenu = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                    <input onChange={() => currentitem.pdaHideMenu = 'pdaHide'} type="checkbox" className="modal-check"></input>
+                            }
                             Hide this group on the PDA menu
                         </div>
                         <div className="modal-grp-desc-hor">
-                            <input type="checkbox" className="modal-check"></input>
+                            {
+                                !currentitem.groupRemark == '' ? <input onChange={() => currentitem.groupRemark = ''} defaultChecked type="checkbox" className="modal-check"></input> :
+                                    <input onChange={() => currentitem.groupRemark = 'isGroupRemark'} type="checkbox" className="modal-check"></input>
+                            }
                             This group is a Remark (Modify)
                         </div>
                     </div>

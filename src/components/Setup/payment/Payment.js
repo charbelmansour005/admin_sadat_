@@ -273,8 +273,8 @@ const Payment = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="pay-remove-items">
-            {paymentItem.map(({ key, name, paymentType, accountNumber, paymentId,paymentStatus }) => (
-              <CSSTransition key={key} timeout={500} classNames="pay-trans">
+            {paymentItem.map(({  name, paymentType, accountNumber, paymentId,paymentStatus }) => (
+              <CSSTransition key={paymentId} timeout={500} classNames="pay-trans">
                 <TablePayment
                   name={name}
                   paymentType={paymentType}

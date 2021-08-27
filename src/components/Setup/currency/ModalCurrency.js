@@ -1,22 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../../styles/Currency.css";
 import CloseIcon from "@material-ui/icons/Close";
-
+import { useDispatch, useSelector } from "react-redux";
 const ModalCurrency = ({
   mod,
   mountedStyle,
   toggleClose,
   downStyle,
+  handleSubmit,
   unmountedStyle,
   upStyle,
 }) => {
+  const { currencyItems } = useSelector(
+    (state) => state.postReducer
+  );
+  const [currencyName, setCurrencyName] = useState('')
+  const [symbol, setSymbol] = useState('')
+  const [creationDate, setCreationDate] = useState('')
+  const [modDate, setModDate] = useState('')
+  useEffect(() => {
+    getCreatedDate()
+    getModificationDate()
+  }, []);
+
+  let getCreatedDate = () => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+    var completeDateFormat = date + "/" + month + "/" + year;
+    setCreationDate(completeDateFormat)
+
+
+  }
+  let getModificationDate = () => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+    var completeDateFormat = date + "/" + month + "/" + year;
+
+    setModDate(completeDateFormat)
+  }
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
       className="modal-cur-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-cur">
-        <form className="modal-cur-form" type="submit">
+        <form className="modal-cur-form" type="submit" onSubmit={(e) =>
+          handleSubmit(
+            e,
+            currencyItems.length + 1,
+            currencyName,
+            symbol,
+            creationDate,
+            modDate
+          )
+        }>
           <div className="modal-cur-header">
             Add New Currency
             <div onClick={() => toggleClose()}>
@@ -29,6 +74,7 @@ const ModalCurrency = ({
               <div className="modal-cur-desc">
                 Description*
                 <input
+                  onChange={(e) => setCurrencyName(e.target.value)}
                   required
                   placeholder="Currency description"
                   className="modal-cur-desc-input"
@@ -37,6 +83,7 @@ const ModalCurrency = ({
               <div className="modal-cur-desc">
                 Symbol*
                 <input
+                  onChange={(e) => setSymbol(e.target.value)}
                   required
                   placeholder="Currency symbol"
                   className="modal-cur-price-input"

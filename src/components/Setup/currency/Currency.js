@@ -136,7 +136,28 @@ const Currency = (props) => {
       } else setSortName("0");
     }
   };
-
+  const handleModalSubmit = (
+    e,
+    currencyId,
+    name,
+    symbol,
+    createdDate,
+    modificationDate
+  ) => {
+    e.preventDefault();
+    let newItem = {
+      key: tData.length,
+      currencyId: currencyId,
+      name: name,
+      symbol: symbol,
+      creationDate: createdDate,
+      lastModificationDate: modificationDate,
+    };
+    currencyItems.push(newItem)
+    console.log(currencyItems)
+    toggleModal();
+    e.target.reset();
+  };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="cur-title">Currency</h1>
@@ -179,10 +200,10 @@ const Currency = (props) => {
         <div className="cur-table">
           <HeaderCurrency name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="cur-remove-items">
-            {currencyItems.map(({ key, name, currencyId, symbol }) => (
-              <CSSTransition key={key} timeout={500} classNames="cur-trans">
+            {currencyItems.map(({  name, currencyId, symbol }) => (
+              <CSSTransition key={currencyId} timeout={500} classNames="cur-trans">
                 <TableCurrency
-                  key={key}
+                 
                   name={name}
                   currencyId={currencyId}
                   symbol={symbol}
@@ -197,6 +218,7 @@ const Currency = (props) => {
         <ModalCurrency
           toggleClose={toggleModal}
           mod={modal}
+          handleSubmit={handleModalSubmit}
           mountedStyle={mountedStyle}
           unmountedStyle={unmountedStyle}
           downStyle={downStyle}

@@ -206,7 +206,7 @@ const Categories = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
+   
       catId: catId,
       pDefinedCat: pDefinedCat,
       name: name,
@@ -270,11 +270,11 @@ const Categories = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="cat-remove-items">
-            {catItem.map(({ key, catId, name, creationDate, lastModificationDate }) => (
+            {catItem.map(({  catId, name, creationDate, lastModificationDate }) => (
 
-              <CSSTransition key={key} timeout={500} classNames="cat-trans">
+              <CSSTransition key={catId} timeout={500} classNames="cat-trans">
                 <TableCategory
-                  key={key}
+                  
                   name={name}
                   catId={catId}
                   creationDate={creationDate}

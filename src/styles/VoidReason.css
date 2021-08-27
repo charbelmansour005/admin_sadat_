@@ -329,6 +329,7 @@ p {
 
 .modal-void-desc {
   margin: 10px;
+
   display: flex;
   flex-direction: column;
 }

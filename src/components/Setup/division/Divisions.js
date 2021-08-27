@@ -278,14 +278,14 @@ const Divisions = () => {
           />
           <TransitionGroup className="division-remove-items">
             {divisionItems.map(
-              ({ key, category, name, divisionId, creationDate, lastModificationDate }) => (
+              ({ category, name, divisionId, creationDate, lastModificationDate }) => (
                 <CSSTransition
-                  key={key}
+                  key={divisionId}
                   timeout={500}
                   classNames="division-trans"
                 >
                   <TableDivision
-                    key={key}
+
                     name={name}
                     divisionId={divisionId}
                     category={category}

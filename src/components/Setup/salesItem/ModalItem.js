@@ -3,6 +3,9 @@ import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from 'react-moment'
 import { useDispatch, useSelector } from "react-redux";
+import { itemAdd, itemRemove, itemAddOn } from '../../../data/modules'
+import { prettyDOM } from "@testing-library/react";
+import { PermDeviceInformation } from "@material-ui/icons";
 const ModalItem = ({
   m,
   mod,
@@ -20,14 +23,31 @@ const ModalItem = ({
   const [price2, setPrice2] = useState('');
   const [price3, setPrice3] = useState('');
   const [price4, setPrice4] = useState('');
+  const [print1, setPrint1] = useState('')
+  const [print2, setPrint2] = useState('')
+  const [print3, setPrint3] = useState('')
   const [func, setFunc] = useState("");
   const [group, setGroup] = useState("");
   const [otherDesc, setOtherDesc] = useState("");
   const [pdaDesc, setPdaDesc] = useState("");
   const [comments, setComments] = useState("");
+  const [branch, setbranch] = useState("");
   const [creationDate, setCreationDate] = useState('')
   const [modDate, setModDate] = useState('')
   const [modifiers, setModifiers] = useState([]);
+  const [addMod, setAddMod] = useState('')
+  const [addModPrice, setAddPrice] = useState('')
+  const [isAddMand, setAddMand] = useState('')
+  const [isRemoveMand, setRemoveMand] = useState('')
+  const [isAddOnMand, setAddOnMand] = useState('')
+  const [removeMod, setRemoveMod] = useState('')
+  const [removeModPrice, setRemovePrice] = useState('')
+  const [addOnMod, setAddOnMod] = useState('')
+  const [addOnModPrice, setAddOnPrice] = useState('')
+  const [ItemAdd, setItemAdd] = useState([])
+  const [ItemRemove, setItemRemove] = useState([])
+  const [ItemAddOn, setItemAddOn] = useState([])
+
   const { salesItems } = useSelector(
     (state) => state.postReducer
   );
@@ -57,7 +77,59 @@ const ModalItem = ({
   useEffect(() => {
     getCreatedDate()
     getModificationDate()
+
   }, []);
+
+  let addModifiers = () => {
+    var modAdd = Object.create(itemAdd)
+    modAdd.specs = addMod
+    modAdd.categ = "ADD"
+    modAdd.descption = addMod
+    modAdd.cmt = ''
+    modAdd.price = addModPrice
+    modAdd.isMand = isAddMand
+
+    var modRemove = Object.create(itemRemove)
+    modRemove.specs = removeMod
+    modRemove.categ = "REMOVE"
+    modRemove.descption = removeMod
+    modRemove.cmt = ''
+    modRemove.price = removeModPrice
+    modRemove.isMand = isRemoveMand
+
+    var modAddOn = Object.create(itemAddOn)
+    modAddOn.specs = addOnMod
+    modAddOn.categ = "ADDON"
+    modAddOn.descption = addOnMod
+    modAddOn.cmt = ''
+    modAddOn.price = addOnModPrice
+    modAddOn.isMand = isAddOnMand
+
+
+    if (!addMod == '') {
+      ItemAdd.push(modAdd)
+    }
+    else {
+      setItemAdd([])
+    }
+
+    if (!removeMod == '') {
+      ItemRemove.push(modRemove)
+    }
+    else {
+      setItemRemove([])
+    }
+    if (!addOnMod == '') {
+      ItemAddOn.push(modAddOn)
+    }
+    else {
+      setItemAddOn([])
+    }
+
+
+
+  }
+
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
@@ -67,6 +139,7 @@ const ModalItem = ({
         <form
           className="modal-item-form"
           type="submit"
+
           onSubmit={(e) =>
             handleSubmit(
               e,
@@ -83,7 +156,13 @@ const ModalItem = ({
               otherDesc,
               pdaDesc,
               comments,
-              modifiers,
+              branch,
+              print1,
+              print2,
+              print3,
+              ItemAdd,
+              ItemRemove,
+              ItemAddOn,
               creationDate,
               modDate
             )
@@ -91,13 +170,12 @@ const ModalItem = ({
         >
           <div className="modal-item-header">
             Add New Item
-            <div onClick={() => toggleClose()}>
+            <div onClick={()=>toggleClose()}>
               <CloseIcon className="modal-item-close" />
             </div>
           </div>
           <div className="modal-item-body">
             <div className="modal-item-subtitle">General</div>
-
             <div className="modal-item-desc">
               Description*
               <input
@@ -244,7 +322,7 @@ const ModalItem = ({
             <div className="modal-item-function">
 
               <div className="modal-item-desc">
-                <select defaultValue={""} className="modal-item-function-input">
+                <select onChange={(e) => setbranch(e.target.value)} defaultValue={""} className="modal-item-function-input">
                   <option value="" disabled>
                     Select branch
                   </option>
@@ -268,7 +346,10 @@ const ModalItem = ({
 
               <div className="modal-item-desc">
                 Print Out 1
-                <select className="modal-item-print-input">
+                <select defaultValue={""} onChange={(e) => setPrint1(e.target.value)} className="modal-item-print-input">
+                  <option defaultValue selected value="" disabled>
+                    Select Print 1
+                  </option>
                   <option className="modal-item-function-option" value="1">
                     1
                   </option>
@@ -282,7 +363,10 @@ const ModalItem = ({
               </div>
               <div className="modal-item-desc">
                 Print Out 2
-                <select className="modal-item-print-input">
+                <select defaultValue={""} onChange={(e) => setPrint2(e.target.value)} className="modal-item-print-input">
+                  <option defaultValue selected value="" disabled>
+                    Select Print 2
+                  </option>
                   <option className="modal-item-function-option" value="1">
                     1
                   </option>
@@ -296,7 +380,10 @@ const ModalItem = ({
               </div>
               <div className="modal-item-desc">
                 Print Out 3
-                <select className="modal-item-print-input">
+                <select defaultValue={""} onChange={(e) => setPrint3(e.target.value)} className="modal-item-print-input">
+                  <option value="" selected defaultValue disabled>
+                    Select Print 3
+                  </option>
                   <option className="modal-item-function-option" value="1">
                     1
                   </option>
@@ -317,18 +404,12 @@ const ModalItem = ({
                 Modifier 1
               </div>
               <select
-                onChange={(e) =>
-                  setModifiers((prev) => {
-                    let arr = prev;
-                    arr[0] = e.target.value;
-                    return arr;
-                  })
-                }
+                onChange={(e) => setAddMod(e.target.value)}
                 defaultValue={""}
                 className="modal-item-function-input"
               >
-                <option value="" disabled>
-                  Null
+                <option value="" disabled defaultValue selected>
+                  Select Add
                 </option>
                 <option className="modal-item-function-option" value="1">
                   1
@@ -340,9 +421,9 @@ const ModalItem = ({
                   3
                 </option>
               </select>
-              <input placeholder="0" className="modal-item-price-input" />
+              <input onChange={(e) => setAddPrice(e.target.value)} placeholder="0" className="modal-item-price-input" />
               <div className="modal-item-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="isMandantory" onChange={(e) => setAddMand(e.target.value)} type="checkbox" className="modal-check"></input>
                 Mandatory
               </div>
             </div>
@@ -353,18 +434,12 @@ const ModalItem = ({
                 Modifier 2
               </div>
               <select
-                onChange={(e) =>
-                  setModifiers((prev) => {
-                    let arr = prev;
-                    arr[1] = e.target.value;
-                    return arr;
-                  })
-                }
+                onChange={(e) => setRemoveMod(e.target.value)}
                 defaultValue={""}
                 className="modal-item-function-input"
               >
-                <option disabled value="">
-                  Null
+                <option selected defaultValue disabled value="">
+                  Select Remove
                 </option>
                 <option className="modal-item-function-option" value="1">
                   1
@@ -376,9 +451,9 @@ const ModalItem = ({
                   3
                 </option>
               </select>
-              <input placeholder="0" className="modal-item-price-input" />
+              <input onChange={(e) => setRemovePrice(e.target.value)} placeholder="0" className="modal-item-price-input" />
               <div className="modal-item-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="isMandantory" onChange={(e) => setRemoveMand(e.target.value)} type="checkbox" className="modal-check"></input>
                 Mandatory
               </div>
             </div>
@@ -389,18 +464,12 @@ const ModalItem = ({
                 Modifier 3
               </div>
               <select
-                onChange={(e) =>
-                  setModifiers((prev) => {
-                    let arr = prev;
-                    arr[2] = e.target.value;
-                    return arr;
-                  })
-                }
+                onChange={(e) => setAddOnMod(e.target.value)}
                 defaultValue={""}
                 className="modal-item-function-input"
               >
-                <option disabled value="">
-                  Null
+                <option selected defaultValue disabled value="">
+                  Select AddOn
                 </option>
                 <option className="modal-item-function-option" value="1">
                   1
@@ -412,16 +481,16 @@ const ModalItem = ({
                   3
                 </option>
               </select>
-              <input placeholder="0" className="modal-item-price-input" />
+              <input onChange={(e) => setAddOnPrice(e.target.value)} placeholder="0" className="modal-item-price-input" />
               <div className="modal-item-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="isMandantory" onChange={(e) => setAddOnMand(e.target.value)} type="checkbox" className="modal-check"></input>
                 Mandatory
               </div>
 
             </div>
           </div>
           <div className="modal-item-footer">
-            <input type="submit" value="Save" className="modal-item-save" />
+            <input type="submit" value="Save"  className="modal-item-save" />
           </div>
         </form>
       </div>

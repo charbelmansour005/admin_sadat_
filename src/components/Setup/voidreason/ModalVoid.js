@@ -1,24 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../../styles/VoidReason.css";
 import CloseIcon from "@material-ui/icons/Close";
-
+import { useDispatch, useSelector } from "react-redux";
 const ModalVoid = ({
   mod,
   mountedStyle,
   toggleClose,
   downStyle,
+  handleSubmit,
   unmountedStyle,
   upStyle,
 }) => {
+  const { voidItem } = useSelector(
+    (state) => state.postReducer
+  );
+  const [voidName, setVoidName] = useState('')
+  const [branchName, setBranchName] = useState('')
+  const [creationDate, setCreationDate] = useState('')
+  const [modDate, setModDate] = useState('')
+  useEffect(() => {
+    getCreatedDate()
+    getModificationDate()
+  }, []);
+
+  let getCreatedDate = () => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+    var completeDateFormat = date + "/" + month + "/" + year;
+    setCreationDate(completeDateFormat)
+
+
+  }
+  let getModificationDate = () => {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+    var completeDateFormat = date + "/" + month + "/" + year;
+
+    setModDate(completeDateFormat)
+  }
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
       className="modal-void-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-void">
-        <form className="modal-void-form" type="submit">
+        <form className="modal-void-form" type="submit" onSubmit={(e) =>
+          handleSubmit(
+            e,
+            voidItem.length + 1,
+            voidName,
+            branchName,
+            creationDate,
+            modDate
+          )
+        }>
           <div className="modal-void-header">
-            Add New Payment Type
+            Add New Void Reason
             <div onClick={() => toggleClose()}>
               <CloseIcon className="modal-void-close" />
             </div>
@@ -29,6 +74,7 @@ const ModalVoid = ({
               Description*
               <input
                 required
+                onChange={(e) => setVoidName(e.target.value)}
                 placeholder="Void description"
                 className="modal-void-desc-input"
               />
@@ -36,15 +82,15 @@ const ModalVoid = ({
             <div className="modal-void-subtitle">Branch Exceptions</div>
             <div className="modal-void-desc">
               <div className="modal-void-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="branch1" onChange={(e) => setBranchName(e.target.value)} type="checkbox" className="modal-check"></input>
                 Branch 1
               </div>
               <div className="modal-void-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="branch2" onChange={(e) => setBranchName(e.target.value)} type="checkbox" className="modal-check"></input>
                 Branch 2
               </div>
               <div className="modal-void-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="branch3" onChange={(e) => setBranchName(e.target.value)} type="checkbox" className="modal-check"></input>
                 Branch 3
               </div>
             </div>

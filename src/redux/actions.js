@@ -31,65 +31,10 @@ const paymentData = [
 
 ];
 const voidData = [
-    {
-        key: 1,
-        name: "Ivan",
-        voidId: "1",
-        price: 169564,
-        group: "Imperdiet Institute",
-        creationDate: "02/01/21",
-        lastModificationDate: "09/06/02",
-    },
-    {
-        key: 2,
-        name: "Wylie",
-        price: 55483,
-        voidId: "2",
-        group: "Aliquam Ornare Incorporated",
-        creationDate: "09/15/08",
-        lastModificationDate: "07/05/10",
-    },
-    {
-        key: 3,
-        name: "Jakeem",
-        price: 132759,
-        voidId: "3",
-        group: "Nascetur LLP",
-        creationDate: "11/16/06",
-        lastModificationDate: "04/13/09",
-    },
+
 
 ];
 const currencyData = [
-    {
-        key: 1,
-        name: "Ivan",
-        currencyId: "1",
-        symbol: 169564,
-
-    },
-    {
-        key: 2,
-        name: "Wylie",
-        currencyId: "2",
-        symbol: 55483,
-
-    },
-    {
-        key: 3,
-        name: "Jakeem",
-        symbol: 132759,
-        currencyId: "3",
-
-    },
-    {
-        key: 4,
-        name: "Adam",
-        symbol: 111594,
-        currencyId: "4",
-
-    },
-
 ];
 const salesItemData = [
 ];

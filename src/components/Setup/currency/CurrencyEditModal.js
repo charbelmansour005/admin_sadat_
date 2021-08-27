@@ -12,6 +12,7 @@ const CurrencyEditModal = ({
   upStyle,
 }) => {
   const [currencyName, setCurrencyName] = useState('')
+  const [symbol, setSymbol] = useState('')
   const { currencyItems } = useSelector(
     (state) => state.postReducer
   );
@@ -24,6 +25,12 @@ const CurrencyEditModal = ({
           }
           else {
             item.name = currencyName
+          }
+          if (symbol === '') {
+            item.symbol = currentitem.symbol
+          }
+          else {
+            item.symbol = symbol
           }
 
         }
@@ -60,14 +67,16 @@ const CurrencyEditModal = ({
                   className="modal-cur-desc-input"
                 />
               </div>
-              {/* <div className="modal-cur-desc">
+              <div className="modal-cur-desc">
                 Symbol*
                 <input
+                  defaultValue={currentitem.symbol}
+                  onChange={(e) => setSymbol(e.target.value)}
                   required
                   placeholder="Currency symbol"
                   className="modal-cur-price-input"
                 />
-              </div> */}
+              </div>
             </div>
           </div>
           <div className="modal-cur-footer">

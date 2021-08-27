@@ -23,6 +23,11 @@
   overflow-y: auto;
 }
 
+.defaultValue{
+  color:lightgray;
+  font-size: small;
+}
+
 .item-search-box {
   border-color: var(--border);
   height: fit-content;
