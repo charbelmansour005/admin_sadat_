@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/Hm.css";
 import { Switch, Route, Link, HashRouter } from "react-router-dom";
 import history from "../history";
@@ -15,10 +15,9 @@ import Payment from "../Setup/payment/Payment";
 import VoidReason from "../Setup/voidreason/VoidReason";
 import Groups from "../Setup/group/Groups";
 import Divisions from "../Setup/division/Divisions";
-
+import Employees from "../Employees/Employees";
 
 const Hm = () => {
-
   const closed = { animation: "closeAnimation 300ms ease-in" };
   const open = {
     animation: "openAnimation 300ms ease-in ",
@@ -35,7 +34,6 @@ const Hm = () => {
   const [index04, setIndex04] = useState(false);
   const [index05, setIndex05] = useState(false);
   const [index11, setIndex11] = useState(false);
-  const [index12, setIndex12] = useState(false);
   const [index13, setIndex13] = useState(false);
   const [index14, setIndex14] = useState(false);
   return (
@@ -144,17 +142,14 @@ const Hm = () => {
                   Currencies
                 </Link>
               </div>
-              <div className="index">
-                <div
-                  onClick={() => {
-                    setIndex12((prev) => !prev);
-                  }}
-                  className="index1"
-                  style={index01 ? slideOpen : slideClosed}
-                >
-                  Employees <ArrowRightIcon style={index12 ? open : closed} />
-                </div>
-              </div>
+
+              <Link
+                to="/Employees"
+                className="index1"
+                style={index01 ? slideOpen : slideClosed}
+              >
+                Employees
+              </Link>
               <div className="index">
                 <div
                   onClick={() => {
@@ -259,6 +254,7 @@ const Hm = () => {
               <Route path="/Currency" component={Currency} />
               <Route path="/Groups" component={Groups} />
               <Route path="/Divisions" component={Divisions} />
+              <Route path="/Employees" component={Employees} />
             </Switch>
           </div>
         </div>

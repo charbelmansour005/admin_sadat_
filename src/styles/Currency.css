@@ -169,7 +169,7 @@ p {
   text-align: center;
   display: flex;
 }
-.cur-symbol{
+.cur-symbol {
   font-family: "Ubuntu";
   width: 350px;
   justify-content: center;
@@ -471,12 +471,10 @@ p {
 
 @keyframes inAnimation {
   0% {
-    transform: translateY(-20%);
     opacity: 0;
     visibility: hidden;
   }
   100% {
-    transform: translateY(0%);
     opacity: 1;
     visibility: visible;
   }
