@@ -10,7 +10,7 @@ const SalesEditModal = ({
     downStyle,
     upStyle,
     currentitem,
-    handleSubmit,
+ 
 }) => {
     const [name, setName] = useState('');
     const [menuDesc, setMenuDesc] = useState('');
@@ -155,15 +155,12 @@ const SalesEditModal = ({
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
-        var hour = new Date().getHours();
-        var minutes = new Date().getMinutes();
-        var seconds = new Date().getSeconds();
         var completeDateFormat = date + "/" + month + "/" + year;
 
         setModDate(completeDateFormat)
     }
     useEffect(() => {
-        console.log(currentitem)
+    
         getModificationDate()
     }, []);
     return (

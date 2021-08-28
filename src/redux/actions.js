@@ -19,7 +19,12 @@ export const SEARCH_CURRENCY = "SEARCH_CURRENCY"
 export const SEARCH_ITEMS = "SEARCH_ITEMS"
 export const SEARCH_GROUPS = "SEARCH_GROUPS"
 export const SEARCH_DIVISION = "SEARCH_DIVISION"
-
+export const ADD_MODIFIER = "ADD_MODIFIER"
+export const REMOVE_MODIFIER = "REMOVE_MODIFIER"
+export const ADDON_MODIFIER = "ADDON_MODIFIER"
+export const CLEAR_ADD = "CLEAR_ADD"
+export const CLEAR_REMOVE = "CLEAR_REMOVE"
+export const CLEAR_ADDON = "CLEAR_ADDON"
 
 
 const tabledata = [
@@ -46,6 +51,8 @@ const divisionData = [
 
 
 ];
+
+
 export const catPost = () => {
     try {
         return async (dispatch) => {
@@ -302,6 +309,79 @@ export const deleteDivisions = (id) => {
             dispatch({
                 type: DELETE_DIVISION,
                 payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addModifier = (item) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: ADD_MODIFIER,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const removeModifier = (item) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: REMOVE_MODIFIER,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const addOnModifier = (item) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: ADDON_MODIFIER,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const clearAddMod = () => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: CLEAR_ADD,
+                payload: []
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const clearRemoveMod = () => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: CLEAR_REMOVE,
+                payload: []
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const clearAddOnMod = () => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: CLEAR_ADDON,
+                payload: []
             })
         }
     } catch (error) {

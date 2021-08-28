@@ -1,6 +1,6 @@
 
 
-import { EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION } from "./actions";
+import { CLEAR_ADD, CLEAR_REMOVE, CLEAR_ADDON, EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION, ADDON_MODIFIER, ADD_MODIFIER, REMOVE_MODIFIER } from "./actions";
 
 const initialState = {
   catItem: [],
@@ -9,7 +9,10 @@ const initialState = {
   currencyItems: [],
   salesItems: [],
   groupItems: [],
-  divisionItems: []
+  divisionItems: [],
+  ItemAdd: [],
+  ItemRemove: [],
+  ItemAddOn: []
 
 };
 
@@ -130,6 +133,36 @@ function postReducer(state = initialState, action) {
       return {
         ...state, currencyItems: state.currencyItems.filter((data) => data.currencyId !== action.payload)
       }
+
+    case ADD_MODIFIER:
+      return {
+        ...state,
+        ItemAdd: action.payload,
+      };
+    case REMOVE_MODIFIER:
+      return {
+        ...state,
+        ItemRemove: action.payload,
+      };
+    case ADDON_MODIFIER:
+      return {
+        ...state,
+        ItemAddOn: action.payload,
+      };
+    case CLEAR_ADD:
+      return {
+        ...state, ItemAdd: action.payload
+      }
+    case CLEAR_REMOVE:
+      return {
+        ...state, ItemRemove: action.payload
+      }
+
+    case CLEAR_ADDON:
+      return {
+        ...state, ItemAddOn: action.payload
+      }
+
 
     default:
       return state;

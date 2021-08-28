@@ -4,8 +4,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import moment from 'react-moment'
 import { useDispatch, useSelector } from "react-redux";
 import { itemAdd, itemRemove, itemAddOn } from '../../../data/modules'
-import { prettyDOM } from "@testing-library/react";
-import { PermDeviceInformation } from "@material-ui/icons";
+import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
 const ModalItem = ({
   m,
   mod,
@@ -15,6 +14,7 @@ const ModalItem = ({
   downStyle,
   upStyle,
   handleSubmit,
+
 }) => {
   const [name, setName] = useState("");
   const [menuDesc, setMenuDesc] = useState("");
@@ -34,7 +34,6 @@ const ModalItem = ({
   const [branch, setbranch] = useState("");
   const [creationDate, setCreationDate] = useState('')
   const [modDate, setModDate] = useState('')
-  const [modifiers, setModifiers] = useState([]);
   const [addMod, setAddMod] = useState('')
   const [addModPrice, setAddPrice] = useState('')
   const [isAddMand, setAddMand] = useState('')
@@ -44,20 +43,22 @@ const ModalItem = ({
   const [removeModPrice, setRemovePrice] = useState('')
   const [addOnMod, setAddOnMod] = useState('')
   const [addOnModPrice, setAddOnPrice] = useState('')
-  const [ItemAdd, setItemAdd] = useState([])
-  const [ItemRemove, setItemRemove] = useState([])
-  const [ItemAddOn, setItemAddOn] = useState([])
 
-  const { salesItems } = useSelector(
+
+  const dispatch = useDispatch();
+  const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
     (state) => state.postReducer
   );
+  const addModifiers = (item) => dispatch(addModifier(item));
+  const removeModifiers = (item) => dispatch(removeModifier(item));
+  const addOnModifiers = (item) => dispatch(addOnModifier(item));
+  const clearAdd = () => dispatch(clearAddMod());
+  const clearRemove = () => dispatch(clearRemoveMod());
+  const clearAddOn = () => dispatch(clearAddOnMod());
   let getCreatedDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();
-    var hour = new Date().getHours();
-    var minutes = new Date().getMinutes();
-    var seconds = new Date().getSeconds();
     var completeDateFormat = date + "/" + month + "/" + year;
     setCreationDate(completeDateFormat)
 
@@ -67,9 +68,6 @@ const ModalItem = ({
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();
-    var hour = new Date().getHours();
-    var minutes = new Date().getMinutes();
-    var seconds = new Date().getSeconds();
     var completeDateFormat = date + "/" + month + "/" + year;
 
     setModDate(completeDateFormat)
@@ -78,9 +76,11 @@ const ModalItem = ({
     getCreatedDate()
     getModificationDate()
 
+
   }, []);
 
-  let addModifiers = () => {
+  let pushModifiers = () => {
+
     var modAdd = Object.create(itemAdd)
     modAdd.specs = addMod
     modAdd.categ = "ADD"
@@ -106,37 +106,44 @@ const ModalItem = ({
     modAddOn.isMand = isAddOnMand
 
 
-    if (!addMod == '') {
-      ItemAdd.push(modAdd)
+
+    if (addMod === '') {
+      clearAdd()
     }
     else {
-      setItemAdd([])
+      addModifiers(modAdd)
     }
 
-    if (!removeMod == '') {
-      ItemRemove.push(modRemove)
+    if (removeMod === '') {
+      clearRemove()
+    } else {
+      removeModifiers(modRemove)
+    }
+    if (addOnMod === '') {
+      clearAddOn()
     }
     else {
-      setItemRemove([])
-    }
-    if (!addOnMod == '') {
-      ItemAddOn.push(modAddOn)
-    }
-    else {
-      setItemAddOn([])
+      addOnModifiers(modAddOn)
     }
 
+
+
+    setAddMod('')
+    setRemoveMod('')
+    setAddOnMod('')
 
 
   }
 
   return (
     <div
+
       style={mod ? mountedStyle : unmountedStyle}
       className="modal-item-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-item">
         <form
+
           className="modal-item-form"
           type="submit"
 
@@ -170,7 +177,7 @@ const ModalItem = ({
         >
           <div className="modal-item-header">
             Add New Item
-            <div onClick={()=>toggleClose()}>
+            <div onClick={() => toggleClose()}>
               <CloseIcon className="modal-item-close" />
             </div>
           </div>
@@ -217,23 +224,23 @@ const ModalItem = ({
                   placeholder="0"
                   className="modal-item-price-input"
                 />
-                <input value={price} className="modal-item-price-input" />
+                {/* <input value={price} className="modal-item-price-input" /> */}
               </div>
               <div className="modal-item-desc">
                 Price 2
 
                 <input onChange={(e) => setPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
-                <input value={price2} className="modal-item-price-input" />
+                {/* <input value={price2} className="modal-item-price-input" /> */}
               </div>
               <div className="modal-item-desc">
                 Price 3
                 <input onChange={(e) => setPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
-                <input value={price3} className="modal-item-price-input" />
+                {/* <input value={price3} className="modal-item-price-input" /> */}
               </div>
               <div className="modal-item-desc">
                 Price 4
                 <input onChange={(e) => setPrice4(e.target.value)} placeholder="0" className="modal-item-price-input" />
-                <input value={price4} className="modal-item-price-input" />
+                {/* <input value={price4} className="modal-item-price-input" /> */}
               </div>
             </div>
 
@@ -490,7 +497,7 @@ const ModalItem = ({
             </div>
           </div>
           <div className="modal-item-footer">
-            <input type="submit" value="Save"  className="modal-item-save" />
+            <input type="submit" value="Save" onClick={() => pushModifiers()} className="modal-item-save" />
           </div>
         </form>
       </div>

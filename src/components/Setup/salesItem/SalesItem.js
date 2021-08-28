@@ -9,7 +9,7 @@ import "../../../styles/Items.css";
 import ModalItem from "./ModalItem";
 import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
-import { addItems, searchItems, deleteItems } from "../../../redux/actions";
+import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
 
 
 const SalesItem = () => {
@@ -23,15 +23,29 @@ const SalesItem = () => {
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({})
   const [modalEdit, setModalEdit] = useState(false)
+
   const dispatch = useDispatch();
-  const { salesItems } = useSelector(
+  const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
     (state) => state.postReducer
   );
   const addItem = () => dispatch(addItems());
   const deleteItem = (id) => dispatch(deleteItems(id));
   const searchItem = (name) => dispatch(searchItems(name));
+  const clearAdd = () => dispatch(clearAddMod());
+  const clearRemove = () => dispatch(clearRemoveMod());
+  const clearAddOn = () => dispatch(clearAddOnMod());
   useEffect(() => {
     addItem()
+    if (ItemAdd.length > 0) {
+      clearAdd()
+    }
+    if (ItemRemove.length > 0) {
+      clearRemove()
+    }
+    if (ItemAddOn.length > 0) {
+      clearAddOn()
+    }
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -44,6 +58,7 @@ const SalesItem = () => {
     };
   }, [modal]);
   useEffect(() => {
+
     if (modal) {
       document.getElementById("search-text").tabIndex = -1;
     } else {
@@ -52,7 +67,8 @@ const SalesItem = () => {
   }, [modal]);
   useEffect(() => {
     setTData(salesItems);
-    console.log(salesItems)
+
+
   }, []);
   function toggleModal() {
 
@@ -383,6 +399,7 @@ const SalesItem = () => {
           downStyle={downStyle}
           upStyle={upStyle}
           handleSubmit={handleModalSubmit}
+
         />
       ) : null}
 
