@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
-import moment from 'react-moment'
+
 import { useDispatch, useSelector } from "react-redux";
 import { itemAdd, itemRemove, itemAddOn } from '../../../data/modules'
 import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
