@@ -1,26 +1,23 @@
 import { useState, useEffect } from "react";
-import "../../App.css";
-import ModalEmployee from "./ModalEmployee";
+import "../../../App.css";
+import ModalRole from "./ModalRole";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "../../styles/Employees.css";
-import TableEmployee from "./TableEmployee";
-import HeaderEmployee from "./HeaderEmployee";
+import "../../../styles/Roles.css";
+import TableRole from "./TableRole";
+import HeaderRole from "./HeaderRole";
 import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { catPost, deleteCat, searchCat } from "../../redux/actions";
+import { catPost, deleteCat, searchCat } from "../../../redux/actions";
 
-const Employees = () => {
+const Roles = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
-  const [sortRole, setSortRole] = useState("0");
-  const [sortFunc, setSortFunc] = useState("0");
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
-
   const { catItem } = useSelector((state) => state.postReducer);
   const addCategories = () => dispatch(catPost());
   const deleteCateg = (id) => dispatch(deleteCat(id));
@@ -89,26 +86,6 @@ const Employees = () => {
       return 0;
     };
   }
-  function GetDateSortOrder(prop) {
-    return function (a, b) {
-      if (Date.parse(a[prop]) > Date.parse(b[prop])) {
-        return 1;
-      } else if (Date.parse(a[prop]) < Date.parse(b[prop])) {
-        return -1;
-      }
-      return 0;
-    };
-  }
-  function GetDateSortOrder2(prop) {
-    return function (a, b) {
-      if (Date.parse(a[prop]) < Date.parse(b[prop])) {
-        return 1;
-      } else if (Date.parse(a[prop]) > Date.parse(b[prop])) {
-        return -1;
-      }
-      return 0;
-    };
-  }
   const handleSearch = (e) => {
     if (e.target.value === "") {
       addCategories();
@@ -140,8 +117,6 @@ const Employees = () => {
     if (sort === "name") {
       if (sortName === "0") {
         setSortName("1");
-        setSortRole("0");
-        setSortFunc("0");
         setTData((prev) => {
           return prev.sort(GetSortOrder("name"));
         });
@@ -151,34 +126,6 @@ const Employees = () => {
           return prev.sort(GetSortOrder2("name"));
         });
       } else setSortName("0");
-    } else if (sort === "role") {
-      if (sortRole === "0") {
-        setSortName("0");
-        setSortRole("1");
-        setSortFunc("0");
-        setTData((prev) => {
-          return prev.sort(GetDateSortOrder("role"));
-        });
-      } else if (sortRole === "1") {
-        setSortRole("2");
-        setTData((prev) => {
-          return prev.sort(GetDateSortOrder2("role"));
-        });
-      } else setSortRole("0");
-    } else if (sort === "lastModDate") {
-      if (sortFunc === "0") {
-        setSortName("0");
-        setSortRole("0");
-        setSortFunc("1");
-        setTData((prev) => {
-          return prev.sort(GetDateSortOrder("func"));
-        });
-      } else if (sortFunc === "1") {
-        setSortFunc("2");
-        setTData((prev) => {
-          return prev.sort(GetDateSortOrder2("func"));
-        });
-      } else setSortFunc("0");
     }
   };
   const handleModalSubmit = (
@@ -209,10 +156,10 @@ const Employees = () => {
   };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
-      <h1 className="emp-title">Categories</h1>
-      <div className="emp-box">
-        <div className="emp-search-box">
-          <div className="emp-search">
+      <h1 className="role-title">Roles</h1>
+      <div className="role-box">
+        <div className="role-search-box">
+          <div className="role-search">
             <SearchIcon
               style={{
                 marginLeft: "2px",
@@ -226,12 +173,12 @@ const Employees = () => {
             <input
               id="search-text"
               type="text"
-              className="emp-search-text"
+              className="role-search-text"
               placeholder="Search..."
               onChange={handleSearch}
             />
           </div>
-          <div className="emp-add" onClick={() => toggleModal()}>
+          <div className="role-add" onClick={() => toggleModal()}>
             <AddIcon
               style={{
                 marginLeft: "2px",
@@ -245,25 +192,21 @@ const Employees = () => {
             <p>New</p>
           </div>
         </div>
-        <div className="emp-table">
-          <HeaderEmployee
+        <div className="role-table">
+          <HeaderRole
             name="Name"
             role="Role"
             func="Function"
             sortName={sortName}
-            sortRole={sortRole}
-            sortFunc={sortFunc}
             sortBy={sortBy}
           />
-          <TransitionGroup className="emp-remove-items">
-            {catItem.map(({ key, catId, name, role, func }) => (
-              <CSSTransition key={key} timeout={500} classNames="emp-trans">
-                <TableEmployee
+          <TransitionGroup className="role-remove-items">
+            {catItem.map(({ key, catId, name }) => (
+              <CSSTransition key={key} timeout={500} classNames="role-trans">
+                <TableRole
                   key={key}
                   name={name}
                   catId={catId}
-                  role={role}
-                  func={func}
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
                 />
@@ -273,7 +216,7 @@ const Employees = () => {
         </div>
       </div>
       {!first ? (
-        <ModalEmployee
+        <ModalRole
           toggleClose={toggleModal}
           mod={modal}
           handleSubmit={handleModalSubmit}
@@ -298,4 +241,4 @@ const Employees = () => {
     </div>
   );
 };
-export default Employees;
+export default Roles;

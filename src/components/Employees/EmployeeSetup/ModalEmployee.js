@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/Employees.css";
+import "../../../styles/Employees.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
 const ModalEmployee = ({
@@ -64,7 +64,7 @@ const ModalEmployee = ({
           }
         >
           <div className="modal-emp-header">
-            Add New Category
+            Add New Employee
             <div onClick={() => toggleClose()}>
               <CloseIcon className="modal-emp-close" />
             </div>

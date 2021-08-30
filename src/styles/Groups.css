@@ -18,7 +18,8 @@
   max-height: 400px;
   margin-left: 20px;
   margin-right: 20px;
- overflow-y: auto;
+  user-select: none;
+  overflow-y: auto;
   border-radius: 1px;
 }
 
@@ -153,11 +154,10 @@ p {
 }
 
 .grp-remove-items {
-  
   max-height: 31.7rem;
 }
 
-.grp-div{
+.grp-div {
   font-family: "Ubuntu";
   width: 200px;
   text-align: center;

@@ -17,14 +17,15 @@
   max-height: 400px;
   border-bottom: none;
   flex-direction: column;
+  user-select: none;
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 1px;
   overflow-y: auto;
 }
 
-.defaultValue{
-  color:lightgray;
+.defaultValue {
+  color: lightgray;
   font-size: small;
 }
 

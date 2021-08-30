@@ -15,7 +15,9 @@ import Payment from "../Setup/payment/Payment";
 import VoidReason from "../Setup/voidreason/VoidReason";
 import Groups from "../Setup/group/Groups";
 import Divisions from "../Setup/division/Divisions";
-import Employees from "../Employees/Employees";
+import Employees from "../Employees/EmployeeSetup/Employees";
+import Customers from "../Customers/Customers";
+import Roles from "../Employees/Roles/Roles";
 
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
@@ -34,6 +36,7 @@ const Hm = () => {
   const [index04, setIndex04] = useState(false);
   const [index05, setIndex05] = useState(false);
   const [index11, setIndex11] = useState(false);
+  const [index12, setIndex12] = useState(false);
   const [index13, setIndex13] = useState(false);
   const [index14, setIndex14] = useState(false);
   return (
@@ -143,24 +146,36 @@ const Hm = () => {
                 </Link>
               </div>
 
-              <Link
-                to="/Employees"
+              <div
+                onClick={() => {
+                  setIndex12((prev) => !prev);
+                }}
                 className="index1"
                 style={index01 ? slideOpen : slideClosed}
               >
-                Employees
-              </Link>
-              <div className="index">
-                <div
-                  onClick={() => {
-                    setIndex13((prev) => !prev);
-                  }}
-                  className="index1"
-                  style={index01 ? slideOpen : slideClosed}
-                >
-                  Customers <ArrowRightIcon style={index13 ? open : closed} />
-                </div>
+                Employees <ArrowRightIcon style={index12 ? open : closed} />
               </div>
+              <Link
+                to="/Employees"
+                className="index2"
+                style={index12 && index01 ? slideOpen : slideClosed}
+              >
+                Employee Setup
+              </Link>
+              <Link
+                to="/Roles"
+                className="index2"
+                style={index12 && index01 ? slideOpen : slideClosed}
+              >
+                Roles
+              </Link>
+              <Link
+                to="/Customers"
+                className="index1"
+                style={index01 ? slideOpen : slideClosed}
+              >
+                Customers
+              </Link>
               <div className="index">
                 <div
                   onClick={() => {
@@ -255,6 +270,8 @@ const Hm = () => {
               <Route path="/Groups" component={Groups} />
               <Route path="/Divisions" component={Divisions} />
               <Route path="/Employees" component={Employees} />
+              <Route path="/Customers" component={Customers} />
+              <Route path="/Roles" component={Roles} />
             </Switch>
           </div>
         </div>

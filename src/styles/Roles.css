@@ -1,4 +1,4 @@
-.cat-title {
+.role-title {
   text-align: left;
   margin-top: 10px;
   margin-left: 20px;
@@ -9,7 +9,7 @@
   color: var(--title);
 }
 
-.cat-box {
+.role-box {
   border: 0.7px solid;
   border-color: var(--border);
   display: flex;
@@ -24,7 +24,7 @@
   border-radius: 1px;
 }
 
-.cat-search-box {
+.role-search-box {
   border-color: var(--border);
   height: fit-content;
   display: flex;
@@ -36,7 +36,7 @@
   background: var(--header);
 }
 
-.cat-search {
+.role-search {
   width: 400px;
   height: 30px;
   border-width: 2px;
@@ -50,12 +50,12 @@
   flex-direction: row;
 }
 
-.cat-search:hover,
-.cat-search:focus {
+.role-search:hover,
+.role-search:focus {
   background-color: var(--focus);
 }
 
-.cat-search-text {
+.role-search-text {
   text-overflow: clip;
   height: 30px;
   width: 370px;
@@ -73,17 +73,17 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-.cat-search-text::placeholder {
+.role-search-text::placeholder {
   color: var(--search);
   opacity: 0.8;
   font-size: medium;
 }
 
-.cat-search-text:focus::-webkit-input-placeholder {
+.role-search-text:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.cat-add {
+.role-add {
   border-width: 0.5px;
   border-color: var(--border);
   outline-width: 0;
@@ -98,10 +98,11 @@
   cursor: pointer;
   background-color: #018bb6;
   transition: background-color 1s;
+  margin-left: 20px;
 }
 
-.cat-add:hover,
-.cat-add:focus {
+.role-add:hover,
+.role-add:focus {
   background-color: var(--button-background-focus);
 }
 
@@ -114,7 +115,7 @@ p {
   color: white;
 }
 
-.cat-holder {
+.role-holder {
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -123,7 +124,7 @@ p {
   align-items: center;
 }
 
-.cat-table-holder {
+.role-table-holder {
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -132,7 +133,7 @@ p {
   border-bottom: 1px solid var(--border);
 }
 
-.cat-head-holder {
+.role-head-holder {
   display: flex;
   flex: 1;
   width: 100%;
@@ -143,22 +144,22 @@ p {
   background: var(--header);
 }
 
-.cat-table-holder:hover {
+.role-table-holder:hover {
   background-color: var(--table-hover);
 }
 
-.cat-table {
+.role-table {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.cat-remove-items {
+.role-remove-items {
   max-height: 31.7rem;
 }
 
-.cat-mod-date {
+.role-mod-date {
   font-family: "Ubuntu";
   width: 250px;
   justify-content: center;
@@ -166,14 +167,14 @@ p {
   display: flex;
 }
 
-.cat-name {
+.role-name {
   font-family: "Ubuntu";
   width: 350px;
   text-align: center;
   display: flex;
 }
 
-.cat-head-name {
+.role-head-name {
   font-family: "Ubuntu";
   width: 350px;
   text-align: center;
@@ -181,7 +182,7 @@ p {
   height: 30px;
 }
 
-.cat-group1 {
+.role-group1 {
   font-family: "Ubuntu";
   display: flex;
   width: 40px;
@@ -189,7 +190,7 @@ p {
   justify-content: flex-end;
 }
 
-.cat-creation-date {
+.role-creation-date {
   font-family: "Ubuntu";
   width: 250px;
   justify-content: center;
@@ -197,33 +198,33 @@ p {
   display: flex;
 }
 
-.cat-modify-icon:hover {
+.role-modify-icon:hover {
   color: var(--color-scheme);
 }
 
-.cat-delete-icon:hover {
+.role-delete-icon:hover {
   color: var(--color-scheme);
 }
 
-.cat-trans-enter {
+.role-trans-enter {
   opacity: 0;
 }
 
-.cat-trans-enter-active {
+.role-trans-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
 
-.cat-trans-exit {
+.role-trans-exit {
   opacity: 1;
 }
 
-.cat-trans-exit-active {
+.role-trans-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in;
 }
 
-.modal-cat-wrapper {
+.modal-role-wrapper {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -236,16 +237,16 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-cat {
-  height: 450px;
-  width: 600px;
+.modal-role {
+  height: 330px;
+  width: 690px;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.modal-cat-header {
+.modal-role-header {
   height: 60px;
   background-color: var(--color-scheme-dark);
   display: flex;
@@ -258,26 +259,27 @@ p {
   user-select: none;
 }
 
-.modal-cat-close {
+.modal-role-close {
   cursor: pointer;
   height: 20px;
   width: 20px;
   color: white;
 }
 
-.modal-cat-close:hover {
+.modal-role-close:hover {
   color: lightgray;
 }
 
-.modal-cat-body {
+.modal-role-body {
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  max-height: 340px;
+  max-height: 220px;
   user-select: none;
 }
 
-.modal-cat-footer {
+.modal-role-footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -285,7 +287,7 @@ p {
   height: 50px;
 }
 
-.modal-cat-save {
+.modal-role-save {
   background: var(--color-scheme);
   border-radius: 5px;
   width: 70px;
@@ -301,11 +303,11 @@ p {
   transition: opacity 500ms ease-in-out;
 }
 
-.modal-cat-save:hover {
+.modal-role-save:hover {
   opacity: 1;
 }
 
-.modal-cat-subtitle {
+.modal-role-subtitle {
   min-height: 40px;
   background-color: var(--color-scheme);
   display: flex;
@@ -318,32 +320,40 @@ p {
   user-select: none;
 }
 
-.modal-cat-form {
+.modal-role-form {
   font-family: "Ubuntu";
 }
 
-.modal-cat-desc {
+.modal-role-desc {
   margin: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.modal-cat-desc-hor {
-  margin: 10px;
+.modal-role-desc-hor {
   display: flex;
   flex-direction: row;
-  padding-right: 10px;
   padding-top: 5px;
+  margin-right: 290px;
+  align-items: center;
+}
+
+.modal-role-desc-hor1 {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  margin-right: 10px;
   align-items: center;
 }
 
 .modal-check {
   align-self: center;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.modal-cat-price,
-.modal-cat-function {
+.modal-role-price,
+.modal-role-function {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
@@ -351,7 +361,7 @@ p {
   justify-content: space-between;
 }
 
-.modal-cat-desc-input {
+.modal-role-desc-input {
   margin-top: 10px;
   width: 300px;
   height: 30px;
@@ -359,21 +369,21 @@ p {
   border: 1px solid;
   outline: none;
   font-family: "Ubuntu";
-  padding: 10px;
+  padding: 5px;
   margin-right: 10px;
 }
 
-.modal-cat-desc-input::placeholder {
+.modal-role-desc-input::placeholder {
   font-family: "Ubuntu";
 }
 
-.modal-cat-desc-input:focus::-webkit-input-placeholder {
+.modal-role-desc-input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.modal-cat-price-input {
+.modal-role-price-input {
   margin-top: 10px;
-  width: 100px;
+  width: 670px;
   height: 30px;
   border-radius: 5px;
   border: 1px solid;
@@ -383,7 +393,7 @@ p {
   margin-right: 10px;
 }
 
-.modal-cat-function-input {
+.modal-role-function-input {
   margin-top: 10px;
   width: 300px;
   height: 30px;
@@ -395,9 +405,9 @@ p {
   margin-right: 10px;
 }
 
-.modal-cat-print-input {
+.modal-role-print-input {
   margin-top: 10px;
-  width: 150px;
+  width: 200px;
   height: 30px;
   border-radius: 5px;
   border: 1px solid;
@@ -407,28 +417,28 @@ p {
   margin-right: 10px;
 }
 
-.modal-cat-print-input:focus,
-.modal-cat-print-input:hover,
-.modal-cat-function-input:focus,
-.modal-cat-function-input:hover,
-.modal-cat-price-input:hover,
-.modal-cat-price-input:focus,
-.modal-cat-desc-input:focus,
-.modal-cat-desc-input:hover,
+.modal-role-print-input:focus,
+.modal-role-print-input:hover,
+.modal-role-function-input:focus,
+.modal-role-function-input:hover,
+.modal-role-price-input:hover,
+.modal-role-price-input:focus,
+.modal-role-desc-input:focus,
+.modal-role-desc-input:hover,
 .modal-check:focus,
 .modal-check:hover {
   box-shadow: 2px 2px var(--color-scheme-light);
 }
 
-.modal-cat-function-option {
+.modal-role-function-option {
   font-family: "Ubuntu";
 }
 
-.modal-cat-price-input::placeholder {
+.modal-role-price-input::placeholder {
   font-family: "Ubuntu";
 }
 
-.modal-cat-price-input:focus::-webkit-input-placeholder {
+.modal-role-price-input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -436,7 +446,7 @@ p {
   border-top: 1px solid var(--color-scheme-dark);
 }
 
-.modal-cat-branch {
+.modal-role-branch {
   background: var(--color-scheme);
   border-radius: 5px;
   width: 250px;
@@ -452,7 +462,7 @@ p {
   margin-right: 20px;
 }
 
-.modal-cat-branch:hover {
+.modal-role-branch:hover {
   opacity: 1;
 }
 

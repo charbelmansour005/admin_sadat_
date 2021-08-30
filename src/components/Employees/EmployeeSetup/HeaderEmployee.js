@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Employees.css";
+import "../../../styles/Employees.css";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 

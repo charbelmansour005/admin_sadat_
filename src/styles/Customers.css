@@ -1,4 +1,4 @@
-.cat-title {
+.cust-title {
   text-align: left;
   margin-top: 10px;
   margin-left: 20px;
@@ -9,7 +9,7 @@
   color: var(--title);
 }
 
-.cat-box {
+.cust-box {
   border: 0.7px solid;
   border-color: var(--border);
   display: flex;
@@ -24,7 +24,7 @@
   border-radius: 1px;
 }
 
-.cat-search-box {
+.cust-search-box {
   border-color: var(--border);
   height: fit-content;
   display: flex;
@@ -36,7 +36,7 @@
   background: var(--header);
 }
 
-.cat-search {
+.cust-search {
   width: 400px;
   height: 30px;
   border-width: 2px;
@@ -50,12 +50,12 @@
   flex-direction: row;
 }
 
-.cat-search:hover,
-.cat-search:focus {
+.cust-search:hover,
+.cust-search:focus {
   background-color: var(--focus);
 }
 
-.cat-search-text {
+.cust-search-text {
   text-overflow: clip;
   height: 30px;
   width: 370px;
@@ -73,17 +73,17 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-.cat-search-text::placeholder {
+.cust-search-text::placeholder {
   color: var(--search);
   opacity: 0.8;
   font-size: medium;
 }
 
-.cat-search-text:focus::-webkit-input-placeholder {
+.cust-search-text:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.cat-add {
+.cust-add {
   border-width: 0.5px;
   border-color: var(--border);
   outline-width: 0;
@@ -100,8 +100,8 @@
   transition: background-color 1s;
 }
 
-.cat-add:hover,
-.cat-add:focus {
+.cust-add:hover,
+.cust-add:focus {
   background-color: var(--button-background-focus);
 }
 
@@ -114,7 +114,7 @@ p {
   color: white;
 }
 
-.cat-holder {
+.cust-holder {
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -123,7 +123,7 @@ p {
   align-items: center;
 }
 
-.cat-table-holder {
+.cust-table-holder {
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -132,7 +132,7 @@ p {
   border-bottom: 1px solid var(--border);
 }
 
-.cat-head-holder {
+.cust-head-holder {
   display: flex;
   flex: 1;
   width: 100%;
@@ -143,45 +143,45 @@ p {
   background: var(--header);
 }
 
-.cat-table-holder:hover {
+.cust-table-holder:hover {
   background-color: var(--table-hover);
 }
 
-.cat-table {
+.cust-table {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.cat-remove-items {
+.cust-remove-items {
   max-height: 31.7rem;
 }
 
-.cat-mod-date {
+.cust-mod-date {
   font-family: "Ubuntu";
-  width: 250px;
+  width: 200px;
   justify-content: center;
   text-align: center;
   display: flex;
 }
 
-.cat-name {
+.cust-name {
   font-family: "Ubuntu";
-  width: 350px;
+  width: 250px;
   text-align: center;
   display: flex;
 }
 
-.cat-head-name {
+.cust-head-name {
   font-family: "Ubuntu";
-  width: 350px;
+  width: 250px;
   text-align: center;
   display: flex;
   height: 30px;
 }
 
-.cat-group1 {
+.cust-group1 {
   font-family: "Ubuntu";
   display: flex;
   width: 40px;
@@ -189,7 +189,7 @@ p {
   justify-content: flex-end;
 }
 
-.cat-creation-date {
+.cust-creation-date {
   font-family: "Ubuntu";
   width: 250px;
   justify-content: center;
@@ -197,33 +197,33 @@ p {
   display: flex;
 }
 
-.cat-modify-icon:hover {
+.cust-modify-icon:hover {
   color: var(--color-scheme);
 }
 
-.cat-delete-icon:hover {
+.cust-delete-icon:hover {
   color: var(--color-scheme);
 }
 
-.cat-trans-enter {
+.cust-trans-enter {
   opacity: 0;
 }
 
-.cat-trans-enter-active {
+.cust-trans-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
 
-.cat-trans-exit {
+.cust-trans-exit {
   opacity: 1;
 }
 
-.cat-trans-exit-active {
+.cust-trans-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in;
 }
 
-.modal-cat-wrapper {
+.modal-cust-wrapper {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -236,16 +236,16 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-cat {
-  height: 450px;
-  width: 600px;
+.modal-cust {
+  height: 600px;
+  width: 680px;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.modal-cat-header {
+.modal-cust-header {
   height: 60px;
   background-color: var(--color-scheme-dark);
   display: flex;
@@ -258,26 +258,27 @@ p {
   user-select: none;
 }
 
-.modal-cat-close {
+.modal-cust-close {
   cursor: pointer;
   height: 20px;
   width: 20px;
   color: white;
 }
 
-.modal-cat-close:hover {
+.modal-cust-close:hover {
   color: lightgray;
 }
 
-.modal-cat-body {
+.modal-cust-body {
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  max-height: 340px;
+  max-height: 490px;
   user-select: none;
 }
 
-.modal-cat-footer {
+.modal-cust-footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -285,7 +286,7 @@ p {
   height: 50px;
 }
 
-.modal-cat-save {
+.modal-cust-save {
   background: var(--color-scheme);
   border-radius: 5px;
   width: 70px;
@@ -301,11 +302,11 @@ p {
   transition: opacity 500ms ease-in-out;
 }
 
-.modal-cat-save:hover {
+.modal-cust-save:hover {
   opacity: 1;
 }
 
-.modal-cat-subtitle {
+.modal-cust-subtitle {
   min-height: 40px;
   background-color: var(--color-scheme);
   display: flex;
@@ -318,32 +319,38 @@ p {
   user-select: none;
 }
 
-.modal-cat-form {
+.modal-cust-form {
   font-family: "Ubuntu";
 }
 
-.modal-cat-desc {
+.modal-cust-desc {
   margin: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.modal-cat-desc-hor {
-  margin: 10px;
+.modal-cust-desc-hor {
   display: flex;
   flex-direction: row;
-  padding-right: 10px;
+  align-items: center;
+}
+
+.modal-cust-desc-hor1 {
+  display: flex;
+  flex-direction: row;
   padding-top: 5px;
+  margin-right: 10px;
   align-items: center;
 }
 
 .modal-check {
   align-self: center;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.modal-cat-price,
-.modal-cat-function {
+.modal-cust-price,
+.modal-cust-function {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
@@ -351,7 +358,7 @@ p {
   justify-content: space-between;
 }
 
-.modal-cat-desc-input {
+.modal-cust-desc-input {
   margin-top: 10px;
   width: 300px;
   height: 30px;
@@ -359,21 +366,20 @@ p {
   border: 1px solid;
   outline: none;
   font-family: "Ubuntu";
-  padding: 10px;
-  margin-right: 10px;
+  padding: 5px;
 }
 
-.modal-cat-desc-input::placeholder {
+.modal-cust-desc-input::placeholder {
   font-family: "Ubuntu";
 }
 
-.modal-cat-desc-input:focus::-webkit-input-placeholder {
+.modal-cust-desc-input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.modal-cat-price-input {
+.modal-cust-price-input {
   margin-top: 10px;
-  width: 100px;
+  width: 670px;
   height: 30px;
   border-radius: 5px;
   border: 1px solid;
@@ -383,7 +389,7 @@ p {
   margin-right: 10px;
 }
 
-.modal-cat-function-input {
+.modal-cust-function-input {
   margin-top: 10px;
   width: 300px;
   height: 30px;
@@ -395,9 +401,9 @@ p {
   margin-right: 10px;
 }
 
-.modal-cat-print-input {
+.modal-cust-print-input {
   margin-top: 10px;
-  width: 150px;
+  width: 200px;
   height: 30px;
   border-radius: 5px;
   border: 1px solid;
@@ -407,28 +413,28 @@ p {
   margin-right: 10px;
 }
 
-.modal-cat-print-input:focus,
-.modal-cat-print-input:hover,
-.modal-cat-function-input:focus,
-.modal-cat-function-input:hover,
-.modal-cat-price-input:hover,
-.modal-cat-price-input:focus,
-.modal-cat-desc-input:focus,
-.modal-cat-desc-input:hover,
+.modal-cust-print-input:focus,
+.modal-cust-print-input:hover,
+.modal-cust-function-input:focus,
+.modal-cust-function-input:hover,
+.modal-cust-price-input:hover,
+.modal-cust-price-input:focus,
+.modal-cust-desc-input:focus,
+.modal-cust-desc-input:hover,
 .modal-check:focus,
 .modal-check:hover {
   box-shadow: 2px 2px var(--color-scheme-light);
 }
 
-.modal-cat-function-option {
+.modal-cust-function-option {
   font-family: "Ubuntu";
 }
 
-.modal-cat-price-input::placeholder {
+.modal-cust-price-input::placeholder {
   font-family: "Ubuntu";
 }
 
-.modal-cat-price-input:focus::-webkit-input-placeholder {
+.modal-cust-price-input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
@@ -436,7 +442,7 @@ p {
   border-top: 1px solid var(--color-scheme-dark);
 }
 
-.modal-cat-branch {
+.modal-cust-branch {
   background: var(--color-scheme);
   border-radius: 5px;
   width: 250px;
@@ -452,8 +458,41 @@ p {
   margin-right: 20px;
 }
 
-.modal-cat-branch:hover {
+.modal-cust-branch:hover {
   opacity: 1;
+}
+
+.add-box-icon,
+.add-box-icon1 {
+  color: var(--color-scheme);
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.tooltip,
+.tooltip1 {
+  background-color: var(--color-scheme);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: small;
+  opacity: 0;
+  position: absolute;
+  margin-bottom: 10px;
+  margin-left: 80px;
+  transition: opacity 500ms ease-in-out;
+}
+
+.tooltip1{
+  margin-left: 90px;
+}
+
+.add-box-icon:hover + .tooltip {
+  opacity: 0.6;
+}
+
+.add-box-icon1:hover + .tooltip1 {
+  opacity: 0.6;
 }
 
 @keyframes inAnimation {
