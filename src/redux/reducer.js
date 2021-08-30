@@ -10,9 +10,9 @@ const initialState = {
   salesItems: [],
   groupItems: [],
   divisionItems: [],
-  ItemAdd: [],
-  ItemRemove: [],
-  ItemAddOn: []
+  ItemAdd: {},
+  ItemRemove: {},
+  ItemAddOn: {}
 
 };
 

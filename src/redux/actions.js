@@ -357,7 +357,7 @@ export const clearAddMod = () => {
         return async dispatch => {
             dispatch({
                 type: CLEAR_ADD,
-                payload: []
+                payload: {}
             })
         }
     } catch (error) {
@@ -369,7 +369,7 @@ export const clearRemoveMod = () => {
         return async dispatch => {
             dispatch({
                 type: CLEAR_REMOVE,
-                payload: []
+                payload: {}
             })
         }
     } catch (error) {
@@ -381,7 +381,7 @@ export const clearAddOnMod = () => {
         return async dispatch => {
             dispatch({
                 type: CLEAR_ADDON,
-                payload: []
+                payload: {}
             })
         }
     } catch (error) {

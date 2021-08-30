@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { itemAdd, itemRemove, itemAddOn } from '../../../data/modules'
+import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
 const SalesEditModal = ({
     mod,
     mountedStyle,
@@ -10,7 +12,7 @@ const SalesEditModal = ({
     downStyle,
     upStyle,
     currentitem,
- 
+
 }) => {
     const [name, setName] = useState('');
     const [menuDesc, setMenuDesc] = useState('');
@@ -29,9 +31,25 @@ const SalesEditModal = ({
     const [print1, setPrint1] = useState('')
     const [print2, setPrint2] = useState('')
     const [print3, setPrint3] = useState('')
-    const { salesItems } = useSelector(
+    const [addDescption, setAddDescption] = useState('')
+    const [addPrice, setAddPrice] = useState('')
+    const [isAddMand, setAddMand] = useState('')
+    const [isRemoveMand, setRemoveMand] = useState('')
+    const [removeDescption, setRemoveDescption] = useState('')
+    const [removePrice, setRemovePrice] = useState('')
+    const [addOnDescption, setAddOnDescption] = useState('')
+    const [addOnPrice, setAddOnPrice] = useState('')
+    const [isAddOnMand, setAddOnMand] = useState('')
+    const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
         (state) => state.postReducer
     );
+    const dispatch = useDispatch();
+    const addModifiers = (item) => dispatch(addModifier(item));
+    const removeModifiers = (item) => dispatch(removeModifier(item));
+    const addOnModifiers = (item) => dispatch(addOnModifier(item));
+    const clearAdd = () => dispatch(clearAddMod());
+    const clearRemove = () => dispatch(clearRemoveMod());
+    const clearAddOn = () => dispatch(clearAddOnMod());
     let updateItem = (itemId) => {
         if (salesItems.length > 0) {
             salesItems.map((item) => {
@@ -141,6 +159,65 @@ const SalesEditModal = ({
                     else {
                         item.print3 = print3
                     }
+
+
+                    if (currentitem.ItemAdd === {}) {
+                    
+                      
+                    }
+                    else {
+                        if (addDescption === '') {
+                            item.ItemAdd.descption = currentitem.ItemAdd.descption
+                        }
+                        else {
+                            item.ItemAdd.descption = addDescption
+                        }
+                        if (addPrice === '') {
+                            item.ItemAdd.price = currentitem.ItemAdd.price
+                        }
+                        else {
+                            item.ItemAdd.price = addPrice
+                        }
+                    }
+                    
+                    if (currentitem.ItemRemove === {}) {
+
+                    }
+                    else {
+                        if (removeDescption === '') {
+                            item.ItemRemove.descption = currentitem.ItemRemove.descption
+                        }
+                        else {
+                            item.ItemRemove.descption = removeDescption
+                        }
+                        if (removePrice === '') {
+                            item.ItemRemove.price = currentitem.ItemRemove.price
+                        }
+                        else {
+                            item.ItemRemove.price = removePrice
+                        }
+                    }
+
+                    if (currentitem.ItemAddOn === {}) {
+
+                    }
+                    else {
+                        if (addOnDescption === '') {
+                            item.ItemAddOn.descption = currentitem.ItemAddOn.descption
+                        }
+                        else {
+                            item.ItemAddOn.descption = addOnDescption
+                        }
+                        if (addOnPrice === '') {
+                            item.ItemAddOn.price = currentitem.ItemAddOn.price
+                        }
+                        else {
+                            item.ItemAddOn.price = addOnPrice
+                        }
+                    }
+
+
+
                 }
             })
         }
@@ -148,7 +225,10 @@ const SalesEditModal = ({
 
         toggleClose()
 
+
     }
+
+
 
     let getModificationDate = () => {
 
@@ -158,10 +238,13 @@ const SalesEditModal = ({
         var completeDateFormat = date + "/" + month + "/" + year;
 
         setModDate(completeDateFormat)
+
     }
     useEffect(() => {
-    
+        console.log(currentitem)
         getModificationDate()
+
+
     }, []);
     return (
         <div
@@ -346,7 +429,7 @@ const SalesEditModal = ({
                                     className="modal-item-function-input"
                                 >
                                     {
-                                        !currentitem.branch == '' ? <option selected defaultValue  disabled>
+                                        !currentitem.branch == '' ? <option selected defaultValue disabled>
                                             {currentitem.branch}
                                         </option> : <option selected defaultValue value="Select branch" disabled>
                                             Select branch
@@ -374,7 +457,7 @@ const SalesEditModal = ({
                             <div className="modal-item-desc">
                                 Print Out 1
                                 <select onChange={(e) => setPrint1(e.target.value)} className="modal-item-print-input">
-                              
+
                                     <option className="modal-item-function-option" defaultValue={currentitem.print1}>
                                         {currentitem.print1}
                                     </option>
@@ -432,14 +515,19 @@ const SalesEditModal = ({
                                 Modifier 1
                             </div>
 
+
                             <select
-
-
+                                onChange={(e) => setAddDescption(e.target.value)}
                                 className="modal-item-function-input"
                             >
-                                <option disabled defaultValue selected>
-                                    Select Add
-                                </option>
+                                {
+                                    currentitem.ItemAdd === {} ? <option disabled defaultValue selected>
+                                        Select Add
+                                    </option> : <option disabled defaultValue selected>
+                                        {currentitem.ItemAdd.descption}
+                                    </option>
+                                }
+
                                 <option className="modal-item-function-option" value="1">
                                     1
                                 </option>
@@ -450,10 +538,24 @@ const SalesEditModal = ({
                                     3
                                 </option>
                             </select>
-                            <input placeholder="0" className="modal-item-price-input" />
-                            <div className="modal-item-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
 
+
+
+                            {
+                                currentitem.ItemAdd === {} ? <input placeholder="0" onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" /> :
+                                    <input placeholder="0" defaultValue={currentitem.ItemAdd.price} onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" />
+                            }
+
+
+
+
+                            <div className="modal-item-desc-hor">
+                                {
+                                    currentitem.ItemAdd === {} ? <input onChange={(e) => setAddMand(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                        currentitem.ItemAdd.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemAdd.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                            <input defaultChecked onChange={() => currentitem.ItemAdd.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                }
 
                                 Mandatory
                             </div>
@@ -466,12 +568,16 @@ const SalesEditModal = ({
                             </div>
                             <select
 
-
+                                onChange={(e) => setRemoveDescption(e.target.value)}
                                 className="modal-item-function-input"
                             >
-                                <option disabled defaultValue selected>
-                                    Select Remove
-                                </option>
+                                {
+                                    currentitem.ItemRemove === {} ? <option disabled defaultValue selected>
+                                        Select Remove
+                                    </option> : <option disabled defaultValue selected>
+                                        {currentitem.ItemRemove.descption}
+                                    </option>
+                                }
                                 <option className="modal-item-function-option" value="1">
                                     1
                                 </option>
@@ -482,9 +588,20 @@ const SalesEditModal = ({
                                     3
                                 </option>
                             </select>
-                            <input placeholder="0" className="modal-item-price-input" />
+
+
+                            {
+                                currentitem.ItemRemove === {} ? <input placeholder="0" onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" /> :
+                                    <input placeholder="0" defaultValue={currentitem.ItemRemove.price} onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" />
+                            }
+
                             <div className="modal-item-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
+                                {
+                                    currentitem.ItemRemove === {} ? <input onChange={(e) => setRemoveMand(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                        currentitem.ItemRemove.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemRemove.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                            <input defaultChecked onChange={() => currentitem.ItemRemove.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                }
 
 
                                 Mandatory
@@ -498,12 +615,16 @@ const SalesEditModal = ({
                             </div>
                             <select
 
-
+                                onChange={(e) => setAddOnDescption(e.target.value)}
                                 className="modal-item-function-input"
                             >
-                                <option disabled defaultValue selected>
-                                    Select AddOn
-                                </option>
+                                {
+                                    currentitem.ItemAddOn === {} ? <option disabled defaultValue selected>
+                                        Select AddOn
+                                    </option> : <option disabled defaultValue selected>
+                                        {currentitem.ItemAddOn.descption}
+                                    </option>
+                                }
                                 <option className="modal-item-function-option" value="1">
                                     1
                                 </option>
@@ -514,16 +635,25 @@ const SalesEditModal = ({
                                     3
                                 </option>
                             </select>
-                            <input placeholder="0" className="modal-item-price-input" />
-                            <div className="modal-item-desc-hor">
-                                <input type="checkbox" className="modal-check"></input>
 
+                            {
+                                currentitem.ItemAddOn === {} ? <input placeholder="0" onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" /> :
+                                    <input placeholder="0" defaultValue={currentitem.ItemAddOn.price} onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" />
+                            }
+                            <div className="modal-item-desc-hor">
+                                {
+                                    currentitem.ItemAddOn === {} ? <input onChange={(e) => setAddOnMand(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                        currentitem.ItemAddOn.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemAddOn.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                            <input defaultChecked onChange={() => currentitem.ItemAddOn.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                }
 
                                 Mandatory
                             </div>
 
                         </div>
                     </div>
+
                     <div className="modal-item-footer">
                         <input type="submit" value="Edit" onClick={() => updateItem(currentitem.itemId)} className="modal-item-save" />
                     </div>

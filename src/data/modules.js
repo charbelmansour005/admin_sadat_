@@ -5,7 +5,7 @@ export var itemAdd = {
     descption: '',
     cmt: '',
     price: 0,
-    isMand: ''
+    isMand:''
 }
 
 export var itemRemove = {

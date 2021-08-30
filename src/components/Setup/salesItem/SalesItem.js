@@ -38,6 +38,7 @@ const SalesItem = () => {
     addItem()
     if (ItemAdd.length > 0) {
       clearAdd()
+      console.log(ItemAdd)
     }
     if (ItemRemove.length > 0) {
       clearRemove()
