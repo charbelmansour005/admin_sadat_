@@ -157,9 +157,9 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         modifiers: {
-          mod1: action.payload,
-          mod2: action.payload1,
-          mod3: action.payload2
+          mod1: action.payload.modifier1,
+          mod2: action.payload.modifier2,
+          mod3: action.payload.modifier3
         }
       };
     case CLEAR_MAND_MODIFIER:

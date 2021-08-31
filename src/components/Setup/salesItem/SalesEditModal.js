@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { itemAdd, itemRemove, itemAddOn } from '../../../data/modules'
+import { itemAdd, itemRemove, itemAddOn, modifier } from '../../../data/modules'
 import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
 const SalesEditModal = ({
     mod,
@@ -40,16 +40,20 @@ const SalesEditModal = ({
     const [addOnDescption, setAddOnDescption] = useState('')
     const [addOnPrice, setAddOnPrice] = useState('')
     const [isAddOnMand, setAddOnMand] = useState('')
+    const [mandMod1, setMandMod1] = useState('')
+    const [mandMod2, setMandMod2] = useState('')
+    const [mandMod3, setMandMod3] = useState('')
+    const [mandPrice1, setMandPrice1] = useState('')
+    const [mandPrice2, setMandPrice2] = useState('')
+    const [mandPrice3, setMandPrice3] = useState('')
+    const [isMandMod1, setIsMand1] = useState('')
+    const [isMandMod2, setIsMand2] = useState('')
+    const [isMandMod3, setIsMand3] = useState('')
     const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
         (state) => state.postReducer
     );
     const dispatch = useDispatch();
-    const addModifiers = (item) => dispatch(addModifier(item));
-    const removeModifiers = (item) => dispatch(removeModifier(item));
-    const addOnModifiers = (item) => dispatch(addOnModifier(item));
-    const clearAdd = () => dispatch(clearAddMod());
-    const clearRemove = () => dispatch(clearRemoveMod());
-    const clearAddOn = () => dispatch(clearAddOnMod());
+
     let updateItem = (itemId) => {
         if (salesItems.length > 0) {
             salesItems.map((item) => {
@@ -254,6 +258,84 @@ const SalesEditModal = ({
                         }
                     }
 
+                    if (Object.keys(currentitem.modifiers.mod1).length === 0) {
+                        if (mandMod1 === '') {
+
+                        }
+                        else {
+                            var modMand1 = Object.create(modifier)
+                            modMand1.descption = mandMod1
+                            modMand1.price = mandPrice1
+                            modMand1.isMand = isMandMod1
+                            currentitem.modifiers.mod1 = modMand1
+                        }
+                    }
+                    else {
+                        if (mandMod1 === '') {
+                            item.modifiers.mod1.descption = currentitem.modifiers.mod1.descption
+                        }
+                        else {
+                            item.modifiers.mod1.descption = mandMod1
+                        }
+                        if (mandPrice1 === '') {
+                            item.modifiers.mod1.price = currentitem.modifiers.mod1.price
+                        }
+                        else {
+                            item.modifiers.mod1.price = mandPrice1
+                        }
+                    }
+                    if (Object.keys(currentitem.modifiers.mod2).length === 0) {
+                        if (mandMod2 === '') {
+
+                        }
+                        else {
+                            var modMand2 = Object.create(modifier)
+                            modMand2.descption = mandMod2
+                            modMand2.price = mandPrice2
+                            modMand2.isMand = isMandMod2
+                            currentitem.modifiers.mod2 = modMand2
+                        }
+                    }
+                    else {
+                        if (mandMod2 === '') {
+                            item.modifiers.mod2.descption = currentitem.modifiers.mod2.descption
+                        }
+                        else {
+                            item.modifiers.mod2.descption = mandMod2
+                        }
+                        if (mandPrice2 === '') {
+                            item.modifiers.mod2.price = currentitem.modifiers.mod2.price
+                        }
+                        else {
+                            item.modifiers.mod2.price = mandPrice2
+                        }
+                    }
+                    if (Object.keys(currentitem.modifiers.mod3).length === 0) {
+                        if (mandMod3 === '') {
+
+                        }
+                        else {
+                            var modMand3 = Object.create(modifier)
+                            modMand3.descption = mandMod3
+                            modMand3.price = mandPrice3
+                            modMand3.isMand = isMandMod3
+                            currentitem.modifiers.mod3 = modMand3
+                        }
+                    }
+                    else {
+                        if (mandMod3 === '') {
+                            item.modifiers.mod3.descption = currentitem.modifiers.mod3.descption
+                        }
+                        else {
+                            item.modifiers.mod3.descption = mandMod3
+                        }
+                        if (mandPrice3 === '') {
+                            item.modifiers.mod3.price = currentitem.modifiers.mod3.price
+                        }
+                        else {
+                            item.modifiers.mod3.price = mandPrice3
+                        }
+                    }
 
 
                 }
@@ -279,7 +361,9 @@ const SalesEditModal = ({
 
     }
     useEffect(() => {
-       
+        console.log(Object.keys(currentitem.modifiers.mod1).length)
+        console.log(Object.keys(currentitem.modifiers.mod2).length)
+        console.log(Object.keys(currentitem.modifiers.mod3).length)
         getModificationDate()
 
 
@@ -560,7 +644,7 @@ const SalesEditModal = ({
                             </div>
 
                         </div>
-                        <div className="modal-item-subtitle">Modifiers</div>
+                        <div className="modal-item-subtitle">Modifiers Type</div>
                         <div className="modal-item-price">
 
                             <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
@@ -699,6 +783,134 @@ const SalesEditModal = ({
 
                                 }
 
+                                Mandatory
+                            </div>
+
+                        </div>
+                        <div className="modal-item-subtitle">Modifiers  </div>
+                        <div className="modal-item-price">
+
+                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                Modifier 1
+                            </div>
+                            <select
+                                onChange={(e) => setMandMod1(e.target.value)}
+                                className="modal-item-function-input">
+                                {
+                                   Object.keys(currentitem.modifiers.mod1).length===0 ? <option value="" defaultValue selected disabled  >
+
+                                    </option> : <option defaultValue={currentitem.modifiers.mod1.descption} disabled defaultValue selected>
+                                         {currentitem.modifiers.mod1.descption}
+                                     </option> 
+                                }
+
+                                <option className="modal-item-function-option" value="1">
+                                    1
+                                </option>
+                                <option className="modal-item-function-option" value="2">
+                                    2
+                                </option>
+                                <option className="modal-item-function-option" value="3">
+                                    3
+                                </option>
+                            </select>
+                            {
+                                Object.keys(currentitem.modifiers.mod1).length === 0 ? <input onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                    <input defaultValue={currentitem.modifiers.mod1.price} onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                            }
+
+                            <div className="modal-item-desc-hor">
+                                {
+                                    Object.keys(currentitem.modifiers.mod1).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand1(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                        currentitem.modifiers.mod1.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod1.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                            <input defaultChecked onChange={() => currentitem.modifiers.mod1.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                }
+
+                                Mandatory
+                            </div>
+                        </div> 
+                        <div className="modal-item-price">
+
+                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                Modifier 2
+                            </div>
+                            <select
+                                onChange={(e) => setMandMod2(e.target.value)}
+                                defaultValue={""}
+                                className="modal-item-function-input"
+                            >
+                                {
+                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <option value="" disabled defaultValue selected>
+
+                                    </option> : <option value="" disabled defaultValue selected>
+                                        {currentitem.modifiers.mod2.descption}
+                                    </option>
+                                } 
+
+                                <option className="modal-item-function-option" value="1">
+                                    1
+                                </option>
+                                <option className="modal-item-function-option" value="2">
+                                    2
+                                </option>
+                                <option className="modal-item-function-option" value="3">
+                                    3
+                                </option>
+                            </select>
+                            {
+                                Object.keys(currentitem.modifiers.mod2).length === 0 ? <input onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                    <input defaultValue={currentitem.modifiers.mod2.price} onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                            }
+                            <div className="modal-item-desc-hor">
+                                {
+                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand2(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                        currentitem.modifiers.mod2.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod2.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                            <input defaultChecked onChange={() => currentitem.modifiers.mod2.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                }
+                                Mandatory
+                            </div>
+                        </div> 
+                        <div className="modal-item-price">
+
+                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                Modifier 3
+                            </div>
+                            <select
+                                onChange={(e) => setMandMod3(e.target.value)}
+                                defaultValue={""}
+                                className="modal-item-function-input"
+                            >
+                                {
+                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <option value="" disabled defaultValue selected>
+
+                                    </option> : <option value="" disabled defaultValue selected>
+                                       {currentitem.modifiers.mod3.descption}
+                                    </option>
+                                }
+
+                                <option className="modal-item-function-option" value="1">
+                                    1
+                                </option>
+                                <option className="modal-item-function-option" value="2">
+                                    2
+                                </option>
+                                <option className="modal-item-function-option" value="3">
+                                    3
+                                </option>
+                            </select>
+                            {
+                                Object.keys(currentitem.modifiers.mod3).length === 0 ? <input onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                    <input defaultValue={currentitem.modifiers.mod3.price} onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                            }
+                            <div className="modal-item-desc-hor">
+                                {
+                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand3(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                        currentitem.modifiers.mod3.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod3.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                            <input defaultChecked onChange={() => currentitem.modifiers.mod3.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                }
                                 Mandatory
                             </div>
 

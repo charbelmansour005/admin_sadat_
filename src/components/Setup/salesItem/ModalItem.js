@@ -2,20 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
 import { itemAdd, itemRemove, itemAddOn, modifier } from '../../../data/modules'
 import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod, addMandModifier, clearMandModifier } from "../../../redux/actions";
-=======
-import { itemAdd, itemRemove, itemAddOn } from "../../../data/modules";
-import {
-  addModifier,
-  removeModifier,
-  addOnModifier,
-  clearAddMod,
-  clearRemoveMod,
-  clearAddOnMod,
-} from "../../../redux/actions";
->>>>>>> 1f45ba87d9dedd22d6153ebee9e17390b4afb6f4
 const ModalItem = ({
   m,
   mod,
@@ -42,7 +30,6 @@ const ModalItem = ({
   const [pdaDesc, setPdaDesc] = useState("");
   const [comments, setComments] = useState("");
   const [branch, setbranch] = useState("");
-<<<<<<< HEAD
   const [creationDate, setCreationDate] = useState('')
   const [modDate, setModDate] = useState('')
   const [addMod, setAddMod] = useState('')
@@ -63,21 +50,7 @@ const ModalItem = ({
   const [isMandMod1, setIsMand1] = useState('')
   const [isMandMod2, setIsMand2] = useState('')
   const [isMandMod3, setIsMand3] = useState('')
-  const [mandModifiers, setMandModifiers] = useState([])
-=======
-  const [creationDate, setCreationDate] = useState("");
-  const [modDate, setModDate] = useState("");
-  const [addMod, setAddMod] = useState("");
-  const [addModPrice, setAddPrice] = useState("");
-  const [isAddMand, setAddMand] = useState("");
-  const [isRemoveMand, setRemoveMand] = useState("");
-  const [isAddOnMand, setAddOnMand] = useState("");
-  const [removeMod, setRemoveMod] = useState("");
-  const [removeModPrice, setRemovePrice] = useState("");
-  const [addOnMod, setAddOnMod] = useState("");
-  const [addOnModPrice, setAddOnPrice] = useState("");
 
->>>>>>> 1f45ba87d9dedd22d6153ebee9e17390b4afb6f4
   const dispatch = useDispatch();
   const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
     (state) => state.postReducer
@@ -111,7 +84,6 @@ const ModalItem = ({
   }, []);
 
   let pushModifiers = () => {
-<<<<<<< HEAD
 
     var modAdd = Object.create(itemAdd)
     modAdd.specs = addMod
@@ -158,36 +130,6 @@ const ModalItem = ({
     }
     else {
       addModifiers(modAdd)
-=======
-    var modAdd = Object.create(itemAdd);
-    modAdd.specs = addMod;
-    modAdd.categ = "ADD";
-    modAdd.descption = addMod;
-    modAdd.cmt = "";
-    modAdd.price = addModPrice;
-    modAdd.isMand = isAddMand;
-
-    var modRemove = Object.create(itemRemove);
-    modRemove.specs = removeMod;
-    modRemove.categ = "REMOVE";
-    modRemove.descption = removeMod;
-    modRemove.cmt = "";
-    modRemove.price = removeModPrice;
-    modRemove.isMand = isRemoveMand;
-
-    var modAddOn = Object.create(itemAddOn);
-    modAddOn.specs = addOnMod;
-    modAddOn.categ = "ADDON";
-    modAddOn.descption = addOnMod;
-    modAddOn.cmt = "";
-    modAddOn.price = addOnModPrice;
-    modAddOn.isMand = isAddOnMand;
-
-    if (addMod === "") {
-      clearAdd();
-    } else {
-      addModifiers(modAdd);
->>>>>>> 1f45ba87d9dedd22d6153ebee9e17390b4afb6f4
     }
 
     if (removeMod === "") {
@@ -201,37 +143,40 @@ const ModalItem = ({
       addOnModifiers(modAddOn);
     }
 
-<<<<<<< HEAD
 
 
     setAddMod('')
     setRemoveMod('')
     setAddOnMod('')
 
-    // setMandModifiers((prev) => {
-    //   let arr = prev
-    //   arr[0] = modMand1
-    //   arr[1] = modMand2
-    //   arr[2] = modMand3
-    //   return arr
-    // })
 
 
+
+    if (mandMod1 === '') {
+      modMand1 = {}
+    }
+    if (mandMod2 === '') {
+      modMand2 = {}
+    }
+    if (mandMod3 === '') {
+      modMand3 = {}
+    }
     addMandModifiers(modMand1, modMand2, modMand3)
 
 
     setMandMod1('')
     setMandMod2('')
     setMandMod3('')
+    // setMandPrice1('')
+    // setMandPrice2('')
+    // setMandPrice3('')
+    // setIsMand1('')
+    // setIsMand2('')
+    // setIsMand3('')
+
 
 
   }
-=======
-    setAddMod("");
-    setRemoveMod("");
-    setAddOnMod("");
-  };
->>>>>>> 1f45ba87d9dedd22d6153ebee9e17390b4afb6f4
 
   return (
     <div

@@ -9,6 +9,8 @@ import "../../../styles/Items.css";
 import ModalItem from "./ModalItem";
 import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod, clearMandModifier } from "../../../redux/actions";
 
 var dummyData = [];
@@ -51,6 +53,7 @@ const SalesItem = () => {
     if (modifiers.length > 0) {
       clearModifier()
     }
+    
 
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
@@ -398,7 +401,7 @@ const SalesItem = () => {
           />
 
           <TransitionGroup id="tg" className="item-remove-items">
-            {tData.map(
+            {salesItems.map(
               ({
                 name,
                 itemId,

@@ -376,9 +376,11 @@ export const addMandModifier = (item,item1,item2) => {
         return async dispatch => {
             dispatch({
                 type: ADD_MAND_MODIFIER,
-                payload: item,
-                payload1:item1,
-                payload2:item2
+                payload:{
+                    modifier1:item,
+                    modifier2:item1,
+                    modifier3:item2
+                }
 
             })
         }
