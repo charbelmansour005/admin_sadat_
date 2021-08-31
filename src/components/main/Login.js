@@ -8,6 +8,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [first, setFirst] = useState(true);
   const [wrongInfo, setWrongInfo] = useState(false);
   let history = useHistory();
   const signinHandler = (event) => {
@@ -26,6 +27,7 @@ const Login = () => {
   };
   const forgotHandler = () => {
     setVisible((prev) => !prev);
+    setFirst((prev) => (prev ? false : false));
   };
   const resetPassword = () => {};
 
@@ -47,20 +49,15 @@ const Login = () => {
         >
           Company ID, username or password incorrect
         </span>
-        <form
-          type="submit"
-          className="login"
-          onSubmit={signinHandler}
-          style={!visible ? mountedStyle : unmountedStyle}
-        >
+        <form type="submit" className="login" onSubmit={signinHandler}>
           <input
-            required
             onChange={(event) => {
               setCompanyID(event.target.value);
             }}
             placeholder="Company ID"
             type="number"
             className="username"
+            autoFocus="true"
           />
           <input
             required
@@ -81,44 +78,37 @@ const Login = () => {
             className="username"
           />
           <input type="submit" value="Sign In" className="submit-button" />
-          <span
-            className="forgot"
-            onClick={forgotHandler}
-            style={!visible ? mountedStyle : unmountedStyle}
-          >
-            Forgot password?!!
-          </span>
+          {!visible ? (
+            <span className="forgot" onClick={forgotHandler}>
+              Forgot Password?
+            </span>
+          ) : null}
         </form>
-        <form
-          type="submit"
-          onSubmit={resetPassword}
-          className="login"
-          style={visible ? mountedStyle : unmountedStyle}
-        >
-          <span
-            className="forgot"
-            onClick={forgotHandler}
+        {first ? null : (
+          <form
+            type="submit"
+            onSubmit={resetPassword}
+            className="login"
             style={visible ? mountedStyle : unmountedStyle}
           >
-            Sign In
-          </span>
-          <input
-            required
-            onChange={(event) => {
-              setCompanyID(event.target.value);
-            }}
-            placeholder="Enter your email"
-            type="email"
-            className="username"
-            l="1"
-          />
-          <input
-            type="submit"
-            value="Reset Password"
-            className="submit-button"
-            l="1"
-          />
-        </form>
+            <input
+              required
+              onChange={(event) => {
+                setCompanyID(event.target.value);
+              }}
+              placeholder="Enter your email"
+              type="email"
+              className="username"
+              l="1"
+            />
+            <input
+              type="submit"
+              value="Reset Password"
+              className="submit-button"
+              l="1"
+            />
+          </form>
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,8 @@
 .login-body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  justify-content: flex-start;
 }
 
 .item-title {
@@ -34,6 +29,7 @@ input::-webkit-inner-spin-button {
 .login {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   margin: auto;
 }
 
@@ -91,10 +87,6 @@ input::-webkit-inner-spin-button {
 
 .username:hover {
   background-color: rgba(1, 139, 182, 0);
-}
-
-.username:focus::-webkit-input-placeholder {
-  color: transparent;
 }
 
 .username[l="1"] {

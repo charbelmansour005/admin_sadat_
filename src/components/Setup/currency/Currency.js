@@ -9,20 +9,25 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import CurrencyEditModal from "./CurrencyEditModal";
-import { addCurrency, searchCurrency, deleteCurrency } from "../../../redux/actions";
+import {
+  addCurrency,
+  searchCurrency,
+  deleteCurrency,
+} from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 
+var dummyData = [];
 
 const Currency = (props) => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
+  const [currentItem, setCurrentItem] = useState({});
+  const [modalEdit, setModalEdit] = useState(false);
   const dispatch = useDispatch();
-  const { currencyItems } = useSelector(
-    (state) => state.postReducer
-  );
+  const { currencyItems } = useSelector((state) => state.postReducer);
   const addCurrencies = () => dispatch(addCurrency());
   const deleteCurrencies = (currencyId) => dispatch(deleteCurrency(currencyId));
   const searchCurrencies = (name) => dispatch(searchCurrency(name));
@@ -38,7 +43,7 @@ const Currency = (props) => {
     animationFillMode: "forwards",
   };
   useEffect(() => {
-    addCurrencies()
+    addCurrencies();
 
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
@@ -64,7 +69,7 @@ const Currency = (props) => {
   }
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
-    setModalEdit(false)
+    setModalEdit(false);
   }
   function GetSortOrder(prop) {
     return function (a, b) {
@@ -87,38 +92,33 @@ const Currency = (props) => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addCurrencies()
+    if (e.target.value === "") {
+      addCurrencies();
+    } else {
+      searchCurrencies(e.target.value);
     }
-    else {
-      searchCurrencies(e.target.value)
-    }
-
-  }
+  };
 
   const handleDelete = (currencyId) => {
     currencyItems.map((item) => {
       if (item.currencyId === currencyId) {
-        deleteCurrencies(currencyId)
+        deleteCurrencies(currencyId);
       }
-    })
-
-
+    });
   };
   const handleEdit = (currencyId) => {
-
     currencyItems.map((item) => {
       if (item.currencyId === currencyId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
+        setCurrentItem(item);
+        setModalEdit(true);
+        setModal(false);
+        setFirst(true);
       }
-    })
-  }
+    });
+  };
   useEffect(() => {
-    setTData(currencyItems)
-    return () => { };
+    setTData(currencyItems);
+    return () => {};
   }, []);
 
   const sortBy = (sort) => {
@@ -153,10 +153,40 @@ const Currency = (props) => {
       creationDate: createdDate,
       lastModificationDate: modificationDate,
     };
-    currencyItems.push(newItem)
-    console.log(currencyItems)
+    currencyItems.push(newItem);
+    console.log(currencyItems);
     toggleModal();
     e.target.reset();
+  };
+  const filename = "SalesItemData";
+  const fields = {
+    key: "key",
+    name: "name",
+    price: "price",
+    group: "group",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = dummyData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("key")) {
+            dummyData = results.data;
+            try {
+              setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
   };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
@@ -182,33 +212,52 @@ const Currency = (props) => {
               onChange={handleSearch}
             />
           </div>
-
-          <div className="cur-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="cur-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
         </div>
         <div className="cur-table">
           <HeaderCurrency name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="cur-remove-items">
-            {currencyItems.map(({  name, currencyId, symbol }) => (
-              <CSSTransition key={currencyId} timeout={500} classNames="cur-trans">
+            {currencyItems.map(({ name, currencyId, symbol }) => (
+              <CSSTransition
+                key={currencyId}
+                timeout={500}
+                classNames="cur-trans"
+              >
                 <TableCurrency
-                 
                   name={name}
                   currencyId={currencyId}
                   symbol={symbol}
                   handleDelete={handleDelete}
-                  handleEdit={handleEdit} />
+                  handleEdit={handleEdit}
+                />
               </CSSTransition>
             ))}
           </TransitionGroup>

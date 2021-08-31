@@ -9,7 +9,15 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import EditDivisionModal from "./EditDivisionModal";
-import { addDivisions, searchDivision, deleteDivisions } from "../../../redux/actions";
+import {
+  addDivisions,
+  searchDivision,
+  deleteDivisions,
+} from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
+
+var dummyData = [];
 
 const Divisions = () => {
   const [modal, setModal] = useState(false);
@@ -19,17 +27,15 @@ const Divisions = () => {
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
+  const [currentItem, setCurrentItem] = useState({});
+  const [modalEdit, setModalEdit] = useState(false);
   const dispatch = useDispatch();
-  const { divisionItems } = useSelector(
-    (state) => state.postReducer
-  );
+  const { divisionItems } = useSelector((state) => state.postReducer);
   const addDivision = () => dispatch(addDivisions());
   const deleteDivision = (id) => dispatch(deleteDivisions(id));
   const searchDivisions = (name) => dispatch(searchDivision(name));
   useEffect(() => {
-    addDivision()
+    addDivision();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -49,7 +55,7 @@ const Divisions = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(divisionItems)
+    setTData(divisionItems);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -57,7 +63,7 @@ const Divisions = () => {
   }
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
-    setModalEdit(false)
+    setModalEdit(false);
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -110,35 +116,30 @@ const Divisions = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addDivision()
+    if (e.target.value === "") {
+      addDivision();
+    } else {
+      searchDivisions(e.target.value);
     }
-    else {
-      searchDivisions(e.target.value)
-    }
-
-  }
+  };
 
   const handleDelete = (divisionId) => {
     divisionItems.map((item) => {
       if (item.divisionId === divisionId) {
-        deleteDivision(divisionId)
+        deleteDivision(divisionId);
       }
-    })
-
-
+    });
   };
   const handleEdit = (divisionId) => {
-
     divisionItems.map((item) => {
       if (item.divisionId === divisionId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
+        setCurrentItem(item);
+        setModalEdit(true);
+        setModal(false);
+        setFirst(true);
       }
-    })
-  }
+    });
+  };
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
@@ -221,10 +222,41 @@ const Divisions = () => {
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };
-    divisionItems.push(newItem)
+    divisionItems.push(newItem);
 
     toggleModal();
     e.target.reset();
+  };
+
+  const filename = "SalesItemData";
+  const fields = {
+    key: "key",
+    name: "name",
+    price: "price",
+    group: "group",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = dummyData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("key")) {
+            dummyData = results.data;
+            try {
+              setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
   };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
@@ -250,18 +282,34 @@ const Divisions = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="division-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="division-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
         </div>
         <div className="division-table">
@@ -278,14 +326,19 @@ const Divisions = () => {
           />
           <TransitionGroup className="division-remove-items">
             {divisionItems.map(
-              ({ category, name, divisionId, creationDate, lastModificationDate }) => (
+              ({
+                category,
+                name,
+                divisionId,
+                creationDate,
+                lastModificationDate,
+              }) => (
                 <CSSTransition
                   key={divisionId}
                   timeout={500}
                   classNames="division-trans"
                 >
                   <TableDivision
-
                     name={name}
                     divisionId={divisionId}
                     category={category}

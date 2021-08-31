@@ -10,8 +10,10 @@ import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import EditGroupModal from "./EditGroupModal";
 import { addGroups, searchGroups, deleteGroups } from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 
-
+var dummyData = [];
 
 const Groups = () => {
   const [modal, setModal] = useState(false);
@@ -21,17 +23,15 @@ const Groups = () => {
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
+  const [currentItem, setCurrentItem] = useState({});
+  const [modalEdit, setModalEdit] = useState(false);
   const dispatch = useDispatch();
-  const { groupItems } = useSelector(
-    (state) => state.postReducer
-  );
+  const { groupItems } = useSelector((state) => state.postReducer);
   const addGroup = () => dispatch(addGroups());
   const deleteGroup = (id) => dispatch(deleteGroups(id));
   const searchGroup = (name) => dispatch(searchGroups(name));
   useEffect(() => {
-    addGroup()
+    addGroup();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -59,7 +59,7 @@ const Groups = () => {
   }
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
-    setModalEdit(false)
+    setModalEdit(false);
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -112,35 +112,30 @@ const Groups = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addGroup()
+    if (e.target.value === "") {
+      addGroup();
+    } else {
+      searchGroup(e.target.value);
     }
-    else {
-      searchGroup(e.target.value)
-    }
-
-  }
+  };
 
   const handleDelete = (groupId) => {
     groupItems.map((item) => {
       if (item.groupId === groupId) {
-        deleteGroup(groupId)
+        deleteGroup(groupId);
       }
-    })
-
-
+    });
   };
   const handleEdit = (groupId) => {
-
     groupItems.map((item) => {
       if (item.groupId === groupId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
+        setCurrentItem(item);
+        setModalEdit(true);
+        setModal(false);
+        setFirst(true);
       }
-    })
-  }
+    });
+  };
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
@@ -225,12 +220,10 @@ const Groups = () => {
     pdaHideMenu,
     groupRemark,
     createdData,
-    modificationDate,
-
+    modificationDate
   ) => {
     e.preventDefault();
     let newItem = {
-
       name: name,
       groupId: groupId,
       othername: othername,
@@ -250,13 +243,43 @@ const Groups = () => {
       groupRemark: groupRemark,
       creationDate: createdData,
       lastModificationDate: modificationDate,
-
     };
-    groupItems.push(newItem)
-    console.log(groupItems)
+    groupItems.push(newItem);
+    console.log(groupItems);
 
     toggleModal();
     e.target.reset();
+  };
+
+  const filename = "SalesItemData";
+  const fields = {
+    key: "key",
+    name: "name",
+    price: "price",
+    group: "group",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = dummyData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("key")) {
+            dummyData = results.data;
+            try {
+              setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
   };
 
   return (
@@ -283,18 +306,34 @@ const Groups = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="grp-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="grp-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
         </div>
         <div className="grp-table">
@@ -311,10 +350,19 @@ const Groups = () => {
           />
           <TransitionGroup className="grp-remove-items">
             {groupItems.map(
-              ({  division, name, groupId, creationDate, lastModificationDate }) => (
-                <CSSTransition key={groupId} timeout={500} classNames="grp-trans">
+              ({
+                division,
+                name,
+                groupId,
+                creationDate,
+                lastModificationDate,
+              }) => (
+                <CSSTransition
+                  key={groupId}
+                  timeout={500}
+                  classNames="grp-trans"
+                >
                   <TableGroup
-                   
                     name={name}
                     division={division}
                     groupId={groupId}

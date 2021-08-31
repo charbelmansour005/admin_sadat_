@@ -9,8 +9,18 @@ import "../../../styles/Items.css";
 import ModalItem from "./ModalItem";
 import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
-import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
+import {
+  addItems,
+  searchItems,
+  deleteItems,
+  clearAddMod,
+  clearRemoveMod,
+  clearAddOnMod,
+} from "../../../redux/actions";
 
+var dummyData = [];
 
 const SalesItem = () => {
   const [tData, setTData] = useState([]);
@@ -21,9 +31,8 @@ const SalesItem = () => {
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
   const [modal, setModal] = useState(false);
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
-
+  const [currentItem, setCurrentItem] = useState({});
+  const [modalEdit, setModalEdit] = useState(false);
   const dispatch = useDispatch();
   const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
     (state) => state.postReducer
@@ -35,16 +44,16 @@ const SalesItem = () => {
   const clearRemove = () => dispatch(clearRemoveMod());
   const clearAddOn = () => dispatch(clearAddOnMod());
   useEffect(() => {
-    addItem()
+    addItem();
     if (ItemAdd.length > 0) {
-      clearAdd()
-      console.log(ItemAdd)
+      clearAdd();
+      console.log(ItemAdd);
     }
     if (ItemRemove.length > 0) {
-      clearRemove()
+      clearRemove();
     }
     if (ItemAddOn.length > 0) {
-      clearAddOn()
+      clearAddOn();
     }
 
     document.addEventListener("keydown", (e) => {
@@ -59,7 +68,6 @@ const SalesItem = () => {
     };
   }, [modal]);
   useEffect(() => {
-
     if (modal) {
       document.getElementById("search-text").tabIndex = -1;
     } else {
@@ -67,18 +75,15 @@ const SalesItem = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(salesItems);
-
-
-  }, []);
+    setTData(dummyData);
+  }, [dummyData]);
   function toggleModal() {
-
     setModal((prev) => !prev);
     setFirst(false);
   }
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
-    setModalEdit(false)
+    setModalEdit(false);
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -131,37 +136,29 @@ const SalesItem = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addItem()
+    if (e.target.value === "") {
+      addItem();
+    } else {
+      searchItem(e.target.value);
     }
-    else {
-      searchItem(e.target.value)
-    }
-
-  }
-
+  };
   const handleDelete = (itemId) => {
     salesItems.map((item) => {
       if (item.itemId === itemId) {
-        deleteItem(itemId)
+        deleteItem(itemId);
       }
-    })
-
-
+    });
   };
-
   const handleEdit = (itemId) => {
-
     salesItems.map((item) => {
       if (item.itemId === itemId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
+        setCurrentItem(item);
+        setModalEdit(true);
+        setModal(false);
+        setFirst(true);
       }
-    })
-  }
-
+    });
+  };
   const sortBy = (sort) => {
     if (sort === "name") {
       if (sortName === "0") {
@@ -231,7 +228,6 @@ const SalesItem = () => {
       } else setSortCreationDate("0");
     } else if (sort === "lastModDate") {
       if (sortLastModificationDate === "0") {
-
         setSortName("0");
         setSortPrice("0");
         setSortGroup("0");
@@ -275,7 +271,6 @@ const SalesItem = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-
       name: name,
       itemId: itemId,
       menuDesc: menuDesc,
@@ -299,17 +294,42 @@ const SalesItem = () => {
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };
-    salesItems.push(newItem)
-    console.log(salesItems)
-
+    salesItems.push(newItem);
+    console.log(salesItems);
 
     toggleModal();
-    e.target.reset()
+    e.target.reset();
   };
-
-
-
-
+  const filename = "SalesItemData";
+  const fields = {
+    key: "key",
+    name: "name",
+    price: "price",
+    group: "group",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = dummyData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("key")) {
+            dummyData = results.data;
+            try {
+              setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
+  };
   return (
     <div id="App" style={{ width: "85%", height: "100%" }}>
       <h1 className="item-title">Sales Items</h1>
@@ -334,18 +354,34 @@ const SalesItem = () => {
               onChange={handleSearch}
             />
           </div>
-          <div onClick={() => toggleModal()} className="item-add">
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div onClick={() => toggleModal()} className="item-add">
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
         </div>
         <div className="item-table">
@@ -364,7 +400,7 @@ const SalesItem = () => {
           />
 
           <TransitionGroup id="tg" className="item-remove-items">
-            {salesItems.map(
+            {tData.map(
               ({
                 name,
                 itemId,
@@ -373,7 +409,11 @@ const SalesItem = () => {
                 creationDate,
                 lastModificationDate,
               }) => (
-                <CSSTransition key={itemId} timeout={500} classNames="item-trans">
+                <CSSTransition
+                  key={itemId}
+                  timeout={500}
+                  classNames="item-trans"
+                >
                   <TableItem
                     name={name}
                     itemId={itemId}
@@ -400,7 +440,6 @@ const SalesItem = () => {
           downStyle={downStyle}
           upStyle={upStyle}
           handleSubmit={handleModalSubmit}
-
         />
       ) : null}
 
