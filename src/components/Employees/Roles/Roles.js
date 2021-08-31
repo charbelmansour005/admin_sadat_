@@ -9,7 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { catPost, deleteCat, searchCat } from "../../../redux/actions";
+import { addRole, deleteRole, searchRole } from "../../../redux/actions";
 
 const Roles = () => {
   const [modal, setModal] = useState(false);
@@ -18,14 +18,14 @@ const Roles = () => {
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
-  const { catItem } = useSelector((state) => state.postReducer);
-  const addCategories = () => dispatch(catPost());
-  const deleteCateg = (id) => dispatch(deleteCat(id));
-  const searchCateg = (name) => dispatch(searchCat(name));
+  const { roleData } = useSelector((state) => state.postReducer);
+  const addRoles = () => dispatch(addRole());
+  const deleteRoles = (id) => dispatch(deleteRole(id));
+  const searchRoles = (name) => dispatch(searchRole(name));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    addCategories();
+    addRoles()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -45,7 +45,7 @@ const Roles = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(catItem);
+    setTData(roleData);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -88,23 +88,23 @@ const Roles = () => {
   }
   const handleSearch = (e) => {
     if (e.target.value === "") {
-      addCategories();
+      addRoles()
     } else {
-      searchCateg(e.target.value);
+      searchRoles(e.target.value);
     }
   };
 
-  const handleDelete = (catId) => {
-    catItem.map((item) => {
-      if (item.catId === catId) {
-        deleteCateg(catId);
+  const handleDelete = (roleId) => {
+    roleData.map((item) => {
+      if (item.roleId === roleId) {
+        deleteRoles(roleId);
       }
     });
   };
 
-  const handleEdit = (catId) => {
-    catItem.map((item) => {
-      if (item.catId === catId) {
+  const handleEdit = (roleId) => {
+    roleData.map((item) => {
+      if (item.roleId === roleId) {
         setCurrentItem(item);
         setModalEdit(true);
         setModal(false);
@@ -130,27 +130,21 @@ const Roles = () => {
   };
   const handleModalSubmit = (
     e,
-    catId,
-    pDefinedCat,
+    roleId,
     name,
-    othername,
-    sorting,
-    role,
-    func
+    fromTable,
+    toTable,
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
-      catId: catId,
-      pDefinedCat: pDefinedCat,
-      name: name,
-      othername: othername,
-      sorting: sorting,
-      role: role,
-      func: func,
-    };
-    catItem.push(newItem);
 
+      roleId: roleId,
+      name: name,
+      fromTable: fromTable,
+      toTable: toTable
+    };
+    roleData.push(newItem);
+    console.log(roleData)
     toggleModal();
     e.target.reset();
   };
@@ -201,12 +195,12 @@ const Roles = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="role-remove-items">
-            {catItem.map(({ key, catId, name }) => (
-              <CSSTransition key={key} timeout={500} classNames="role-trans">
+            {roleData.map(({ roleId, name }) => (
+              <CSSTransition key={roleId} timeout={500} classNames="role-trans">
                 <TableRole
-                  key={key}
+
                   name={name}
-                  catId={catId}
+                  roleId={roleId}
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
                 />

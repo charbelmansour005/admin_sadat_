@@ -3,8 +3,8 @@ import "../../../styles/Items.css";
 import CloseIcon from "@material-ui/icons/Close";
 
 import { useDispatch, useSelector } from "react-redux";
-import { itemAdd, itemRemove, itemAddOn } from '../../../data/modules'
-import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
+import { itemAdd, itemRemove, itemAddOn, modifier } from '../../../data/modules'
+import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod, addMandModifier, clearMandModifier } from "../../../redux/actions";
 const ModalItem = ({
   m,
   mod,
@@ -43,10 +43,18 @@ const ModalItem = ({
   const [removeModPrice, setRemovePrice] = useState('')
   const [addOnMod, setAddOnMod] = useState('')
   const [addOnModPrice, setAddOnPrice] = useState('')
-
-
+  const [mandMod1, setMandMod1] = useState('')
+  const [mandMod2, setMandMod2] = useState('')
+  const [mandMod3, setMandMod3] = useState('')
+  const [mandPrice1, setMandPrice1] = useState('')
+  const [mandPrice2, setMandPrice2] = useState('')
+  const [mandPrice3, setMandPrice3] = useState('')
+  const [isMandMod1, setIsMand1] = useState('')
+  const [isMandMod2, setIsMand2] = useState('')
+  const [isMandMod3, setIsMand3] = useState('')
+  const [mandModifiers, setMandModifiers] = useState([])
   const dispatch = useDispatch();
-  const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
+  const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
     (state) => state.postReducer
   );
   const addModifiers = (item) => dispatch(addModifier(item));
@@ -55,6 +63,8 @@ const ModalItem = ({
   const clearAdd = () => dispatch(clearAddMod());
   const clearRemove = () => dispatch(clearRemoveMod());
   const clearAddOn = () => dispatch(clearAddOnMod());
+  const addMandModifiers = (item, item1, item2) => dispatch(addMandModifier(item, item1, item2));
+  const clearModifier = () => dispatch(clearMandModifier())
   let getCreatedDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -105,6 +115,20 @@ const ModalItem = ({
     modAddOn.price = addOnModPrice
     modAddOn.isMand = isAddOnMand
 
+    var modMand1 = Object.create(modifier)
+    modMand1.descption = mandMod1
+    modMand1.price = mandPrice1
+    modMand1.isMand = isMandMod1
+
+    var modMand2 = Object.create(modifier)
+    modMand2.descption = mandMod2
+    modMand2.price = mandPrice2
+    modMand2.isMand = isMandMod2
+
+    var modMand3 = Object.create(modifier)
+    modMand3.descption = mandMod3
+    modMand3.price = mandPrice3
+    modMand3.isMand = isMandMod3
 
 
     if (addMod === '') {
@@ -131,6 +155,22 @@ const ModalItem = ({
     setAddMod('')
     setRemoveMod('')
     setAddOnMod('')
+
+    // setMandModifiers((prev) => {
+    //   let arr = prev
+    //   arr[0] = modMand1
+    //   arr[1] = modMand2
+    //   arr[2] = modMand3
+    //   return arr
+    // })
+
+
+    addMandModifiers(modMand1, modMand2, modMand3)
+
+
+    setMandMod1('')
+    setMandMod2('')
+    setMandMod3('')
 
 
   }
@@ -170,6 +210,7 @@ const ModalItem = ({
               ItemAdd,
               ItemRemove,
               ItemAddOn,
+              modifiers,
               creationDate,
               modDate
             )
@@ -404,7 +445,7 @@ const ModalItem = ({
               </div>
 
             </div>
-            <div className="modal-item-subtitle">Modifiers</div>
+            <div className="modal-item-subtitle">Modifiers Type</div>
             <div className="modal-item-price">
 
               <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
@@ -495,6 +536,99 @@ const ModalItem = ({
               </div>
 
             </div>
+            <div className="modal-item-subtitle">Modifiers  </div>
+
+
+            <div className="modal-item-price">
+
+              <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                Modifier 1
+              </div>
+              <select
+                onChange={(e) => setMandMod1(e.target.value)}
+                defaultValue={""}
+                className="modal-item-function-input"
+              >
+                <option value="" disabled defaultValue selected>
+
+                </option>
+                <option className="modal-item-function-option" value="1">
+                  1
+                </option>
+                <option className="modal-item-function-option" value="2">
+                  2
+                </option>
+                <option className="modal-item-function-option" value="3">
+                  3
+                </option>
+              </select>
+              <input onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
+              <div className="modal-item-desc-hor">
+                <input value="isMandantory" onChange={(e) => setIsMand1(e.target.value)} type="checkbox" className="modal-check"></input>
+                Mandatory
+              </div>
+            </div>
+            <div className="modal-item-price">
+
+              <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                Modifier 2
+              </div>
+              <select
+                onChange={(e) => setMandMod2(e.target.value)}
+                defaultValue={""}
+                className="modal-item-function-input"
+              >
+                <option selected defaultValue disabled value="">
+
+                </option>
+                <option className="modal-item-function-option" value="1">
+                  1
+                </option>
+                <option className="modal-item-function-option" value="2">
+                  2
+                </option>
+                <option className="modal-item-function-option" value="3">
+                  3
+                </option>
+              </select>
+              <input onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
+              <div className="modal-item-desc-hor">
+                <input value="isMandantory" onChange={(e) => setIsMand2(e.target.value)} type="checkbox" className="modal-check"></input>
+                Mandatory
+              </div>
+            </div>
+            <div className="modal-item-price">
+
+              <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                Modifier 3
+              </div>
+              <select
+                onChange={(e) => setMandMod3(e.target.value)}
+                defaultValue={""}
+                className="modal-item-function-input"
+              >
+                <option selected defaultValue disabled value="">
+
+                </option>
+                <option className="modal-item-function-option" value="1">
+                  1
+                </option>
+                <option className="modal-item-function-option" value="2">
+                  2
+                </option>
+                <option className="modal-item-function-option" value="3">
+                  3
+                </option>
+              </select>
+              <input onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
+              <div className="modal-item-desc-hor">
+                <input value="isMandantory" onChange={(e) => setIsMand3(e.target.value)} type="checkbox" className="modal-check"></input>
+                Mandatory
+              </div>
+
+            </div>
+
+
           </div>
           <div className="modal-item-footer">
             <input type="submit" value="Save" onClick={() => pushModifiers()} className="modal-item-save" />

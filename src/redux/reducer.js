@@ -1,6 +1,6 @@
 
 
-import { ADD_EMPLOYEES, DELETE_EMPLOYEES, SEARCH_EMPLOYEES, CLEAR_ADD, CLEAR_REMOVE, CLEAR_ADDON, EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION, ADDON_MODIFIER, ADD_MODIFIER, REMOVE_MODIFIER } from "./actions";
+import { CLEAR_MAND_MODIFIER, ADD_MAND_MODIFIER, ADD_CUSTOMER, DELETE_CUSTOMER, SEARCH_CUSTOMER, ADD_ROLE, DELETE_ROLE, SEARCH_ROLE, ADD_EMPLOYEES, DELETE_EMPLOYEES, SEARCH_EMPLOYEES, CLEAR_ADD, CLEAR_REMOVE, CLEAR_ADDON, EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION, ADDON_MODIFIER, ADD_MODIFIER, REMOVE_MODIFIER } from "./actions";
 
 const initialState = {
   catItem: [],
@@ -11,6 +11,9 @@ const initialState = {
   groupItems: [],
   divisionItems: [],
   employeeData: [],
+  roleData: [],
+  customerData: [],
+  modifiers: [],
   ItemAdd: {},
   ItemRemove: {},
   ItemAddOn: {}
@@ -150,6 +153,19 @@ function postReducer(state = initialState, action) {
         ...state,
         ItemAddOn: action.payload,
       };
+    case ADD_MAND_MODIFIER:
+      return {
+        ...state,
+        modifiers: {
+          mod1: action.payload,
+          mod2: action.payload1,
+          mod3: action.payload2
+        }
+      };
+    case CLEAR_MAND_MODIFIER:
+      return {
+        ...state, modifiers: action.payload
+      }
     case CLEAR_ADD:
       return {
         ...state, ItemAdd: action.payload
@@ -179,7 +195,37 @@ function postReducer(state = initialState, action) {
       return {
         ...state, employeeData: state.employeeData.filter((data) => data.empId !== action.payload)
       }
+    case ADD_ROLE:
+      return {
+        ...state,
+        roleData: action.payload,
+      };
+    case SEARCH_ROLE:
 
+      return {
+        ...state, roleData: state.roleData.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
+      }
+    case DELETE_ROLE:
+
+      return {
+        ...state, roleData: state.roleData.filter((data) => data.roleId !== action.payload)
+      }
+
+    case ADD_CUSTOMER:
+      return {
+        ...state,
+        customerData: action.payload,
+      };
+    case SEARCH_CUSTOMER:
+
+      return {
+        ...state, customerData: state.customerData.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
+      }
+    case DELETE_CUSTOMER:
+
+      return {
+        ...state, customerData: state.customerData.filter((data) => data.customerId !== action.payload)
+      }
     default:
       return state;
   }

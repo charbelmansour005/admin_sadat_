@@ -4,10 +4,10 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 const HeaderCustomer = ({
-  firstName,
+  name,
   lastName,
   company,
-  phone,
+  phoneNumber,
   sortFirstName,
   sortLastName,
   sortCompany,
@@ -16,10 +16,10 @@ const HeaderCustomer = ({
 }) => {
   return (
     <div className="cust-head-holder">
-      <div id={"" + firstName} className="cust-holder">
+      <div id={"" + name} className="cust-holder">
         <div className="cust-head-name">
           <div onClick={() => sortBy("firstName")} className="item-sort">
-            {firstName}
+            {name}
           </div>
           {sortFirstName === "1" && (
             <ArrowDropUpIcon style={{ alignSelf: "center" }} />
@@ -52,7 +52,7 @@ const HeaderCustomer = ({
         </div>
         <div className="cust-mod-date">
           <div onClick={() => sortBy("phone")} className="item-sort">
-            {phone}
+            {phoneNumber}
           </div>
           {sortPhone === "1" && (
             <ArrowDropUpIcon style={{ alignSelf: "center" }} />

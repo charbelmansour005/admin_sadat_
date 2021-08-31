@@ -12,17 +12,18 @@ const ModalCustomer = ({
   upStyle,
   handleSubmit,
 }) => {
-  const { catItem } = useSelector((state) => state.postReducer);
-  const [pDefinedCat, setPDefinedCat] = useState("");
-  const [catName, setCatName] = useState("");
-  const [othername, setOtherName] = useState("");
-  const [sorting, setSorting] = useState("");
-  const [creationDate, setCreationDate] = useState("");
-  const [modDate, setModDate] = useState("");
-
+  const { customerData } = useSelector((state) => state.postReducer);
+  const [customerTitle, setCustomerTitle] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [company, setCompany] = useState('');
+  const [group, setGroup] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [website, setWebsite] = useState('')
   useEffect(() => {
-    getCreatedDate();
-    getModificationDate();
+
   }, []);
 
   const openInNewTab = (url) => {
@@ -30,23 +31,7 @@ const ModalCustomer = ({
     if (newWindow) newWindow.opener = null;
   };
 
-  let getCreatedDate = () => {
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    return date + "/" + month + "/" + year;
-  };
-  let getModificationDate = () => {
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    var hour = new Date().getHours();
-    var minutes = new Date().getMinutes();
-    var seconds = new Date().getSeconds();
-    var completeDateFormat = date + "/" + month + "/" + year;
 
-    setModDate(completeDateFormat);
-  };
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
@@ -59,13 +44,16 @@ const ModalCustomer = ({
           onSubmit={(e) =>
             handleSubmit(
               e,
-              catItem.length + 1,
-              pDefinedCat,
-              catName,
-              othername,
-              sorting,
-              creationDate,
-              modDate
+              customerData.length + 1,
+              customerTitle,
+              firstName,
+              lastName,
+              company,
+              group,
+              phoneNumber,
+              email,
+              mobile,
+              website
             )
           }
         >
@@ -86,6 +74,7 @@ const ModalCustomer = ({
                 </div>
                 <select
                   required
+                  onChange={(e) => setCustomerTitle(e.target.value)}
                   className="modal-cust-print-input"
                   style={{ marginTop: "6px" }}
                   defaultValue=""
@@ -111,6 +100,7 @@ const ModalCustomer = ({
               <div className="modal-cust-desc">
                 First Name*
                 <input
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
                   placeholder="First name"
                   className="modal-cust-print-input"
@@ -119,6 +109,7 @@ const ModalCustomer = ({
               <div className="modal-cust-desc">
                 Last Name*
                 <input
+                  onChange={(e) => setLastName(e.target.value)}
                   required
                   placeholder="Last name"
                   className="modal-cust-print-input"
@@ -129,6 +120,7 @@ const ModalCustomer = ({
               <div className="modal-cust-desc">
                 Company
                 <input
+                  onChange={(e) => setCompany(e.target.value)}
                   placeholder="Company"
                   className="modal-cust-desc-input"
                 />
@@ -145,6 +137,7 @@ const ModalCustomer = ({
                   <div className="tooltip1">Add new group</div>
                 </div>
                 <select
+                  onChange={(e) => setGroup(e.target.value)}
                   required
                   style={{ marginTop: "6px" }}
                   className="modal-cust-desc-input"
@@ -174,6 +167,8 @@ const ModalCustomer = ({
               <div className="modal-cust-desc">
                 Phone number
                 <input
+                  onChange={(e) => setPhoneNumber(e.target.value
+                  )}
                   type="number"
                   placeholder="Phone number"
                   className="modal-cust-desc-input"
@@ -181,13 +176,16 @@ const ModalCustomer = ({
               </div>
               <div className="modal-cust-desc">
                 Email
-                <input placeholder="Email" className="modal-cust-desc-input" />
+                <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email" className="modal-cust-desc-input" />
               </div>
             </div>
             <div className="modal-cust-price">
               <div className="modal-cust-desc">
                 Mobile*
                 <input
+                  onChange={(e) => setMobile(e.target.value)}
                   required
                   type="number"
                   placeholder="Mobile"
@@ -197,6 +195,7 @@ const ModalCustomer = ({
               <div className="modal-cust-desc">
                 Website
                 <input
+                  onChange={(e) => setWebsite(e.target.value)}
                   placeholder="Website"
                   className="modal-cust-desc-input"
                 />

@@ -766,7 +766,7 @@ const ModalEdit = ({
             </div>
           </div>
           <div className="modal-emp-footer">
-            <input type="submit" value="Save"   className="modal-emp-save" />
+            <input type="submit" value="Save" onClick={() => updateEmployee(currentitem.empId)} className="modal-emp-save" />
           </div>
         </form>
       </div>

@@ -9,7 +9,7 @@ import "../../../styles/Items.css";
 import ModalItem from "./ModalItem";
 import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
-import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod } from "../../../redux/actions";
+import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod, clearMandModifier } from "../../../redux/actions";
 
 
 const SalesItem = () => {
@@ -25,7 +25,7 @@ const SalesItem = () => {
   const [modalEdit, setModalEdit] = useState(false)
 
   const dispatch = useDispatch();
-  const { salesItems, ItemAdd, ItemRemove, ItemAddOn } = useSelector(
+  const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
     (state) => state.postReducer
   );
   const addItem = () => dispatch(addItems());
@@ -34,8 +34,10 @@ const SalesItem = () => {
   const clearAdd = () => dispatch(clearAddMod());
   const clearRemove = () => dispatch(clearRemoveMod());
   const clearAddOn = () => dispatch(clearAddOnMod());
+  const clearModifier = () => dispatch(clearMandModifier());
   useEffect(() => {
     addItem()
+    console.log(modifiers)
     if (ItemAdd.length > 0) {
       clearAdd()
       console.log(ItemAdd)
@@ -45,6 +47,9 @@ const SalesItem = () => {
     }
     if (ItemAddOn.length > 0) {
       clearAddOn()
+    }
+    if (modifiers.length > 0) {
+      clearModifier()
     }
 
     document.addEventListener("keydown", (e) => {
@@ -270,6 +275,7 @@ const SalesItem = () => {
     ItemAdd,
     ItemRemove,
     ItemAddOn,
+    modifiers,
     createdData,
     modificationDate
   ) => {
@@ -296,6 +302,7 @@ const SalesItem = () => {
       ItemAdd: ItemAdd,
       ItemRemove: ItemRemove,
       ItemAddOn: ItemAddOn,
+      modifiers: modifiers,
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };

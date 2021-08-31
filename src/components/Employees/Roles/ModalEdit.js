@@ -11,30 +11,30 @@ const ModalEdit = ({
   upStyle,
   currentitem,
 }) => {
-  const { catItem } = useSelector((state) => state.postReducer);
-  const [catName, setCatName] = useState("");
-  const [othercatName, setOtherCat] = useState("");
-  const [sorting, setSorting] = useState("");
-  useEffect(() => {}, []);
+  const { roleData } = useSelector((state) => state.postReducer);
+  const [roleName, setRoleName] = useState('')
+  const [fromTable, setFromTable] = useState('')
+  const [toTable, setToTable] = useState('')
+  useEffect(() => { }, []);
 
-  let updateEmployee = (catId) => {
-    if (catItem.length > 0) {
-      catItem.map((item) => {
-        if (item.catId === catId)
-          if (catName === "") {
+  let updateRole = (roleId) => {
+    if (roleData.length > 0) {
+      roleData.map((item) => {
+        if (item.roleId === roleId)
+          if (roleName === "") {
             item.name = currentitem.name;
           } else {
-            item.name = catName;
+            item.name = roleName;
           }
-        if (othercatName === "") {
-          item.othername = currentitem.othername;
+        if (fromTable === "") {
+          item.fromTable = currentitem.fromTable;
         } else {
-          item.othername = othercatName;
+          item.fromTable = fromTable;
         }
-        if (sorting === "") {
-          item.sorting = currentitem.sorting;
+        if (toTable === "") {
+          item.toTable = currentitem.toTable;
         } else {
-          item.sorting = sorting;
+          item.toTable = toTable;
         }
       });
     }
@@ -45,57 +45,51 @@ const ModalEdit = ({
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
-      className="modal-emp-wrapper"
+      className="modal-role-wrapper"
     >
-      <div style={mod ? downStyle : upStyle} className="modal-cat">
-        <form className="modal-emp-form" type="submit">
-          <div className="modal-emp-header">
-            Edit Employee
+      <div style={mod ? downStyle : upStyle} className="modal-role">
+        <form
+          className="modal-role-form"
+          type="submit"
+
+        >
+          <div className="modal-role-header">
+            Edit Role
             <div onClick={() => toggleClose()}>
-              <CloseIcon className="modal-emp-close" />
+              <CloseIcon className="modal-role-close" />
             </div>
           </div>
-          <div className="modal-emp-body">
-            <div className="modal-emp-subtitle">General</div>
-
-            <div className="modal-spacer"></div>
-            <div className="modal-emp-desc">
-              Category*
+          <div className="modal-role-body">
+            <div className="modal-role-subtitle">General</div>
+            <div className="modal-role-desc">
+              Description*
               <input
                 defaultValue={currentitem.name}
+                onChange={(e) => setRoleName(e.target.value)}
                 required
-                onChange={(e) => setCatName(e.target.value)}
-                placeholder="Category name"
-                className="modal-emp-desc-input"
+                placeholder="Role description"
+                className="modal-role-desc-input"
               />
             </div>
-            <div className="modal-emp-desc">
-              Other name*
-              <input
-                defaultValue={currentitem.othername}
-                onChange={(e) => setOtherCat(e.target.value)}
-                required
-                placeholder="Other name"
-                className="modal-emp-desc-input"
-              />
-            </div>
-            <div className="modal-emp-desc">
-              Sorting*
-              <input
-                defaultValue={currentitem.sorting}
-                onChange={(e) => setSorting(e.target.value)}
-                required
-                placeholder="Sorting"
-                className="modal-emp-desc-input"
-              />
+            <div className="modal-role-price">
+              <div className="modal-role-desc">
+                From which table*
+                <input
+                  defaultValue={currentitem.fromTable}
+                  onChange={(e) => setFromTable(e.target.value)}
+                  required className="modal-role-desc-input" />
+              </div>
+              <div className="modal-role-desc">
+                To which table*
+                <input
+                  defaultValue={currentitem.toTable}
+                  onChange={(e) => setToTable(e.target.value)}
+                  required className="modal-role-desc-input" />
+              </div>
             </div>
           </div>
-          <div className="modal-emp-footer">
-            <input
-              value="Edit"
-              onClick={() => updateEmployee(currentitem.catId)}
-              className="modal-emp-save"
-            />
+          <div className="modal-role-footer">
+            <input type="submit" value="Save" onClick={() => updateRole(currentitem.roleId)} className="modal-role-save" />
           </div>
         </form>
       </div>

@@ -382,8 +382,16 @@ p {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
+
   flex-direction: row;
   justify-content: space-between;
+}
+.modal-price-mod{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 .modal-item-desc-input {
@@ -419,6 +427,17 @@ p {
 }
 
 .modal-item-function-input {
+  margin-top: 10px;
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  font-family: "Ubuntu";
+  padding: 5px;
+  margin-right: 10px;
+}
+.remove-Modifier {
   margin-top: 10px;
   width: 300px;
   height: 30px;

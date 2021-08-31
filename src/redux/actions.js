@@ -25,9 +25,17 @@ export const ADDON_MODIFIER = "ADDON_MODIFIER"
 export const CLEAR_ADD = "CLEAR_ADD"
 export const CLEAR_REMOVE = "CLEAR_REMOVE"
 export const CLEAR_ADDON = "CLEAR_ADDON"
+export const CLEAR_MAND_MODIFIER = "CLEAR_MAND_MODIFIER"
 export const ADD_EMPLOYEES = "ADD_EMPLOYEES"
 export const SEARCH_EMPLOYEES = "SEARCH_EMPLOYEES"
 export const DELETE_EMPLOYEES = "DELETE_EMPLOYEES"
+export const ADD_ROLE = "ADD_ROLE"
+export const SEARCH_ROLE = "SEARCH_ROLE"
+export const DELETE_ROLE = "DELETE_ROLE"
+export const ADD_CUSTOMER = "ADD_CUSTOMER"
+export const SEARCH_CUSTOMER = "SEARCH_CUSTOMER"
+export const DELETE_CUSTOMER = "DELETE_CUSTOMER"
+export const ADD_MAND_MODIFIER = "ADD_MAND_MODIFIER"
 
 const tabledata = [
 
@@ -54,6 +62,12 @@ const divisionData = [
 
 ];
 const employeesData = [
+
+]
+const roleData = [
+
+]
+const customerData = [
 
 ]
 
@@ -357,6 +371,21 @@ export const addOnModifier = (item) => {
         console.log(error)
     }
 }
+export const addMandModifier = (item,item1,item2) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: ADD_MAND_MODIFIER,
+                payload: item,
+                payload1:item1,
+                payload2:item2
+
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const clearAddMod = () => {
     try {
         return async dispatch => {
@@ -387,6 +416,19 @@ export const clearAddOnMod = () => {
             dispatch({
                 type: CLEAR_ADDON,
                 payload: {}
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const clearMandModifier = () => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: CLEAR_MAND_MODIFIER,
+                payload: []
             })
         }
     } catch (error) {
@@ -432,4 +474,75 @@ export const searchEmployees = (name) => {
         console.log(error)
     }
 }
-
+export const addRole = () => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: ADD_ROLE,
+                payload: roleData
+            })
+        };
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const searchRole = (name) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: SEARCH_ROLE,
+                payload: name
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const deleteRole = (id) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_ROLE,
+                payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const addCustomer = () => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: ADD_CUSTOMER,
+                payload: customerData
+            })
+        };
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const searchCustomer = (name) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: SEARCH_CUSTOMER,
+                payload: name
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const deleteCustomer = (id) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_CUSTOMER,
+                payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}

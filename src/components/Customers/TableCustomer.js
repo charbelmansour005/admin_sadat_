@@ -4,27 +4,27 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../styles/Customers.css";
 
 const TableCustomer = ({
-  key,
-  custId,
-  firstName,
+
+  customerId,
+  name,
   lastName,
   company,
-  phone,
+  phoneNumber,
   handleDelete,
   handleEdit,
 }) => {
   return (
     <div className="cust-table-holder">
-      <div id={"" + firstName} className="cust-holder">
-        <div className="cust-name">{firstName}</div>
+      <div id={"" + name} className="cust-holder">
+        <div className="cust-name">{name}</div>
         <div className="cust-name">{lastName}</div>
         <div className="cust-mod-date">{company}</div>
-        <div className="cust-mod-date">{phone}</div>
+        <div className="cust-mod-date">{phoneNumber}</div>
       </div>
       <div className="cust-group1">
         <div>
           <CreateIcon
-            onClick={() => handleEdit(custId)}
+            onClick={() => handleEdit(customerId)}
             className="cust-modify-icon"
           />
         </div>
@@ -32,7 +32,7 @@ const TableCustomer = ({
       <div className="cust-group1">
         <div>
           <DeleteIcon
-            onClick={() => handleDelete(custId)}
+            onClick={() => handleDelete(customerId)}
             className="cust-delete-icon"
           />
         </div>

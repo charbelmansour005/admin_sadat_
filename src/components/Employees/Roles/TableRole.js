@@ -3,7 +3,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Roles.css";
 
-const TableRole = ({ key, roleId, name, handleDelete, handleEdit }) => {
+const TableRole = ({ roleId, name, handleDelete, handleEdit }) => {
   return (
     <div className="role-table-holder">
       <div id={"" + name} className="role-holder">

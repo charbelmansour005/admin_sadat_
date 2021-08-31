@@ -9,7 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { catPost, deleteCat, searchCat } from "../../redux/actions";
+import { addCustomer, deleteCustomer, searchCustomer } from "../../redux/actions";
 
 const Customers = () => {
   const [modal, setModal] = useState(false);
@@ -22,14 +22,14 @@ const Customers = () => {
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
 
-  const { catItem } = useSelector((state) => state.postReducer);
-  const addCategories = () => dispatch(catPost());
-  const deleteCateg = (id) => dispatch(deleteCat(id));
-  const searchCateg = (name) => dispatch(searchCat(name));
+  const { customerData } = useSelector((state) => state.postReducer);
+  const addCustomers = () => dispatch(addCustomer());
+  const deleteCustomers = (id) => dispatch(deleteCustomer(id));
+  const searchCustomers = (name) => dispatch(searchCustomer(name));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    addCategories();
+    addCustomers()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -49,7 +49,7 @@ const Customers = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(catItem);
+    setTData(customerData);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -92,23 +92,23 @@ const Customers = () => {
   }
   const handleSearch = (e) => {
     if (e.target.value === "") {
-      addCategories();
+      addCustomers()
     } else {
-      searchCateg(e.target.value);
+      searchCustomers(e.target.value);
     }
   };
 
-  const handleDelete = (catId) => {
-    catItem.map((item) => {
-      if (item.catId === catId) {
-        deleteCateg(catId);
+  const handleDelete = (customerId) => {
+    customerData.map((item) => {
+      if (item.customerId === customerId) {
+        deleteCustomers(customerId);
       }
     });
   };
 
-  const handleEdit = (catId) => {
-    catItem.map((item) => {
-      if (item.catId === catId) {
+  const handleEdit = (customerId) => {
+    customerData.map((item) => {
+      if (item.customerId === customerId) {
         setCurrentItem(item);
         setModalEdit(true);
         setModal(false);
@@ -182,27 +182,34 @@ const Customers = () => {
   };
   const handleModalSubmit = (
     e,
-    catId,
-    pDefinedCat,
+    customerId,
+    title,
     name,
-    othername,
-    sorting,
-    role,
-    func
+    lastName,
+    company,
+    group,
+    phoneNumber,
+    email,
+    mobile,
+    website,
+
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
-      catId: catId,
-      pDefinedCat: pDefinedCat,
-      name: name,
-      othername: othername,
-      sorting: sorting,
-      role: role,
-      func: func,
-    };
-    catItem.push(newItem);
 
+      customerId: customerId,
+      title: title,
+      name: name,
+      lastName: lastName,
+      company: company,
+      group: group,
+      phoneNumber: phoneNumber,
+      email: email,
+      mobile: mobile,
+      website: website
+    };
+    customerData.push(newItem);
+    console.log(customerData)
     toggleModal();
     e.target.reset();
   };
@@ -246,10 +253,10 @@ const Customers = () => {
         </div>
         <div className="cust-table">
           <HeaderCustomer
-            firstName="First Name"
+            name="First Name"
             lastName="Last Name"
             company="Company"
-            phone="Phone"
+            phoneNumber="Phone"
             sortFirstName={sortFirstName}
             sortLastName={sortLastName}
             sortCompany={sortCompany}
@@ -257,16 +264,16 @@ const Customers = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="cust-remove-items">
-            {catItem.map(
-              ({ key, custId, firstName, lastName, company, phone }) => (
-                <CSSTransition key={key} timeout={500} classNames="cust-trans">
+            {customerData.map(
+              ({ customerId, name, lastName, company, phoneNumber }) => (
+                <CSSTransition key={customerId} timeout={500} classNames="cust-trans">
                   <TableCustomer
-                    key={key}
-                    firstName={firstName}
-                    custId={custId}
+
+                    name={name}
+                    customerId={customerId}
                     lastName={lastName}
                     company={company}
-                    phone={phone}
+                    phoneNumber={phoneNumber}
                     handleDelete={handleDelete}
                     handleEdit={handleEdit}
                   />

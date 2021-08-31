@@ -11,36 +11,16 @@ const ModalRole = ({
   upStyle,
   handleSubmit,
 }) => {
-  const { catItem } = useSelector((state) => state.postReducer);
-  const [pDefinedCat, setPDefinedCat] = useState("");
-  const [catName, setCatName] = useState("");
-  const [othername, setOtherName] = useState("");
-  const [sorting, setSorting] = useState("");
-  const [creationDate, setCreationDate] = useState("");
-  const [modDate, setModDate] = useState("");
+  const { roleData } = useSelector((state) => state.postReducer);
+  const [roleName, setRoleName] = useState('')
+  const [fromTable, setFromTable] = useState('')
+  const [toTable, setToTable] = useState('')
 
   useEffect(() => {
-    getCreatedDate();
-    getModificationDate();
+
   }, []);
 
-  let getCreatedDate = () => {
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    return date + "/" + month + "/" + year;
-  };
-  let getModificationDate = () => {
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    var hour = new Date().getHours();
-    var minutes = new Date().getMinutes();
-    var seconds = new Date().getSeconds();
-    var completeDateFormat = date + "/" + month + "/" + year;
 
-    setModDate(completeDateFormat);
-  };
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
@@ -53,13 +33,11 @@ const ModalRole = ({
           onSubmit={(e) =>
             handleSubmit(
               e,
-              catItem.length + 1,
-              pDefinedCat,
-              catName,
-              othername,
-              sorting,
-              creationDate,
-              modDate
+              roleData.length + 1,
+              roleName,
+              fromTable,
+              toTable,
+
             )
           }
         >
@@ -74,6 +52,7 @@ const ModalRole = ({
             <div className="modal-role-desc">
               Description*
               <input
+                onChange={(e) => setRoleName(e.target.value)}
                 required
                 placeholder="Role description"
                 className="modal-role-desc-input"
@@ -82,11 +61,15 @@ const ModalRole = ({
             <div className="modal-role-price">
               <div className="modal-role-desc">
                 From which table*
-                <input required className="modal-role-desc-input" />
+                <input
+                  onChange={(e) => setFromTable(e.target.value)}
+                  required className="modal-role-desc-input" />
               </div>
               <div className="modal-role-desc">
                 To which table*
-                <input required className="modal-role-desc-input" />
+                <input
+                  onChange={(e) => setToTable(e.target.value)}
+                  required className="modal-role-desc-input" />
               </div>
             </div>
           </div>

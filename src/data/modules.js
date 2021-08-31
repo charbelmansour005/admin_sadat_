@@ -27,3 +27,8 @@ export var itemAddOn = {
     isMand: ''
 
 }
+export var modifier={
+    descption:'',
+    price:0,
+    isMand:''
+}
