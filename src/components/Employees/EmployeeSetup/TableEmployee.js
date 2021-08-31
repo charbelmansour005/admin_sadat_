@@ -4,11 +4,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Employees.css";
 
 const TableEmployee = ({
-  key,
-  catId,
+
+  empId,
   name,
   role,
-  lastModificationDate,
+  func,
   handleDelete,
   handleEdit,
 }) => {
@@ -17,12 +17,12 @@ const TableEmployee = ({
       <div id={"" + name} className="emp-holder">
         <div className="emp-name">{name}</div>
         <div className="emp-creation-date">{role}</div>
-        <div className="emp-mod-date">{lastModificationDate}</div>
+        <div className="emp-mod-date">{func}</div>
       </div>
       <div className="emp-group1">
         <div>
           <CreateIcon
-            onClick={() => handleEdit(catId)}
+            onClick={() => handleEdit(empId)}
             className="emp-modify-icon"
           />
         </div>
@@ -30,7 +30,7 @@ const TableEmployee = ({
       <div className="emp-group1">
         <div>
           <DeleteIcon
-            onClick={() => handleDelete(catId)}
+            onClick={() => handleDelete(empId)}
             className="emp-delete-icon"
           />
         </div>

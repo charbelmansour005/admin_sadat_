@@ -25,7 +25,9 @@ export const ADDON_MODIFIER = "ADDON_MODIFIER"
 export const CLEAR_ADD = "CLEAR_ADD"
 export const CLEAR_REMOVE = "CLEAR_REMOVE"
 export const CLEAR_ADDON = "CLEAR_ADDON"
-
+export const ADD_EMPLOYEES = "ADD_EMPLOYEES"
+export const SEARCH_EMPLOYEES = "SEARCH_EMPLOYEES"
+export const DELETE_EMPLOYEES = "DELETE_EMPLOYEES"
 
 const tabledata = [
 
@@ -51,6 +53,9 @@ const divisionData = [
 
 
 ];
+const employeesData = [
+
+]
 
 
 export const catPost = () => {
@@ -389,4 +394,42 @@ export const clearAddOnMod = () => {
     }
 }
 
+export const addEmployees = () => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: ADD_EMPLOYEES,
+                payload: employeesData
+            })
+        };
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+export const deleteEmployees = (id) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_EMPLOYEES,
+                payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const searchEmployees = (name) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: SEARCH_EMPLOYEES,
+                payload: name
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 

@@ -9,7 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { catPost, deleteCat, searchCat } from "../../../redux/actions";
+import { addEmployees, deleteEmployees, searchEmployees } from "../../../redux/actions";
 
 const Employees = () => {
   const [modal, setModal] = useState(false);
@@ -21,14 +21,14 @@ const Employees = () => {
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
 
-  const { catItem } = useSelector((state) => state.postReducer);
-  const addCategories = () => dispatch(catPost());
-  const deleteCateg = (id) => dispatch(deleteCat(id));
-  const searchCateg = (name) => dispatch(searchCat(name));
+  const { employeeData } = useSelector((state) => state.postReducer);
+  const addEmployee = () => dispatch(addEmployees());
+  const deleteEmp = (id) => dispatch(deleteEmployees(id));
+  const searchEmp = (name) => dispatch(searchEmployees(name));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    addCategories();
+    addEmployee()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -48,7 +48,7 @@ const Employees = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(catItem);
+    setTData(employeeData);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -91,23 +91,23 @@ const Employees = () => {
   }
   const handleSearch = (e) => {
     if (e.target.value === "") {
-      addCategories();
+      addEmployee()
     } else {
-      searchCateg(e.target.value);
+      searchEmp(e.target.value);
     }
   };
 
-  const handleDelete = (catId) => {
-    catItem.map((item) => {
-      if (item.catId === catId) {
-        deleteCateg(catId);
+  const handleDelete = (empId) => {
+    employeeData.map((item) => {
+      if (item.empId === empId) {
+        deleteEmp(empId);
       }
     });
   };
 
-  const handleEdit = (catId) => {
-    catItem.map((item) => {
-      if (item.catId === catId) {
+  const handleEdit = (empId) => {
+    employeeData.map((item) => {
+      if (item.empId === empId) {
         setCurrentItem(item);
         setModalEdit(true);
         setModal(false);
@@ -163,27 +163,74 @@ const Employees = () => {
   };
   const handleModalSubmit = (
     e,
-    catId,
-    pDefinedCat,
+    branchName,
+    empId,
     name,
-    othername,
-    sorting,
-    role,
-    func
+    expiryDate,
+    phoneNumber,
+    isActive,
+    isSalesMan,
+    password,
+    secPassword,
+    accessBackOffice,
+    language,
+    posLoginId,
+    posLoginPassword,
+    func,
+    key,
+    config,
+    screenAccess,
+    mode,
+    menu,
+    cashDrawerPort,
+    printerType,
+    openDrawer,
+    salary,
+    overtime,
+    timeStatus,
+    driveThrought,
+    generateChecklist,
+    deliveryList,
+    autoTime,
+    hideTime,
+
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
-      catId: catId,
-      pDefinedCat: pDefinedCat,
-      name: name,
-      othername: othername,
-      sorting: sorting,
-      role: role,
-      func: func,
-    };
-    catItem.push(newItem);
 
+      branchName: branchName,
+      empId: empId,
+      name: name,
+      expiryDate: expiryDate,
+      phoneNumber: phoneNumber,
+      isActive: isActive,
+      isSalesMan: isSalesMan,
+      password: password,
+      secPassword: secPassword,
+      accessBackOffice: accessBackOffice,
+      language: language,
+      posLoginId: posLoginId,
+      posLoginPassword: posLoginPassword,
+      func: func,
+      key: key,
+      config: config,
+      screenAccess: screenAccess,
+      mode: mode,
+      menu: menu,
+      cashDrawerPort: cashDrawerPort,
+      printerType: printerType,
+      openDrawer: openDrawer,
+      salary: salary,
+      overtime: overtime,
+      timeStatus: timeStatus,
+      driveThrought: driveThrought,
+      generateChecklist: generateChecklist,
+      deliveryList: deliveryList,
+      autoTime: autoTime,
+      hideTime: hideTime
+    };
+    employeeData.push(newItem);
+    console.log(employeeData)
     toggleModal();
     e.target.reset();
   };
@@ -236,12 +283,12 @@ const Employees = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="emp-remove-items">
-            {catItem.map(({ key, catId, name, role, func }) => (
-              <CSSTransition key={key} timeout={500} classNames="emp-trans">
+            {employeeData.map(({ empId, name, role, func }) => (
+              <CSSTransition key={empId} timeout={500} classNames="emp-trans">
                 <TableEmployee
-                  key={key}
+
                   name={name}
-                  catId={catId}
+                  empId={empId}
                   role={role}
                   func={func}
                   handleDelete={handleDelete}

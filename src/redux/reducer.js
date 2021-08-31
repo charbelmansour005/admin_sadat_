@@ -1,6 +1,6 @@
 
 
-import { CLEAR_ADD, CLEAR_REMOVE, CLEAR_ADDON, EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION, ADDON_MODIFIER, ADD_MODIFIER, REMOVE_MODIFIER } from "./actions";
+import { ADD_EMPLOYEES, DELETE_EMPLOYEES, SEARCH_EMPLOYEES, CLEAR_ADD, CLEAR_REMOVE, CLEAR_ADDON, EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION, ADDON_MODIFIER, ADD_MODIFIER, REMOVE_MODIFIER } from "./actions";
 
 const initialState = {
   catItem: [],
@@ -10,6 +10,7 @@ const initialState = {
   salesItems: [],
   groupItems: [],
   divisionItems: [],
+  employeeData: [],
   ItemAdd: {},
   ItemRemove: {},
   ItemAddOn: {}
@@ -162,7 +163,22 @@ function postReducer(state = initialState, action) {
       return {
         ...state, ItemAddOn: action.payload
       }
+    case ADD_EMPLOYEES:
+      return {
+        ...state,
+        employeeData: action.payload,
+      };
+    case SEARCH_EMPLOYEES:
 
+      return {
+        ...state, employeeData: state.employeeData.filter((dat) => dat.name.toLowerCase().includes(action.payload.toLowerCase()))
+      }
+
+    case DELETE_EMPLOYEES:
+
+      return {
+        ...state, employeeData: state.employeeData.filter((data) => data.empId !== action.payload)
+      }
 
     default:
       return state;

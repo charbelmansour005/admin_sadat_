@@ -11,14 +11,37 @@ const ModalEmployee = ({
   upStyle,
   handleSubmit,
 }) => {
-  const { catItem } = useSelector((state) => state.postReducer);
-  const [pDefinedCat, setPDefinedCat] = useState("");
-  const [catName, setCatName] = useState("");
-  const [othername, setOtherName] = useState("");
-  const [sorting, setSorting] = useState("");
-  const [creationDate, setCreationDate] = useState("");
-  const [modDate, setModDate] = useState("");
-
+  const { employeeData } = useSelector((state) => state.postReducer);
+  const [branchName, setBranchName] = useState('');
+  const [empId, setEmpId] = useState('');
+  const [empName, setEmpName] = useState('');
+  const [expDate, setExpDate] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [active, setActive] = useState('');
+  const [salesman, setSalesMan] = useState('');
+  const [password, setPassword] = useState('');
+  const [secPassword, setSecPassword] = useState('');
+  const [accessBack, setAccessBack] = useState('');
+  const [language, setLanguage] = useState('');
+  const [posLoginId, setPosLoginId] = useState('');
+  const [posLoginPassword, setPosLoginPassword] = useState('');
+  const [func, setFunc] = useState('');
+  const [configKey, setConfigKey] = useState('')
+  const [config, setConfig] = useState('');
+  const [screenAccess, setScreenAccess] = useState('')
+  const [mode, setMode] = useState('');
+  const [menu, setMenu] = useState('')
+  const [drawerPort, setDrawerPort] = useState('');
+  const [printType, setPrintType] = useState('')
+  const [openCash, setOpenCash] = useState('');
+  const [salary, setSalary] = useState('')
+  const [overtime, setOvertime] = useState('');
+  const [timeStatus, setTimeStatus] = useState('')
+  const [driveThrought, setDrive] = useState('');
+  const [generateChecklist, setGenerate] = useState('')
+  const [deliveryList, setDeliveryList] = useState('');
+  const [autoTime, setAutoTime] = useState('')
+  const [hideTime, setHideTime] = useState('')
   useEffect(() => {
     getCreatedDate();
     getModificationDate();
@@ -39,7 +62,7 @@ const ModalEmployee = ({
     var seconds = new Date().getSeconds();
     var completeDateFormat = date + "/" + month + "/" + year;
 
-    setModDate(completeDateFormat);
+    
   };
   return (
     <div
@@ -53,13 +76,36 @@ const ModalEmployee = ({
           onSubmit={(e) =>
             handleSubmit(
               e,
-              catItem.length + 1,
-              pDefinedCat,
-              catName,
-              othername,
-              sorting,
-              creationDate,
-              modDate
+              branchName,
+              empId,
+              empName,
+              expDate,
+              phoneNumber,
+              active,
+              salesman,
+              password,
+              secPassword,
+              accessBack,
+              language,
+              posLoginId,
+              posLoginPassword,
+              func,
+              configKey,
+              config,
+              screenAccess,
+              mode,
+              menu,
+              drawerPort,
+              printType,
+              openCash,
+              salary,
+              overtime,
+              timeStatus,
+              driveThrought,
+              generateChecklist,
+              deliveryList,
+              autoTime,
+              hideTime
             )
           }
         >
@@ -75,6 +121,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Branch*
                 <input
+                  onChange={(e) => setBranchName(e.target.value)}
                   required
                   placeholder="Branch"
                   className="modal-emp-print-input"
@@ -83,6 +130,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Employee ID
                 <input
+                  onChange={(e) => setEmpId(e.target.value)}
                   placeholder="Employee ID"
                   className="modal-emp-print-input"
                 />
@@ -90,6 +138,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Employee Name*
                 <input
+                  onChange={(e) => setEmpName(e.target.value)}
                   required
                   placeholder="Employee name"
                   className="modal-emp-print-input"
@@ -100,11 +149,14 @@ const ModalEmployee = ({
             <div className="modal-emp-price">
               <div className="modal-emp-desc">
                 Expiry Date
-                <input type="date" className="modal-emp-desc-input" />
+                <input
+                  onChange={(e) => setExpDate(e.target.value)}
+                  type="date" className="modal-emp-desc-input" />
               </div>
               <div className="modal-emp-desc">
                 Phone
                 <input
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="Employee ID"
                   className="modal-emp-desc-input"
                 />
@@ -112,11 +164,11 @@ const ModalEmployee = ({
             </div>
             <div className="modal-emp-price">
               <div className="modal-emp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="isActive" onChange={(e) => setActive(e.target.value)} type="checkbox" className="modal-check"></input>
                 Active
               </div>
               <div className="modal-emp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="isSalesman" onChange={(e) => setSalesMan(e.target.value)} type="checkbox" className="modal-check"></input>
                 Salesman
               </div>
             </div>
@@ -124,6 +176,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Password
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
                   className="modal-emp-desc-input"
@@ -132,6 +185,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Sec Password
                 <input
+                  onChange={(e) => setSecPassword(e.target.value)}
                   type="password"
                   placeholder="Sec password"
                   className="modal-emp-desc-input"
@@ -142,6 +196,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Access back office*
                 <select
+                  onChange={(e) => setAccessBack(e.target.value)}
                   required
                   className="modal-emp-function-input"
                   defaultValue=""
@@ -167,6 +222,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Language*
                 <select
+                  onChange={(e) => setLanguage(e.target.value)}
                   required
                   className="modal-emp-function-input"
                   defaultValue=""
@@ -178,13 +234,13 @@ const ModalEmployee = ({
                   >
                     Select language
                   </option>
-                  <option className="modal-emp-function-option" value="1">
+                  <option className="modal-emp-function-option" value="English">
                     English
                   </option>
-                  <option className="modal-emp-function-option" value="2">
+                  <option className="modal-emp-function-option" value="French">
                     French
                   </option>
-                  <option className="modal-emp-function-option" value="3">
+                  <option className="modal-emp-function-option" value="Arabic">
                     Arabic
                   </option>
                 </select>
@@ -194,11 +250,14 @@ const ModalEmployee = ({
             <div className="modal-emp-price">
               <div className="modal-emp-desc">
                 ID
-                <input placeholder="ID" className="modal-emp-desc-input" />
+                <input
+                  onChange={(e) => setPosLoginId(e.target.value)}
+                  placeholder="ID" className="modal-emp-desc-input" />
               </div>
               <div className="modal-emp-desc">
                 Password
                 <input
+                  onChange={(e) => setPosLoginPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
                   className="modal-emp-desc-input"
@@ -210,6 +269,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Functions*
                 <select
+                  onChange={(e) => setFunc(e.target.value)}
                   required
                   className="modal-emp-print-input"
                   defaultValue=""
@@ -234,11 +294,14 @@ const ModalEmployee = ({
               </div>
               <div className="modal-emp-desc">
                 Key
-                <input placeholder="Key" className="modal-emp-print-input" />
+                <input
+                  onChange={(e) => setConfigKey(e.target.value)}
+                  placeholder="Key" className="modal-emp-print-input" />
               </div>
               <div className="modal-emp-desc">
                 Configuration*
                 <select
+                  onChange={(e) => setConfig(e.target.value)}
                   required
                   className="modal-emp-print-input"
                   defaultValue=""
@@ -266,6 +329,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Access to screen*
                 <select
+                  onChange={(e) => setScreenAccess(e.target.value)}
                   required
                   className="modal-emp-print-input"
                   defaultValue=""
@@ -291,6 +355,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Modes*
                 <select
+                  onChange={(e) => setMode(e.target.value)}
                   required
                   className="modal-emp-print-input"
                   defaultValue=""
@@ -316,6 +381,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Menus*
                 <select
+                  onChange={(e) => setMenu(e.target.value)}
                   required
                   className="modal-emp-print-input"
                   defaultValue=""
@@ -342,7 +408,9 @@ const ModalEmployee = ({
             <div className="modal-emp-price">
               <div className="modal-emp-desc">
                 Cash drawer port
-                <select className="modal-emp-desc-input" defaultValue="">
+                <select
+                  onChange={(e) => setDrawerPort(e.target.value)}
+                  className="modal-emp-desc-input" defaultValue="">
                   <option
                     className="modal-emp-function-option"
                     value=""
@@ -363,7 +431,9 @@ const ModalEmployee = ({
               </div>
               <div className="modal-emp-desc">
                 Printer Type
-                <select className="modal-emp-desc-input" defaultValue="">
+                <select
+                  onChange={(e) => setPrintType(e.target.value)}
+                  className="modal-emp-desc-input" defaultValue="">
                   <option
                     className="modal-emp-function-option"
                     value=""
@@ -384,13 +454,14 @@ const ModalEmployee = ({
               </div>
             </div>
             <div className="modal-emp-desc-hor">
-              <input type="checkbox" className="modal-check"></input>
+              <input value="openCash" onChange={(e) => setOpenCash(e.target.value)} type="checkbox" className="modal-check"></input>
               Open cash drawer
             </div>
             <div className="modal-emp-price">
               <div className="modal-emp-desc">
                 Salary
                 <input
+                  onChange={(e) => setSalary(e.target.value)}
                   type="number"
                   placeholder="0"
                   className="modal-emp-print-input"
@@ -399,6 +470,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Overtime %
                 <input
+                  onChange={(e) => setOvertime(e.target.value)}
                   type="number"
                   placeholder="0"
                   className="modal-emp-print-input"
@@ -406,7 +478,9 @@ const ModalEmployee = ({
               </div>
               <div className="modal-emp-desc">
                 Hourly or monthly
-                <select className="modal-emp-print-input" defaultValue="">
+                <select
+                  onChange={(e) => setTimeStatus(e.target.value)}
+                  className="modal-emp-print-input" defaultValue="">
                   <option
                     className="modal-emp-function-option"
                     value=""
@@ -426,7 +500,7 @@ const ModalEmployee = ({
             <div className="modal-emp-subtitle">Drive through</div>
             <div className="modal-emp-desc">
               <div className="modal-emp-desc-hor">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="driveThrought" onChange={(e) => setDrive(e.target.value)} type="checkbox" className="modal-check"></input>
                 Drive through
               </div>
             </div>
@@ -440,20 +514,20 @@ const ModalEmployee = ({
               <input className="modal-emp-price-input" />
             </div>
             <div className="modal-emp-desc-hor">
-              <input type="checkbox" className="modal-check"></input>
+              <input value="generateCheckList" onChange={(e) => setGenerate(e.target.value)} type="checkbox" className="modal-check"></input>
               Auto generate checklist
             </div>
             <div className="modal-emp-price">
               <div className="modal-emp-desc-hor1">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="deliveryList" onChange={(e) => setDeliveryList(e.target.value)} type="checkbox" className="modal-check"></input>
                 Show delivery list only
               </div>
               <div className="modal-emp-desc-hor1">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="autoTime" onChange={(e) => setAutoTime(e.target.value)} type="checkbox" className="modal-check"></input>
                 Auto Time + Att
               </div>
               <div className="modal-emp-desc-hor1">
-                <input type="checkbox" className="modal-check"></input>
+                <input value="hideTime" onChange={(e) => setHideTime(e.target.value)} type="checkbox" className="modal-check"></input>
                 Hide in Time Attendance Report
               </div>
             </div>
