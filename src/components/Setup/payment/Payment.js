@@ -9,28 +9,33 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import ModalPaymentEdit from "./ModalPaymentEdit";
-import { addPayment, searchPayment, deletePayment } from "../../../redux/actions";
+import {
+  addPayment,
+  searchPayment,
+  deletePayment,
+} from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 
+var dummyData = [];
 
 const Payment = () => {
   const [modal, setModal] = useState(false);
-  const [tData, settData] = useState([]);
+  const [tData, setTData] = useState([]);
   const [sortName, setSortName] = useState("0");
   const [sortType, setSortType] = useState("0");
   const [sortAccountNumber, setSortAccountNumber] = useState("0");
-  const [sortStatus, setSortStatus] = useState("0")
+  const [sortStatus, setSortStatus] = useState("0");
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
+  const [currentItem, setCurrentItem] = useState({});
+  const [modalEdit, setModalEdit] = useState(false);
   const dispatch = useDispatch();
-  const { paymentItem } = useSelector(
-    (state) => state.postReducer
-  );
+  const { paymentItem } = useSelector((state) => state.postReducer);
   const addPayments = () => dispatch(addPayment());
   const deletePayments = (id) => dispatch(deletePayment(id));
   const searchPayments = (name) => dispatch(searchPayment(name));
   useEffect(() => {
-    addPayments()
+    addPayments();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -55,7 +60,7 @@ const Payment = () => {
   }
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
-    setModalEdit(false)
+    setModalEdit(false);
   }
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -88,41 +93,35 @@ const Payment = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addPayments()
+    if (e.target.value === "") {
+      addPayments();
+    } else {
+      searchPayments(e.target.value);
     }
-    else {
-      searchPayments(e.target.value)
-    }
-
-  }
+  };
 
   useEffect(() => {
-    settData(paymentItem)
+    setTData(paymentItem);
   }, []);
 
   const handleDelete = (paymentId) => {
     paymentItem.map((item) => {
       if (item.paymentId === paymentId) {
-        deletePayments(paymentId)
+        deletePayments(paymentId);
       }
-    })
-
-
+    });
   };
 
   const handleEdit = (paymentId) => {
-
     paymentItem.map((item) => {
       if (item.paymentId === paymentId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
+        setCurrentItem(item);
+        setModalEdit(true);
+        setModal(false);
+        setFirst(true);
       }
-    })
-  }
-
+    });
+  };
 
   const sortBy = (sort) => {
     if (sort === "name") {
@@ -130,13 +129,13 @@ const Payment = () => {
         setSortName("1");
         setSortType("0");
         setSortAccountNumber("0");
-        setSortStatus("0")
-        settData((prev) => {
+        setSortStatus("0");
+        setTData((prev) => {
           return prev.sort(GetSortOrder("name"));
         });
       } else if (sortName === "1") {
         setSortName("2");
-        settData((prev) => {
+        setTData((prev) => {
           return prev.sort(GetSortOrder2("name"));
         });
       } else setSortName("0");
@@ -145,13 +144,13 @@ const Payment = () => {
         setSortType("1");
         setSortName("0");
         setSortAccountNumber("0");
-        setSortStatus("0")
-        settData((prev) => {
+        setSortStatus("0");
+        setTData((prev) => {
           return prev.sort(GetSortOrder("type"));
         });
       } else if (sortType === "1") {
         setSortType("2");
-        settData((prev) => {
+        setTData((prev) => {
           return prev.sort(GetSortOrder2("type"));
         });
       } else setSortType("0");
@@ -160,29 +159,28 @@ const Payment = () => {
         setSortAccountNumber("1");
         setSortName("0");
         setSortType("0");
-        setSortStatus("0")
-        settData((prev) => {
+        setSortStatus("0");
+        setTData((prev) => {
           return prev.sort(GetSortOrder("accountNumber"));
         });
       } else if (sortAccountNumber === "1") {
         setSortAccountNumber("2");
-        settData((prev) => {
+        setTData((prev) => {
           return prev.sort(GetSortOrder2("accountNumber"));
         });
       } else setSortAccountNumber("0");
-    }
-    else if (sort === "status") {
+    } else if (sort === "status") {
       if (sortStatus === "0") {
         setSortAccountNumber("0");
         setSortName("0");
         setSortType("0");
-        setSortStatus("1")
-        settData((prev) => {
+        setSortStatus("1");
+        setTData((prev) => {
           return prev.sort(GetSortOrder("status"));
         });
       } else if (sortStatus === "1") {
         setSortStatus("2");
-        settData((prev) => {
+        setTData((prev) => {
           return prev.sort(GetSortOrder2("status"));
         });
       } else setSortStatus("0");
@@ -217,10 +215,40 @@ const Payment = () => {
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };
-    paymentItem.push(newItem)
+    paymentItem.push(newItem);
 
     toggleModal();
     e.target.reset();
+  };
+  const filename = "SalesItemData";
+  const fields = {
+    key: "key",
+    name: "name",
+    price: "price",
+    group: "group",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = dummyData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("key")) {
+            dummyData = results.data;
+            try {
+              setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
   };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
@@ -246,18 +274,34 @@ const Payment = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="pay-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="pay-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
         </div>
         <div className="pay-table">
@@ -273,19 +317,31 @@ const Payment = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="pay-remove-items">
-            {paymentItem.map(({  name, paymentType, accountNumber, paymentId,paymentStatus }) => (
-              <CSSTransition key={paymentId} timeout={500} classNames="pay-trans">
-                <TablePayment
-                  name={name}
-                  paymentType={paymentType}
-                  paymentId={paymentId}
-                  accountNumber={accountNumber}
-                  paymentStatus={paymentStatus}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                />
-              </CSSTransition>
-            ))}
+            {paymentItem.map(
+              ({
+                name,
+                paymentType,
+                accountNumber,
+                paymentId,
+                paymentStatus,
+              }) => (
+                <CSSTransition
+                  key={paymentId}
+                  timeout={500}
+                  classNames="pay-trans"
+                >
+                  <TablePayment
+                    name={name}
+                    paymentType={paymentType}
+                    paymentId={paymentId}
+                    accountNumber={accountNumber}
+                    paymentStatus={paymentStatus}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                  />
+                </CSSTransition>
+              )
+            )}
           </TransitionGroup>
         </div>
       </div>

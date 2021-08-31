@@ -8,11 +8,12 @@ import HeaderCategory from "./HeaderCategory";
 import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
-
 import { useDispatch, useSelector } from "react-redux";
 import { catPost, deleteCat, searchCat } from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 
-
+var dummyData = [];
 
 const Categories = () => {
   const [modal, setModal] = useState(false);
@@ -21,26 +22,23 @@ const Categories = () => {
   const [sortCreationDate, setSortCreationDate] = useState("0");
   const [sortLastModificationDate, setSortLastModificationDate] = useState("0");
   const [first, setFirst] = useState(true);
-  const [currentItem, setCurrentItem] = useState({})
-  const [modalEdit, setModalEdit] = useState(false)
+  const [currentItem, setCurrentItem] = useState({});
+  const [modalEdit, setModalEdit] = useState(false);
 
-  const { catItem } = useSelector(
-    (state) => state.postReducer
-  );
+  const { catItem } = useSelector((state) => state.postReducer);
   const addCategories = () => dispatch(catPost());
   const deleteCateg = (id) => dispatch(deleteCat(id));
   const searchCateg = (name) => dispatch(searchCat(name));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    addCategories()
+    addCategories();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
         setModal(true);
         setFirst(false);
       }
-
     });
     return () => {
       document.removeEventListener("keydown", (e) => e);
@@ -54,8 +52,7 @@ const Categories = () => {
     }
   }, [modal]);
   useEffect(() => {
-
-    setTData(catItem)
+    setTData(catItem);
   }, []);
   function toggleModal() {
     setModal((prev) => !prev);
@@ -63,7 +60,7 @@ const Categories = () => {
   }
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
-    setModalEdit(false)
+    setModalEdit(false);
   }
 
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
@@ -117,37 +114,31 @@ const Categories = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addCategories()
+    if (e.target.value === "") {
+      addCategories();
+    } else {
+      searchCateg(e.target.value);
     }
-    else {
-      searchCateg(e.target.value)
-    }
-
-  }
+  };
 
   const handleDelete = (catId) => {
     catItem.map((item) => {
       if (item.catId === catId) {
-        deleteCateg(catId)
+        deleteCateg(catId);
       }
-    })
-
-
+    });
   };
 
   const handleEdit = (catId) => {
-
     catItem.map((item) => {
       if (item.catId === catId) {
-        setCurrentItem(item)
-        setModalEdit(true)
-        setModal(false)
-        setFirst(true)
+        setCurrentItem(item);
+        setModalEdit(true);
+        setModal(false);
+        setFirst(true);
       }
-    })
-  }
-
+    });
+  };
 
   const sortBy = (sort) => {
     if (sort === "name") {
@@ -206,7 +197,6 @@ const Categories = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-   
       catId: catId,
       pDefinedCat: pDefinedCat,
       name: name,
@@ -215,10 +205,40 @@ const Categories = () => {
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };
-    catItem.push(newItem)
+    catItem.push(newItem);
 
     toggleModal();
     e.target.reset();
+  };
+  const filename = "SalesItemData";
+  const fields = {
+    key: "key",
+    name: "name",
+    price: "price",
+    group: "group",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = dummyData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("key")) {
+            dummyData = results.data;
+            try {
+              setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
   };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
@@ -239,24 +259,39 @@ const Categories = () => {
             <input
               id="search-text"
               type="text"
-
               className="cat-search-text"
               placeholder="Search..."
               onChange={handleSearch}
             />
           </div>
-          <div className="cat-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="cat-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
         </div>
         <div className="cat-table">
@@ -270,20 +305,20 @@ const Categories = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="cat-remove-items">
-            {catItem.map(({  catId, name, creationDate, lastModificationDate }) => (
-
-              <CSSTransition key={catId} timeout={500} classNames="cat-trans">
-                <TableCategory
-                  
-                  name={name}
-                  catId={catId}
-                  creationDate={creationDate}
-                  lastModificationDate={lastModificationDate}
-                  handleDelete={handleDelete}
-                  handleEdit={handleEdit}
-                />
-              </CSSTransition>
-            ))}
+            {catItem.map(
+              ({ catId, name, creationDate, lastModificationDate }) => (
+                <CSSTransition key={catId} timeout={500} classNames="cat-trans">
+                  <TableCategory
+                    name={name}
+                    catId={catId}
+                    creationDate={creationDate}
+                    lastModificationDate={lastModificationDate}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                  />
+                </CSSTransition>
+              )
+            )}
           </TransitionGroup>
         </div>
       </div>
@@ -299,19 +334,17 @@ const Categories = () => {
         />
       ) : null}
 
-      {
-        modalEdit ? (
-          <ModalEdit toggleClose={toggleEditModal}
-            mod={modalEdit}
-            currentitem={currentItem}
-            mountedStyle={mountedStyle}
-            unmountedStyle={unmountedStyle}
-            downStyle={downStyle}
-            upStyle={upStyle}>
-
-          </ModalEdit>
-        ) : null
-      }
+      {modalEdit ? (
+        <ModalEdit
+          toggleClose={toggleEditModal}
+          mod={modalEdit}
+          currentitem={currentItem}
+          mountedStyle={mountedStyle}
+          unmountedStyle={unmountedStyle}
+          downStyle={downStyle}
+          upStyle={upStyle}
+        ></ModalEdit>
+      ) : null}
     </div>
   );
 };
