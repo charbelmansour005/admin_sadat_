@@ -18,7 +18,7 @@ const HeaderCustomer = ({
     <div className="cust-head-holder">
       <div id={"" + name} className="cust-holder">
         <div className="cust-head-name">
-          <div onClick={() => sortBy("firstName")} className="item-sort">
+          <div onClick={() => sortBy("name")} className="item-sort">
             {name}
           </div>
           {sortFirstName === "1" && (
@@ -51,7 +51,7 @@ const HeaderCustomer = ({
           )}
         </div>
         <div className="cust-mod-date">
-          <div onClick={() => sortBy("phone")} className="item-sort">
+          <div onClick={() => sortBy("phoneNumber")} className="item-sort">
             {phoneNumber}
           </div>
           {sortPhone === "1" && (

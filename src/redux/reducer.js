@@ -1,6 +1,55 @@
 
 
-import { CLEAR_MAND_MODIFIER, ADD_MAND_MODIFIER, ADD_CUSTOMER, DELETE_CUSTOMER, SEARCH_CUSTOMER, ADD_ROLE, DELETE_ROLE, SEARCH_ROLE, ADD_EMPLOYEES, DELETE_EMPLOYEES, SEARCH_EMPLOYEES, CLEAR_ADD, CLEAR_REMOVE, CLEAR_ADDON, EDIT_CAT, DELETE_CAT, SEARCH_CAT, ADD_PAYMENT, SEARCH_PAYMENT, DELETE_PAYMENT, DELETE_VOID, SEARCH_VOID, ADD_VOID, ADD_CURRENCY, SEARCH_CURRENCY, DELETE_CURRENCY, ADD_ITEMS, DELETE_ITEMS, SEARCH_ITEMS, ADD_GROUPS, DELETE_GROUPS, SEARCH_GROUPS, ADD_DIVISION, SEARCH_DIVISION, DELETE_DIVISION, ADDON_MODIFIER, ADD_MODIFIER, REMOVE_MODIFIER } from "./actions";
+import {
+  IMPORT_CUSTOMERS,
+  IMPORT_EMPLOYEES_ROLES,
+  IMPORT_EMPLOYEES_DATA,
+  IMPORT_CURRENCY_DATA,
+  IMPORT_VOID_REASONS,
+  IMPORT_PAYMENT_DATA,
+  IMPORT_CATEGORY_DATA,
+  IMPORT_DIVISION_DATA,
+  IMPORT_GROUP_DATA,
+  IMPORT_ITEM_DATA,
+  CLEAR_MAND_MODIFIER,
+  ADD_MAND_MODIFIER,
+  ADD_CUSTOMER,
+  DELETE_CUSTOMER,
+  SEARCH_CUSTOMER,
+  ADD_ROLE,
+  DELETE_ROLE,
+  SEARCH_ROLE,
+  ADD_EMPLOYEES,
+  DELETE_EMPLOYEES,
+  SEARCH_EMPLOYEES,
+  CLEAR_ADD,
+  CLEAR_REMOVE,
+  CLEAR_ADDON,
+  EDIT_CAT,
+  DELETE_CAT,
+  SEARCH_CAT,
+  ADD_PAYMENT,
+  SEARCH_PAYMENT,
+  DELETE_PAYMENT,
+  DELETE_VOID,
+  SEARCH_VOID,
+  ADD_VOID,
+  ADD_CURRENCY,
+  SEARCH_CURRENCY,
+  DELETE_CURRENCY,
+  ADD_ITEMS,
+  DELETE_ITEMS,
+  SEARCH_ITEMS,
+  ADD_GROUPS,
+  DELETE_GROUPS,
+  SEARCH_GROUPS,
+  ADD_DIVISION,
+  SEARCH_DIVISION,
+  DELETE_DIVISION,
+  ADDON_MODIFIER,
+  ADD_MODIFIER,
+  REMOVE_MODIFIER
+} from "./actions";
 
 const initialState = {
   catItem: [],
@@ -33,16 +82,72 @@ function postReducer(state = initialState, action) {
         ...state,
         voidItem: action.payload,
       };
+
+    case IMPORT_ITEM_DATA:
+      return {
+        ...state,
+        salesItems: action.payload
+      }
+    case IMPORT_GROUP_DATA:
+      return {
+        ...state,
+        groupItems: action.payload
+      }
+    case IMPORT_DIVISION_DATA:
+      return {
+        ...state,
+        divisionItems: action.payload
+      }
+    case IMPORT_CATEGORY_DATA:
+      return {
+        ...state,
+        catItem: action.payload
+      }
+
+    case IMPORT_PAYMENT_DATA:
+      return {
+        ...state,
+        paymentItem: action.payload
+      }
+
+    case IMPORT_VOID_REASONS:
+      return {
+        ...state,
+        voidItem: action.payload
+      }
+    case IMPORT_CURRENCY_DATA:
+      return {
+        ...state,
+        currencyItems: action.payload
+      }
+    case IMPORT_EMPLOYEES_DATA:
+      return {
+        ...state,
+        employeeData: action.payload
+      }
+    case IMPORT_EMPLOYEES_ROLES:
+      return {
+        ...state,
+        roleData: action.payload
+      }
+    case IMPORT_CUSTOMERS:
+      return {
+        ...state,
+        customerData: action.payload
+      }
+
+
     case ADD_CURRENCY:
       return {
         ...state,
         currencyItems: action.payload,
       };
     case ADD_ITEMS:
-      return {
-        ...state,
-        salesItems: action.payload,
-      };
+      return state.salesItems
+    // return {
+    //   ...state,
+    //   salesItems: action.payload,
+    // };
     case DELETE_CAT:
 
       return {

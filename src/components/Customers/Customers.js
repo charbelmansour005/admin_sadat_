@@ -9,8 +9,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { addCustomer, deleteCustomer, searchCustomer } from "../../redux/actions";
-
+import { addCustomer, deleteCustomer, searchCustomer, importCustomersData } from "../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 const Customers = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
@@ -27,9 +28,10 @@ const Customers = () => {
   const deleteCustomers = (id) => dispatch(deleteCustomer(id));
   const searchCustomers = (name) => dispatch(searchCustomer(name));
   const dispatch = useDispatch();
+  const importCustomers = (item) => dispatch(importCustomersData(item))
 
   useEffect(() => {
-    addCustomers()
+   // addCustomers()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -118,19 +120,19 @@ const Customers = () => {
   };
 
   const sortBy = (sort) => {
-    if (sort === "firstName") {
+    if (sort === "name") {
       if (sortFirstName === "0") {
         setSortFirstName("1");
         setSortLastName("0");
         setSortCompany("0");
         setSortPhone("0");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("firstName"));
+          return prev.sort(GetSortOrder("name"));
         });
       } else if (sortFirstName === "1") {
         setSortFirstName("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("firstName"));
+          return prev.sort(GetSortOrder2("name"));
         });
       } else setSortFirstName("0");
     } else if (sort === "lastName") {
@@ -163,19 +165,19 @@ const Customers = () => {
           return prev.sort(GetSortOrder2("company"));
         });
       } else setSortCompany("0");
-    } else if (sort === "phone") {
+    } else if (sort === "phoneNumber") {
       if (sortPhone === "0") {
         setSortFirstName("0");
         setSortLastName("0");
         setSortCompany("0");
         setSortPhone("1");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("phone"));
+          return prev.sort(GetSortOrder("phoneNumber"));
         });
       } else if (sortPhone === "1") {
         setSortPhone("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("phone"));
+          return prev.sort(GetSortOrder2("phoneNumber"));
         });
       } else setSortPhone("0");
     }
@@ -213,6 +215,39 @@ const Customers = () => {
     toggleModal();
     e.target.reset();
   };
+  const filename = "CustomersData";
+  const fields = {
+    customerId: "customerId",
+    name: "name",
+    lastName: "lastName",
+    company: "company",
+    phoneNumber: "phoneNumber",
+
+
+  };
+  const data = customerData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("customerId")) {
+            importCustomers(results.data)
+
+            try {
+              importCustomers(results.data)
+
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
+  };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="cust-title">Customers</h1>
@@ -237,19 +272,36 @@ const Customers = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="cust-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="cust-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
+
         </div>
         <div className="cust-table">
           <HeaderCustomer

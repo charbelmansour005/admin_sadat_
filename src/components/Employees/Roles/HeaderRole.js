@@ -5,11 +5,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 const HeaderRole = ({
   name,
-  role,
-  func,
   sortName,
-  sortRole,
-  sortFunc,
   sortBy,
 }) => {
   return (

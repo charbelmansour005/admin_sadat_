@@ -9,8 +9,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployees, deleteEmployees, searchEmployees } from "../../../redux/actions";
-
+import { addEmployees, deleteEmployees, searchEmployees, importEmployeesData } from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 const Employees = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
@@ -26,9 +27,9 @@ const Employees = () => {
   const deleteEmp = (id) => dispatch(deleteEmployees(id));
   const searchEmp = (name) => dispatch(searchEmployees(name));
   const dispatch = useDispatch();
-
+  const importEmployees = (item) => dispatch(importEmployeesData(item))
   useEffect(() => {
-    addEmployee()
+   // addEmployee()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -234,6 +235,39 @@ const Employees = () => {
     toggleModal();
     e.target.reset();
   };
+  const filename = "EmployeesData";
+  const fields = {
+    empId: "empId",
+    name: "name",
+    lastName: "lastName",
+    role: 'role',
+    func: 'func',
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = employeeData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("empId")) {
+            importEmployees(results.data)
+
+            try {
+              importEmployees(results.data)
+
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
+  };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="emp-title">Employees</h1>
@@ -258,19 +292,36 @@ const Employees = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="emp-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="emp-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
+
         </div>
         <div className="emp-table">
           <HeaderEmployee

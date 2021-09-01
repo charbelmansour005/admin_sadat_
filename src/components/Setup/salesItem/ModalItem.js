@@ -167,12 +167,7 @@ const ModalItem = ({
     setMandMod1('')
     setMandMod2('')
     setMandMod3('')
-    // setMandPrice1('')
-    // setMandPrice2('')
-    // setMandPrice3('')
-    // setIsMand1('')
-    // setIsMand2('')
-    // setIsMand3('')
+
 
 
 

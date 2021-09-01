@@ -51,6 +51,10 @@ const ModalDivision = ({
 
     setModDate(completeDateFormat)
   }
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
   return (
     <div
       style={mod ? mountedStyle : unmountedStyle}
@@ -118,7 +122,11 @@ const ModalDivision = ({
                   </option>
                 </select>
               </div>
-              <AddBoxIcon className="add-box" />
+              <AddBoxIcon
+                 onClick={() => {
+                  openInNewTab("http://localhost:3000/Home#/Categories");
+                }}
+               className="add-box" />
             </div>
           </div>
           <div className="modal-division-footer">

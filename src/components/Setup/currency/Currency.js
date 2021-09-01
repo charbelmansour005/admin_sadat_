@@ -13,6 +13,7 @@ import {
   addCurrency,
   searchCurrency,
   deleteCurrency,
+  importCurrencyData
 } from "../../../redux/actions";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
@@ -31,6 +32,7 @@ const Currency = (props) => {
   const addCurrencies = () => dispatch(addCurrency());
   const deleteCurrencies = (currencyId) => dispatch(deleteCurrency(currencyId));
   const searchCurrencies = (name) => dispatch(searchCurrency(name));
+  const importCurrencies = (item) => dispatch(importCurrencyData(item))
 
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -43,7 +45,7 @@ const Currency = (props) => {
     animationFillMode: "forwards",
   };
   useEffect(() => {
-    addCurrencies();
+   // addCurrencies();
 
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
@@ -118,7 +120,7 @@ const Currency = (props) => {
   };
   useEffect(() => {
     setTData(currencyItems);
-    return () => {};
+    return () => { };
   }, []);
 
   const sortBy = (sort) => {
@@ -146,7 +148,7 @@ const Currency = (props) => {
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
+
       currencyId: currencyId,
       name: name,
       symbol: symbol,
@@ -158,16 +160,15 @@ const Currency = (props) => {
     toggleModal();
     e.target.reset();
   };
-  const filename = "SalesItemData";
+  const filename = "CurrencyData";
   const fields = {
-    key: "key",
+    currencyId: "currencyId",
     name: "name",
-    price: "price",
-    group: "group",
+    symbol: "symbol",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
-  const data = dummyData;
+  const data = currencyItems;
   const { saveAsCsv } = useJsonToCsv();
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -176,10 +177,12 @@ const Currency = (props) => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("key")) {
-            dummyData = results.data;
+          if (results.data[0].hasOwnProperty("currencyId")) {
+            importCurrencies(results.data)
+            // dummyData = results.data;
             try {
-              setTData(dummyData);
+              importCurrencies(results.data)
+              //setTData(dummyData);
             } catch (error) {
               alert(error);
             }

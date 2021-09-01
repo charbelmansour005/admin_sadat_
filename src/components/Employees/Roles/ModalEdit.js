@@ -20,21 +20,24 @@ const ModalEdit = ({
   let updateRole = (roleId) => {
     if (roleData.length > 0) {
       roleData.map((item) => {
-        if (item.roleId === roleId)
+        if (item.roleId === roleId) {
+
+
           if (roleName === "") {
             item.name = currentitem.name;
           } else {
             item.name = roleName;
           }
-        if (fromTable === "") {
-          item.fromTable = currentitem.fromTable;
-        } else {
-          item.fromTable = fromTable;
-        }
-        if (toTable === "") {
-          item.toTable = currentitem.toTable;
-        } else {
-          item.toTable = toTable;
+          if (fromTable === "") {
+            item.fromTable = currentitem.fromTable;
+          } else {
+            item.fromTable = fromTable;
+          }
+          if (toTable === "") {
+            item.toTable = currentitem.toTable;
+          } else {
+            item.toTable = toTable;
+          }
         }
       });
     }

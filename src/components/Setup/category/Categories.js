@@ -9,7 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { catPost, deleteCat, searchCat } from "../../../redux/actions";
+import { catPost, deleteCat, searchCat, importCategoryData } from "../../../redux/actions";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
 
@@ -29,10 +29,11 @@ const Categories = () => {
   const addCategories = () => dispatch(catPost());
   const deleteCateg = (id) => dispatch(deleteCat(id));
   const searchCateg = (name) => dispatch(searchCat(name));
+  const importCategories = (item) => dispatch(importCategoryData(item))
   const dispatch = useDispatch();
 
   useEffect(() => {
-    addCategories();
+  //  addCategories();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -210,16 +211,17 @@ const Categories = () => {
     toggleModal();
     e.target.reset();
   };
-  const filename = "SalesItemData";
+  const filename = "CategoryData";
   const fields = {
-    key: "key",
+    catId: "catId",
+    pDefinedCat: "pDefinedCat",
     name: "name",
-    price: "price",
-    group: "group",
+    othername: "othername",
+    sorting: "sorting",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
-  const data = dummyData;
+  const data = catItem;
   const { saveAsCsv } = useJsonToCsv();
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -228,10 +230,12 @@ const Categories = () => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("key")) {
-            dummyData = results.data;
+          if (results.data[0].hasOwnProperty("catId")) {
+            importCategories(results.data)
+            //dummyData = results.data;
             try {
-              setTData(dummyData);
+              importCategories(results.data)
+              // setTData(dummyData);
             } catch (error) {
               alert(error);
             }

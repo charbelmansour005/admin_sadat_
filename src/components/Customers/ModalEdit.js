@@ -26,51 +26,54 @@ const ModalEdit = ({
   let updateCustomer = (customerId) => {
     if (customerData.length > 0) {
       customerData.map((item) => {
-        if (item.customerId === customerId)
+        if (item.customerId === customerId) {
+
+
           if (customerTitle === "") {
             item.title = currentitem.title;
           } else {
             item.title = customerTitle;
           }
-        if (firstName === "") {
-          item.name = currentitem.name;
-        } else {
-          item.name = firstName;
-        }
-        if (lastName === "") {
-          item.lastName = currentitem.lastName;
-        } else {
-          item.lastName = lastName;
-        }
-        if (company === "") {
-          item.company = currentitem.company;
-        } else {
-          item.company = company;
-        }
-        if (group === "") {
-          item.group = currentitem.group;
-        } else {
-          item.group = group;
-        }
-        if (phoneNumber === "") {
-          item.phoneNumber = currentitem.phoneNumber;
-        } else {
-          item.phoneNumber = phoneNumber;
-        }
-        if (email === "") {
-          item.email = currentitem.email;
-        } else {
-          item.email = email;
-        }
-        if (mobile === "") {
-          item.mobile = currentitem.mobile;
-        } else {
-          item.mobile = mobile;
-        }
-        if (website === "") {
-          item.website = currentitem.website;
-        } else {
-          item.website = website;
+          if (firstName === "") {
+            item.name = currentitem.name;
+          } else {
+            item.name = firstName;
+          }
+          if (lastName === "") {
+            item.lastName = currentitem.lastName;
+          } else {
+            item.lastName = lastName;
+          }
+          if (company === "") {
+            item.company = currentitem.company;
+          } else {
+            item.company = company;
+          }
+          if (group === "") {
+            item.group = currentitem.group;
+          } else {
+            item.group = group;
+          }
+          if (phoneNumber === "") {
+            item.phoneNumber = currentitem.phoneNumber;
+          } else {
+            item.phoneNumber = phoneNumber;
+          }
+          if (email === "") {
+            item.email = currentitem.email;
+          } else {
+            item.email = email;
+          }
+          if (mobile === "") {
+            item.mobile = currentitem.mobile;
+          } else {
+            item.mobile = mobile;
+          }
+          if (website === "") {
+            item.website = currentitem.website;
+          } else {
+            item.website = website;
+          }
         }
       });
     }
@@ -268,7 +271,7 @@ const ModalEdit = ({
             </div>
           </div>
           <div className="modal-cust-footer">
-            <input type="submit" value="Save" onClick={()=>updateCustomer(currentitem.customerId)} className="modal-cust-save" />
+            <input type="submit" value="Save" onClick={() => updateCustomer(currentitem.customerId)} className="modal-cust-save" />
           </div>
         </form>
       </div>

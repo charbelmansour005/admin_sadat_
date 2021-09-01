@@ -9,7 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import EditGroupModal from "./EditGroupModal";
-import { addGroups, searchGroups, deleteGroups } from "../../../redux/actions";
+import { addGroups, searchGroups, deleteGroups, importGroupData } from "../../../redux/actions";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
 
@@ -26,12 +26,14 @@ const Groups = () => {
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
   const dispatch = useDispatch();
-  const { groupItems } = useSelector((state) => state.postReducer);
+  const { groupItems, salesItems } = useSelector((state) => state.postReducer);
   const addGroup = () => dispatch(addGroups());
   const deleteGroup = (id) => dispatch(deleteGroups(id));
   const searchGroup = (name) => dispatch(searchGroups(name));
+  const importGroups = (item) => dispatch(importGroupData(item))
   useEffect(() => {
-    addGroup();
+    //addGroup();
+    
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -152,19 +154,19 @@ const Groups = () => {
           return prev.sort(GetSortOrder2("name"));
         });
       } else setSortName("0");
-    } else if (sort === "div") {
+    } else if (sort === "division") {
       if (sortDiv === "0") {
         setSortName("0");
         setSortDiv("1");
         setSortCreationDate("0");
         setSortLastModificationDate("0");
         setTData((prev) => {
-          return prev.sort(GetDateSortOrder("div"));
+          return prev.sort(GetDateSortOrder("division"));
         });
       } else if (sortDiv === "1") {
         setSortDiv("2");
         setTData((prev) => {
-          return prev.sort(GetDateSortOrder2("div"));
+          return prev.sort(GetDateSortOrder2("division"));
         });
       } else setSortDiv("0");
     } else if (sort === "creationDate") {
@@ -251,16 +253,15 @@ const Groups = () => {
     e.target.reset();
   };
 
-  const filename = "SalesItemData";
+  const filename = "GroupData";
   const fields = {
-    key: "key",
+    groupId: "groupId",
     name: "name",
-    price: "price",
-    group: "group",
+    division: "division",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
-  const data = dummyData;
+  const data = groupItems;
   const { saveAsCsv } = useJsonToCsv();
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -269,10 +270,12 @@ const Groups = () => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("key")) {
-            dummyData = results.data;
+          if (results.data[0].hasOwnProperty("groupId")) {
+            importGroups(results.data)
+
             try {
-              setTData(dummyData);
+              importGroups(results.data)
+
             } catch (error) {
               alert(error);
             }

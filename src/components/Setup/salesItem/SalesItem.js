@@ -11,7 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
-import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod, clearMandModifier } from "../../../redux/actions";
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod, clearMandModifier, importItemData } from "../../../redux/actions";
 
 var dummyData = [];
 
@@ -26,6 +28,7 @@ const SalesItem = () => {
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
+
   const dispatch = useDispatch();
   const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
     (state) => state.postReducer
@@ -33,13 +36,14 @@ const SalesItem = () => {
   const addItem = () => dispatch(addItems());
   const deleteItem = (id) => dispatch(deleteItems(id));
   const searchItem = (name) => dispatch(searchItems(name));
+  const importItems = (item) => dispatch(importItemData(item))
   const clearAdd = () => dispatch(clearAddMod());
   const clearRemove = () => dispatch(clearRemoveMod());
   const clearAddOn = () => dispatch(clearAddOnMod());
   const clearModifier = () => dispatch(clearMandModifier());
   useEffect(() => {
-    addItem()
-    console.log(modifiers)
+    // addItem()
+    console.log(salesItems)
     if (ItemAdd.length > 0) {
       clearAdd();
       console.log(ItemAdd);
@@ -53,7 +57,7 @@ const SalesItem = () => {
     if (modifiers.length > 0) {
       clearModifier()
     }
-    
+
 
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
@@ -74,8 +78,9 @@ const SalesItem = () => {
     }
   }, [modal]);
   useEffect(() => {
-    setTData(dummyData);
-  }, [dummyData]);
+    setTData(salesItems)
+
+  }, []);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
@@ -135,8 +140,8 @@ const SalesItem = () => {
     };
   }
   const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addItem();
+    if (e.target.value === "") {    
+      //addItem()
     } else {
       searchItem(e.target.value);
     }
@@ -149,6 +154,7 @@ const SalesItem = () => {
     });
   };
   const handleEdit = (itemId) => {
+    console.log(salesItems)
     salesItems.map((item) => {
       if (item.itemId === itemId) {
         setCurrentItem(item);
@@ -185,13 +191,13 @@ const SalesItem = () => {
         setTData((prev) => {
           return prev.sort(GetSortOrder("price"));
         });
-        console.log(tData);
+
       } else if (sortPrice === "1") {
         setSortPrice("2");
         setTData((prev) => {
           return prev.sort(GetSortOrder2("price"));
         });
-        console.log(tData);
+
       } else setSortPrice("0");
     } else if (sort === "group") {
       if (sortGroup === "0") {
@@ -295,22 +301,26 @@ const SalesItem = () => {
       creationDate: createdData,
       lastModificationDate: modificationDate,
     };
+
     salesItems.push(newItem);
-    console.log(salesItems);
+
+
 
     toggleModal();
     e.target.reset();
   };
+
   const filename = "SalesItemData";
+
   const fields = {
-    key: "key",
+    itemId: "itemId",
     name: "name",
     price: "price",
     group: "group",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
-  const data = dummyData;
+  const data = salesItems;
   const { saveAsCsv } = useJsonToCsv();
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -319,10 +329,10 @@ const SalesItem = () => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("key")) {
-            dummyData = results.data;
+          if (results.data[0].hasOwnProperty("itemId")) {
+            importItems(results.data)
             try {
-              setTData(dummyData);
+              importItems(results.data)
             } catch (error) {
               alert(error);
             }

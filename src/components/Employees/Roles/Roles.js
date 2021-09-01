@@ -9,8 +9,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import ModalEdit from "./ModalEdit";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { addRole, deleteRole, searchRole } from "../../../redux/actions";
-
+import { addRole, deleteRole, searchRole, importEmployeeRoles } from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 const Roles = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
@@ -22,10 +23,11 @@ const Roles = () => {
   const addRoles = () => dispatch(addRole());
   const deleteRoles = (id) => dispatch(deleteRole(id));
   const searchRoles = (name) => dispatch(searchRole(name));
+  const importRoles = (item) => dispatch(importEmployeeRoles(item))
   const dispatch = useDispatch();
 
   useEffect(() => {
-    addRoles()
+    //addRoles()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -148,6 +150,37 @@ const Roles = () => {
     toggleModal();
     e.target.reset();
   };
+  const filename = "EmployeeRoles";
+  const fields = {
+    roleId: "roleId",
+    name: "name",
+    fromTable: "fromTable",
+    toTable: "toTable",
+
+  };
+  const data = roleData;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("roleId")) {
+            importRoles(results.data)
+
+            try {
+              importRoles(results.data)
+
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
+  };
   return (
     <div id="App" style={{ width: "100%", height: "100%" }}>
       <h1 className="role-title">Roles</h1>
@@ -172,19 +205,36 @@ const Roles = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="role-add" onClick={() => toggleModal()}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="role-add" onClick={() => toggleModal()}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
+
         </div>
         <div className="role-table">
           <HeaderRole

@@ -50,116 +50,119 @@ const ModalEdit = ({
   let updateEmployee = (employeeId) => {
     if (employeeData.length > 0) {
       employeeData.map((item) => {
-        if (item.empId === employeeId)
+        if (item.empId === employeeId) {
+
+
           if (branchName === "") {
             item.branchName = currentitem.branchName;
           } else {
             item.branchName = branchName;
           }
-        if (empId === "") {
-          item.empId = currentitem.empId;
-        } else {
-          item.empId = empId;
-        }
-        if (empName === "") {
-          item.name = currentitem.name;
-        } else {
-          item.name = empName;
-        }
-        if (expDate === "") {
-          item.expiryDate = currentitem.expiryDate;
-        } else {
-          item.expiryDate = expDate;
-        }
-        if (phoneNumber === "") {
-          item.phoneNumber = currentitem.phoneNumber;
-        } else {
-          item.phoneNumber = phoneNumber;
-        }
-        if (password === "") {
-          item.password = currentitem.password;
-        } else {
-          item.password = password;
-        }
-        if (secPassword === "") {
-          item.secPassword = currentitem.secPassword;
-        } else {
-          item.secPassword = secPassword;
-        }
-        if (accessBack === "") {
-          item.accessBackOffice = currentitem.accessBackOffice;
-        } else {
-          item.accessBackOffice = accessBack;
-        }
-        if (language === "") {
-          item.language = currentitem.language;
-        } else {
-          item.language = language;
-        }
-        if (posLoginId === "") {
-          item.posLoginId = currentitem.posLoginId;
-        } else {
-          item.posLoginId = posLoginId;
-        }
-        if (posLoginPassword === "") {
-          item.posLoginPassword = currentitem.posLoginPassword;
-        } else {
-          item.posLoginPassword = posLoginPassword;
-        }
-        if (func === "") {
-          item.func = currentitem.func;
-        } else {
-          item.func = func;
-        }
-        if (configKey === "") {
-          item.key = currentitem.key;
-        } else {
-          item.key = configKey;
-        }
-        if (config === "") {
-          item.config = currentitem.config;
-        } else {
-          item.config = config;
-        }
-        if (screenAccess === "") {
-          item.screenAccess = currentitem.screenAccess;
-        } else {
-          item.screenAccess = screenAccess;
-        }
-        if (mode === "") {
-          item.mode = currentitem.mode;
-        } else {
-          item.mode = mode;
-        }
-        if (menu === "") {
-          item.menu = currentitem.menu;
-        } else {
-          item.menu = menu;
-        }
-        if (drawerPort === "") {
-          item.cashDrawerPort = currentitem.cashDrawerPort;
-        } else {
-          item.cashDrawerPort = drawerPort;
-        }
-        if (printType === "") {
-          item.printType = currentitem.printType;
-        } else {
-          item.printType = printType;
-        }
-        if (salary === "") {
-          item.salary = currentitem.salary;
-        } else {
-          item.salary = salary;
-        }
-        if (overtime === "") {
-          item.overtime = currentitem.overtime;
-        } else {
-          item.overtime = overtime;
-        }
-        if (timeStatus === "") {
-          item.timeStatus = currentitem.timeStatus;
-        } else {
-          item.timeStatus = timeStatus;
+          if (empId === "") {
+            item.empId = currentitem.empId;
+          } else {
+            item.empId = empId;
+          }
+          if (empName === "") {
+            item.name = currentitem.name;
+          } else {
+            item.name = empName;
+          }
+          if (expDate === "") {
+            item.expiryDate = currentitem.expiryDate;
+          } else {
+            item.expiryDate = expDate;
+          }
+          if (phoneNumber === "") {
+            item.phoneNumber = currentitem.phoneNumber;
+          } else {
+            item.phoneNumber = phoneNumber;
+          }
+          if (password === "") {
+            item.password = currentitem.password;
+          } else {
+            item.password = password;
+          }
+          if (secPassword === "") {
+            item.secPassword = currentitem.secPassword;
+          } else {
+            item.secPassword = secPassword;
+          }
+          if (accessBack === "") {
+            item.accessBackOffice = currentitem.accessBackOffice;
+          } else {
+            item.accessBackOffice = accessBack;
+          }
+          if (language === "") {
+            item.language = currentitem.language;
+          } else {
+            item.language = language;
+          }
+          if (posLoginId === "") {
+            item.posLoginId = currentitem.posLoginId;
+          } else {
+            item.posLoginId = posLoginId;
+          }
+          if (posLoginPassword === "") {
+            item.posLoginPassword = currentitem.posLoginPassword;
+          } else {
+            item.posLoginPassword = posLoginPassword;
+          }
+          if (func === "") {
+            item.func = currentitem.func;
+          } else {
+            item.func = func;
+          }
+          if (configKey === "") {
+            item.key = currentitem.key;
+          } else {
+            item.key = configKey;
+          }
+          if (config === "") {
+            item.config = currentitem.config;
+          } else {
+            item.config = config;
+          }
+          if (screenAccess === "") {
+            item.screenAccess = currentitem.screenAccess;
+          } else {
+            item.screenAccess = screenAccess;
+          }
+          if (mode === "") {
+            item.mode = currentitem.mode;
+          } else {
+            item.mode = mode;
+          }
+          if (menu === "") {
+            item.menu = currentitem.menu;
+          } else {
+            item.menu = menu;
+          }
+          if (drawerPort === "") {
+            item.cashDrawerPort = currentitem.cashDrawerPort;
+          } else {
+            item.cashDrawerPort = drawerPort;
+          }
+          if (printType === "") {
+            item.printType = currentitem.printType;
+          } else {
+            item.printType = printType;
+          }
+          if (salary === "") {
+            item.salary = currentitem.salary;
+          } else {
+            item.salary = salary;
+          }
+          if (overtime === "") {
+            item.overtime = currentitem.overtime;
+          } else {
+            item.overtime = overtime;
+          }
+          if (timeStatus === "") {
+            item.timeStatus = currentitem.timeStatus;
+          } else {
+            item.timeStatus = timeStatus;
+          }
         }
       });
     }

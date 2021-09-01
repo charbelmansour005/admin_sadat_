@@ -13,6 +13,7 @@ import {
   addPayment,
   searchPayment,
   deletePayment,
+  importPaymentData
 } from "../../../redux/actions";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
@@ -34,8 +35,9 @@ const Payment = () => {
   const addPayments = () => dispatch(addPayment());
   const deletePayments = (id) => dispatch(deletePayment(id));
   const searchPayments = (name) => dispatch(searchPayment(name));
+  const importPayments = (item) => dispatch(importPaymentData(item))
   useEffect(() => {
-    addPayments();
+   // addPayments();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -139,22 +141,22 @@ const Payment = () => {
           return prev.sort(GetSortOrder2("name"));
         });
       } else setSortName("0");
-    } else if (sort === "type") {
+    } else if (sort === "paymentType") {
       if (sortType === "0") {
         setSortType("1");
         setSortName("0");
         setSortAccountNumber("0");
         setSortStatus("0");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("type"));
+          return prev.sort(GetSortOrder("paymentType"));
         });
       } else if (sortType === "1") {
         setSortType("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("type"));
+          return prev.sort(GetSortOrder2("paymentType"));
         });
       } else setSortType("0");
-    } else if (sort === "acc") {
+    } else if (sort === "accountNumber") {
       if (sortAccountNumber === "0") {
         setSortAccountNumber("1");
         setSortName("0");
@@ -169,19 +171,19 @@ const Payment = () => {
           return prev.sort(GetSortOrder2("accountNumber"));
         });
       } else setSortAccountNumber("0");
-    } else if (sort === "status") {
+    } else if (sort === "paymentStatus") {
       if (sortStatus === "0") {
         setSortAccountNumber("0");
         setSortName("0");
         setSortType("0");
         setSortStatus("1");
         setTData((prev) => {
-          return prev.sort(GetSortOrder("status"));
+          return prev.sort(GetSortOrder("paymentStatus"));
         });
       } else if (sortStatus === "1") {
         setSortStatus("2");
         setTData((prev) => {
-          return prev.sort(GetSortOrder2("status"));
+          return prev.sort(GetSortOrder2("paymentStatus"));
         });
       } else setSortStatus("0");
     }
@@ -202,7 +204,7 @@ const Payment = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
+
       paymentId: paymentId,
       name: name,
       paymentCurrency: paymentCurrency,
@@ -220,16 +222,17 @@ const Payment = () => {
     toggleModal();
     e.target.reset();
   };
-  const filename = "SalesItemData";
+  const filename = "PaymentData";
   const fields = {
-    key: "key",
+    paymentId: "paymentId",
     name: "name",
-    price: "price",
-    group: "group",
+    paymentType: "paymentType",
+    accountNumber: "accountNumber",
+    paymentStatus: "paymentStatus",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
-  const data = dummyData;
+  const data = paymentItem;
   const { saveAsCsv } = useJsonToCsv();
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -238,10 +241,12 @@ const Payment = () => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("key")) {
-            dummyData = results.data;
+          if (results.data[0].hasOwnProperty("paymentId")) {
+            importPayments(results.data)
+            //dummyData = results.data;
             try {
-              setTData(dummyData);
+              importPayments(results.data)
+              //setTData(dummyData);
             } catch (error) {
               alert(error);
             }

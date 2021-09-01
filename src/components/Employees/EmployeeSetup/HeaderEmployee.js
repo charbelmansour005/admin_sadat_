@@ -38,7 +38,7 @@ const HeaderEmployee = ({
           )}
         </div>
         <div className="emp-mod-date">
-          <div onClick={() => sortBy("lastModDate")} className="item-sort">
+          <div onClick={() => sortBy("func")} className="item-sort">
             {func}
           </div>
           {sortFunc === "1" && (

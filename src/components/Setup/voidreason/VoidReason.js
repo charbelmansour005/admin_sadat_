@@ -9,8 +9,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import VoidEditModal from "./VoidEditModal";
-import { addVoid, searchVoid, deleteVoid } from "../../../redux/actions";
-
+import { addVoid, searchVoid, deleteVoid, importVoidData } from "../../../redux/actions";
+import { useJsonToCsv } from "react-json-csv";
+import Papa from "papaparse";
 
 const VoidReason = () => {
   const [modal, setModal] = useState(false);
@@ -26,8 +27,9 @@ const VoidReason = () => {
   const addVoids = () => dispatch(addVoid());
   const deleteVoids = (id) => dispatch(deleteVoid(id));
   const searchVoids = (name) => dispatch(searchVoid(name));
+  const importVoidReasons = (item) => dispatch(importVoidData(item))
   useEffect(() => {
-    addVoids()
+   // addVoids()
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -147,7 +149,7 @@ const VoidReason = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-      
+
       voidId: voidId,
       name: name,
       branchName: branchName,
@@ -158,6 +160,38 @@ const VoidReason = () => {
     console.log(voidItem)
     toggleModal();
     e.target.reset();
+  };
+
+  const filename = "VoidReasons";
+  const fields = {
+    voidId: "voidId",
+    name: "name",
+    branchName: "branchName",
+    creationDate: "creationDate",
+    lastModificationDate: "lastModificationDate",
+  };
+  const data = voidItem;
+  const { saveAsCsv } = useJsonToCsv();
+  const handleFileUpload = (e) => {
+    const files = e.target.files;
+    if (files.length != 0) {
+      Papa.parse(files[0], {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          if (results.data[0].hasOwnProperty("voidId")) {
+            importVoidReasons(results.data)
+            //dummyData = results.data;
+            try {
+              importVoidReasons(results.data)
+              // setTData(dummyData);
+            } catch (error) {
+              alert(error);
+            }
+          }
+        },
+      });
+    }
   };
 
   return (
@@ -192,24 +226,41 @@ const VoidReason = () => {
               <option>3</option>
             </select>
           </div>
-          <div className="void-add" onClick={() => setModal(true)}>
-            <AddIcon
-              style={{
-                marginLeft: "2px",
-                color: "white",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <p>New</p>
+          <div className="item-right">
+            <label className="item-file-input">
+              Import
+              <input
+                accept=".csv,.xlsx,.xls"
+                type="file"
+                onInput={(e) => handleFileUpload(e)}
+              />
+            </label>
+            <label
+              onClick={() => saveAsCsv({ data, fields, filename })}
+              className="item-file-input"
+            >
+              Export
+            </label>
+            <div className="void-add" onClick={() => setModal(true)}>
+              <AddIcon
+                style={{
+                  marginLeft: "2px",
+                  color: "white",
+                  height: "25px",
+                  width: "25px",
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+              />
+              <p>New</p>
+            </div>
           </div>
+
         </div>
         <div className="void-table">
           <HeaderVoid name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="void-remove-items">
-            {voidItem.map(({  name, voidId }) => (
+            {voidItem.map(({ name, voidId }) => (
               <CSSTransition key={voidId} timeout={500} classNames="void-trans">
                 <TableVoid
                   voidId={voidId}

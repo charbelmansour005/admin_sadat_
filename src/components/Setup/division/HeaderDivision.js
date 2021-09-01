@@ -12,6 +12,7 @@ const HeaderDivision = ({
   sortCreationDate,
   sortLastModificationDate,
   sortGrp,
+  
   sortBy,
 }) => {
   return (

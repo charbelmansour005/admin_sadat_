@@ -36,7 +36,16 @@ export const ADD_CUSTOMER = "ADD_CUSTOMER"
 export const SEARCH_CUSTOMER = "SEARCH_CUSTOMER"
 export const DELETE_CUSTOMER = "DELETE_CUSTOMER"
 export const ADD_MAND_MODIFIER = "ADD_MAND_MODIFIER"
-
+export const IMPORT_ITEM_DATA = "IMPORT_ITEM_DATA"
+export const IMPORT_GROUP_DATA = "IMPORT_GROUP_DATA"
+export const IMPORT_DIVISION_DATA = "IMPORT_DIVISION_DATA"
+export const IMPORT_CATEGORY_DATA = "IMPORT_CATEGORY_DATA"
+export const IMPORT_PAYMENT_DATA = "IMPORT_PAYMENT_DATA"
+export const IMPORT_VOID_REASONS = "IMPORT_VOID_REASONS"
+export const IMPORT_CURRENCY_DATA = "IMPORT_CURRENCY_DATA"
+export const IMPORT_EMPLOYEES_DATA = "IMPORT_EMPLOYEES_DATA"
+export const IMPORT_EMPLOYEES_ROLES = "IMPORT_EMPLOYEES_ROLES"
+export const IMPORT_CUSTOMERS = "IMPORT_CUSTOMERS"
 const tabledata = [
 
 
@@ -84,6 +93,131 @@ export const catPost = () => {
         console.log(error);
     }
 };
+
+export const importItemData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_ITEM_DATA,
+                payload: item
+            })
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+export const importGroupData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_GROUP_DATA,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importDivisionData = (item) => {
+    try {
+
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_DIVISION_DATA,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importCategoryData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_CATEGORY_DATA,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const importPaymentData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_PAYMENT_DATA,
+                payload: item
+            })
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importVoidData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_VOID_REASONS,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importCurrencyData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_CURRENCY_DATA,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importEmployeesData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_EMPLOYEES_DATA,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importEmployeeRoles = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_EMPLOYEES_ROLES,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const importCustomersData = (item) => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: IMPORT_CUSTOMERS,
+                payload: item
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const deleteCat = (id) => {
     try {
@@ -227,7 +361,7 @@ export const addItems = () => {
         return async (dispatch) => {
             dispatch({
                 type: ADD_ITEMS,
-                payload: salesItemData
+                // payload: salesItemData
             })
         };
     } catch (error) {
@@ -371,15 +505,15 @@ export const addOnModifier = (item) => {
         console.log(error)
     }
 }
-export const addMandModifier = (item,item1,item2) => {
+export const addMandModifier = (item, item1, item2) => {
     try {
         return async dispatch => {
             dispatch({
                 type: ADD_MAND_MODIFIER,
-                payload:{
-                    modifier1:item,
-                    modifier2:item1,
-                    modifier3:item2
+                payload: {
+                    modifier1: item,
+                    modifier2: item1,
+                    modifier3: item2
                 }
 
             })

@@ -29,7 +29,7 @@ const HeaderPaymentType = ({
           )}
         </div>
         <div className="pay-price">
-          <div onClick={() => sortBy("type")} className="pay-sort">
+          <div onClick={() => sortBy("paymentType")} className="pay-sort">
             {paymentType}
           </div>
           {sortType === "1" && (
@@ -40,7 +40,7 @@ const HeaderPaymentType = ({
           )}
         </div>
         <div className="pay-group">
-          <div onClick={() => sortBy("acc")} className="pay-sort">
+          <div onClick={() => sortBy("accountNumber")} className="pay-sort">
             {accountNumber}
           </div>
           {sortAccountNumber === "1" && (
@@ -52,7 +52,7 @@ const HeaderPaymentType = ({
         </div>
 
         <div className="pay-group">
-          <div onClick={() => sortBy("status")} className="pay-sort">
+          <div onClick={() => sortBy("paymentStatus")} className="pay-sort">
             {paymentStatus}
           </div>
           {sortStatus === "1" && (

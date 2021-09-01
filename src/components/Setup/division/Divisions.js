@@ -13,6 +13,7 @@ import {
   addDivisions,
   searchDivision,
   deleteDivisions,
+  importDivisionData,
 } from "../../../redux/actions";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
@@ -34,8 +35,9 @@ const Divisions = () => {
   const addDivision = () => dispatch(addDivisions());
   const deleteDivision = (id) => dispatch(deleteDivisions(id));
   const searchDivisions = (name) => dispatch(searchDivision(name));
+  const importDivision = (item) => dispatch(importDivisionData(item))
   useEffect(() => {
-    addDivision();
+    //addDivision();
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -156,19 +158,19 @@ const Divisions = () => {
           return prev.sort(GetSortOrder2("name"));
         });
       } else setSortName("0");
-    } else if (sort === "group") {
+    } else if (sort === "category") {
       if (sortGrp === "0") {
         setSortName("0");
         setSortGrp("1");
         setSortCreationDate("0");
         setSortLastModificationDate("0");
         setTData((prev) => {
-          return prev.sort(GetDateSortOrder("div"));
+          return prev.sort(GetDateSortOrder("category"));
         });
       } else if (sortGrp === "1") {
         setSortGrp("2");
         setTData((prev) => {
-          return prev.sort(GetDateSortOrder2("div"));
+          return prev.sort(GetDateSortOrder2("category"));
         });
       } else setSortGrp("0");
     } else if (sort === "creationDate") {
@@ -214,7 +216,7 @@ const Divisions = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-      key: tData.length,
+
       name: name,
       divisionId: divisionId,
       divId: divId,
@@ -228,16 +230,16 @@ const Divisions = () => {
     e.target.reset();
   };
 
-  const filename = "SalesItemData";
+  const filename = "DivisionData";
   const fields = {
-    key: "key",
+    divisionId: "divisionId",
+    divId:"divId",
     name: "name",
-    price: "price",
-    group: "group",
+    category:"category",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
-  const data = dummyData;
+  const data = divisionItems;
   const { saveAsCsv } = useJsonToCsv();
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -246,10 +248,12 @@ const Divisions = () => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("key")) {
-            dummyData = results.data;
+          if (results.data[0].hasOwnProperty("divisionId")) {
+            importDivision(results.data)
+            //dummyData = results.data;
             try {
-              setTData(dummyData);
+              importDivision(results.data)
+             // setTData(dummyData);
             } catch (error) {
               alert(error);
             }

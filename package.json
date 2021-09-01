@@ -13,6 +13,7 @@
     "bootstrap": "^5.0.2",
     "convert-csv-to-json": "^1.3.1",
     "cors": "^2.8.5",
+    "file-saver": "^2.0.5",
     "history": "^5.0.0",
     "moment": "^2.29.1",
     "papaparse": "^5.3.1",
@@ -32,7 +33,8 @@
     "redux-thunk": "github:reduxjs/redux-thunk#master",
     "serve": "^12.0.0",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "xlsx": "^0.17.1"
   },
   "scripts": {
     "start": "react-scripts start",

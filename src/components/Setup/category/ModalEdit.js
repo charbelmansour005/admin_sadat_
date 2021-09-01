@@ -17,26 +17,27 @@ const ModalEdit = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, 
     let updateCategory = (catId) => {
         if (catItem.length > 0) {
             catItem.map((item) => {
-                if (item.catId === catId)
+                if (item.catId === catId) {
                     if (catName === '') {
                         item.name = currentitem.name
                     }
                     else {
                         item.name = catName
                     }
-                if (othercatName === '') {
-                    item.othername = currentitem.othername
-                }
-                else {
+                    if (othercatName === '') {
+                        item.othername = currentitem.othername
+                    }
+                    else {
 
-                    item.othername = othercatName
-                }
-                if (sorting === '') {
-                    item.sorting = currentitem.sorting
-                }
-                else {
+                        item.othername = othercatName
+                    }
+                    if (sorting === '') {
+                        item.sorting = currentitem.sorting
+                    }
+                    else {
 
-                    item.sorting = sorting
+                        item.sorting = sorting
+                    }
                 }
             })
         }
