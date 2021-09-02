@@ -46,6 +46,8 @@ export const IMPORT_CURRENCY_DATA = "IMPORT_CURRENCY_DATA"
 export const IMPORT_EMPLOYEES_DATA = "IMPORT_EMPLOYEES_DATA"
 export const IMPORT_EMPLOYEES_ROLES = "IMPORT_EMPLOYEES_ROLES"
 export const IMPORT_CUSTOMERS = "IMPORT_CUSTOMERS"
+
+
 const tabledata = [
 
 
@@ -60,8 +62,7 @@ const voidData = [
 ];
 const currencyData = [
 ];
-const salesItemData = [
-];
+const salesItemData = []
 const groupData = [
 
 
@@ -361,7 +362,7 @@ export const addItems = () => {
         return async (dispatch) => {
             dispatch({
                 type: ADD_ITEMS,
-                // payload: salesItemData
+                payload: salesItemData
             })
         };
     } catch (error) {

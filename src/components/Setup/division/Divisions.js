@@ -37,7 +37,7 @@ const Divisions = () => {
   const searchDivisions = (name) => dispatch(searchDivision(name));
   const importDivision = (item) => dispatch(importDivisionData(item))
   useEffect(() => {
-    //addDivision();
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -117,13 +117,19 @@ const Divisions = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addDivision();
-    } else {
-      searchDivisions(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(divisionItems)
     }
-  };
+  }
+
 
   const handleDelete = (divisionId) => {
     divisionItems.map((item) => {
@@ -131,6 +137,7 @@ const Divisions = () => {
         deleteDivision(divisionId);
       }
     });
+    setTData(divisionItems)
   };
   const handleEdit = (divisionId) => {
     divisionItems.map((item) => {
@@ -141,6 +148,7 @@ const Divisions = () => {
         setFirst(true);
       }
     });
+    setTData(divisionItems)
   };
   const sortBy = (sort) => {
     if (sort === "name") {
@@ -225,6 +233,7 @@ const Divisions = () => {
       lastModificationDate: modificationDate,
     };
     divisionItems.push(newItem);
+    setTData(divisionItems)
 
     toggleModal();
     e.target.reset();
@@ -233,9 +242,9 @@ const Divisions = () => {
   const filename = "DivisionData";
   const fields = {
     divisionId: "divisionId",
-    divId:"divId",
+    divId: "divId",
     name: "name",
-    category:"category",
+    category: "category",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
@@ -249,11 +258,13 @@ const Divisions = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("divisionId")) {
+            setTData(results.data)
             importDivision(results.data)
-            //dummyData = results.data;
+
             try {
+              setTData(results.data)
               importDivision(results.data)
-             // setTData(dummyData);
+
             } catch (error) {
               alert(error);
             }
@@ -329,7 +340,7 @@ const Divisions = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="division-remove-items">
-            {divisionItems.map(
+            {tData.map(
               ({
                 category,
                 name,

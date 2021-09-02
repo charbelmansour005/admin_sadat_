@@ -29,7 +29,7 @@ const VoidReason = () => {
   const searchVoids = (name) => dispatch(searchVoid(name));
   const importVoidReasons = (item) => dispatch(importVoidData(item))
   useEffect(() => {
-   // addVoids()
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -86,14 +86,17 @@ const VoidReason = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === '') {
-      addVoids()
-    }
-    else {
-      searchVoids(e.target.value)
-    }
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
 
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(voidItem)
+    }
   }
 
   useEffect(() => {
@@ -108,7 +111,7 @@ const VoidReason = () => {
         deleteVoids(voidId)
       }
     })
-
+    setTData(voidItem);
 
   };
   const handleEdit = (voidId) => {
@@ -121,6 +124,7 @@ const VoidReason = () => {
         setFirst(true)
       }
     })
+    setTData(voidItem);
   }
 
   const sortBy = (sort) => {
@@ -157,7 +161,7 @@ const VoidReason = () => {
       lastModificationDate: modificationDate,
     };
     voidItem.push(newItem)
-    console.log(voidItem)
+    setTData(voidItem)
     toggleModal();
     e.target.reset();
   };
@@ -180,11 +184,13 @@ const VoidReason = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("voidId")) {
+            setTData(results.data)
             importVoidReasons(results.data)
-            //dummyData = results.data;
+           
             try {
+              setTData(results.data)
               importVoidReasons(results.data)
-              // setTData(dummyData);
+             
             } catch (error) {
               alert(error);
             }
@@ -260,7 +266,7 @@ const VoidReason = () => {
         <div className="void-table">
           <HeaderVoid name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="void-remove-items">
-            {voidItem.map(({ name, voidId }) => (
+            {tData.map(({ name, voidId }) => (
               <CSSTransition key={voidId} timeout={500} classNames="void-trans">
                 <TableVoid
                   voidId={voidId}

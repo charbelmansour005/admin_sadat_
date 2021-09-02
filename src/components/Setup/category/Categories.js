@@ -33,7 +33,7 @@ const Categories = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-  //  addCategories();
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -114,13 +114,19 @@ const Categories = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addCategories();
-    } else {
-      searchCateg(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(catItem)
     }
-  };
+  }
+
 
   const handleDelete = (catId) => {
     catItem.map((item) => {
@@ -128,6 +134,7 @@ const Categories = () => {
         deleteCateg(catId);
       }
     });
+    setTData(catItem);
   };
 
   const handleEdit = (catId) => {
@@ -139,6 +146,7 @@ const Categories = () => {
         setFirst(true);
       }
     });
+    setTData(catItem);
   };
 
   const sortBy = (sort) => {
@@ -207,7 +215,7 @@ const Categories = () => {
       lastModificationDate: modificationDate,
     };
     catItem.push(newItem);
-
+    setTData(catItem)
     toggleModal();
     e.target.reset();
   };
@@ -231,11 +239,13 @@ const Categories = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("catId")) {
+            setTData(results.data)
             importCategories(results.data)
-            //dummyData = results.data;
+
             try {
+              setTData(results.data)
               importCategories(results.data)
-              // setTData(dummyData);
+
             } catch (error) {
               alert(error);
             }
@@ -309,7 +319,7 @@ const Categories = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="cat-remove-items">
-            {catItem.map(
+            {tData.map(
               ({ catId, name, creationDate, lastModificationDate }) => (
                 <CSSTransition key={catId} timeout={500} classNames="cat-trans">
                   <TableCategory

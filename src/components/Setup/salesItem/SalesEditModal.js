@@ -361,9 +361,7 @@ const SalesEditModal = ({
 
     }
     useEffect(() => {
-        console.log(Object.keys(currentitem.modifiers.mod1).length)
-        console.log(Object.keys(currentitem.modifiers.mod2).length)
-        console.log(Object.keys(currentitem.modifiers.mod3).length)
+     
         getModificationDate()
 
 

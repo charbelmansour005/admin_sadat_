@@ -29,7 +29,7 @@ const Employees = () => {
   const dispatch = useDispatch();
   const importEmployees = (item) => dispatch(importEmployeesData(item))
   useEffect(() => {
-   // addEmployee()
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -90,13 +90,18 @@ const Employees = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addEmployee()
-    } else {
-      searchEmp(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(employeeData)
     }
-  };
+  }
 
   const handleDelete = (empId) => {
     employeeData.map((item) => {
@@ -104,6 +109,7 @@ const Employees = () => {
         deleteEmp(empId);
       }
     });
+    setTData(employeeData)
   };
 
   const handleEdit = (empId) => {
@@ -115,6 +121,7 @@ const Employees = () => {
         setFirst(true);
       }
     });
+    setTData(employeeData)
   };
 
   const sortBy = (sort) => {
@@ -231,7 +238,7 @@ const Employees = () => {
       hideTime: hideTime
     };
     employeeData.push(newItem);
-    console.log(employeeData)
+    setTData(employeeData)
     toggleModal();
     e.target.reset();
   };
@@ -240,6 +247,32 @@ const Employees = () => {
     empId: "empId",
     name: "name",
     lastName: "lastName",
+    expiryDate:"expiryDate",
+    phoneNumber:"phoneNumber",
+    salary:"salary",
+    isActive:"isActive",
+    isSalesMan:"isSalesMan",
+    password:"password",
+    secPassword:"secPassword",
+    accessBackOffice:"accessBackOffice",
+    language:"language",
+    posLoginId:"posLoginId",
+    posLoginPassword:"posLoginPassword",
+    key:"key",
+    config:"config",
+    screenAccess:"screenAccess",
+    mode:"mode",
+    menu:"menu",
+    cashDrawerPort:"cashDrawerPort",
+    printerType:"printerType",
+    openDrawer:"openDrawer",
+    overtime:"overtime",
+    timeStatus:"timeStatus",
+    driveThrought:"driveThrought",
+    generateChecklist:"generateChecklist",
+    deliveryList:"deliveryList",
+    autoTime:"autoTime",
+    hideTime:"hideTime",
     role: 'role',
     func: 'func',
     creationDate: "creationDate",
@@ -255,9 +288,11 @@ const Employees = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("empId")) {
+            setTData(results.data)
             importEmployees(results.data)
 
             try {
+              setTData(results.data)
               importEmployees(results.data)
 
             } catch (error) {
@@ -334,7 +369,7 @@ const Employees = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="emp-remove-items">
-            {employeeData.map(({ empId, name, role, func }) => (
+            {tData.map(({ empId, name, role, func }) => (
               <CSSTransition key={empId} timeout={500} classNames="emp-trans">
                 <TableEmployee
 

@@ -45,7 +45,7 @@ const Currency = (props) => {
     animationFillMode: "forwards",
   };
   useEffect(() => {
-   // addCurrencies();
+ 
 
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
@@ -93,13 +93,18 @@ const Currency = (props) => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addCurrencies();
-    } else {
-      searchCurrencies(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(currencyItems)
     }
-  };
+  }
 
   const handleDelete = (currencyId) => {
     currencyItems.map((item) => {
@@ -107,6 +112,7 @@ const Currency = (props) => {
         deleteCurrencies(currencyId);
       }
     });
+    setTData(currencyItems)
   };
   const handleEdit = (currencyId) => {
     currencyItems.map((item) => {
@@ -117,6 +123,7 @@ const Currency = (props) => {
         setFirst(true);
       }
     });
+    setTData(currencyItems)
   };
   useEffect(() => {
     setTData(currencyItems);
@@ -156,7 +163,7 @@ const Currency = (props) => {
       lastModificationDate: modificationDate,
     };
     currencyItems.push(newItem);
-    console.log(currencyItems);
+    setTData(currencyItems)
     toggleModal();
     e.target.reset();
   };
@@ -178,11 +185,13 @@ const Currency = (props) => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("currencyId")) {
+            setTData(results.data)
             importCurrencies(results.data)
-            // dummyData = results.data;
+            
             try {
+              setTData(results.data)
               importCurrencies(results.data)
-              //setTData(dummyData);
+             
             } catch (error) {
               alert(error);
             }
@@ -248,7 +257,7 @@ const Currency = (props) => {
         <div className="cur-table">
           <HeaderCurrency name="Name" sortName={sortName} sortBy={sortBy} />
           <TransitionGroup className="cur-remove-items">
-            {currencyItems.map(({ name, currencyId, symbol }) => (
+            {tData.map(({ name, currencyId, symbol }) => (
               <CSSTransition
                 key={currencyId}
                 timeout={500}

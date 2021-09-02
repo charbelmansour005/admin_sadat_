@@ -11,11 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import SalesEditModal from "./SalesEditModal";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
-import * as FileSaver from 'file-saver';
-import * as XLSX from 'xlsx';
 import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod, clearMandModifier, importItemData } from "../../../redux/actions";
 
-var dummyData = [];
 
 const SalesItem = () => {
   const [tData, setTData] = useState([]);
@@ -33,7 +30,8 @@ const SalesItem = () => {
   const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
     (state) => state.postReducer
   );
-  const addItem = () => dispatch(addItems());
+
+
   const deleteItem = (id) => dispatch(deleteItems(id));
   const searchItem = (name) => dispatch(searchItems(name));
   const importItems = (item) => dispatch(importItemData(item))
@@ -42,11 +40,9 @@ const SalesItem = () => {
   const clearAddOn = () => dispatch(clearAddOnMod());
   const clearModifier = () => dispatch(clearMandModifier());
   useEffect(() => {
-    // addItem()
-    console.log(salesItems)
+
     if (ItemAdd.length > 0) {
       clearAdd();
-      console.log(ItemAdd);
     }
     if (ItemRemove.length > 0) {
       clearRemove();
@@ -139,22 +135,30 @@ const SalesItem = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {    
-      //addItem()
-    } else {
-      searchItem(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(salesItems)
     }
-  };
+  }
+
+
   const handleDelete = (itemId) => {
     salesItems.map((item) => {
       if (item.itemId === itemId) {
         deleteItem(itemId);
       }
     });
+    setTData(salesItems)
   };
   const handleEdit = (itemId) => {
-    console.log(salesItems)
+
     salesItems.map((item) => {
       if (item.itemId === itemId) {
         setCurrentItem(item);
@@ -163,6 +167,7 @@ const SalesItem = () => {
         setFirst(true);
       }
     });
+    setTData(salesItems)
   };
   const sortBy = (sort) => {
     if (sort === "name") {
@@ -303,20 +308,37 @@ const SalesItem = () => {
     };
 
     salesItems.push(newItem);
-
-
-
+    setTData(salesItems)
+    console.log(salesItems)
     toggleModal();
     e.target.reset();
   };
 
   const filename = "SalesItemData";
 
+
   const fields = {
     itemId: "itemId",
     name: "name",
+    menuDesc: "menuDesc",
+    kitchenDesc: "kitchenDesc",
     price: "price",
+    price2: "price2",
+    price3: "price3",
+    price4: "price4",
+    func: "func",
     group: "group",
+    otherDesc: "otherDesc",
+    pdaDesc: "pdaDesc",
+    comments: "comments",
+    branch: "branch",
+    print1: "print1",
+    print2: "print2",
+    print3: "print3",
+    ItemAdd: "ItemAdd",
+    ItemRemove: "ItemRemove",
+    ItemAddOn: "ItemAddOn",
+    modifiers: "modifiers",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
@@ -330,9 +352,14 @@ const SalesItem = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("itemId")) {
+            setTData(results.data)
             importItems(results.data)
+
+
             try {
+              setTData(results.data)
               importItems(results.data)
+
             } catch (error) {
               alert(error);
             }
@@ -360,6 +387,7 @@ const SalesItem = () => {
             <input
               id="search-text"
               type="text"
+
               className="item-search-text"
               placeholder="Search..."
               onChange={handleSearch}
@@ -411,7 +439,7 @@ const SalesItem = () => {
           />
 
           <TransitionGroup id="tg" className="item-remove-items">
-            {salesItems.map(
+            {tData.map(
               ({
                 name,
                 itemId,

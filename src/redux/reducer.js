@@ -57,6 +57,7 @@ const initialState = {
   voidItem: [],
   currencyItems: [],
   salesItems: [],
+  filteredData: [],
   groupItems: [],
   divisionItems: [],
   employeeData: [],
@@ -143,11 +144,16 @@ function postReducer(state = initialState, action) {
         currencyItems: action.payload,
       };
     case ADD_ITEMS:
-      return state.salesItems
-    // return {
-    //   ...state,
-    //   salesItems: action.payload,
-    // };
+
+      if (action.payload === '') {
+        return state.salesItems
+      } else {
+        return {
+          ...state,
+          salesItems: action.payload,
+        };
+      }
+
     case DELETE_CAT:
 
       return {

@@ -32,8 +32,8 @@ const Groups = () => {
   const searchGroup = (name) => dispatch(searchGroups(name));
   const importGroups = (item) => dispatch(importGroupData(item))
   useEffect(() => {
-    //addGroup();
-    
+
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -113,13 +113,21 @@ const Groups = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addGroup();
-    } else {
-      searchGroup(e.target.value);
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(groupItems)
     }
-  };
+  }
+
+
 
   const handleDelete = (groupId) => {
     groupItems.map((item) => {
@@ -127,6 +135,7 @@ const Groups = () => {
         deleteGroup(groupId);
       }
     });
+    setTData(groupItems)
   };
   const handleEdit = (groupId) => {
     groupItems.map((item) => {
@@ -137,6 +146,7 @@ const Groups = () => {
         setFirst(true);
       }
     });
+    setTData(groupItems)
   };
   const sortBy = (sort) => {
     if (sort === "name") {
@@ -247,6 +257,7 @@ const Groups = () => {
       lastModificationDate: modificationDate,
     };
     groupItems.push(newItem);
+    setTData(groupItems)
     console.log(groupItems);
 
     toggleModal();
@@ -257,7 +268,21 @@ const Groups = () => {
   const fields = {
     groupId: "groupId",
     name: "name",
+    othername:"othername",
     division: "division",
+    tax1:"tax1",
+    tax2:"tax2",
+    tax3:"tax3",
+    tax4:"tax4",
+    tax5:"tax5",
+    service:"service",
+    discount:"discount",
+    revenue:"revenue",
+    expense:"expense",
+    pdaDesc:"pdaDesc",
+    pdasorting:"pdasorting",
+    pdaHideMenu:"pdaHideMenu",
+    groupRemark:"groupRemark",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
@@ -271,9 +296,11 @@ const Groups = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("groupId")) {
+            setTData(results.data)
             importGroups(results.data)
 
             try {
+              setTData(results.data)
               importGroups(results.data)
 
             } catch (error) {
@@ -352,7 +379,7 @@ const Groups = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="grp-remove-items">
-            {groupItems.map(
+            {tData.map(
               ({
                 division,
                 name,

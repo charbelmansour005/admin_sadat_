@@ -31,7 +31,7 @@ const Customers = () => {
   const importCustomers = (item) => dispatch(importCustomersData(item))
 
   useEffect(() => {
-   // addCustomers()
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -92,13 +92,18 @@ const Customers = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addCustomers()
-    } else {
-      searchCustomers(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(customerData)
     }
-  };
+  }
 
   const handleDelete = (customerId) => {
     customerData.map((item) => {
@@ -106,6 +111,7 @@ const Customers = () => {
         deleteCustomers(customerId);
       }
     });
+    setTData(customerData)
   };
 
   const handleEdit = (customerId) => {
@@ -117,6 +123,7 @@ const Customers = () => {
         setFirst(true);
       }
     });
+    setTData(customerData)
   };
 
   const sortBy = (sort) => {
@@ -211,17 +218,22 @@ const Customers = () => {
       website: website
     };
     customerData.push(newItem);
-    console.log(customerData)
+    setTData(customerData)
     toggleModal();
     e.target.reset();
   };
   const filename = "CustomersData";
   const fields = {
     customerId: "customerId",
-    name: "name",
+    name: "name",  
     lastName: "lastName",
+    title:"title",
     company: "company",
+    group:"group",
     phoneNumber: "phoneNumber",
+    email:"email",
+    mobile:"mobile",
+    website:"website"
 
 
   };
@@ -235,9 +247,11 @@ const Customers = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("customerId")) {
+            setTData(results.data)
             importCustomers(results.data)
 
             try {
+              setTData(results.data)
               importCustomers(results.data)
 
             } catch (error) {
@@ -316,7 +330,7 @@ const Customers = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="cust-remove-items">
-            {customerData.map(
+            {tData.map(
               ({ customerId, name, lastName, company, phoneNumber }) => (
                 <CSSTransition key={customerId} timeout={500} classNames="cust-trans">
                   <TableCustomer

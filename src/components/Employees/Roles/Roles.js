@@ -27,7 +27,7 @@ const Roles = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //addRoles()
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -88,13 +88,18 @@ const Roles = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addRoles()
-    } else {
-      searchRoles(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(roleData)
     }
-  };
+  }
 
   const handleDelete = (roleId) => {
     roleData.map((item) => {
@@ -102,6 +107,7 @@ const Roles = () => {
         deleteRoles(roleId);
       }
     });
+    setTData(roleData);
   };
 
   const handleEdit = (roleId) => {
@@ -113,6 +119,7 @@ const Roles = () => {
         setFirst(true);
       }
     });
+    setTData(roleData);
   };
 
   const sortBy = (sort) => {
@@ -146,7 +153,7 @@ const Roles = () => {
       toTable: toTable
     };
     roleData.push(newItem);
-    console.log(roleData)
+    setTData(roleData)
     toggleModal();
     e.target.reset();
   };
@@ -168,9 +175,11 @@ const Roles = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("roleId")) {
+            setTData(results.data)
             importRoles(results.data)
 
             try {
+              setTData(results.data)
               importRoles(results.data)
 
             } catch (error) {
@@ -245,7 +254,7 @@ const Roles = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="role-remove-items">
-            {roleData.map(({ roleId, name }) => (
+            {tData.map(({ roleId, name }) => (
               <CSSTransition key={roleId} timeout={500} classNames="role-trans">
                 <TableRole
 

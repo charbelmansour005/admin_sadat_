@@ -37,7 +37,7 @@ const Payment = () => {
   const searchPayments = (name) => dispatch(searchPayment(name));
   const importPayments = (item) => dispatch(importPaymentData(item))
   useEffect(() => {
-   // addPayments();
+
     document.addEventListener("keydown", (e) => {
       e.key === "Escape" && setModal(false);
       if (e.key === "+") {
@@ -56,6 +56,7 @@ const Payment = () => {
       document.getElementById("search-text").tabIndex = 1;
     }
   }, [modal]);
+
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
@@ -94,13 +95,18 @@ const Payment = () => {
       return 0;
     };
   }
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      addPayments();
-    } else {
-      searchPayments(e.target.value);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = tData.filter((data) => {
+      return data.name.toLowerCase().includes(value);
+    });
+    setTData(result);
+    if (value === '') {
+      setTData(paymentItem)
     }
-  };
+  }
 
   useEffect(() => {
     setTData(paymentItem);
@@ -112,6 +118,7 @@ const Payment = () => {
         deletePayments(paymentId);
       }
     });
+    setTData(paymentItem);
   };
 
   const handleEdit = (paymentId) => {
@@ -123,6 +130,8 @@ const Payment = () => {
         setFirst(true);
       }
     });
+    setTData(paymentItem);
+
   };
 
   const sortBy = (sort) => {
@@ -218,6 +227,7 @@ const Payment = () => {
       lastModificationDate: modificationDate,
     };
     paymentItem.push(newItem);
+    setTData(paymentItem)
 
     toggleModal();
     e.target.reset();
@@ -229,6 +239,10 @@ const Payment = () => {
     paymentType: "paymentType",
     accountNumber: "accountNumber",
     paymentStatus: "paymentStatus",
+    paymentCommission:"paymentCommission",
+    message:"message",
+    paymentCurrency:"paymentCurrency",
+    bdAccountNumber:"bdAccountNumber",
     creationDate: "creationDate",
     lastModificationDate: "lastModificationDate",
   };
@@ -242,11 +256,13 @@ const Payment = () => {
         dynamicTyping: true,
         complete: function (results) {
           if (results.data[0].hasOwnProperty("paymentId")) {
+            setTData(results.data)
             importPayments(results.data)
-            //dummyData = results.data;
+            
             try {
+              setTData(results.data)
               importPayments(results.data)
-              //setTData(dummyData);
+              
             } catch (error) {
               alert(error);
             }
@@ -322,7 +338,7 @@ const Payment = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="pay-remove-items">
-            {paymentItem.map(
+            {tData.map(
               ({
                 name,
                 paymentType,
