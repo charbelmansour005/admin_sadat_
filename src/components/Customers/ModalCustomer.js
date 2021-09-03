@@ -3,6 +3,7 @@ import "../../styles/Customers.css";
 import CloseIcon from "@material-ui/icons/Close";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalCustomer = ({
   mod,
   mountedStyle,
@@ -30,7 +31,10 @@ const ModalCustomer = ({
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
-
+  let resetForm = () => {
+    toggleClose()
+    document.getElementById("add-customer-form").reset()
+  }
 
   return (
     <div
@@ -39,12 +43,13 @@ const ModalCustomer = ({
     >
       <div style={mod ? downStyle : upStyle} className="modal-cust">
         <form
+          id="add-customer-form"
           className="modal-cust-form"
           type="submit"
           onSubmit={(e) =>
             handleSubmit(
               e,
-              customerData.length + 1,
+              uuidv4(),
               customerTitle,
               firstName,
               lastName,
@@ -59,7 +64,7 @@ const ModalCustomer = ({
         >
           <div className="modal-cust-header">
             Add New Customer
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-cust-close" />
             </div>
           </div>

@@ -3,6 +3,7 @@ import "../../../styles/Divisions.css";
 import CloseIcon from "@material-ui/icons/Close";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalDivision = ({
   mod,
   mountedStyle,
@@ -40,6 +41,11 @@ const ModalDivision = ({
 
 
   }
+  let resetForm=()=>{
+    toggleClose()
+    document.getElementById("add-division-form").reset()
+
+  }
   let getModificationDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -61,11 +67,11 @@ const ModalDivision = ({
       className="modal-division-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-division">
-        <form className="modal-division-form" type="submit" onSubmit={(e) =>
+        <form id="add-division-form" className="modal-division-form" type="submit" onSubmit={(e) =>
           handleSubmit(
             e,
-            divId,
-            divisionItems.length + 1,
+            uuidv4(),
+            divId,        
             divisionName,
             category,
             creationDate,
@@ -74,7 +80,7 @@ const ModalDivision = ({
         } >
           <div className="modal-division-header">
             Add New Division
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-division-close" />
             </div>
           </div>

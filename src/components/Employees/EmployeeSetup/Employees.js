@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEmployees, deleteEmployees, searchEmployees, importEmployeesData } from "../../../redux/actions";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
+import { v4 as uuidv4 } from 'uuid';
 const Employees = () => {
   const [modal, setModal] = useState(false);
   const [tData, setTData] = useState([]);
@@ -50,7 +51,7 @@ const Employees = () => {
   }, [modal]);
   useEffect(() => {
     setTData(employeeData);
-  }, []);
+  }, [employeeData]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
@@ -105,7 +106,7 @@ const Employees = () => {
 
   const handleDelete = (empId) => {
     employeeData.map((item) => {
-      if (item.empId === empId) {
+      if (item.employeeId === empId) {
         deleteEmp(empId);
       }
     });
@@ -114,7 +115,7 @@ const Employees = () => {
 
   const handleEdit = (empId) => {
     employeeData.map((item) => {
-      if (item.empId === empId) {
+      if (item.employeeId === empId) {
         setCurrentItem(item);
         setModalEdit(true);
         setModal(false);
@@ -172,6 +173,7 @@ const Employees = () => {
   const handleModalSubmit = (
     e,
     branchName,
+    employeeId,
     empId,
     name,
     expiryDate,
@@ -205,7 +207,7 @@ const Employees = () => {
   ) => {
     e.preventDefault();
     let newItem = {
-
+      employeeId: employeeId,
       branchName: branchName,
       empId: empId,
       name: name,
@@ -238,41 +240,44 @@ const Employees = () => {
       hideTime: hideTime
     };
     employeeData.push(newItem);
+    console.log(employeeData)
     setTData(employeeData)
     toggleModal();
     e.target.reset();
   };
   const filename = "EmployeesData";
   const fields = {
+    employeeId: "employeeId",
+    branchName:"branchName",
     empId: "empId",
     name: "name",
     lastName: "lastName",
-    expiryDate:"expiryDate",
-    phoneNumber:"phoneNumber",
-    salary:"salary",
-    isActive:"isActive",
-    isSalesMan:"isSalesMan",
-    password:"password",
-    secPassword:"secPassword",
-    accessBackOffice:"accessBackOffice",
-    language:"language",
-    posLoginId:"posLoginId",
-    posLoginPassword:"posLoginPassword",
-    key:"key",
-    config:"config",
-    screenAccess:"screenAccess",
-    mode:"mode",
-    menu:"menu",
-    cashDrawerPort:"cashDrawerPort",
-    printerType:"printerType",
-    openDrawer:"openDrawer",
-    overtime:"overtime",
-    timeStatus:"timeStatus",
-    driveThrought:"driveThrought",
-    generateChecklist:"generateChecklist",
-    deliveryList:"deliveryList",
-    autoTime:"autoTime",
-    hideTime:"hideTime",
+    expiryDate: "expiryDate",
+    phoneNumber: "phoneNumber",
+    salary: "salary",
+    isActive: "isActive",
+    isSalesMan: "isSalesMan",
+    password: "password",
+    secPassword: "secPassword",
+    accessBackOffice: "accessBackOffice",
+    language: "language",
+    posLoginId: "posLoginId",
+    posLoginPassword: "posLoginPassword",
+    key: "key",
+    config: "config",
+    screenAccess: "screenAccess",
+    mode: "mode",
+    menu: "menu",
+    cashDrawerPort: "cashDrawerPort",
+    printerType: "printerType",
+    openDrawer: "openDrawer",
+    overtime: "overtime",
+    timeStatus: "timeStatus",
+    driveThrought: "driveThrought",
+    generateChecklist: "generateChecklist",
+    deliveryList: "deliveryList",
+    autoTime: "autoTime",
+    hideTime: "hideTime",
     role: 'role',
     func: 'func',
     creationDate: "creationDate",
@@ -287,7 +292,7 @@ const Employees = () => {
         header: true,
         dynamicTyping: true,
         complete: function (results) {
-          if (results.data[0].hasOwnProperty("empId")) {
+          if (results.data[0].hasOwnProperty("employeeId")) {
             setTData(results.data)
             importEmployees(results.data)
 
@@ -369,10 +374,10 @@ const Employees = () => {
             sortBy={sortBy}
           />
           <TransitionGroup className="emp-remove-items">
-            {tData.map(({ empId, name, role, func }) => (
-              <CSSTransition key={empId} timeout={500} classNames="emp-trans">
+            {tData.map(({ employeeId, empId, name, role, func }) => (
+              <CSSTransition key={employeeId} timeout={500} classNames="emp-trans">
                 <TableEmployee
-
+                  employeeId={employeeId}
                   name={name}
                   empId={empId}
                   role={role}

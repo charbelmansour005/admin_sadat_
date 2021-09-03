@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../../styles/Employees.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalEmployee = ({
   mod,
   mountedStyle,
@@ -53,6 +54,10 @@ const ModalEmployee = ({
     var year = new Date().getFullYear();
     return date + "/" + month + "/" + year;
   };
+  let resetForm = () => {
+    toggleClose()
+    document.getElementById("add-employee-form").reset()
+  }
   let getModificationDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -62,7 +67,7 @@ const ModalEmployee = ({
     var seconds = new Date().getSeconds();
     var completeDateFormat = date + "/" + month + "/" + year;
 
-    
+
   };
   return (
     <div
@@ -71,12 +76,15 @@ const ModalEmployee = ({
     >
       <div style={mod ? downStyle : upStyle} className="modal-emp">
         <form
+          id="add-employee-form"
           className="modal-emp-form"
           type="submit"
           onSubmit={(e) =>
             handleSubmit(
               e,
-              branchName,
+             
+              branchName,       
+              uuidv4(),
               empId,
               empName,
               expDate,
@@ -111,7 +119,7 @@ const ModalEmployee = ({
         >
           <div className="modal-emp-header">
             Add New Employee
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-emp-close" />
             </div>
           </div>

@@ -35,6 +35,11 @@ const ModalVoid = ({
 
 
   }
+  let resetForm=()=>{
+    toggleClose()
+    document.getElementById("add-void-form").reset()
+
+  }
   let getModificationDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -52,7 +57,7 @@ const ModalVoid = ({
       className="modal-void-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-void">
-        <form className="modal-void-form" type="submit" onSubmit={(e) =>
+        <form id="add-void-form" className="modal-void-form" type="submit" onSubmit={(e) =>
           handleSubmit(
             e,
             voidItem.length + 1,
@@ -64,7 +69,7 @@ const ModalVoid = ({
         }>
           <div className="modal-void-header">
             Add New Void Reason
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-void-close" />
             </div>
           </div>

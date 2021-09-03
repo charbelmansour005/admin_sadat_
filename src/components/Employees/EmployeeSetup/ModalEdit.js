@@ -44,13 +44,15 @@ const ModalEdit = ({
   const [hideTime, setHideTime] = useState('')
 
 
-  useEffect(() => { }, []);
+  useEffect(() => { 
+    console.log(currentitem)
+  }, []);
 
 
   let updateEmployee = (employeeId) => {
     if (employeeData.length > 0) {
       employeeData.map((item) => {
-        if (item.empId === employeeId) {
+        if (item.employeeId === employeeId) {
 
 
           if (branchName === "") {
@@ -769,7 +771,7 @@ const ModalEdit = ({
             </div>
           </div>
           <div className="modal-emp-footer">
-            <input type="submit" value="Save" onClick={() => updateEmployee(currentitem.empId)} className="modal-emp-save" />
+            <input type="submit" value="Edit" onClick={() => updateEmployee(currentitem.employeeId)} className="modal-emp-save" />
           </div>
         </form>
       </div>

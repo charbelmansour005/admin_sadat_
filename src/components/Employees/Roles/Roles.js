@@ -48,7 +48,7 @@ const Roles = () => {
   }, [modal]);
   useEffect(() => {
     setTData(roleData);
-  }, []);
+  }, [roleData]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);

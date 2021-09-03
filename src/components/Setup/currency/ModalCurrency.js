@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/Currency.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalCurrency = ({
   mod,
   mountedStyle,
@@ -35,6 +36,11 @@ const ModalCurrency = ({
 
 
   }
+  let resetForm=()=>{
+    toggleClose()
+    document.getElementById("add-currency-form").reset()
+
+  }
   let getModificationDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -52,10 +58,10 @@ const ModalCurrency = ({
       className="modal-cur-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-cur">
-        <form className="modal-cur-form" type="submit" onSubmit={(e) =>
+        <form id="add-currency-form" className="modal-cur-form" type="submit" onSubmit={(e) =>
           handleSubmit(
             e,
-            currencyItems.length + 1,
+            uuidv4(),
             currencyName,
             symbol,
             creationDate,
@@ -64,7 +70,7 @@ const ModalCurrency = ({
         }>
           <div className="modal-cur-header">
             Add New Currency
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-cur-close" />
             </div>
           </div>

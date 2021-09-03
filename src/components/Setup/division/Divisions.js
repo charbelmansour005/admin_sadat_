@@ -58,7 +58,7 @@ const Divisions = () => {
   }, [modal]);
   useEffect(() => {
     setTData(divisionItems);
-  }, []);
+  }, [divisionItems]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);

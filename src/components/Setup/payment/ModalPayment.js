@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/PaymentTypes.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalPayment = ({
   mod,
   mountedStyle,
@@ -42,6 +43,11 @@ const ModalPayment = ({
 
 
   }
+  let resetForm = () => {
+    toggleClose()
+    document.getElementById("add-payment-form").reset()
+
+  }
   let getModificationDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -59,10 +65,10 @@ const ModalPayment = ({
       className="modal-pay-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-pay">
-        <form className="modal-pay-form" type="submit" onSubmit={(e) =>
+        <form id="add-payment-form" className="modal-pay-form" type="submit" onSubmit={(e) =>
           handleSubmit(
             e,
-            paymentItem.length + 1,
+            uuidv4(),
             paymentName,
             paymentCurrency,
             paymentType,
@@ -77,7 +83,7 @@ const ModalPayment = ({
         }>
           <div className="modal-pay-header">
             Add New Payment Type
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-pay-close" />
             </div>
           </div>
@@ -96,8 +102,8 @@ const ModalPayment = ({
             <div className="modal-pay-price">
               <div className="modal-pay-desc">
                 Payment Currency*
-                <select onChange={(e) => setPaymentCurrency(e.target.value)} required className="modal-pay-function-input">
-                  <option value="" disabled selected defaultValue hidden>
+                <select defaultValue="Select Currency" onChange={(e) => setPaymentCurrency(e.target.value)} required className="modal-pay-function-input">
+                  <option value="Select Currency" disabled >
                     Select currency
                   </option>
                   <option className="modal-pay-function-option" value="1">
@@ -113,8 +119,8 @@ const ModalPayment = ({
               </div>
               <div className="modal-pay-desc">
                 Type*
-                <select onChange={(e) => setPaymentType(e.target.value)} required className="modal-pay-function-input">
-                  <option value="" disabled selected defaultValue hidden>
+                <select defaultValue="Select type" onChange={(e) => setPaymentType(e.target.value)} required className="modal-pay-function-input">
+                  <option value="Select type" disabled >
                     Select type
                   </option>
                   <option className="modal-pay-function-option" value="1">
@@ -132,8 +138,8 @@ const ModalPayment = ({
             <div className="modal-pay-price">
               <div className="modal-pay-desc">
                 Status*
-                <select onChange={(e) => setPaymentStatus(e.target.value)} required className="modal-pay-function-input">
-                  <option value="" disabled selected defaultValue hidden>
+                <select defaultValue="Select status" onChange={(e) => setPaymentStatus(e.target.value)} required className="modal-pay-function-input">
+                  <option value="Select status" disabled >
                     Select status
                   </option>
                   <option className="modal-pay-function-option" value="1">

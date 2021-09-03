@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../../styles/Categories.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedStyle, upStyle, handleSubmit }) => {
 
   const { catItem } = useSelector(
@@ -14,6 +15,7 @@ const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedSty
   const [sorting, setSorting] = useState('')
   const [creationDate, setCreationDate] = useState('')
   const [modDate, setModDate] = useState('')
+  const [predefined,setPredefined]=useState('Select predefined category')
 
   useEffect(() => {
     getCreatedDate()
@@ -32,6 +34,13 @@ const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedSty
 
 
   }
+  let resetForm=()=>{
+    toggleClose()
+    document.getElementById("add-category-form").reset()
+    setPDefinedCat('')
+
+
+  }
   let getModificationDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
@@ -46,10 +55,10 @@ const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedSty
   return (
     <div style={mod ? mountedStyle : unmountedStyle} className="modal-cat-wrapper">
       <div style={mod ? downStyle : upStyle} className="modal-cat">
-        <form className="modal-cat-form" type="submit" onSubmit={(e) =>
+        <form id="add-category-form" className="modal-cat-form" type="submit" onSubmit={(e) =>
           handleSubmit(
             e,
-            catItem.length + 1,
+            uuidv4(),
             pDefinedCat,
             catName,
             othername,
@@ -60,24 +69,26 @@ const ModalCategory = ({ mod, mountedStyle, toggleClose, downStyle, unmountedSty
         } >
           <div className="modal-cat-header">
             Add New Category
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-cat-close" />
             </div>
           </div>
           <div className="modal-cat-body">
             <div className="modal-cat-subtitle">General</div>
-            <div className="modal-cat-desc">
+            <div id="predefined-category" className="modal-cat-desc">
               Predefined Categories
-              <select onChange={(e) => setPDefinedCat(e.target.value)} className="modal-item-function-input">
+              <select 
+              defaultValue={predefined}
+              onChange={(e) => setPDefinedCat(e.target.value)} 
+              className="modal-item-function-input">
+        
                 <option
-                  className="modal-item-function-option"
-                  hidden
-                  defaultValue
+                value="Select predefined category"
+                  className="modal-item-function-option" 
                   disabled
-                  selected
-                  value=""
+                
                 >
-                  Select predefined category
+                  {predefined}
                 </option>
                 <option className="modal-item-function-option" value="1">
                   1

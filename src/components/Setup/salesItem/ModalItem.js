@@ -4,6 +4,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { itemAdd, itemRemove, itemAddOn, modifier } from '../../../data/modules'
 import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod, addMandModifier, clearMandModifier } from "../../../redux/actions";
+import { v4 as uuidv4 } from 'uuid';
 const ModalItem = ({
   m,
   mod,
@@ -172,6 +173,10 @@ const ModalItem = ({
 
 
   }
+  let resetForm = () => {
+    document.getElementById("add-item-form").reset();
+    toggleClose()
+  }
 
   return (
     <div
@@ -180,13 +185,14 @@ const ModalItem = ({
     >
       <div style={mod ? downStyle : upStyle} className="modal-item">
         <form
+          id="add-item-form"
           className="modal-item-form"
           type="submit"
           onSubmit={(e) =>
             handleSubmit(
               e,
               name,
-              salesItems.length + 1,
+              uuidv4(),
               menuDesc,
               kitchenDesc,
               price,
@@ -213,7 +219,7 @@ const ModalItem = ({
         >
           <div className="modal-item-header">
             Add New Item
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-item-close" />
             </div>
           </div>

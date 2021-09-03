@@ -110,7 +110,7 @@ const Payment = () => {
 
   useEffect(() => {
     setTData(paymentItem);
-  }, []);
+  }, [paymentItem]);
 
   const handleDelete = (paymentId) => {
     paymentItem.map((item) => {

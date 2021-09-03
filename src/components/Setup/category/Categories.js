@@ -54,7 +54,7 @@ const Categories = () => {
   }, [modal]);
   useEffect(() => {
     setTData(catItem);
-  }, []);
+  }, [catItem]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);

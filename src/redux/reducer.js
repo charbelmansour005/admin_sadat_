@@ -304,7 +304,7 @@ function postReducer(state = initialState, action) {
     case DELETE_EMPLOYEES:
 
       return {
-        ...state, employeeData: state.employeeData.filter((data) => data.empId !== action.payload)
+        ...state, employeeData: state.employeeData.filter((data) => data.employeeId !== action.payload)
       }
     case ADD_ROLE:
       return {

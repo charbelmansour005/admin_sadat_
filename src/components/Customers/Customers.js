@@ -52,7 +52,7 @@ const Customers = () => {
   }, [modal]);
   useEffect(() => {
     setTData(customerData);
-  }, []);
+  }, [customerData]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
@@ -225,15 +225,15 @@ const Customers = () => {
   const filename = "CustomersData";
   const fields = {
     customerId: "customerId",
-    name: "name",  
+    name: "name",
     lastName: "lastName",
-    title:"title",
+    title: "title",
     company: "company",
-    group:"group",
+    group: "group",
     phoneNumber: "phoneNumber",
-    email:"email",
-    mobile:"mobile",
-    website:"website"
+    email: "email",
+    mobile: "mobile",
+    website: "website"
 
 
   };

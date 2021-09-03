@@ -26,6 +26,7 @@ const SalesItem = () => {
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
 
+
   const dispatch = useDispatch();
   const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
     (state) => state.postReducer
@@ -40,6 +41,8 @@ const SalesItem = () => {
   const clearAddOn = () => dispatch(clearAddOnMod());
   const clearModifier = () => dispatch(clearMandModifier());
   useEffect(() => {
+
+
 
     if (ItemAdd.length > 0) {
       clearAdd();
@@ -76,11 +79,13 @@ const SalesItem = () => {
   useEffect(() => {
     setTData(salesItems)
 
-  }, []);
+  }, [salesItems]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
   }
+
+
   function toggleEditModal() {
     setModalEdit((prev) => !prev);
     setModalEdit(false);
@@ -150,12 +155,15 @@ const SalesItem = () => {
 
 
   const handleDelete = (itemId) => {
+
+
     salesItems.map((item) => {
       if (item.itemId === itemId) {
         deleteItem(itemId);
       }
     });
-    setTData(salesItems)
+    setTData(salesItems);
+
   };
   const handleEdit = (itemId) => {
 
@@ -310,6 +318,7 @@ const SalesItem = () => {
     salesItems.push(newItem);
     setTData(salesItems)
     console.log(salesItems)
+
     toggleModal();
     e.target.reset();
   };

@@ -102,7 +102,7 @@ const VoidReason = () => {
   useEffect(() => {
     setTData(voidItem);
     return () => { };
-  }, []);
+  }, [voidItem]);
 
 
   const handleDelete = (voidId) => {

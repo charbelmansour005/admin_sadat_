@@ -54,7 +54,7 @@ const Groups = () => {
   }, [modal]);
   useEffect(() => {
     setTData(groupItems);
-  }, []);
+  }, [groupItems]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);

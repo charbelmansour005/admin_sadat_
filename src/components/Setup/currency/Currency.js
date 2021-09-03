@@ -128,7 +128,7 @@ const Currency = (props) => {
   useEffect(() => {
     setTData(currencyItems);
     return () => { };
-  }, []);
+  }, [currencyItems]);
 
   const sortBy = (sort) => {
     if (sort === "name") {

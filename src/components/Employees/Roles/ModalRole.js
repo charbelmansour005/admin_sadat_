@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../../styles/Roles.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalRole = ({
   mod,
   mountedStyle,
@@ -20,6 +21,12 @@ const ModalRole = ({
 
   }, []);
 
+  let resetForm = () => {
+    toggleClose()
+    document.getElementById("add-role-form").reset()
+    
+
+  }
 
   return (
     <div
@@ -28,12 +35,13 @@ const ModalRole = ({
     >
       <div style={mod ? downStyle : upStyle} className="modal-role">
         <form
+          id="add-role-form"
           className="modal-role-form"
           type="submit"
           onSubmit={(e) =>
             handleSubmit(
               e,
-              roleData.length + 1,
+              uuidv4(),
               roleName,
               fromTable,
               toTable,
@@ -43,7 +51,7 @@ const ModalRole = ({
         >
           <div className="modal-role-header">
             Add New Role
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-role-close" />
             </div>
           </div>

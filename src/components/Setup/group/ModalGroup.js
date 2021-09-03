@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/Groups.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 const ModalGroup = ({
   mod,
   mountedStyle,
@@ -57,6 +58,11 @@ const ModalGroup = ({
 
     setModDate(completeDateFormat)
   }
+  let resetForm = () => {
+    toggleClose()
+    document.getElementById("add-group-form").reset()
+
+  }
   useEffect(() => {
     getCreatedDate()
     getModificationDate()
@@ -67,11 +73,11 @@ const ModalGroup = ({
       className="modal-grp-wrapper"
     >
       <div style={mod ? downStyle : upStyle} className="modal-grp">
-        <form className="modal-grp-form" type="submit" onSubmit={(e) =>
+        <form id="add-group-form" className="modal-grp-form" type="submit" onSubmit={(e) =>
           handleSubmit(
             e,
             groupName,
-            groupItems.length + 1,
+            uuidv4(),
             othername,
             division,
             tax1,
@@ -94,7 +100,7 @@ const ModalGroup = ({
         } >
           <div className="modal-grp-header">
             Add New Group
-            <div onClick={() => toggleClose()}>
+            <div onClick={() => resetForm()}>
               <CloseIcon className="modal-grp-close" />
             </div>
           </div>

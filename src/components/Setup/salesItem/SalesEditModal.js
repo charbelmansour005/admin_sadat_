@@ -165,177 +165,202 @@ const SalesEditModal = ({
                     }
 
 
-                    if (Object.keys(currentitem.ItemAdd).length === 0) {
+                    if (currentitem.ItemAdd === '[object Object]') {
 
-                        if (addDescption === '') {
-
-                        }
-                        else {
-                            var modAdd = Object.create(itemAdd)
-                            modAdd.specs = addDescption
-                            modAdd.categ = "ADD"
-                            modAdd.descption = addDescption
-                            modAdd.cmt = ''
-                            modAdd.price = addPrice
-                            modAdd.isMand = isAddMand
-                            currentitem.ItemAdd = modAdd
-                        }
                     }
                     else {
-                        if (addDescption === '') {
-                            item.ItemAdd.descption = currentitem.ItemAdd.descption
+                        if (Object.keys(currentitem.ItemAdd).length === 0) {
+
+                            if (addDescption === '') {
+
+                            }
+                            else {
+                                var modAdd = Object.create(itemAdd)
+                                modAdd.specs = addDescption
+                                modAdd.categ = "ADD"
+                                modAdd.descption = addDescption
+                                modAdd.cmt = ''
+                                modAdd.price = addPrice
+                                modAdd.isMand = isAddMand
+                                currentitem.ItemAdd = modAdd
+                            }
                         }
                         else {
-                            item.ItemAdd.descption = addDescption
-                        }
-                        if (addPrice === '') {
-                            item.ItemAdd.price = currentitem.ItemAdd.price
-                        }
-                        else {
-                            item.ItemAdd.price = addPrice
+                            if (addDescption === '') {
+                                item.ItemAdd.descption = currentitem.ItemAdd.descption
+                            }
+                            else {
+                                item.ItemAdd.descption = addDescption
+                            }
+                            if (addPrice === '') {
+                                item.ItemAdd.price = currentitem.ItemAdd.price
+                            }
+                            else {
+                                item.ItemAdd.price = addPrice
+                            }
                         }
                     }
 
 
-                    if (Object.keys(currentitem.ItemRemove).length === 0) {
 
-                        if (removeDescption === '') {
+                    if (currentitem.ItemRemove === '[object Object]') {
 
+                    } else {
+                        if (Object.keys(currentitem.ItemRemove).length === 0) {
+
+                            if (removeDescption === '') {
+
+                            }
+                            else {
+                                var modRemove = Object.create(itemRemove)
+                                modRemove.specs = removeDescption
+                                modRemove.categ = "REMOVE"
+                                modRemove.descption = removeDescption
+                                modRemove.cmt = ''
+                                modRemove.price = removePrice
+                                modRemove.isMand = isRemoveMand
+                                currentitem.ItemRemove = modRemove
+                            }
                         }
                         else {
-                            var modRemove = Object.create(itemRemove)
-                            modRemove.specs = removeDescption
-                            modRemove.categ = "REMOVE"
-                            modRemove.descption = removeDescption
-                            modRemove.cmt = ''
-                            modRemove.price = removePrice
-                            modRemove.isMand = isRemoveMand
-                            currentitem.ItemRemove = modRemove
+                            if (removeDescption === '') {
+                                item.ItemRemove.descption = currentitem.ItemRemove.descption
+                            }
+                            else {
+                                item.ItemRemove.descption = removeDescption
+                            }
+                            if (removePrice === '') {
+                                item.ItemRemove.price = currentitem.ItemRemove.price
+                            }
+                            else {
+                                item.ItemRemove.price = removePrice
+                            }
                         }
+                    }
+
+                    if (currentitem.ItemAddOn === '[object Object]') {
+
                     }
                     else {
-                        if (removeDescption === '') {
-                            item.ItemRemove.descption = currentitem.ItemRemove.descption
+                        if (Object.keys(currentitem.ItemAddOn).length === 0) {
+                            if (addOnDescption === '') {
+
+                            }
+                            else {
+                                var modAddOn = Object.create(itemAddOn)
+                                modAddOn.specs = addOnDescption
+                                modAddOn.categ = "ADDON"
+                                modAddOn.descption = addOnDescption
+                                modAddOn.cmt = ''
+                                modAddOn.price = addOnPrice
+                                modAddOn.isMand = isAddOnMand
+                                currentitem.ItemAddOn = modAddOn
+                            }
                         }
                         else {
-                            item.ItemRemove.descption = removeDescption
-                        }
-                        if (removePrice === '') {
-                            item.ItemRemove.price = currentitem.ItemRemove.price
-                        }
-                        else {
-                            item.ItemRemove.price = removePrice
+                            if (addOnDescption === '') {
+                                item.ItemAddOn.descption = currentitem.ItemAddOn.descption
+                            }
+                            else {
+                                item.ItemAddOn.descption = addOnDescption
+                            }
+                            if (addOnPrice === '') {
+                                item.ItemAddOn.price = currentitem.ItemAddOn.price
+                            }
+                            else {
+                                item.ItemAddOn.price = addOnPrice
+                            }
                         }
                     }
 
-                    if (Object.keys(currentitem.ItemAddOn).length === 0) {
-                        if (addOnDescption === '') {
 
-                        }
-                        else {
-                            var modAddOn = Object.create(itemAddOn)
-                            modAddOn.specs = addOnDescption
-                            modAddOn.categ = "ADDON"
-                            modAddOn.descption = addOnDescption
-                            modAddOn.cmt = ''
-                            modAddOn.price = addOnPrice
-                            modAddOn.isMand = isAddOnMand
-                            currentitem.ItemAddOn = modAddOn
-                        }
+
+                    if (currentitem.modifiers === '[object Object]') {
+
                     }
                     else {
-                        if (addOnDescption === '') {
-                            item.ItemAddOn.descption = currentitem.ItemAddOn.descption
+                        if (Object.keys(currentitem.modifiers.mod1).length === 0) {
+                            if (mandMod1 === '') {
+
+                            }
+                            else {
+                                var modMand1 = Object.create(modifier)
+                                modMand1.descption = mandMod1
+                                modMand1.price = mandPrice1
+                                modMand1.isMand = isMandMod1
+                                currentitem.modifiers.mod1 = modMand1
+                            }
                         }
                         else {
-                            item.ItemAddOn.descption = addOnDescption
+                            if (mandMod1 === '') {
+                                item.modifiers.mod1.descption = currentitem.modifiers.mod1.descption
+                            }
+                            else {
+                                item.modifiers.mod1.descption = mandMod1
+                            }
+                            if (mandPrice1 === '') {
+                                item.modifiers.mod1.price = currentitem.modifiers.mod1.price
+                            }
+                            else {
+                                item.modifiers.mod1.price = mandPrice1
+                            }
                         }
-                        if (addOnPrice === '') {
-                            item.ItemAddOn.price = currentitem.ItemAddOn.price
+                        if (Object.keys(currentitem.modifiers.mod2).length === 0) {
+                            if (mandMod2 === '') {
+
+                            }
+                            else {
+                                var modMand2 = Object.create(modifier)
+                                modMand2.descption = mandMod2
+                                modMand2.price = mandPrice2
+                                modMand2.isMand = isMandMod2
+                                currentitem.modifiers.mod2 = modMand2
+                            }
                         }
                         else {
-                            item.ItemAddOn.price = addOnPrice
+                            if (mandMod2 === '') {
+                                item.modifiers.mod2.descption = currentitem.modifiers.mod2.descption
+                            }
+                            else {
+                                item.modifiers.mod2.descption = mandMod2
+                            }
+                            if (mandPrice2 === '') {
+                                item.modifiers.mod2.price = currentitem.modifiers.mod2.price
+                            }
+                            else {
+                                item.modifiers.mod2.price = mandPrice2
+                            }
+                        }
+
+                        if (Object.keys(currentitem.modifiers.mod3).length === 0) {
+                            if (mandMod3 === '') {
+
+                            }
+                            else {
+                                var modMand3 = Object.create(modifier)
+                                modMand3.descption = mandMod3
+                                modMand3.price = mandPrice3
+                                modMand3.isMand = isMandMod3
+                                currentitem.modifiers.mod3 = modMand3
+                            }
+                        }
+                        else {
+                            if (mandMod3 === '') {
+                                item.modifiers.mod3.descption = currentitem.modifiers.mod3.descption
+                            }
+                            else {
+                                item.modifiers.mod3.descption = mandMod3
+                            }
+                            if (mandPrice3 === '') {
+                                item.modifiers.mod3.price = currentitem.modifiers.mod3.price
+                            }
+                            else {
+                                item.modifiers.mod3.price = mandPrice3
+                            }
                         }
                     }
 
-                    if (Object.keys(currentitem.modifiers.mod1).length === 0) {
-                        if (mandMod1 === '') {
 
-                        }
-                        else {
-                            var modMand1 = Object.create(modifier)
-                            modMand1.descption = mandMod1
-                            modMand1.price = mandPrice1
-                            modMand1.isMand = isMandMod1
-                            currentitem.modifiers.mod1 = modMand1
-                        }
-                    }
-                    else {
-                        if (mandMod1 === '') {
-                            item.modifiers.mod1.descption = currentitem.modifiers.mod1.descption
-                        }
-                        else {
-                            item.modifiers.mod1.descption = mandMod1
-                        }
-                        if (mandPrice1 === '') {
-                            item.modifiers.mod1.price = currentitem.modifiers.mod1.price
-                        }
-                        else {
-                            item.modifiers.mod1.price = mandPrice1
-                        }
-                    }
-                    if (Object.keys(currentitem.modifiers.mod2).length === 0) {
-                        if (mandMod2 === '') {
-
-                        }
-                        else {
-                            var modMand2 = Object.create(modifier)
-                            modMand2.descption = mandMod2
-                            modMand2.price = mandPrice2
-                            modMand2.isMand = isMandMod2
-                            currentitem.modifiers.mod2 = modMand2
-                        }
-                    }
-                    else {
-                        if (mandMod2 === '') {
-                            item.modifiers.mod2.descption = currentitem.modifiers.mod2.descption
-                        }
-                        else {
-                            item.modifiers.mod2.descption = mandMod2
-                        }
-                        if (mandPrice2 === '') {
-                            item.modifiers.mod2.price = currentitem.modifiers.mod2.price
-                        }
-                        else {
-                            item.modifiers.mod2.price = mandPrice2
-                        }
-                    }
-                    if (Object.keys(currentitem.modifiers.mod3).length === 0) {
-                        if (mandMod3 === '') {
-
-                        }
-                        else {
-                            var modMand3 = Object.create(modifier)
-                            modMand3.descption = mandMod3
-                            modMand3.price = mandPrice3
-                            modMand3.isMand = isMandMod3
-                            currentitem.modifiers.mod3 = modMand3
-                        }
-                    }
-                    else {
-                        if (mandMod3 === '') {
-                            item.modifiers.mod3.descption = currentitem.modifiers.mod3.descption
-                        }
-                        else {
-                            item.modifiers.mod3.descption = mandMod3
-                        }
-                        if (mandPrice3 === '') {
-                            item.modifiers.mod3.price = currentitem.modifiers.mod3.price
-                        }
-                        else {
-                            item.modifiers.mod3.price = mandPrice3
-                        }
-                    }
 
 
                 }
@@ -361,8 +386,13 @@ const SalesEditModal = ({
 
     }
     useEffect(() => {
-     
+
+
+
+        console.log(currentitem)
+
         getModificationDate()
+
 
 
     }, []);
@@ -578,7 +608,7 @@ const SalesEditModal = ({
                                 Print Out 1
                                 <select onChange={(e) => setPrint1(e.target.value)} className="modal-item-print-input">
                                     {
-                                        currentitem.print1 === '' ? <option className="modal-item-function-option" defaultValue selected disabled>
+                                        currentitem.print1 === ''||currentitem.print1===null ? <option className="modal-item-function-option" defaultValue selected disabled>
                                             Select Print 1
                                         </option> : <option className="modal-item-function-option" defaultValue={currentitem.print1}>
                                             {currentitem.print1}
@@ -600,7 +630,7 @@ const SalesEditModal = ({
                                 Print Out 2
                                 <select onChange={(e) => setPrint2(e.target.value)} className="modal-item-print-input">
                                     {
-                                        currentitem.print2 === '' ? <option className="modal-item-function-option" defaultValue selected disabled>
+                                        currentitem.print2 === ''||currentitem.print2===null ? <option className="modal-item-function-option" defaultValue selected disabled>
                                             Select Print 2
                                         </option> : <option className="modal-item-function-option" defaultValue={currentitem.print2}>
                                             {currentitem.print2}
@@ -622,7 +652,7 @@ const SalesEditModal = ({
                                 Print Out 3
                                 <select onChange={(e) => setPrint3(e.target.value)} className="modal-item-print-input">
                                     {
-                                        currentitem.print3 === '' ? <option className="modal-item-function-option" defaultValue selected disabled>
+                                        currentitem.print3 === ''||currentitem.print3===null ? <option className="modal-item-function-option" defaultValue selected disabled>
                                             Select Print 3
                                         </option> : <option className="modal-item-function-option" defaultValue={currentitem.print3}>
                                             {currentitem.print3}
@@ -642,277 +672,307 @@ const SalesEditModal = ({
                             </div>
 
                         </div>
-                        <div className="modal-item-subtitle">Modifiers Type</div>
-                        <div className="modal-item-price">
+                        {
+                            currentitem.ItemAdd === '[object Object]' ? null : <div className="modal-item-subtitle">Modifiers Type</div>
+                        }
 
-                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
-                                Modifier 1
-                            </div>
+                        {
+                            currentitem.ItemAdd === '[object Object]' ? null : <div className="modal-item-price">
+
+                                <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                    Modifier 1
+                                </div>
 
 
-                            <select
-                                onChange={(e) => setAddDescption(e.target.value)}
-                                className="modal-item-function-input"
-                            >
-                                {
-                                    Object.keys(currentitem.ItemAdd).length === 0 ? <option disabled defaultValue selected>
-                                        Select Add
-                                    </option> : <option disabled defaultValue selected>
-                                        {currentitem.ItemAdd.descption}
+                                <select
+                                    onChange={(e) => setAddDescption(e.target.value)}
+                                    className="modal-item-function-input"
+                                >
+                                    {
+                                        Object.keys(currentitem.ItemAdd).length === 0 ? <option disabled defaultValue selected>
+                                            Select Add
+                                        </option> : <option disabled defaultValue selected>
+                                            {currentitem.ItemAdd.descption}
+                                        </option>
+                                    }
+
+                                    <option className="modal-item-function-option" value="1">
+                                        1
                                     </option>
-                                }
-
-                                <option className="modal-item-function-option" value="1">
-                                    1
-                                </option>
-                                <option className="modal-item-function-option" value="2">
-                                    2
-                                </option>
-                                <option className="modal-item-function-option" value="3">
-                                    3
-                                </option>
-                            </select>
-
-
-
-                            {
-                                Object.keys(currentitem.ItemAdd).length === 0 ? <input placeholder="0" onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" /> :
-                                    <input placeholder="0" defaultValue={currentitem.ItemAdd.price} onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" />
-                            }
-
-
-
-
-                            <div className="modal-item-desc-hor">
-                                {
-                                    Object.keys(currentitem.ItemAdd).length === 0 ? <input value="isMandantory" onChange={(e) => setAddMand(e.target.value)} type="checkbox" className="modal-check"></input> :
-                                        currentitem.ItemAdd.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemAdd.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
-                                            <input defaultChecked onChange={() => currentitem.ItemAdd.isMand = ''} type="checkbox" className="modal-check"></input>
-
-                                }
-
-                                Mandatory
-                            </div>
-                        </div>
-
-                        <div className="modal-item-price">
-
-                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
-                                Modifier 2
-                            </div>
-                            <select
-                                onChange={(e) => setRemoveDescption(e.target.value)}
-                                className="modal-item-function-input"
-                            >
-                                {
-                                    Object.keys(currentitem.ItemRemove).length === 0 ? <option disabled defaultValue selected>
-                                        Select Remove
-                                    </option> : <option disabled defaultValue selected>
-                                        {currentitem.ItemRemove.descption}
+                                    <option className="modal-item-function-option" value="2">
+                                        2
                                     </option>
-                                }
-                                <option className="modal-item-function-option" value="1">
-                                    1
-                                </option>
-                                <option className="modal-item-function-option" value="2">
-                                    2
-                                </option>
-                                <option className="modal-item-function-option" value="3">
-                                    3
-                                </option>
-                            </select>
-
-
-                            {
-                                Object.keys(currentitem.ItemRemove).length === 0 ? <input placeholder="0" onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" /> :
-                                    <input placeholder="0" defaultValue={currentitem.ItemRemove.price} onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" />
-                            }
-
-                            <div className="modal-item-desc-hor">
-                                {
-                                    Object.keys(currentitem.ItemRemove).length === 0 ? <input onChange={(e) => setRemoveMand(e.target.value)} type="checkbox" className="modal-check"></input> :
-                                        currentitem.ItemRemove.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemRemove.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
-                                            <input defaultChecked onChange={() => currentitem.ItemRemove.isMand = ''} type="checkbox" className="modal-check"></input>
-
-                                }
-
-
-                                Mandatory
-                            </div>
-                        </div>
-
-                        <div className="modal-item-price">
-
-                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
-                                Modifier 3
-                            </div>
-                            <select
-
-                                onChange={(e) => setAddOnDescption(e.target.value)}
-                                className="modal-item-function-input"
-                            >
-                                {
-                                    Object.keys(currentitem.ItemAddOn).length === 0 ? <option disabled defaultValue selected>
-                                        Select AddOn
-                                    </option> : <option disabled defaultValue selected>
-                                        {currentitem.ItemAddOn.descption}
+                                    <option className="modal-item-function-option" value="3">
+                                        3
                                     </option>
-                                }
-                                <option className="modal-item-function-option" value="1">
-                                    1
-                                </option>
-                                <option className="modal-item-function-option" value="2">
-                                    2
-                                </option>
-                                <option className="modal-item-function-option" value="3">
-                                    3
-                                </option>
-                            </select>
+                                </select>
 
-                            {
-                                Object.keys(currentitem.ItemAddOn).length === 0 ? <input placeholder="0" onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" /> :
-                                    <input placeholder="0" defaultValue={currentitem.ItemAddOn.price} onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" />
-                            }
-                            <div className="modal-item-desc-hor">
-                                {
-                                    Object.keys(currentitem.ItemAddOn).length === 0 ? <input onChange={(e) => setAddOnMand(e.target.value)} type="checkbox" className="modal-check"></input> :
-                                        currentitem.ItemAddOn.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemAddOn.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
-                                            <input defaultChecked onChange={() => currentitem.ItemAddOn.isMand = ''} type="checkbox" className="modal-check"></input>
 
-                                }
 
-                                Mandatory
+
+                                <div>
+                                    {
+                                        Object.keys(currentitem.ItemAdd).length === 0 ? <input placeholder="0" onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" /> :
+                                            <input placeholder="0" defaultValue={currentitem.ItemAdd.price} onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" />
+                                    }
+
+                                </div>
+
+
+
+
+
+                                <div className="modal-item-desc-hor">
+                                    {
+                                        Object.keys(currentitem.ItemAdd).length === 0 ? <input value="isMandantory" onChange={(e) => setAddMand(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                            currentitem.ItemAdd.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemAdd.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                                <input defaultChecked onChange={() => currentitem.ItemAdd.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                    }
+
+                                    Mandatory
+                                </div>
                             </div>
+                        }
 
-                        </div>
-                        <div className="modal-item-subtitle">Modifiers  </div>
-                        <div className="modal-item-price">
 
-                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
-                                Modifier 1
-                            </div>
-                            <select
-                                onChange={(e) => setMandMod1(e.target.value)}
-                                className="modal-item-function-input">
-                                {
-                                   Object.keys(currentitem.modifiers.mod1).length===0 ? <option value="" defaultValue selected disabled  >
+                        {
+                            currentitem.ItemRemove === '[object Object]' ? null : <div className="modal-item-price">
 
-                                    </option> : <option defaultValue={currentitem.modifiers.mod1.descption} disabled defaultValue selected>
-                                         {currentitem.modifiers.mod1.descption}
-                                     </option> 
-                                }
-
-                                <option className="modal-item-function-option" value="1">
-                                    1
-                                </option>
-                                <option className="modal-item-function-option" value="2">
-                                    2
-                                </option>
-                                <option className="modal-item-function-option" value="3">
-                                    3
-                                </option>
-                            </select>
-                            {
-                                Object.keys(currentitem.modifiers.mod1).length === 0 ? <input onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
-                                    <input defaultValue={currentitem.modifiers.mod1.price} onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
-                            }
-
-                            <div className="modal-item-desc-hor">
-                                {
-                                    Object.keys(currentitem.modifiers.mod1).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand1(e.target.value)} type="checkbox" className="modal-check"></input> :
-                                        currentitem.modifiers.mod1.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod1.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
-                                            <input defaultChecked onChange={() => currentitem.modifiers.mod1.isMand = ''} type="checkbox" className="modal-check"></input>
-
-                                }
-
-                                Mandatory
-                            </div>
-                        </div> 
-                        <div className="modal-item-price">
-
-                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
-                                Modifier 2
-                            </div>
-                            <select
-                                onChange={(e) => setMandMod2(e.target.value)}
-                                defaultValue={""}
-                                className="modal-item-function-input"
-                            >
-                                {
-                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <option value="" disabled defaultValue selected>
-
-                                    </option> : <option value="" disabled defaultValue selected>
-                                        {currentitem.modifiers.mod2.descption}
+                                <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                    Modifier 2
+                                </div>
+                                <select
+                                    onChange={(e) => setRemoveDescption(e.target.value)}
+                                    className="modal-item-function-input"
+                                >
+                                    {
+                                        Object.keys(currentitem.ItemRemove).length === 0 ? <option disabled defaultValue selected>
+                                            Select Remove
+                                        </option> : <option disabled defaultValue selected>
+                                            {currentitem.ItemRemove.descption}
+                                        </option>
+                                    }
+                                    <option className="modal-item-function-option" value="1">
+                                        1
                                     </option>
-                                } 
-
-                                <option className="modal-item-function-option" value="1">
-                                    1
-                                </option>
-                                <option className="modal-item-function-option" value="2">
-                                    2
-                                </option>
-                                <option className="modal-item-function-option" value="3">
-                                    3
-                                </option>
-                            </select>
-                            {
-                                Object.keys(currentitem.modifiers.mod2).length === 0 ? <input onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
-                                    <input defaultValue={currentitem.modifiers.mod2.price} onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
-                            }
-                            <div className="modal-item-desc-hor">
-                                {
-                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand2(e.target.value)} type="checkbox" className="modal-check"></input> :
-                                        currentitem.modifiers.mod2.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod2.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
-                                            <input defaultChecked onChange={() => currentitem.modifiers.mod2.isMand = ''} type="checkbox" className="modal-check"></input>
-
-                                }
-                                Mandatory
-                            </div>
-                        </div> 
-                        <div className="modal-item-price">
-
-                            <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
-                                Modifier 3
-                            </div>
-                            <select
-                                onChange={(e) => setMandMod3(e.target.value)}
-                                defaultValue={""}
-                                className="modal-item-function-input"
-                            >
-                                {
-                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <option value="" disabled defaultValue selected>
-
-                                    </option> : <option value="" disabled defaultValue selected>
-                                       {currentitem.modifiers.mod3.descption}
+                                    <option className="modal-item-function-option" value="2">
+                                        2
                                     </option>
-                                }
+                                    <option className="modal-item-function-option" value="3">
+                                        3
+                                    </option>
+                                </select>
 
-                                <option className="modal-item-function-option" value="1">
-                                    1
-                                </option>
-                                <option className="modal-item-function-option" value="2">
-                                    2
-                                </option>
-                                <option className="modal-item-function-option" value="3">
-                                    3
-                                </option>
-                            </select>
-                            {
-                                Object.keys(currentitem.modifiers.mod3).length === 0 ? <input onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
-                                    <input defaultValue={currentitem.modifiers.mod3.price} onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
-                            }
-                            <div className="modal-item-desc-hor">
+
                                 {
-                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand3(e.target.value)} type="checkbox" className="modal-check"></input> :
-                                        currentitem.modifiers.mod3.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod3.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
-                                            <input defaultChecked onChange={() => currentitem.modifiers.mod3.isMand = ''} type="checkbox" className="modal-check"></input>
-
+                                    Object.keys(currentitem.ItemRemove).length === 0 ? <input placeholder="0" onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" /> :
+                                        <input placeholder="0" defaultValue={currentitem.ItemRemove.price} onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" />
                                 }
-                                Mandatory
-                            </div>
 
-                        </div>
+                                <div className="modal-item-desc-hor">
+                                    {
+                                        Object.keys(currentitem.ItemRemove).length === 0 ? <input onChange={(e) => setRemoveMand(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                            currentitem.ItemRemove.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemRemove.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                                <input defaultChecked onChange={() => currentitem.ItemRemove.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                    }
+
+
+                                    Mandatory
+                                </div>
+                            </div>
+                        }
+
+
+
+                        {
+                            currentitem.ItemAddOn === '[object Object]' ? null : <div className="modal-item-price">
+
+                                <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                    Modifier 3
+                                </div>
+                                <select
+
+                                    onChange={(e) => setAddOnDescption(e.target.value)}
+                                    className="modal-item-function-input"
+                                >
+                                    {
+                                        Object.keys(currentitem.ItemAddOn).length === 0 ? <option disabled defaultValue selected>
+                                            Select AddOn
+                                        </option> : <option disabled defaultValue selected>
+                                            {currentitem.ItemAddOn.descption}
+                                        </option>
+                                    }
+                                    <option className="modal-item-function-option" value="1">
+                                        1
+                                    </option>
+                                    <option className="modal-item-function-option" value="2">
+                                        2
+                                    </option>
+                                    <option className="modal-item-function-option" value="3">
+                                        3
+                                    </option>
+                                </select>
+
+                                {
+                                    Object.keys(currentitem.ItemAddOn).length === 0 ? <input placeholder="0" onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" /> :
+                                        <input placeholder="0" defaultValue={currentitem.ItemAddOn.price} onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" />
+                                }
+                                <div className="modal-item-desc-hor">
+                                    {
+                                        Object.keys(currentitem.ItemAddOn).length === 0 ? <input onChange={(e) => setAddOnMand(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                            currentitem.ItemAddOn.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.ItemAddOn.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                                <input defaultChecked onChange={() => currentitem.ItemAddOn.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                    }
+
+                                    Mandatory
+                                </div>
+
+                            </div>
+                        }
+
+                        {
+                            currentitem.modifiers === '[object Object]' ? null : <div className="modal-item-subtitle">Modifiers  </div>
+                        }
+
+                        {
+                            currentitem.modifiers === '[object Object]' ? null : <div className="modal-item-price">
+
+                                <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                    Modifier 1
+                                </div>
+
+                                <select
+                                    onChange={(e) => setMandMod1(e.target.value)}
+                                    className="modal-item-function-input">
+                                    {
+                                        Object.keys(currentitem.modifiers.mod1).length === 0 ? <option value="" defaultValue selected disabled  >
+
+                                        </option> : <option defaultValue={currentitem.modifiers.mod1.descption} disabled defaultValue selected>
+                                            {currentitem.modifiers.mod1.descption}
+                                        </option>
+                                    }
+
+                                    <option className="modal-item-function-option" value="1">
+                                        1
+                                    </option>
+                                    <option className="modal-item-function-option" value="2">
+                                        2
+                                    </option>
+                                    <option className="modal-item-function-option" value="3">
+                                        3
+                                    </option>
+                                </select>
+                                {
+                                    Object.keys(currentitem.modifiers.mod1).length === 0 ? <input onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                        <input defaultValue={currentitem.modifiers.mod1.price} onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                                }
+
+                                <div className="modal-item-desc-hor">
+                                    {
+                                        Object.keys(currentitem.modifiers.mod1).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand1(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                            currentitem.modifiers.mod1.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod1.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                                <input defaultChecked onChange={() => currentitem.modifiers.mod1.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                    }
+
+                                    Mandatory
+                                </div>
+                            </div>
+                        }
+                        {
+                            currentitem.modifiers === '[object Object]' ? null : <div className="modal-item-price">
+
+                                <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                    Modifier 2
+                                </div>
+                                <select
+                                    onChange={(e) => setMandMod2(e.target.value)}
+                                    defaultValue={""}
+                                    className="modal-item-function-input"
+                                >
+                                    {
+                                        Object.keys(currentitem.modifiers.mod2).length === 0 ? <option value="" disabled defaultValue selected>
+
+                                        </option> : <option value="" disabled defaultValue selected>
+                                            {currentitem.modifiers.mod2.descption}
+                                        </option>
+                                    }
+
+                                    <option className="modal-item-function-option" value="1">
+                                        1
+                                    </option>
+                                    <option className="modal-item-function-option" value="2">
+                                        2
+                                    </option>
+                                    <option className="modal-item-function-option" value="3">
+                                        3
+                                    </option>
+                                </select>
+                                {
+                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <input onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                        <input defaultValue={currentitem.modifiers.mod2.price} onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                                }
+                                <div className="modal-item-desc-hor">
+                                    {
+                                        Object.keys(currentitem.modifiers.mod2).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand2(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                            currentitem.modifiers.mod2.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod2.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                                <input defaultChecked onChange={() => currentitem.modifiers.mod2.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                    }
+                                    Mandatory
+                                </div>
+                            </div>
+                        }
+                        {
+                            currentitem.modifiers === '[object Object]' ? null : <div className="modal-item-price">
+
+                                <div className="modal-item-desc" style={{ paddingTop: "7px" }}>
+                                    Modifier 3
+                                </div>
+                                <select
+                                    onChange={(e) => setMandMod3(e.target.value)}
+                                    defaultValue={""}
+                                    className="modal-item-function-input"
+                                >
+                                    {
+                                        Object.keys(currentitem.modifiers.mod3).length === 0 ? <option value="" disabled defaultValue selected>
+
+                                        </option> : <option value="" disabled defaultValue selected>
+                                            {currentitem.modifiers.mod3.descption}
+                                        </option>
+                                    }
+
+                                    <option className="modal-item-function-option" value="1">
+                                        1
+                                    </option>
+                                    <option className="modal-item-function-option" value="2">
+                                        2
+                                    </option>
+                                    <option className="modal-item-function-option" value="3">
+                                        3
+                                    </option>
+                                </select>
+                                {
+                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <input onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                        <input defaultValue={currentitem.modifiers.mod3.price} onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                                }
+                                <div className="modal-item-desc-hor">
+                                    {
+                                        Object.keys(currentitem.modifiers.mod3).length === 0 ? <input value="isMandantory" onChange={(e) => setIsMand3(e.target.value)} type="checkbox" className="modal-check"></input> :
+                                            currentitem.modifiers.mod3.isMand === '' ? <input value="isMandantory" onChange={(e) => currentitem.modifiers.mod3.isMand = e.target.value} type="checkbox" className="modal-check"></input> :
+                                                <input defaultChecked onChange={() => currentitem.modifiers.mod3.isMand = ''} type="checkbox" className="modal-check"></input>
+
+                                    }
+                                    Mandatory
+                                </div>
+
+                            </div>
+                        }
+
+
                     </div>
 
                     <div className="modal-item-footer">
