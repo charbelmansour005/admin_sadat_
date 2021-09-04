@@ -18,6 +18,7 @@ import Divisions from "../Setup/division/Divisions";
 import Employees from "../Employees/EmployeeSetup/Employees";
 import Customers from "../Customers/Customers";
 import Roles from "../Employees/Roles/Roles";
+import EmployeeSchedule from "../Employees/EmpSchedules/EmployeeSchedule";
 
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
@@ -169,6 +170,9 @@ const Hm = () => {
               >
                 Roles
               </Link>
+              <Link to="/EmployeesSchedule" className="index2" style={index12 && index01 ? slideOpen : slideClosed}>
+                Employees Schedules
+              </Link>
               <Link
                 to="/Customers"
                 className="index1"
@@ -272,6 +276,7 @@ const Hm = () => {
               <Route path="/Employees" component={Employees} />
               <Route path="/Customers" component={Customers} />
               <Route path="/Roles" component={Roles} />
+              <Route path="/EmployeesSchedule" component={EmployeeSchedule} />
             </Switch>
           </div>
         </div>
