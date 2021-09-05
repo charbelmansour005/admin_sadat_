@@ -70,8 +70,7 @@ const EmployeeSchedule = () => {
             if (item.employeeId === empId) {
                 setCurrentItem(item);
                 setModalEdit(true);
-                // setModal(false);
-                // setFirst(true);
+               
             }
         });
         setTData(employeeData)
@@ -144,8 +143,7 @@ const EmployeeSchedule = () => {
                                     employeeId={employeeId}
                                     name={name}
                                     handleSchedule={handleSchedule}
-                                // handleDelete={handleDelete}
-                                // handleEdit={handleEdit}
+                               
                                 />
                             </CSSTransition>
                         ))}

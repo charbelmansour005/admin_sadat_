@@ -365,7 +365,7 @@ const Employees = () => {
         </div>
         <div className="emp-table">
           <HeaderEmployee
-            name="Name"
+            name="Employee Name"
             role="Role"
             func="Function"
             sortName={sortName}

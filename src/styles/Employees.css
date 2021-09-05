@@ -19,7 +19,7 @@
   margin-left: 20px;
   margin-right: 20px;
   user-select: none;
-  max-height: 400px;
+  width: 100%;
   overflow-y: auto;
   border-radius: 1px;
 }
@@ -116,9 +116,10 @@ p {
 
 .emp-holder {
   display: flex;
-  flex: 1;
+  flex: 1; 
+  width: 350px;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: flex-end;
   padding: 5px;
   align-items: center;
 }
@@ -160,7 +161,7 @@ p {
 
 .emp-mod-date {
   font-family: "Ubuntu";
-  width: 250px;
+  width: 300px;
   justify-content: center;
   text-align: center;
   display: flex;
@@ -169,6 +170,7 @@ p {
 .emp-name {
   font-family: "Ubuntu";
   width: 350px;
+  justify-content: flex-end;
   text-align: center;
   display: flex;
 }
@@ -176,6 +178,7 @@ p {
 .emp-head-name {
   font-family: "Ubuntu";
   width: 350px;
+  justify-content: flex-end;
   text-align: center;
   display: flex;
   height: 30px;

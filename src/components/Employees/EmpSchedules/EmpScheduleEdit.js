@@ -42,95 +42,98 @@ const EmpScheduleEdit = ({
 
                     <div className="schedule">
                         <div className="days">
-                            <div classname="sub-day">
+                            <div>
                                 <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Monday</label>
+                                <label  style={{ marginLeft: 5 }} >Monday</label>
+                            </div>
+                            <div style={{ marginTop: 25 }}>
+                                <input type="checkbox"></input>
+                                <label style={{ marginLeft: 5 }} >Tuesday</label>
+                            </div>
+                            <div style={{ marginTop: 25 }} >
+                                <input type="checkbox"></input>
+                                <label style={{ marginLeft: 5 }} >Wednesday</label>
+                            </div>
+                            <div style={{ marginTop: 25 }}>
+                                <input type="checkbox"></input>
+                                <label style={{ marginLeft: 5 }}>Thursday</label>
+                            </div>
+                            <div style={{ marginTop: 25 }}>
+                                <input type="checkbox"></input>
+                                <label style={{ marginLeft: 5 }} >Friday</label>
+                            </div>
+                            <div style={{ marginTop: 25 }}>
+                                <input type="checkbox"></input>
+                                <label style={{ marginLeft: 5 }} >Saturday</label>
+                            </div>
+                            <div style={{ marginTop: 25 }}>
+                                <input type="checkbox"></input>
+                                <label style={{ marginLeft: 5 }} >Sunday</label>
                             </div>
 
-                            <div className="sub-time1">
-                                <input defaultValue={"08:00:00"} type="time"></input>
+                        </div>
+                        <div className="sub-time">
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input onChange={(e)=>console.log(e.target.value)} className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
                             </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row',justifyContent:'center' }}>
+                                <div style={{width:'35%'}}>
+                                    <input className="labelTime" defaultValue={"08:00:00"} type="time"></input>
+                                </div>
+                                <div style={{width:'35%'}}   >
+                                    <input className="labelTime" defaultValue={"22:00:00"} type="time"></input>
+                                </div>
                             </div>
 
-                        </div>
-                        <div className="days">
-                            <div>
-                                <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Tuesday</label>
-                            </div>
-                            <div>
-                                <input defaultValue={"08:00:00"} type="time"></input>
-                            </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
-                            </div>
-                        </div>
-                        <div className="days">
-                            <div>
-                                <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Wednesday</label>
-                            </div>
 
-                            <div>
-                                <input defaultValue={"08:00:00"} type="time"></input>
-                            </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
-                            </div>
-                        </div>
-                        <div className="days">
-                            <div>
-                                <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Thursday</label>
-                            </div>
-                            <div>
-                                <input defaultValue={"08:00:00"} type="time"></input>
-                            </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
-                            </div>
-                        </div>
-                        <div className="days">
-                            <div>
-                                <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Friday</label>
-                            </div>
 
-                            <div>
-                                <input defaultValue={"08:00:00"} type="time"></input>
-                            </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
-                            </div>
                         </div>
-                        <div className="days">
-                            <div>
-                                <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Saturday</label>
-                            </div>
 
-                            <div>
-                                <input defaultValue={"08:00:00"} type="time"></input>
-                            </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
-                            </div>
-                        </div>
-                        <div className="days">
-                            <div>
-                                <input type="checkbox"></input>
-                                <label style={{ marginLeft: 10 }}>Sunday</label>
-                            </div>
-
-                            <div>
-                                <input defaultValue={"08:00:00"} type="time"></input>
-                            </div>
-                            <div>
-                                <input defaultValue={"22:00:00"} type="time"></input>
-                            </div>
-                        </div>
 
 
 

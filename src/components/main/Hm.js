@@ -170,8 +170,8 @@ const Hm = () => {
               >
                 Roles
               </Link>
-              <Link to="/EmployeesSchedule" className="index2" style={index12 && index01 ? slideOpen : slideClosed}>
-                Employees Schedules
+              <Link to="/Schedule" className="index2" style={index12 && index01 ? slideOpen : slideClosed}>
+                 Schedules
               </Link>
               <Link
                 to="/Customers"
@@ -276,7 +276,7 @@ const Hm = () => {
               <Route path="/Employees" component={Employees} />
               <Route path="/Customers" component={Customers} />
               <Route path="/Roles" component={Roles} />
-              <Route path="/EmployeesSchedule" component={EmployeeSchedule} />
+              <Route path="/Schedule" component={EmployeeSchedule} />
             </Switch>
           </div>
         </div>

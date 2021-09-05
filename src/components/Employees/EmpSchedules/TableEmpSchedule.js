@@ -1,12 +1,11 @@
 import React from "react";
 import CalendarViewDay from "@material-ui/icons/CalendarToday";
 
-import "../../../styles/Employees.css";
+import "../../../styles/EmpSchedule.css";
 
 const TableEmpSchedule = ({
     employeeId,
     name,
-    role,
     handleSchedule
 }) => {
     return (
