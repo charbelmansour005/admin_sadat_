@@ -32,3 +32,12 @@ export var modifier={
     price:0,
     isMand:''
 }
+export var empSchedule = {
+    employeeId: '',
+    weeklySchedule: []
+}
+export var daySchedule = {
+    day: '',
+    from: '',
+    To: ''
+}

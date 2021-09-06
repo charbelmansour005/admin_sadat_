@@ -1,3 +1,5 @@
+
+
 export const EDIT_CAT = "EDIT-CAT";
 export const ADD_PAYMENT = "ADD_PAYMENT";
 export const ADD_VOID = "ADD_VOID";
@@ -46,6 +48,9 @@ export const IMPORT_CURRENCY_DATA = "IMPORT_CURRENCY_DATA"
 export const IMPORT_EMPLOYEES_DATA = "IMPORT_EMPLOYEES_DATA"
 export const IMPORT_EMPLOYEES_ROLES = "IMPORT_EMPLOYEES_ROLES"
 export const IMPORT_CUSTOMERS = "IMPORT_CUSTOMERS"
+export const ADD_EMP_SCHEDULE = "ADD_EMP_SCHEDULE"
+export const CLEAR_EMP_SCHEDULE = "CLEAR_EMP_SCHEDULE"
+
 
 
 const tabledata = [
@@ -94,6 +99,7 @@ export const catPost = () => {
         console.log(error);
     }
 };
+
 
 export const importItemData = (item) => {
     try {
@@ -523,6 +529,26 @@ export const addMandModifier = (item, item1, item2) => {
         console.log(error)
     }
 }
+export const addEmpSchedule = (item1, item2, item3, item4, item5, item6, item7) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: ADD_EMP_SCHEDULE,
+                payload: {
+                    day1: item1,
+                    day2: item2,
+                    day3: item3,
+                    day4: item4,
+                    day5: item5,
+                    day6: item6,
+                    day7: item7
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const clearAddMod = () => {
     try {
         return async dispatch => {
@@ -535,6 +561,7 @@ export const clearAddMod = () => {
         console.log(error)
     }
 }
+
 export const clearRemoveMod = () => {
     try {
         return async dispatch => {
@@ -565,6 +592,18 @@ export const clearMandModifier = () => {
         return async dispatch => {
             dispatch({
                 type: CLEAR_MAND_MODIFIER,
+                payload: []
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const clearEmpSchedule = () => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: CLEAR_EMP_SCHEDULE,
                 payload: []
             })
         }

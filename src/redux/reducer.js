@@ -12,6 +12,7 @@ import {
   IMPORT_GROUP_DATA,
   IMPORT_ITEM_DATA,
   CLEAR_MAND_MODIFIER,
+  CLEAR_EMP_SCHEDULE,
   ADD_MAND_MODIFIER,
   ADD_CUSTOMER,
   DELETE_CUSTOMER,
@@ -48,7 +49,9 @@ import {
   DELETE_DIVISION,
   ADDON_MODIFIER,
   ADD_MODIFIER,
-  REMOVE_MODIFIER
+  REMOVE_MODIFIER,
+  ADD_EMP_SCHEDULE,
+
 } from "./actions";
 
 const initialState = {
@@ -64,9 +67,13 @@ const initialState = {
   roleData: [],
   customerData: [],
   modifiers: [],
+  schedule: [],
   ItemAdd: {},
   ItemRemove: {},
-  ItemAddOn: {}
+  ItemAddOn: {},
+  employeeSchedule: [],
+
+
 
 };
 
@@ -83,7 +90,7 @@ function postReducer(state = initialState, action) {
         ...state,
         voidItem: action.payload,
       };
-
+ 
     case IMPORT_ITEM_DATA:
       return {
         ...state,
@@ -273,9 +280,26 @@ function postReducer(state = initialState, action) {
           mod3: action.payload.modifier3
         }
       };
+    case ADD_EMP_SCHEDULE:
+      return {
+        ...state,
+        schedule: {
+          day1: action.payload.day1,
+          day2: action.payload.day2,
+          day3: action.payload.day3,
+          day4: action.payload.day4,
+          day5: action.payload.day5,
+          day6: action.payload.day6,
+          day7: action.payload.day7
+        }
+      }
     case CLEAR_MAND_MODIFIER:
       return {
         ...state, modifiers: action.payload
+      }
+    case CLEAR_EMP_SCHEDULE:
+      return {
+        ...state, schedule: action.payload
       }
     case CLEAR_ADD:
       return {

@@ -6,22 +6,24 @@ import "../../../styles/EmpSchedule.css";
 import TableEmpSchedule from "./TableEmpSchedule";
 import HeaderEmpSchedule from "./HeaderEmpSchedule";
 import SearchIcon from "@material-ui/icons/Search";
-import AddIcon from "@material-ui/icons/Add";
+
 import EmpScheduleEdit from './EmpScheduleEdit'
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
+
 
 const EmployeeSchedule = () => {
 
     const [modalEdit, setModalEdit] = useState(false);
     const [tData, setTData] = useState([]);
     const [sortName, setSortName] = useState("0");
-    const [first, setFirst] = useState(true);
+
     const [currentItem, setCurrentItem] = useState({});
     const { employeeData } = useSelector((state) => state.postReducer);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setTData(employeeData);
+
     }, [employeeData]);
     const mountedStyle = { animation: "inAnimation 500ms ease-in" };
     const unmountedStyle = {
@@ -70,7 +72,7 @@ const EmployeeSchedule = () => {
             if (item.employeeId === empId) {
                 setCurrentItem(item);
                 setModalEdit(true);
-               
+
             }
         });
         setTData(employeeData)
@@ -78,6 +80,7 @@ const EmployeeSchedule = () => {
     function toggleEditModal() {
 
         setModalEdit(false);
+
     }
 
     const sortBy = (sort) => {
@@ -95,6 +98,12 @@ const EmployeeSchedule = () => {
             } else setSortName("0");
         }
     };
+
+
+
+
+
+
     return (
         <div id="App" style={{ width: "100%", height: "100%" }}>
             <h1 className="emp-title">Employees Schedules</h1>
@@ -143,7 +152,7 @@ const EmployeeSchedule = () => {
                                     employeeId={employeeId}
                                     name={name}
                                     handleSchedule={handleSchedule}
-                               
+
                                 />
                             </CSSTransition>
                         ))}
@@ -156,7 +165,7 @@ const EmployeeSchedule = () => {
                 <EmpScheduleEdit
                     toggleClose={toggleEditModal}
                     mod={modalEdit}
-                    currentitem={currentItem}
+                    currentEmployeeId={currentItem.employeeId}
                     mountedStyle={mountedStyle}
                     unmountedStyle={unmountedStyle}
                     downStyle={downStyle}
