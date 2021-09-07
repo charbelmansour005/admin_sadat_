@@ -8,17 +8,20 @@ import HeaderEmpSchedule from "./HeaderEmpSchedule";
 import SearchIcon from "@material-ui/icons/Search";
 
 import EmpScheduleEdit from './EmpScheduleEdit'
+import EditScheduleModal from "./EditScheduleModal";
 import { useDispatch, useSelector } from "react-redux";
 
 
 const EmployeeSchedule = () => {
 
     const [modalEdit, setModalEdit] = useState(false);
+    const [scheduleEdit, setModalSchedule] = useState(false)
     const [tData, setTData] = useState([]);
     const [sortName, setSortName] = useState("0");
 
     const [currentItem, setCurrentItem] = useState({});
-    const { employeeData } = useSelector((state) => state.postReducer);
+    const [currentSchedule, setCurrentSchedule] = useState({})
+    const { employeeData, employeeSchedule } = useSelector((state) => state.postReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -72,9 +75,21 @@ const EmployeeSchedule = () => {
             if (item.employeeId === empId) {
                 setCurrentItem(item);
                 setModalEdit(true);
+                setModalSchedule(false)
 
             }
         });
+        if (employeeSchedule.length > 0) {
+            employeeSchedule.map((item) => {
+                if (item.employeeId === empId && item.weeklySchedule.length > 0) {
+                    setCurrentSchedule(item)
+                    setModalEdit(false)
+                    setModalSchedule(true)
+                    console.log("Schedule not empty")
+                }
+
+            })
+        }
         setTData(employeeData)
     };
     function toggleEditModal() {
@@ -82,7 +97,9 @@ const EmployeeSchedule = () => {
         setModalEdit(false);
 
     }
-
+    function toggleEditSchedule(){
+        setModalSchedule(false)
+    }
     const sortBy = (sort) => {
         if (sort === "name") {
             if (sortName === "0") {
@@ -172,6 +189,20 @@ const EmployeeSchedule = () => {
                     upStyle={upStyle}
                 ></EmpScheduleEdit>
             ) : null}
+
+            {scheduleEdit ? (
+                <EditScheduleModal
+                    toggleClose={toggleEditSchedule}
+                    mod={scheduleEdit}
+                    currentEmpSchedule={currentSchedule}
+                    mountedStyle={mountedStyle}
+                    unmountedStyle={unmountedStyle}
+                    downStyle={downStyle}
+                    upStyle={upStyle}
+                >
+                </EditScheduleModal>
+            ) : null
+            }
         </div>
     )
 

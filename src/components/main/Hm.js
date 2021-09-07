@@ -17,8 +17,10 @@ import Groups from "../Setup/group/Groups";
 import Divisions from "../Setup/division/Divisions";
 import Employees from "../Employees/EmployeeSetup/Employees";
 import Customers from "../Customers/Customers";
+import CustomerGroup from "../Customers/CustomerGroups/CustomerGroup";
 import Roles from "../Employees/Roles/Roles";
 import EmployeeSchedule from "../Employees/EmpSchedules/EmployeeSchedule";
+import CustomerCategory from "../Customers/CustomerCategory/CustomerCategory";
 
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
@@ -171,14 +173,33 @@ const Hm = () => {
                 Roles
               </Link>
               <Link to="/Schedule" className="index2" style={index12 && index01 ? slideOpen : slideClosed}>
-                 Schedules
+                Schedules
               </Link>
+              <div onClick={() => {
+                setIndex13((prev) => !prev)
+              }} className="index1" style={index01 ? slideOpen : slideClosed}>
+                Customers<ArrowRightIcon style={index13 ? open : closed} />
+              </div>
               <Link
                 to="/Customers"
-                className="index1"
-                style={index01 ? slideOpen : slideClosed}
+                className="index2"
+                style={index13 && index01 ? slideOpen : slideClosed}
               >
                 Customers
+              </Link>
+              <Link
+                to="/CustomerGroups"
+                className="index2"
+                style={index13 && index01 ? slideOpen : slideClosed}
+              >
+                CustomerGroups
+              </Link>
+              <Link
+                to="/CustomerCategory"
+                className="index2"
+                style={index13 && index01 ? slideOpen : slideClosed}
+              >
+                CustomerCategory
               </Link>
               <div className="index">
                 <div
@@ -275,6 +296,8 @@ const Hm = () => {
               <Route path="/Divisions" component={Divisions} />
               <Route path="/Employees" component={Employees} />
               <Route path="/Customers" component={Customers} />
+              <Route path="/CustomerGroups" component={CustomerGroup} />
+              <Route path="/CustomerCategory" component={CustomerCategory} />
               <Route path="/Roles" component={Roles} />
               <Route path="/Schedule" component={EmployeeSchedule} />
             </Switch>

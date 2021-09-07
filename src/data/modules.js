@@ -39,5 +39,6 @@ export var empSchedule = {
 export var daySchedule = {
     day: '',
     from: '',
-    To: ''
+    To: '',
+    isOff:''
 }

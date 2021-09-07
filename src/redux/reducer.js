@@ -51,6 +51,8 @@ import {
   ADD_MODIFIER,
   REMOVE_MODIFIER,
   ADD_EMP_SCHEDULE,
+  DELETE_CUSTOMER_GROUP,
+  DELETE_CUSTOMER_CATEGORY
 
 } from "./actions";
 
@@ -72,6 +74,8 @@ const initialState = {
   ItemRemove: {},
   ItemAddOn: {},
   employeeSchedule: [],
+  customerGroup: [],
+  customerCategory: []
 
 
 
@@ -90,7 +94,7 @@ function postReducer(state = initialState, action) {
         ...state,
         voidItem: action.payload,
       };
- 
+
     case IMPORT_ITEM_DATA:
       return {
         ...state,
@@ -165,6 +169,14 @@ function postReducer(state = initialState, action) {
 
       return {
         ...state, catItem: state.catItem.filter((data) => data.catId !== action.payload)
+      }
+    case DELETE_CUSTOMER_GROUP:
+      return {
+        ...state, customerGroup: state.customerGroup.filter((data) => data.customerGroupId !== action.payload)
+      }
+    case DELETE_CUSTOMER_CATEGORY:
+      return {
+        ...state, customerCategory: state.customerCategory.filter((data) => data.customerCategoryId !== action.payload)
       }
     case DELETE_PAYMENT:
 

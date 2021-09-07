@@ -50,6 +50,9 @@ export const IMPORT_EMPLOYEES_ROLES = "IMPORT_EMPLOYEES_ROLES"
 export const IMPORT_CUSTOMERS = "IMPORT_CUSTOMERS"
 export const ADD_EMP_SCHEDULE = "ADD_EMP_SCHEDULE"
 export const CLEAR_EMP_SCHEDULE = "CLEAR_EMP_SCHEDULE"
+export const ADD_CUSTOMER_GROUP = "ADD_CUSTOMER_GROUP"
+export const DELETE_CUSTOMER_GROUP = "DELETE_CUSTOMER_GROUP"
+export const DELETE_CUSTOMER_CATEGORY = "DELETE_CUSTOMER_CATEGORY"
 
 
 
@@ -359,6 +362,32 @@ export const deleteCurrency = (currencyId) => {
                 payload: currencyId
             })
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const deleteCustomerGroup = (customerGroupId) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_CUSTOMER_GROUP,
+                payload: customerGroupId
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const deleteCustomerCategory = (customerCategoryId) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_CUSTOMER_CATEGORY,
+                payload: customerCategoryId
+            })
+        }
+
+
     } catch (error) {
         console.log(error)
     }
