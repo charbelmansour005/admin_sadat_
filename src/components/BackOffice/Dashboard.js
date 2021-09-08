@@ -1,184 +1,299 @@
-// import { useState, useEffect } from "react";
-// import "../../App.css";
-// import Modal from "react-modal";
-// import { Form } from "react-bootstrap";
-// import { getPosts, addPost, deletePost, getUserId } from "../../redux/actions";
-// import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import "../../App.css";
+import "../../styles/Dashboard.css";
+import Comparative from "./Comparative";
+import Customers from "./Customers";
+import MenuAnalysis from "./MenuAnalysis";
+import Summary from "./Summary";
+import Today from "./Today";
 
-// const Dashboard = (props) => {
-//   const [modal, setModal] = useState(false);
-//   const fetchPosts = () => dispatch(getPosts());
-//   const addPosts = (item) => dispatch(addPost(item));
-//   const deletePosts = (item) => dispatch(deletePost(item));
-//   const saveUser = (id) => dispatch(getUserId(id));
-//   const { posts, postItem /*currentUser*/ } = useSelector(
-//     (state) => state.postReducer
-//   );
 
-//   const dispatch = useDispatch();
 
-//   const [currentItem, setCurrentItem] = useState({});
 
-//   const customStyles = {
-//     content: {
-//       width: "30%",
-//       height: "20%",
-//       top: "20%",
-//       left: "50%",
-//       borderRadius: 10,
-//       right: "auto",
-//       bottom: "auto",
-//       marginRight: "-50%",
-//       transform: "translate(-50%, -50%)",
-//     },
-//   };
+const Dashboard = () => {
 
-//   useEffect(() => {
-//     fetchPosts();
-//     return () => {};
-//   });
-//   let getItem = (item) => {
-//     setCurrentItem(item);
+    const [tDay, setToday] = useState(false)
+    const [summary, setSummary] = useState(false)
+    const [menu, setMenu] = useState(false)
+    const [cust, setCustomer] = useState(false)
+    const [compara, setComparative] = useState(false)
+    
+    let openSummary = () => {
+        setSummary(true)
+        setToday(false)
+        setMenu(false)
+        setCustomer(false)
+        setComparative(false)
+    }
+    let openToday = () => {
+        setSummary(false)
+        setToday(true)
+        setMenu(false)
+        setCustomer(false)
+        setComparative(false)
+    }
+    let openMenu = () => {
+        setSummary(false)
+        setToday(false)
+        setMenu(true)
+        setCustomer(false)
+        setComparative(false)
+    }
+    let openCustomer = () => {
+        setSummary(false)
+        setToday(false)
+        setMenu(false)
+        setCustomer(true)
+        setComparative(false)
+    }
+    let openComparative = () => {
+        setSummary(false)
+        setToday(false)
+        setMenu(false)
+        setCustomer(false)
+        setComparative(true)
+    }
 
-//     setModal(true);
-//   };
+    useEffect(() => {
+        setSummary(true)
+    }, []);
+    return (
 
-//   let showAlert = (e) => {
-//     alert(e.target.value);
-//   };
+        <div className="main">
+            <div>
+                <div className="dash-title">
+                    Dashboard
+                </div>
+            </div>
+            <div>
 
-//   let addItem = (item1) => {
-//     addPosts(item1);
-//     setModal(false);
-//     saveUser(item1.title);
-//     console.log(postItem);
-//   };
+                <div>
+                    <div style={{ display: 'flex', marginTop: 25, marginLeft: 10, alignItems: 'center', flexDirection: 'row' }}>
+                        <div>
+                            <select className="dash-branch" defaultValue="All Branches">
+                                <option defaultValue selected >
+                                    All Branches
+                                </option>
+                                <option>
+                                    Branch1
+                                </option>
+                                <option>
+                                    Branch2
+                                </option>
+                            </select>
+                        </div>
+                        <div >
+                            <input className="dash-date" type="date"></input>
+                        </div>
 
-//   let deleteItem = (item1) => {
-//     deletePosts(item1);
-//     setModal(false);
-//     console.log(postItem);
-//   };
+                        <div>
+                            <button className="btn-search" type="submit" value="Search">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style={{ marginTop: 25 }}>
+                <div style={{ display: 'flex' }}>
 
-//   const exists = (item1) => {
-//     if (postItem.filter((item) => item.id === item1.id).length > 0) {
-//       return true;
-//     }
-//     return false;
-//   };
 
-//   return (
-//     <div
-//       id="App"
-//       style={{ display: "flex", flex: 1, justifyContent: "center" }}
-//     >
-//       <div>
-//         <h3>Dashboard</h3>
-//       </div>
-//       <div style={{ flex: 1 }}>
-//         <ul style={{ width: "100%", listStyleType: "none" }}>
-//           <div>
-//             {posts.map((data) => (
-//               <div className="data">
-//                 <li
-//                   onClick={() => getItem(data)}
-//                   style={{
-//                     paddingLeft: 5,
-//                     paddingTop: 5,
-//                     flex: 1,
-//                     textAlign: "center",
-//                   }}
-//                   key={data.id}
-//                 >
-//                   {" "}
-//                   {data.title}
-//                 </li>
-//               </div>
-//             ))}
-//           </div>
-//         </ul>
-//       </div>
+                    <div className="dash-net-sales">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Net sales
+                            </label>
+                            <label className="dash-sale-result">
+                                11234546
+                            </label>
+                        </div>
 
-//       <div>
-//         <Modal
-//           ariaHideApp={false}
-//           appElement={document.getElementById("App")}
-//           style={customStyles}
-//           isOpen={modal}
-//         >
-//           <div style={{}}>
-//             <div style={{ display: "flex", flex: 1, justifyContent: "center" }}>
-//               <label>{currentItem.title}</label>
-//             </div>
-//             <div
-//               style={{
-//                 display: "flex",
-//                 flex: 1,
-//                 justifyContent: "center",
-//                 marginTop: 10,
-//               }}
-//             >
-//               <button
-//                 onClick={() =>
-//                   exists(currentItem)
-//                     ? deleteItem(currentItem)
-//                     : addItem(currentItem)
-//                 }
-//                 type="submit"
-//               >
-//                 close modal
-//               </button>
-//             </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Gross Sales
+                            </label>
+                            <label className="dash-sale-result">
+                                31231231
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Avg Checks
+                            </label>
+                            <label className="dash-sale-result">
+                                123123123123
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Avg by Customer
+                            </label>
+                            <label className="dash-sale-result">
+                                312312312321312
+                            </label>
+                        </div>
 
-//             <Form>
-//               <div
-//                 style={{
-//                   display: "flex",
-//                   flex: 1,
-//                   justifyContent: "center",
-//                   marginTop: 10,
-//                 }}
-//               >
-//                 <input
-//                   onChange={(e) => showAlert(e)}
-//                   style={{
-//                     borderRadius: 10,
-//                     overflow: "hidden",
-//                     borderColor: "red",
-//                     borderWidth: 0.8,
-//                     padding: 5,
-//                   }}
-//                   type="text"
-//                   placeholder="Enter ItemName"
-//                 ></input>
-//               </div>
-//               <div
-//                 style={{
-//                   display: "flex",
-//                   flex: 1,
-//                   justifyContent: "center",
-//                   marginTop: 10,
-//                 }}
-//               >
-//                 <input
-//                   onChange={(e) => showAlert(e)}
-//                   style={{
-//                     borderRadius: 10,
-//                     overflow: "hidden",
-//                     borderColor: "red",
-//                     borderWidth: 0.8,
-//                     padding: 5,
-//                   }}
-//                   type="text"
-//                   placeholder="Enter Itemtype"
-//                 ></input>
-//               </div>
-//             </Form>
-//           </div>
-//         </Modal>
-//       </div>
-//     </div>
-//   );
-// };
+                    </div>
+                    <div className="dash-net-sales">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                MTD
+                            </label>
+                            <label className="dash-sale-result">
+                                11234546
+                            </label>
+                        </div>
 
-// export default Dashboard;
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                LYMTD
+                            </label>
+                            <label className="dash-sale-result">
+                                31231231
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                YTD
+                            </label>
+                            <label className="dash-sale-result">
+                                123123123123
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                LYYTD
+                            </label>
+                            <label className="dash-sale-result">
+                                312312312321312
+                            </label>
+                        </div>
+                    </div>
+                    <div className="dash-net-sales">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Tax Summary
+                            </label>
+                            <label className="dash-sale-result">
+                                11234546
+                            </label>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Discount Summary
+                            </label>
+                            <label className="dash-sale-result">
+                                31231231
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Paid in
+                            </label>
+                            <label className="dash-sale-result">
+                                123123123123
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Paid Out
+                            </label>
+                            <label className="dash-sale-result">
+                                312312312321312
+                            </label>
+                        </div>
+                    </div>
+                    <div className="dash-net-sales">
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Customer Aged
+                            </label>
+                            <label className="dash-sale-result">
+                                11234546
+                            </label>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Voids Summary
+                            </label>
+                            <label className="dash-sale-result">
+                                31231231
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Refunds Summary
+                            </label>
+                            <label className="dash-sale-result">
+                                123123123123
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <label className="dash-sale-title">
+                                Customer Served
+                            </label>
+                            <label className="dash-sale-result">
+                                312312312321312
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', height: '50%', border: '1px solid lightgray', marginTop: 25, marginLeft: 25, width: '70%' }} >
+                <div className="dash-other">
+                    <div>
+                        <button onClick={() => openSummary()} className="btn-dash" type="submit" value="Summary">Summary</button>
+                    </div>
+
+                    <div>
+                        <button onClick={() => openMenu()} className="btn-dash" type="submit" value="Menu">Menu Analysis</button>
+                    </div>
+                    <div>
+                        <button onClick={() => openComparative()} className="btn-dash" type="submit" value="Comparative">Comparative</button>
+                    </div>
+                    <div>
+                        <button onClick={() => openCustomer()} className="btn-dash" type="submit" value="Customers">Customers</button>
+                    </div>
+                    <div>
+                        <button onClick={() => openToday()} className="btn-dash" type="submit" value="Today">Today</button>
+                    </div>
+                </div>
+
+                {
+                    tDay ?
+                        <div>
+                            <Today />
+                        </div> : null
+                }
+                {
+                    summary ?
+                        <div>
+                            <Summary />
+                        </div> : null
+                }
+                {
+                    menu ?
+                        <div>
+                            <MenuAnalysis />
+                        </div> : null
+                }
+                {
+                    cust ?
+                        <div>
+                            <Customers />
+                        </div> : null
+                }
+                {
+                    compara ?
+                        <div>
+                            <Comparative />
+                        </div> : null
+                }
+            </div>
+
+
+        </div>
+    )
+}
+export default Dashboard;

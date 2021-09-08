@@ -21,6 +21,7 @@ import CustomerGroup from "../Customers/CustomerGroups/CustomerGroup";
 import Roles from "../Employees/Roles/Roles";
 import EmployeeSchedule from "../Employees/EmpSchedules/EmployeeSchedule";
 import CustomerCategory from "../Customers/CustomerCategory/CustomerCategory";
+import Dashboard from "../BackOffice/Dashboard";
 
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
@@ -79,15 +80,9 @@ const Hm = () => {
               >
                 Back Office <ArrowRightIcon style={index01 ? open : closed} />
               </div>
-              <div className="index1" style={index01 ? slideOpen : slideClosed}>
-                Dashboard
-              </div>
-              <div className="index1" style={index01 ? slideOpen : slideClosed}>
-                Reports
-              </div>
-              <div className="index1" style={index01 ? slideOpen : slideClosed}>
-                End of Day
-              </div>
+              <Link to="/" className="index2" style={index01 ? slideOpen : slideClosed}>Dashboard</Link>
+              <Link to="/Reports" className="index2" style={index01 ? slideOpen : slideClosed}>Reports</Link>
+              <Link to="/EndOfDay" className="index2" style={index01 ? slideOpen : slideClosed}>End Of Day</Link>
               <div className="index">
                 <div
                   onClick={() => {
@@ -287,7 +282,7 @@ const Hm = () => {
           </div>
           <div style={{ display: "flex" }}>
             <Switch>
-              <Route exact path="/SalesItem" component={SalesItem} />
+              <Route  path="/SalesItem" component={SalesItem} />
               <Route path="/Categories" component={Categories} />
               <Route path="/Payment" component={Payment} />
               <Route path="/Void" component={VoidReason} />
@@ -300,6 +295,7 @@ const Hm = () => {
               <Route path="/CustomerCategory" component={CustomerCategory} />
               <Route path="/Roles" component={Roles} />
               <Route path="/Schedule" component={EmployeeSchedule} />
+              <Route exact path="/" component={Dashboard} />
             </Switch>
           </div>
         </div>

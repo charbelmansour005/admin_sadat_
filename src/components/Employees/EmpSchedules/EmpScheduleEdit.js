@@ -46,7 +46,6 @@ const EmpScheduleEdit = ({
     const [schedule, setSchedule] = useState([])
 
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
 
