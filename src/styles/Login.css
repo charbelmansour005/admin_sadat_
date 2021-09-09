@@ -2,8 +2,9 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
   display: flex;
+  overflow-y: auto;
   flex-direction: column;
-  height: 70vh;
+ 
   justify-content: center;
 }
 

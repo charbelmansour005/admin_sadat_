@@ -44,6 +44,11 @@ const Hm = () => {
   const [index12, setIndex12] = useState(false);
   const [index13, setIndex13] = useState(false);
   const [index14, setIndex14] = useState(false);
+  useEffect(() => {
+   setIndex01(true)
+   setIndex11(true)
+    return () => {};
+  }, []);
   return (
     <HashRouter history={history}>
       <div className="cont">
