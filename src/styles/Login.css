@@ -1,11 +1,17 @@
 .login-body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
+
   display: flex;
+
   overflow-y: auto;
   flex-direction: column;
- 
-  justify-content: center;
+ position: fixed;
+
+justify-content: center;
+height: 80%;
+ width: 100%;
+  
 }
 
 .item-title {
