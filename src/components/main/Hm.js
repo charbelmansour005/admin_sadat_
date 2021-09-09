@@ -23,6 +23,7 @@ import EmployeeSchedule from "../Employees/EmpSchedules/EmployeeSchedule";
 import CustomerCategory from "../Customers/CustomerCategory/CustomerCategory";
 import Dashboard from "../BackOffice/Dashboard";
 
+
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
   const open = {

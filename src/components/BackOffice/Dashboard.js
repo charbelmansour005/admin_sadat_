@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as ReactDOM from "react-dom";
 import "../../App.css";
 import "../../styles/Dashboard.css";
 import Comparative from "./Comparative";
@@ -6,8 +7,15 @@ import Customers from "./Customers";
 import MenuAnalysis from "./MenuAnalysis";
 import Summary from "./Summary";
 import Today from "./Today";
-
-
+import {
+    Chart,
+    ChartLegend,
+    ChartSeries,
+    ChartSeriesItem,
+    ChartTitle,
+} from "@progress/kendo-react-charts";
+import "hammerjs";
+import { PieChart, Pie, Sector, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 
 
 const Dashboard = () => {
@@ -17,7 +25,69 @@ const Dashboard = () => {
     const [menu, setMenu] = useState(false)
     const [cust, setCustomer] = useState(false)
     const [compara, setComparative] = useState(false)
-    
+    const data = [
+        {
+            name: 'Gross Sales',
+            value:5000
+        },
+        {
+            name: 'Avg Checks ',
+            value:6000
+        },
+        {
+            name: 'Avg by Customer',
+            value:1000
+        },
+        {
+            name: 'MTD',
+            value:1500
+        },
+        {
+            name: 'LYMTD',
+            value:800
+        },
+        {
+            name: 'YTD',
+            value:2500
+        },
+        {
+            name: 'LYYTD',
+            value:899
+        },
+        {
+            name: 'Tax Summary',
+            value:225
+        },
+        {
+            name: 'Discount Summary',
+            value:4500
+        },
+        {
+            name: 'Paid in',
+            value:633
+        },
+        {
+            name: 'Paid out',
+            value:6900
+        },
+        {
+            name: 'Customer Aged',
+            value:4478
+        },
+        {
+            name: 'Voids ',
+            value:447
+        },
+        {
+            name: 'Refunds ',
+            value:8854
+        },
+        {
+            name: 'Customer Served',
+            value:2235
+        },
+    ];
+
     let openSummary = () => {
         setSummary(true)
         setToday(false)
@@ -93,10 +163,29 @@ const Dashboard = () => {
                 </div>
             </div>
             <div style={{ marginTop: 25 }}>
-                <div style={{ display: 'flex' }}>
+                <div  style={{ display: 'flex' }}>
+                    <BarChart
+                        width={1700}
+                        height={500}
+                        data={data}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                        }}
+                        barSize={20}
+                    >
+                        <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+                        <YAxis dataKey="value"  padding={{ left: 10, right: 10 }} />
+                        <Tooltip />
+                        <Legend />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Bar dataKey="value" fill="#8884d8" background={{ fill: '#eee' }} />
+                    </BarChart>
+                   
 
-
-                    <div className="dash-net-sales">
+                    {/* <div className="dash-net-sales">
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <label className="dash-sale-title">
                                 Net sales
@@ -236,11 +325,12 @@ const Dashboard = () => {
                                 312312312321312
                             </label>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', height: '50%', border: '1px solid lightgray', marginTop: 25, marginLeft: 25, width: '70%' }} >
+
+            {/* <div style={{ display: 'flex', flexDirection: 'column', marginTop: 25, marginLeft: 25, width: '70%' }} >
                 <div className="dash-other">
                     <div>
                         <button onClick={() => openSummary()} className="btn-dash" type="submit" value="Summary">Summary</button>
@@ -260,40 +350,45 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {
-                    tDay ?
-                        <div>
-                            <Today />
-                        </div> : null
-                }
-                {
-                    summary ?
-                        <div>
-                            <Summary />
-                        </div> : null
-                }
-                {
-                    menu ?
-                        <div>
-                            <MenuAnalysis />
-                        </div> : null
-                }
-                {
-                    cust ?
-                        <div>
-                            <Customers />
-                        </div> : null
-                }
-                {
-                    compara ?
-                        <div>
-                            <Comparative />
-                        </div> : null
-                }
-            </div>
+                <div className="dash-content">
+
+                    {
+                        tDay ?
+                            <div>
+                                <Today />
+                            </div> : null
+                    }
+                    {
+                        summary ?
+                            <div>
+                                <Summary />
+                            </div> : null
+                    }
+                    {
+                        menu ?
+                            <div>
+                                <MenuAnalysis />
+                            </div> : null
+                    }
+                    {
+                        cust ?
+                            <div>
+                                <Customers />
+                            </div> : null
+                    }
+                    {
+                        compara ?
+                            <div>
+                                <Comparative />
+                            </div> : null
+                    }
+
+                </div>
+            </div> */}
 
 
         </div>
     )
 }
+
 export default Dashboard;

@@ -58,7 +58,7 @@ const EditCustomerGroup = ({
             style={mod ? mountedStyle : unmountedStyle}
             className="modal-cur-wrapper"
         >
-            <div style={mod ? downStyle : upStyle} style={{ width: '40%', justifyContent: 'space-between', display: 'flex', backgroundColor: 'white', flexDirection: 'column' }}>
+            <div style={mod ? downStyle : upStyle} style={{  justifyContent: 'space-between', display: 'flex', backgroundColor: 'white', flexDirection: 'column' }}>
                 <form id="edit-customer-group-form" className="modal-cur-form" type="submit" onSubmit={() => updateCurrency(currentitem.customerGroupId)}
                 >
                     <div className="modal-cur-header">
