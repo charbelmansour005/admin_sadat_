@@ -311,9 +311,9 @@ const Groups = () => {
       });
     }
   };
-
+  // width: "100%", height: "100%"
   return (
-    <div id="App" style={{ width: "100%", height: "100%" }}>
+    <div id="App" style={{  }}>
       <h1 className="grp-title">Groups</h1>
       <div className="grp-box">
         <div className="grp-search-box">

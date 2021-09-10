@@ -132,7 +132,7 @@ const EmployeeSchedule = () => {
                     <option>3</option>
                 </select>
             </div>
-            <div className="emp-box">
+            <div className="emp-schedule-box">
                 <div className="emp-search-box">
                     <div className="emp-search">
                         <SearchIcon

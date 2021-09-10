@@ -2,6 +2,7 @@
   background-color: var(--color-scheme);
   display: flex;
   height: 7vh;
+
   width: 100%;
   flex-direction: row;
   align-items: center;
@@ -16,6 +17,7 @@
 
 .cont {
   display: flex;
+  overflow-x: hidden;
   flex-direction: column;
 }
 
@@ -43,6 +45,7 @@
   display: flex;
   min-width: 35;
   min-height: 25;
+  width: 250px;
   flex-direction: row;
   cursor: pointer;
   align-items: center;
@@ -53,9 +56,9 @@
   flex-direction: column;
   width: 15%;
   min-width: 200px;
-
   font-family: "Ubuntu";
-  overflow-y: auto;
+  min-height: 200px;
+  overflow-y: hidden;
   height: 100%;
 }
 

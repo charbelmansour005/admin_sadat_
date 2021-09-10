@@ -273,8 +273,9 @@ const Divisions = () => {
       });
     }
   };
+  // width: "100%", height: "100%"
   return (
-    <div id="App" style={{ width: "100%", height: "100%" }}>
+    <div id="App" style={{  }}>
       <h1 className="division-title">Divisions</h1>
       <div className="division-box">
         <div className="division-search-box">

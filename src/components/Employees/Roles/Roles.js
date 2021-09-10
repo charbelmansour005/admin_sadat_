@@ -190,8 +190,9 @@ const Roles = () => {
       });
     }
   };
+  // width: "100%", height: "100%" 
   return (
-    <div id="App" style={{ width: "100%", height: "100%" }}>
+    <div id="App" style={{ }}>
       <h1 className="role-title">Roles</h1>
       <div className="role-box">
         <div className="role-search-box">

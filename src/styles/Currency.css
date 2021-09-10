@@ -14,7 +14,8 @@
   border-color: var(--border);
   display: flex;
   overflow-y: auto;
-  width: 120vh;
+  width: 100%;
+
   max-height: 400px;
   border-bottom: none;
   flex-direction: column;

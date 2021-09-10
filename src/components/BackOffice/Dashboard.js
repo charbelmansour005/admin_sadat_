@@ -221,7 +221,7 @@ const Dashboard = () => {
                         />
                         <YAxis dataKey="value" padding={{ left: 10, right: 10 }} />
                         <Tooltip />
-                        <Legend />
+                        {/* <Legend /> */}
                         <CartesianGrid strokeDasharray="3 3" />
                         <Bar dataKey="value" fill="#8884d8" background={{ fill: "#eee" }} />
                     </BarChart>

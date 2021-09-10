@@ -308,8 +308,9 @@ const Employees = () => {
       });
     }
   };
+  // width: "100%", height: "100%"
   return (
-    <div id="App" style={{ width: "100%", height: "100%" }}>
+    <div id="App" style={{ }}>
       <h1 className="emp-title">Employees</h1>
       <div className="emp-box">
         <div className="emp-search-box">

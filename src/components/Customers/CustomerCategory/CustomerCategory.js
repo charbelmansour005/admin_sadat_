@@ -162,7 +162,7 @@ const CustomerCategory = (props) => {
     return (
         <div id="App" style={{ width: "100%", height: "100%" }}>
             <h1 className="cur-title">Customer Category</h1>
-            <div className="cur-box">
+            <div className="cur-category-box">
                 <div className="cur-search-box">
                     <div className="cur-search">
                         <SearchIcon

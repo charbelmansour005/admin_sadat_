@@ -9,7 +9,7 @@
     color: var(--title);
   }
   
-  .emp-box {
+  .emp-schedule-box {
     border: 0.7px solid;
     border-color: var(--border);
     display: flex;
@@ -19,14 +19,15 @@
     max-height: 400px;
     margin-left: 20px;
     margin-right: 20px;
-    width: 110vh;
+    width: 100%;
+    /* width: 110vh; */
     user-select: none;
     overflow-y: auto;
     border-radius: 1px;
   }
   .branches{
       margin-left: 20px;
-      width: 40vh;
+     width: 400px;
       height: 30px;
       border: 1px solid ;
       border-radius: 5px;

@@ -68,7 +68,7 @@ const Hm = () => {
             </div>
 
             <div className="user-holder">
-              Charbel
+              User
               <div style={{ minWidth: 35, height: 25 }}>
                 <ArrowDropDownIcon />
               </div>
@@ -286,7 +286,7 @@ const Hm = () => {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex"}}>
             <Switch>
               <Route  path="/SalesItem" component={SalesItem} />
               <Route path="/Categories" component={Categories} />
