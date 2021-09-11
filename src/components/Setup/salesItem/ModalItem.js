@@ -262,6 +262,7 @@ const ModalItem = ({
               <div className="modal-item-desc">
                 Price 1
                 <input
+                  type="number"
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="0"
                   className="modal-item-price-input"
@@ -271,6 +272,7 @@ const ModalItem = ({
               <div className="modal-item-desc">
                 Price 2
                 <input
+                  type="number"
                   onChange={(e) => setPrice2(e.target.value)}
                   placeholder="0"
                   className="modal-item-price-input"
@@ -280,6 +282,7 @@ const ModalItem = ({
               <div className="modal-item-desc">
                 Price 3
                 <input
+                  type="number"
                   onChange={(e) => setPrice3(e.target.value)}
                   placeholder="0"
                   className="modal-item-price-input"
@@ -289,6 +292,7 @@ const ModalItem = ({
               <div className="modal-item-desc">
                 Price 4
                 <input
+                  type="number"
                   onChange={(e) => setPrice4(e.target.value)}
                   placeholder="0"
                   className="modal-item-price-input"
@@ -491,6 +495,7 @@ const ModalItem = ({
                 </option>
               </select>
               <input
+                type="number"
                 onChange={(e) => setAddPrice(e.target.value)}
                 placeholder="0"
                 className="modal-item-price-input"
@@ -529,6 +534,7 @@ const ModalItem = ({
                 </option>
               </select>
               <input
+                type="number"
                 onChange={(e) => setRemovePrice(e.target.value)}
                 placeholder="0"
                 className="modal-item-price-input"
@@ -567,6 +573,7 @@ const ModalItem = ({
                 </option>
               </select>
               <input
+                type="number"
                 onChange={(e) => setAddOnPrice(e.target.value)}
                 placeholder="0"
                 className="modal-item-price-input"
@@ -607,7 +614,7 @@ const ModalItem = ({
                   3
                 </option>
               </select>
-              <input onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
+              <input type="number" onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
               <div className="modal-item-desc-hor">
                 <input value="isMandantory" onChange={(e) => setIsMand1(e.target.value)} type="checkbox" className="modal-check"></input>
                 Mandatory
@@ -636,7 +643,7 @@ const ModalItem = ({
                   3
                 </option>
               </select>
-              <input onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
+              <input type="number" onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
               <div className="modal-item-desc-hor">
                 <input value="isMandantory" onChange={(e) => setIsMand2(e.target.value)} type="checkbox" className="modal-check"></input>
                 Mandatory
@@ -665,7 +672,7 @@ const ModalItem = ({
                   3
                 </option>
               </select>
-              <input onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
+              <input type="number" onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
               <div className="modal-item-desc-hor">
                 <input value="isMandantory" onChange={(e) => setIsMand3(e.target.value)} type="checkbox" className="modal-check"></input>
                 Mandatory

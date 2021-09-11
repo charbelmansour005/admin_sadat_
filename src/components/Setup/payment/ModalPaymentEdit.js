@@ -172,6 +172,7 @@ const ModalPaymentEdit = ({
               <div className="modal-pay-desc">
                 Commission
                 <input
+                  type="number"
                   defaultValue={currentitem.paymentCommission}
                   onChange={(e) => setCommission(e.target.value)}
                   placeholder="Commission"
@@ -183,6 +184,7 @@ const ModalPaymentEdit = ({
               <div className="modal-pay-desc">
                 Account Number
                 <input
+                  type="number"
                   onChange={(e) => setAccountNumber(e.target.value)}
                   defaultValue={currentitem.accountNumber}
                   placeholder="Account no"
@@ -192,6 +194,7 @@ const ModalPaymentEdit = ({
               <div className="modal-pay-desc">
                 Bank Deposit Account Number
                 <input
+                  type="number"
                   defaultValue={currentitem.bdAccountNumber}
                   onChange={(e) => setBankDeposit(e.target.value)}
                   placeholder="Bank deposit"

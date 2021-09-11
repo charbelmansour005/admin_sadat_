@@ -1,7 +1,7 @@
 .top-bar {
   background-color: var(--color-scheme);
   display: flex;
-  height: 7vh;
+  min-height: 60px;
 
   width: 100%;
   flex-direction: row;
@@ -43,9 +43,7 @@
 
 .user-holder {
   display: flex;
-  min-width: 35;
-  min-height: 25;
-  width: 250px;
+  min-width: 250px;
   flex-direction: row;
   cursor: pointer;
   align-items: center;
@@ -58,7 +56,7 @@
   min-width: 200px;
   font-family: "Ubuntu";
   min-height: 200px;
-  overflow-y: hidden;
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -121,6 +119,9 @@
 .index1:active,
 .index2:active {
   color: black;
+}
+.appHeader:hover{
+  background-color: red;
 }
 
 @keyframes openAnimation {

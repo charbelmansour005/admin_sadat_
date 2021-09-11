@@ -24,6 +24,30 @@ import CustomerCategory from "../Customers/CustomerCategory/CustomerCategory";
 import Dashboard from "../BackOffice/Dashboard";
 
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowDimensions;
+}
 const Hm = () => {
   const closed = { animation: "closeAnimation 300ms ease-in" };
   const open = {
@@ -44,26 +68,27 @@ const Hm = () => {
   const [index12, setIndex12] = useState(false);
   const [index13, setIndex13] = useState(false);
   const [index14, setIndex14] = useState(false);
+
   useEffect(() => {
-   setIndex01(true)
-   setIndex11(true)
-    return () => {};
+    setIndex01(true)
+    setIndex11(true)
+    return () => { };
   }, []);
   return (
     <HashRouter history={history}>
       <div className="cont">
         <div className="top-bar">
           <div className="icons">
-            <div style={{ minWidth: 35, height: 25 }}>
+            <div  style={{ minWidth: 35, height: 25 }}>
               <HomeIcon />
             </div>
-            <div style={{ minWidth: 35, height: 25 }}>
+            <div  style={{ minWidth: 35, height: 25 }}>
               <NotificationsIcon />
             </div>
-            <div style={{ minWidth: 35, height: 25 }}>
+            <div  style={{ minWidth: 35, height: 25 }}>
               <SettingsIcon />
             </div>
-            <div style={{ minWidth: 35, height: 25 }}>
+            <div  style={{ minWidth: 35, height: 25 }}>
               <PersonIcon />
             </div>
 
@@ -75,8 +100,9 @@ const Hm = () => {
             </div>
           </div>
         </div>
+   
         <div className="hm">
-          <div className="side-bar">
+          <div className="side-bar" >
             <div className="index">
               <div
                 onClick={() => {
@@ -286,9 +312,9 @@ const Hm = () => {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <Switch>
-              <Route  path="/SalesItem" component={SalesItem} />
+              <Route path="/SalesItem" component={SalesItem} />
               <Route path="/Categories" component={Categories} />
               <Route path="/Payment" component={Payment} />
               <Route path="/Void" component={VoidReason} />

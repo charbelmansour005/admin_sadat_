@@ -11,7 +11,7 @@ const ModalEdit = ({
   upStyle,
   currentitem,
 }) => {
-  const { employeeData } = useSelector((state) => state.postReducer);
+  const { employeeData,roleData } = useSelector((state) => state.postReducer);
   const [branchName, setBranchName] = useState('');
   const [empId, setEmpId] = useState('');
   const [empName, setEmpName] = useState('');
@@ -42,9 +42,10 @@ const ModalEdit = ({
   const [deliveryList, setDeliveryList] = useState('');
   const [autoTime, setAutoTime] = useState('')
   const [hideTime, setHideTime] = useState('')
+  const [role, setRole] = useState('')
 
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log(currentitem)
   }, []);
 
@@ -165,6 +166,11 @@ const ModalEdit = ({
           } else {
             item.timeStatus = timeStatus;
           }
+          if (role === "") {
+            item.role = currentitem.role;
+          } else {
+            item.role = role;
+          }
         }
       });
     }
@@ -205,6 +211,7 @@ const ModalEdit = ({
               <div className="modal-emp-desc">
                 Employee ID
                 <input
+                  type="number"
                   defaultValue={currentitem.empId}
                   onChange={(e) => setEmpId(e.target.value)}
                   placeholder="Employee ID"
@@ -222,6 +229,27 @@ const ModalEdit = ({
                 />
               </div>
             </div>
+            <div className="modal-emp-desc">
+              Role*
+              <select
+                onChange={(e) => setRole(e.target.value)}
+                required
+                className="modal-emp-function-input"
+                defaultValue=""
+              >
+                {
+                  currentitem.role === '' ? <option disabled>Select Role</option> :
+                    <option defaultValue disabled selected >{currentitem.role}</option>
+                }
+
+                {
+                  roleData.map(item =>
+                    <option key={item.roleId} value={item.name}>{item.name}
+                    </option>)
+                }
+
+              </select>
+            </div>
             <div className="modal-spacer"></div>
             <div className="modal-emp-price">
               <div className="modal-emp-desc">
@@ -234,6 +262,7 @@ const ModalEdit = ({
               <div className="modal-emp-desc">
                 Phone
                 <input
+                  type="number"
                   defaultValue={currentitem.phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="Employee ID"

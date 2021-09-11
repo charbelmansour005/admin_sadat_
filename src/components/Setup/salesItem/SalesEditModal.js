@@ -455,6 +455,7 @@ const SalesEditModal = ({
                             <div className="modal-item-desc">
                                 Price 1
                                 <input
+                                    type="number"
                                     defaultValue={currentitem.price}
                                     onChange={(e) => setPrice(e.target.value)}
                                     placeholder="0"
@@ -467,19 +468,24 @@ const SalesEditModal = ({
                             <div className="modal-item-desc">
                                 Price 2
                                 <input
+                                    type="number"
                                     defaultValue={currentitem.price2}
                                     onChange={(e) => setPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
                                 {/* <input readOnly value={price2} className="modal-item-price-input" /> */}
                             </div>
                             <div className="modal-item-desc">
                                 Price 3
-                                <input defaultValue={currentitem.price3}
+                                <input
+                                    type="number"
+                                    defaultValue={currentitem.price3}
                                     onChange={(e) => setPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
                                 {/* <input readOnly value={price3} className="modal-item-price-input" /> */}
                             </div>
                             <div className="modal-item-desc">
                                 Price 4
-                                <input defaultValue={currentitem.price4}
+                                <input
+                                    type="number"
+                                    defaultValue={currentitem.price4}
                                     onChange={(e) => setPrice4(e.target.value)} placeholder="0" className="modal-item-price-input" />
                                 {/* <input readOnly value={price4} className="modal-item-price-input" /> */}
                             </div>
@@ -608,7 +614,7 @@ const SalesEditModal = ({
                                 Print Out 1
                                 <select onChange={(e) => setPrint1(e.target.value)} className="modal-item-print-input">
                                     {
-                                        currentitem.print1 === ''||currentitem.print1===null ? <option className="modal-item-function-option" defaultValue selected disabled>
+                                        currentitem.print1 === '' || currentitem.print1 === null ? <option className="modal-item-function-option" defaultValue selected disabled>
                                             Select Print 1
                                         </option> : <option className="modal-item-function-option" defaultValue={currentitem.print1}>
                                             {currentitem.print1}
@@ -630,7 +636,7 @@ const SalesEditModal = ({
                                 Print Out 2
                                 <select onChange={(e) => setPrint2(e.target.value)} className="modal-item-print-input">
                                     {
-                                        currentitem.print2 === ''||currentitem.print2===null ? <option className="modal-item-function-option" defaultValue selected disabled>
+                                        currentitem.print2 === '' || currentitem.print2 === null ? <option className="modal-item-function-option" defaultValue selected disabled>
                                             Select Print 2
                                         </option> : <option className="modal-item-function-option" defaultValue={currentitem.print2}>
                                             {currentitem.print2}
@@ -652,7 +658,7 @@ const SalesEditModal = ({
                                 Print Out 3
                                 <select onChange={(e) => setPrint3(e.target.value)} className="modal-item-print-input">
                                     {
-                                        currentitem.print3 === ''||currentitem.print3===null ? <option className="modal-item-function-option" defaultValue selected disabled>
+                                        currentitem.print3 === '' || currentitem.print3 === null ? <option className="modal-item-function-option" defaultValue selected disabled>
                                             Select Print 3
                                         </option> : <option className="modal-item-function-option" defaultValue={currentitem.print3}>
                                             {currentitem.print3}
@@ -712,8 +718,8 @@ const SalesEditModal = ({
 
                                 <div>
                                     {
-                                        Object.keys(currentitem.ItemAdd).length === 0 ? <input placeholder="0" onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" /> :
-                                            <input placeholder="0" defaultValue={currentitem.ItemAdd.price} onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" />
+                                        Object.keys(currentitem.ItemAdd).length === 0 ? <input type="number" placeholder="0" onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" /> :
+                                            <input type="number" placeholder="0" defaultValue={currentitem.ItemAdd.price} onChange={(e) => setAddPrice(e.target.value)} className="modal-item-price-input" />
                                     }
 
                                 </div>
@@ -766,8 +772,8 @@ const SalesEditModal = ({
 
 
                                 {
-                                    Object.keys(currentitem.ItemRemove).length === 0 ? <input placeholder="0" onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" /> :
-                                        <input placeholder="0" defaultValue={currentitem.ItemRemove.price} onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" />
+                                    Object.keys(currentitem.ItemRemove).length === 0 ? <input type="number" placeholder="0" onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" /> :
+                                        <input type="number" placeholder="0" defaultValue={currentitem.ItemRemove.price} onChange={(e) => setRemovePrice(e.target.value)} className="modal-item-price-input" />
                                 }
 
                                 <div className="modal-item-desc-hor">
@@ -816,8 +822,8 @@ const SalesEditModal = ({
                                 </select>
 
                                 {
-                                    Object.keys(currentitem.ItemAddOn).length === 0 ? <input placeholder="0" onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" /> :
-                                        <input placeholder="0" defaultValue={currentitem.ItemAddOn.price} onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" />
+                                    Object.keys(currentitem.ItemAddOn).length === 0 ? <input type="number" placeholder="0" onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" /> :
+                                        <input type="number" placeholder="0" defaultValue={currentitem.ItemAddOn.price} onChange={(e) => setAddOnPrice(e.target.value)} className="modal-item-price-input" />
                                 }
                                 <div className="modal-item-desc-hor">
                                     {
@@ -866,8 +872,8 @@ const SalesEditModal = ({
                                     </option>
                                 </select>
                                 {
-                                    Object.keys(currentitem.modifiers.mod1).length === 0 ? <input onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
-                                        <input defaultValue={currentitem.modifiers.mod1.price} onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                                    Object.keys(currentitem.modifiers.mod1).length === 0 ? <input type="number" onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                        <input type="number" defaultValue={currentitem.modifiers.mod1.price} onChange={(e) => setMandPrice1(e.target.value)} placeholder="0" className="modal-item-price-input" />
                                 }
 
                                 <div className="modal-item-desc-hor">
@@ -912,8 +918,8 @@ const SalesEditModal = ({
                                     </option>
                                 </select>
                                 {
-                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <input onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
-                                        <input defaultValue={currentitem.modifiers.mod2.price} onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                                    Object.keys(currentitem.modifiers.mod2).length === 0 ? <input type="number" onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                        <input type="number" defaultValue={currentitem.modifiers.mod2.price} onChange={(e) => setMandPrice2(e.target.value)} placeholder="0" className="modal-item-price-input" />
                                 }
                                 <div className="modal-item-desc-hor">
                                     {
@@ -956,8 +962,8 @@ const SalesEditModal = ({
                                     </option>
                                 </select>
                                 {
-                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <input onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
-                                        <input defaultValue={currentitem.modifiers.mod3.price} onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
+                                    Object.keys(currentitem.modifiers.mod3).length === 0 ? <input type="number" onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" /> :
+                                        <input type="number" defaultValue={currentitem.modifiers.mod3.price} onChange={(e) => setMandPrice3(e.target.value)} placeholder="0" className="modal-item-price-input" />
                                 }
                                 <div className="modal-item-desc-hor">
                                     {

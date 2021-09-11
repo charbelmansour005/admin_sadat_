@@ -25,6 +25,7 @@ const SalesItem = () => {
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
+  const [width,setWidth]=useState(window.innerWidth);
 
 
   const dispatch = useDispatch();
@@ -378,8 +379,8 @@ const SalesItem = () => {
     }
   };
   return (
-    // width: "85%", height: "100%"
-    <div id="App" style={{  }}>
+   
+    <div id="App" style={{ width: "85%", height: "100%" }}>
       <h1 className="item-title">Sales Items</h1>
       <div className="item-box">
         <div className="item-search-box">

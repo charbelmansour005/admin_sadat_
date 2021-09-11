@@ -181,6 +181,7 @@ const ModalGroup = ({
               <div className="modal-grp-desc">
                 Discount Account
                 <input
+                  type="number"
                   onChange={(e) => setDiscount(e.target.value)}
                   placeholder="Discount account"
                   className="modal-grp-desc-input"
@@ -189,6 +190,7 @@ const ModalGroup = ({
               <div className="modal-grp-desc">
                 Revenue Account
                 <input
+                  type="number"
                   onChange={(e) => setRevenue(e.target.value)}
                   placeholder="Revenue account"
                   className="modal-grp-desc-input"
@@ -197,6 +199,7 @@ const ModalGroup = ({
               <div className="modal-grp-desc">
                 Expense Account
                 <input
+                  type="number"
                   onChange={(e) => setExpense(e.target.value)}
                   placeholder="Expense account"
                   className="modal-grp-desc-input"

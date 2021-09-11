@@ -242,6 +242,7 @@ const ModalEdit = ({
               <div className="modal-cust-desc">
                 Email
                 <input
+                  type="email"
                   defaultValue={currentitem.email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email" className="modal-cust-desc-input" />

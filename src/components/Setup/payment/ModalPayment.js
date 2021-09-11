@@ -156,6 +156,7 @@ const ModalPayment = ({
               <div className="modal-pay-desc">
                 Commission
                 <input
+                  type="number"
                   onChange={(e) => setPaymentCommission(e.target.value)}
                   placeholder="Commission"
                   className="modal-pay-desc-input"
@@ -166,6 +167,7 @@ const ModalPayment = ({
               <div className="modal-pay-desc">
                 Account Number
                 <input
+                  type="number"
                   onChange={(e) => setAccountNumber(e.target.value)}
                   placeholder="Account no"
                   className="modal-pay-desc-input"
@@ -174,6 +176,7 @@ const ModalPayment = ({
               <div className="modal-pay-desc">
                 Bank Deposit Account Number
                 <input
+                  type="number"
                   onChange={(e) => setBdAccountNumber(e.target.value)}
                   placeholder="Bank deposit"
                   className="modal-pay-desc-input"

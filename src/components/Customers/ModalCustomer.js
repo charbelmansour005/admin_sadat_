@@ -182,6 +182,7 @@ const ModalCustomer = ({
               <div className="modal-cust-desc">
                 Email
                 <input
+                  type="email"
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email" className="modal-cust-desc-input" />
               </div>

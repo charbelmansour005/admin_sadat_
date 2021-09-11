@@ -12,7 +12,7 @@ const ModalEmployee = ({
   upStyle,
   handleSubmit,
 }) => {
-  const { employeeData } = useSelector((state) => state.postReducer);
+  const { employeeData, roleData } = useSelector((state) => state.postReducer);
   const [branchName, setBranchName] = useState('');
   const [empId, setEmpId] = useState('');
   const [empName, setEmpName] = useState('');
@@ -43,9 +43,11 @@ const ModalEmployee = ({
   const [deliveryList, setDeliveryList] = useState('');
   const [autoTime, setAutoTime] = useState('')
   const [hideTime, setHideTime] = useState('')
+  const [role, setRole] = useState('')
   useEffect(() => {
     getCreatedDate();
     getModificationDate();
+    console.log(roleData)
   }, []);
 
   let getCreatedDate = () => {
@@ -82,8 +84,8 @@ const ModalEmployee = ({
           onSubmit={(e) =>
             handleSubmit(
               e,
-             
-              branchName,       
+              role,
+              branchName,
               uuidv4(),
               empId,
               empName,
@@ -113,7 +115,8 @@ const ModalEmployee = ({
               generateChecklist,
               deliveryList,
               autoTime,
-              hideTime
+              hideTime,
+
             )
           }
         >
@@ -138,6 +141,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Employee ID
                 <input
+                  type="number"
                   onChange={(e) => setEmpId(e.target.value)}
                   placeholder="Employee ID"
                   className="modal-emp-print-input"
@@ -152,6 +156,25 @@ const ModalEmployee = ({
                   className="modal-emp-print-input"
                 />
               </div>
+
+            </div>
+            <div className="modal-emp-desc">
+              Role*
+              <select
+                onChange={(e) => console.log(e.target.value)}
+                required
+                className="modal-emp-function-input"
+               
+              >
+                <option defaultValue selected disabled>Select Role</option>
+                {
+                  
+                  roleData.map(item =>
+                    <option defaultValue={item.name} key={item.roleId} value={item.name}>{item.name}
+                    </option>)
+                }
+
+              </select>
             </div>
             <div className="modal-spacer"></div>
             <div className="modal-emp-price">
@@ -164,6 +187,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Phone
                 <input
+                  type="number"
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="Employee ID"
                   className="modal-emp-desc-input"
@@ -259,6 +283,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 ID
                 <input
+                  type="number"
                   onChange={(e) => setPosLoginId(e.target.value)}
                   placeholder="ID" className="modal-emp-desc-input" />
               </div>
@@ -303,6 +328,7 @@ const ModalEmployee = ({
               <div className="modal-emp-desc">
                 Key
                 <input
+
                   onChange={(e) => setConfigKey(e.target.value)}
                   placeholder="Key" className="modal-emp-print-input" />
               </div>

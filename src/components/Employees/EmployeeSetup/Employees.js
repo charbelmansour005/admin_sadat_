@@ -172,6 +172,7 @@ const Employees = () => {
   };
   const handleModalSubmit = (
     e,
+    role,
     branchName,
     employeeId,
     empId,
@@ -203,10 +204,12 @@ const Employees = () => {
     deliveryList,
     autoTime,
     hideTime,
+   
 
   ) => {
     e.preventDefault();
     let newItem = {
+      role:role,
       employeeId: employeeId,
       branchName: branchName,
       empId: empId,
@@ -237,7 +240,8 @@ const Employees = () => {
       generateChecklist: generateChecklist,
       deliveryList: deliveryList,
       autoTime: autoTime,
-      hideTime: hideTime
+      hideTime: hideTime,
+     
     };
     employeeData.push(newItem);
     console.log(employeeData)
