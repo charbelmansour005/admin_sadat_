@@ -15,13 +15,13 @@ const EmpScheduleEdit = ({
 }) => {
 
     const { employeeSchedule } = useSelector((state) => state.postReducer);
-    const [day1, setDay1] = useState('')
-    const [day2, setDay2] = useState('')
-    const [day3, setDay3] = useState('')
-    const [day4, setDay4] = useState('')
-    const [day5, setDay5] = useState('')
-    const [day6, setDay6] = useState('')
-    const [day7, setDay7] = useState('')
+    const [day1, setDay1] = useState('Monday')
+    const [day2, setDay2] = useState('Tuesday')
+    const [day3, setDay3] = useState('Wednesday')
+    const [day4, setDay4] = useState('Thursday')
+    const [day5, setDay5] = useState('Friday')
+    const [day6, setDay6] = useState('Saturday')
+    const [day7, setDay7] = useState('Sunday')
     const [fromDay1, setFromDay1] = useState('08:00:00')
     const [fromDay2, setFromDay2] = useState('08:00:00')
     const [fromDay3, setFromDay3] = useState('08:00:00')
@@ -103,6 +103,7 @@ const EmpScheduleEdit = ({
         weekSchedule.weeklySchedule = schedule
 
         employeeSchedule.push(weekSchedule)
+   
         console.log(employeeSchedule)
         toggleClose()
 
@@ -110,7 +111,7 @@ const EmpScheduleEdit = ({
     }
 
     let resetForm = () => {
-       
+
         document.getElementById("add-schedule-emp").reset()
         toggleClose()
     }
@@ -148,31 +149,31 @@ const EmpScheduleEdit = ({
                         <div className="schedule">
                             <div className="days">
                                 <div>
-                                    <input value="Monday" onChange={(e) => setDay1(e.target.value)} required type="checkbox"></input>
+                                   
                                     <label style={{ marginLeft: 5 }} >Monday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    <input required value="Tuesday" onChange={(e) => setDay2(e.target.value)} type="checkbox"></input>
+                                  
                                     <label style={{ marginLeft: 5 }} >Tuesday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    <input required value="Wednesday" onChange={(e) => setDay3(e.target.value)} type="checkbox"></input>
+                                  
                                     <label style={{ marginLeft: 5 }} >Wednesday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    <input required value="Thursday" onChange={(e) => setDay4(e.target.value)} type="checkbox"></input>
+                                  
                                     <label style={{ marginLeft: 5 }}>Thursday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    <input required value="Friday" onChange={(e) => setDay5(e.target.value)} type="checkbox"></input>
+                                   
                                     <label style={{ marginLeft: 5 }} >Friday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    <input required value="Saturday" onChange={(e) => setDay6(e.target.value)} type="checkbox"></input>
+                                  
                                     <label style={{ marginLeft: 5 }} >Saturday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    <input required value="Sunday" onChange={(e) => setDay7(e.target.value)} type="checkbox"></input>
+                                  
                                     <label style={{ marginLeft: 5 }} >Sunday</label>
                                 </div>
 

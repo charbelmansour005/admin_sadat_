@@ -172,12 +172,7 @@ const ModalEmployee = ({
               >
                 <option value="">Select Role</option>
                 {options}
-                {/* {
-
-                  roleData.map(item =>
-                    <option key={item.roleId} value={item.name}>
-                    </option>)
-                } */}
+              
 
               </select>
             </div>

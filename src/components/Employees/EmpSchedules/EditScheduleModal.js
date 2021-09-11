@@ -226,65 +226,38 @@ const EditScheduleModal = ({
                         <div className="schedule">
                             <div className="days">
                                 <div>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[0].day === '' ?
-                                            <input value="Monday" onChange={(e) => currentEmpSchedule.weeklySchedule[0].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Monday" onChange={() => currentEmpSchedule.weeklySchedule[0].day = ''} type="checkbox"></input>
-                                    }
+                                  
+                                   
 
                                     <label style={{ marginLeft: 5 }} >Monday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[1].day === '' ?
-                                            <input value="Tuesday" onChange={(e) => currentEmpSchedule.weeklySchedule[1].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Tuesday" onChange={() => currentEmpSchedule.weeklySchedule[1].day = ''} type="checkbox"></input>
-                                    }
+                                   
 
                                     <label style={{ marginLeft: 5 }} >Tuesday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[2].day === '' ?
-                                            <input value="Wednesday" onChange={(e) => currentEmpSchedule.weeklySchedule[2].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Wednesday" onChange={() => currentEmpSchedule.weeklySchedule[2].day = ''} type="checkbox"></input>
-                                    }
+                                    
 
                                     <label style={{ marginLeft: 5 }} >Wednesday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[3].day === '' ?
-                                            <input value="Thursday" onChange={(e) => currentEmpSchedule.weeklySchedule[3].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Thursday" onChange={() => currentEmpSchedule.weeklySchedule[3].day = ''} type="checkbox"></input>
-                                    }
+                                   
 
                                     <label style={{ marginLeft: 5 }}>Thursday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[4].day === '' ?
-                                            <input value="Friday" onChange={(e) => currentEmpSchedule.weeklySchedule[4].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Friday" onChange={() => currentEmpSchedule.weeklySchedule[4].day = ''} type="checkbox"></input>
-                                    }
+                                    
 
                                     <label style={{ marginLeft: 5 }} >Friday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[5].day === '' ?
-                                            <input value="Saturday" onChange={(e) => currentEmpSchedule.weeklySchedule[5].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Saturday" onChange={() => currentEmpSchedule.weeklySchedule[5].day = ''} type="checkbox"></input>
-                                    }
+                                    
 
                                     <label style={{ marginLeft: 5 }} >Saturday</label>
                                 </div>
                                 <div style={{ marginTop: 25 }}>
-                                    {
-                                        currentEmpSchedule.weeklySchedule[6].day === '' ?
-                                            <input value="Sunday" onChange={(e) => currentEmpSchedule.weeklySchedule[6].day = e.target.value} type="checkbox"></input> :
-                                            <input defaultChecked value="Sunday" onChange={() => currentEmpSchedule.weeklySchedule[6].day = ''} type="checkbox"></input>
-                                    }
+                                    
 
                                     <label style={{ marginLeft: 5 }} >Sunday</label>
                                 </div>
