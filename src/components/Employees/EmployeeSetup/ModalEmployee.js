@@ -56,6 +56,10 @@ const ModalEmployee = ({
     var year = new Date().getFullYear();
     return date + "/" + month + "/" + year;
   };
+
+  const options = roleData.map(option =>
+    <option key={option.roleId} value={option.name}>{option.name}</option>
+  )
   let resetForm = () => {
     toggleClose()
     document.getElementById("add-employee-form").reset()
@@ -161,18 +165,19 @@ const ModalEmployee = ({
             <div className="modal-emp-desc">
               Role*
               <select
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => setRole(e.target.value)}
                 required
                 className="modal-emp-function-input"
-               
+
               >
-                <option defaultValue selected disabled>Select Role</option>
-                {
-                  
+                <option value="">Select Role</option>
+                {options}
+                {/* {
+
                   roleData.map(item =>
-                    <option defaultValue={item.name} key={item.roleId} value={item.name}>{item.name}
+                    <option key={item.roleId} value={item.name}>
                     </option>)
-                }
+                } */}
 
               </select>
             </div>

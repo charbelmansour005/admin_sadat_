@@ -11,7 +11,7 @@ const ModalEdit = ({
   upStyle,
   currentitem,
 }) => {
-  const { employeeData,roleData } = useSelector((state) => state.postReducer);
+  const { employeeData, roleData } = useSelector((state) => state.postReducer);
   const [branchName, setBranchName] = useState('');
   const [empId, setEmpId] = useState('');
   const [empName, setEmpName] = useState('');
@@ -49,7 +49,9 @@ const ModalEdit = ({
     console.log(currentitem)
   }, []);
 
-
+  const options = roleData.map(option =>
+    <option key={option.roleId} value={option.name}>{option.name}</option>
+  )
   let updateEmployee = (employeeId) => {
     if (employeeData.length > 0) {
       employeeData.map((item) => {
@@ -235,18 +237,13 @@ const ModalEdit = ({
                 onChange={(e) => setRole(e.target.value)}
                 required
                 className="modal-emp-function-input"
-                defaultValue=""
+                defaultValue={currentitem.role}
               >
                 {
-                  currentitem.role === '' ? <option disabled>Select Role</option> :
+                  currentitem.role === '' ? <option value="">Select Role</option> :
                     <option defaultValue disabled selected >{currentitem.role}</option>
                 }
-
-                {
-                  roleData.map(item =>
-                    <option key={item.roleId} value={item.name}>{item.name}
-                    </option>)
-                }
+                {options}
 
               </select>
             </div>
