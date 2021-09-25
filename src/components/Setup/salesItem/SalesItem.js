@@ -12,7 +12,8 @@ import SalesEditModal from "./SalesEditModal";
 import { useJsonToCsv } from "react-json-csv";
 import Papa from "papaparse";
 import { addItems, searchItems, deleteItems, clearAddMod, clearRemoveMod, clearAddOnMod, clearMandModifier, importItemData } from "../../../redux/actions";
-
+import Draggable from 'react-draggable'
+import axios from 'axios'
 
 const SalesItem = () => {
   const [tData, setTData] = useState([]);
@@ -25,7 +26,7 @@ const SalesItem = () => {
   const [first, setFirst] = useState(true);
   const [currentItem, setCurrentItem] = useState({});
   const [modalEdit, setModalEdit] = useState(false);
-  const [width,setWidth]=useState(window.innerWidth);
+  const [empData, setEmpData] = useState([])
 
 
   const dispatch = useDispatch();
@@ -79,12 +80,85 @@ const SalesItem = () => {
   }, [modal]);
   useEffect(() => {
     setTData(salesItems)
-
   }, [salesItems]);
   function toggleModal() {
     setModal((prev) => !prev);
     setFirst(false);
   }
+
+
+  let getUsingAxios = () => {
+    const apiUrl = "http://localhost:5000/api/getEmployees"
+    let emp = {
+      "search": "*",
+      "mode": ""
+    }
+    axios.post(apiUrl, emp).then((response) => {
+      console.log(response.data)
+      // console.log("Employees are" + JSON.stringify(response.data.data.Employees))
+      // console.log("Divisions are" + JSON.stringify(response.data.data.Divisions))
+
+    })
+  }
+  let getAllEmployees = () => {
+    const apiUrl = "http://localhost:5000/api/getEmployees"
+    let emp = {
+      "search": "*",
+      "mode": "R"
+    }
+    fetch(apiUrl, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(emp)
+    }).then((res) => res.json()).then((resJson) => {
+      console.log(resJson)
+    })
+
+  }
+  let postEmployees = () => {
+    const apiUrl = "http://localhost:5000/api/sendEmp"
+
+    let emp = {
+      "mode": "w",
+      "empcode": "063",
+      "empname": "sssss",
+      "empadd": "anyadd",
+      "empphone": "4545",
+      "empsalary": "7778",
+      "search": ""
+    }
+
+    fetch(apiUrl, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(emp)
+    }).then((res) => res.json())
+      .then((responseJson) => {
+
+
+        // setEmpData(responseJson)
+        console.log(responseJson)
+        if (responseJson.length > 0) {
+          responseJson.map((item) => {
+            console.log(item.empcode)
+          })
+        }
+      })
+
+      .catch((error) => {
+        console.log(error)
+
+      })
+  }
+
 
 
   function toggleEditModal() {
@@ -379,108 +453,111 @@ const SalesItem = () => {
     }
   };
   return (
-   
-    <div id="App" style={{ width: "85%", height: "100%" }}>
-      <h1 className="item-title">Sales Items</h1>
-      <div className="item-box">
-        <div className="item-search-box">
-          <div className="item-search">
-            <SearchIcon
-              style={{
-                marginLeft: "2px",
-                color: "rgba(0, 0, 0, 0.7)",
-                height: "25px",
-                width: "25px",
-                alignSelf: "center",
-                justifySelf: "center",
-              }}
-            />
-            <input
-              id="search-text"
-              type="text"
 
-              className="item-search-text"
-              placeholder="Search..."
-              onChange={handleSearch}
-            />
-          </div>
-          <div className="item-right">
-            <label className="item-file-input">
-              Import
-              <input
-                accept=".csv,.xlsx,.xls"
-                type="file"
-                onInput={(e) => handleFileUpload(e)}
-              />
-            </label>
-            <label
-              onClick={() => saveAsCsv({ data, fields, filename })}
-              className="item-file-input"
-            >
-              Export
-            </label>
-            <div onClick={() => toggleModal()} className="item-add">
-              <AddIcon
+    <div id="App" style={{ width: "85%", height: "100%" }}>
+      <div>
+        <h1 className="item-title">Sales Items</h1>
+        <div className="item-box">
+          <div className="item-search-box">
+            <div className="item-search">
+              <SearchIcon
                 style={{
                   marginLeft: "2px",
-                  color: "white",
+                  color: "rgba(0, 0, 0, 0.7)",
                   height: "25px",
                   width: "25px",
                   alignSelf: "center",
                   justifySelf: "center",
                 }}
               />
-              <p>New</p>
+              <input
+                id="search-text"
+                type="text"
+
+                className="item-search-text"
+                placeholder="Search..."
+                onChange={handleSearch}
+              />
+            </div>
+            <div className="item-right">
+              <label className="item-file-input">
+                Import
+                <input
+                  accept=".csv,.xlsx,.xls"
+                  type="file"
+                  onInput={(e) => handleFileUpload(e)}
+                />
+              </label>
+              <label
+                onClick={() => saveAsCsv({ data, fields, filename })}
+                className="item-file-input"
+              >
+                Export
+              </label>
+              <div onClick={() => toggleModal()} className="item-add">
+                <AddIcon
+                  style={{
+                    marginLeft: "2px",
+                    color: "white",
+                    height: "25px",
+                    width: "25px",
+                    alignSelf: "center",
+                    justifySelf: "center",
+                  }}
+                />
+                <p>New</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="item-table">
-          <HeaderItem
-            name="Name"
-            price="Price"
-            group="Group"
-            creationDate="Creation Date"
-            lastModificationDate="Last Modification Date"
-            sortName={sortName}
-            sortPrice={sortPrice}
-            sortGroup={sortGroup}
-            sortCreationDate={sortCreationDate}
-            sortLastModificationDate={sortLastModificationDate}
-            sortBy={sortBy}
-          />
+          <div className="item-table">
+            <HeaderItem
+              name="Name"
+              price="Price"
+              group="Group"
+              creationDate="Creation Date"
+              lastModificationDate="Last Modification Date"
+              sortName={sortName}
+              sortPrice={sortPrice}
+              sortGroup={sortGroup}
+              sortCreationDate={sortCreationDate}
+              sortLastModificationDate={sortLastModificationDate}
+              sortBy={sortBy}
+            />
 
-          <TransitionGroup id="tg" className="item-remove-items">
-            {tData.map(
-              ({
-                name,
-                itemId,
-                price,
-                group,
-                creationDate,
-                lastModificationDate,
-              }) => (
-                <CSSTransition
-                  key={itemId}
-                  timeout={500}
-                  classNames="item-trans"
-                >
-                  <TableItem
-                    name={name}
-                    itemId={itemId}
-                    price={price}
-                    group={group}
-                    creationDate={creationDate}
-                    lastModificationDate={lastModificationDate}
-                    handleDelete={handleDelete}
-                    handleEdit={handleEdit}
-                  />
-                </CSSTransition>
-              )
-            )}
-          </TransitionGroup>
+            <TransitionGroup id="tg" className="item-remove-items">
+              {tData.map(
+                ({
+                  name,
+                  itemId,
+                  price,
+                  group,
+                  creationDate,
+                  lastModificationDate,
+                }) => (
+                  <CSSTransition
+                    key={itemId}
+                    timeout={500}
+                    classNames="item-trans"
+                  >
+                    <TableItem
+                      name={name}
+                      itemId={itemId}
+                      price={price}
+                      group={group}
+                      creationDate={creationDate}
+                      lastModificationDate={lastModificationDate}
+                      handleDelete={handleDelete}
+                      handleEdit={handleEdit}
+                    />
+                  </CSSTransition>
+                )
+              )}
+            </TransitionGroup>
+          </div>
         </div>
       </div>
       {!first ? (
+
         <ModalItem
           m="modal"
           toggleClose={toggleModal}

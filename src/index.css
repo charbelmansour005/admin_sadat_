@@ -37,7 +37,8 @@ h1 {
 
 @font-face {
   font-family: "Ubuntu";
-  src: local("Ubuntu"), url(./fonts/Ubuntu-Bold.ttf) format("truetype");
+  src: local("Ubuntu"), url(./fonts/Ubuntu-Light.ttf) format("truetype");
+
 }
 
 ::-webkit-scrollbar {

@@ -52,7 +52,12 @@ import {
   REMOVE_MODIFIER,
   ADD_EMP_SCHEDULE,
   DELETE_CUSTOMER_GROUP,
-  DELETE_CUSTOMER_CATEGORY
+  DELETE_CUSTOMER_CATEGORY,
+  ADD_QR_MENU,
+  DELETE_QR_MENU,
+  ADD_MENU_ITEM,
+  DELETE_MENU_ITEM,
+  SAVE_MENU_GROUP
 
 } from "./actions";
 
@@ -75,7 +80,10 @@ const initialState = {
   ItemAddOn: {},
   employeeSchedule: [],
   customerGroup: [],
-  customerCategory: []
+  customerCategory: [],
+  QRMenu: [],
+  menuItems: [],
+  menuName: ''
 
 
 
@@ -165,10 +173,21 @@ function postReducer(state = initialState, action) {
         };
       }
 
+    case ADD_MENU_ITEM:
+      return {
+        ...state,
+        menuItems: action.payload,
+      };
+
     case DELETE_CAT:
 
       return {
         ...state, catItem: state.catItem.filter((data) => data.catId !== action.payload)
+      }
+    case DELETE_MENU_ITEM:
+
+      return {
+        ...state, menuItems: state.menuItems.filter((data) => data.itemId !== action.payload)
       }
     case DELETE_CUSTOMER_GROUP:
       return {
@@ -225,6 +244,11 @@ function postReducer(state = initialState, action) {
         ...state,
         paymentItem: action.payload,
       };
+    case ADD_QR_MENU:
+      return {
+        ...state,
+        QRMenu: action.payload
+      }
 
 
 
@@ -358,6 +382,12 @@ function postReducer(state = initialState, action) {
         ...state, roleData: state.roleData.filter((data) => data.roleId !== action.payload)
       }
 
+    case DELETE_QR_MENU:
+
+      return {
+        ...state, QRMenu: state.QRMenu.filter((data) => data.groupId !== action.payload)
+      }
+
     case ADD_CUSTOMER:
       return {
         ...state,
@@ -372,6 +402,11 @@ function postReducer(state = initialState, action) {
 
       return {
         ...state, customerData: state.customerData.filter((data) => data.customerId !== action.payload)
+      }
+
+    case SAVE_MENU_GROUP:
+      return {
+        ...state, menuName: action.payload
       }
     default:
       return state;

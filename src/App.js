@@ -8,12 +8,13 @@ import Accounting from "./components/main/Accounting";
 import Digital from "./components/main/Digital";
 import Login from "./components/main/Login";
 import Hm from "./components/main/Hm";
+import MenuSummary from "./components/menuSummary/MenuSummary";
 
 
 function App() {
   return (
     <div>
-      
+
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Login}></Route>
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/Accounting" component={Accounting} />
           <Route exact path="/Digital" component={Digital} />
           <Route exact path="/Home" component={Hm} />
+          <Route exact path="/MenuSummary" component={MenuSummary} />
         </Switch>
       </Router>
     </div>

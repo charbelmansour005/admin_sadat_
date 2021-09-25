@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { itemAdd, itemRemove, itemAddOn, modifier } from '../../../data/modules'
 import { addModifier, removeModifier, addOnModifier, clearAddMod, clearRemoveMod, clearAddOnMod, addMandModifier, clearMandModifier } from "../../../redux/actions";
 import { v4 as uuidv4 } from 'uuid';
+import Draggable from 'react-draggable'
 const ModalItem = ({
   m,
   mod,
@@ -51,6 +52,7 @@ const ModalItem = ({
   const [isMandMod1, setIsMand1] = useState('')
   const [isMandMod2, setIsMand2] = useState('')
   const [isMandMod3, setIsMand3] = useState('')
+  const employee = require('../../../models/Employee')
 
   const dispatch = useDispatch();
   const { salesItems, ItemAdd, ItemRemove, ItemAddOn, modifiers } = useSelector(
@@ -177,8 +179,43 @@ const ModalItem = ({
     document.getElementById("add-item-form").reset();
     toggleClose()
   }
+  let postAll = (e) => {
+
+    handleSubmit(e, name, uuidv4(), menuDesc, kitchenDesc, price, price2, price3, price4, func, group, otherDesc, pdaDesc, comments, branch, print1, print2, print3, ItemAdd, ItemRemove, ItemAddOn, modifiers, creationDate, modDate)
+    postItem()
+  }
+  let postItem = () => {
+
+    const apiUrl = "http://localhost:5000/api/sendEmp"
+    var emp = Object.create(employee)
+
+    emp.mode = "w"
+    emp.empcode = "071"
+    emp.empname = "anyone"
+    emp.empadd = "anyaddress"
+    emp.empphone = "456446"
+    emp.empsalary = "676535"
+    emp.search = ""
+
+    fetch(apiUrl, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(emp)
+    }).then((res) => res.json()).then((resJson) => {
+      console.log(resJson)
+
+    })
+
+  }
+
+
 
   return (
+
     <div
       style={mod ? mountedStyle : unmountedStyle}
       className="modal-item-wrapper"
@@ -189,32 +226,7 @@ const ModalItem = ({
           className="modal-item-form"
           type="submit"
           onSubmit={(e) =>
-            handleSubmit(
-              e,
-              name,
-              uuidv4(),
-              menuDesc,
-              kitchenDesc,
-              price,
-              price2,
-              price3,
-              price4,
-              func,
-              group,
-              otherDesc,
-              pdaDesc,
-              comments,
-              branch,
-              print1,
-              print2,
-              print3,
-              ItemAdd,
-              ItemRemove,
-              ItemAddOn,
-              modifiers,
-              creationDate,
-              modDate
-            )
+            postAll(e)
           }
         >
           <div className="modal-item-header">
@@ -693,6 +705,7 @@ const ModalItem = ({
         </form>
       </div>
     </div>
+    // </Draggable>
   );
 };
 

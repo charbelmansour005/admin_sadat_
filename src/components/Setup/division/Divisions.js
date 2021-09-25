@@ -233,6 +233,7 @@ const Divisions = () => {
       lastModificationDate: modificationDate,
     };
     divisionItems.push(newItem);
+    console.log(divisionItems)
     setTData(divisionItems)
 
     toggleModal();
@@ -275,7 +276,7 @@ const Divisions = () => {
   };
   // width: "100%", height: "100%"
   return (
-    <div id="App" style={{  }}>
+    <div id="App" style={{}}>
       <h1 className="division-title">Divisions</h1>
       <div className="division-box">
         <div className="division-search-box">

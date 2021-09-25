@@ -5,6 +5,7 @@ export const ADD_PAYMENT = "ADD_PAYMENT";
 export const ADD_VOID = "ADD_VOID";
 export const ADD_CURRENCY = "ADD_CURRENCY";
 export const ADD_ITEMS = "ADD_ITEMS";
+export const ADD_QR_MENU = "ADD_QR_MENU"
 export const ADD_GROUPS = "ADD_GROUPS";
 export const ADD_DIVISION = "ADD_DIVISION";
 export const DELETE_CAT = "DELETE_CAT"
@@ -53,8 +54,10 @@ export const CLEAR_EMP_SCHEDULE = "CLEAR_EMP_SCHEDULE"
 export const ADD_CUSTOMER_GROUP = "ADD_CUSTOMER_GROUP"
 export const DELETE_CUSTOMER_GROUP = "DELETE_CUSTOMER_GROUP"
 export const DELETE_CUSTOMER_CATEGORY = "DELETE_CUSTOMER_CATEGORY"
-
-
+export const DELETE_QR_MENU = "DELETE_QR_MENU";
+export const ADD_MENU_ITEM = "ADD_MENU_ITEM"
+export const DELETE_MENU_ITEM = "DELETE_MENU_ITEM"
+export const SAVE_MENU_GROUP = "SAVE_MENU_GROUP"
 
 const tabledata = [
 
@@ -86,6 +89,12 @@ const roleData = [
 
 ]
 const customerData = [
+
+]
+const qrMenu = [
+
+]
+const menuItem = [
 
 ]
 
@@ -290,6 +299,30 @@ export const addPayment = () => {
         console.log(error);
     }
 };
+export const addQrMenu = () => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: ADD_QR_MENU,
+                payload: qrMenu
+            })
+        };
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const addMenuItem = () => {
+    try {
+        return async (dispatch) => {
+            dispatch({
+                type: ADD_MENU_ITEM,
+                payload: menuItem
+            })
+        };
+    } catch (error) {
+        console.log(error);
+    }
+};
 export const addVoid = () => {
     try {
         return async (dispatch) => {
@@ -328,7 +361,18 @@ export const deleteVoid = (id) => {
         console.log(error)
     }
 }
-
+export const deleteMenuItem = (id) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_MENU_ITEM,
+                payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const addCurrency = () => {
     try {
         return async (dispatch) => {
@@ -458,6 +502,18 @@ export const deleteGroups = (id) => {
         return async dispatch => {
             dispatch({
                 type: DELETE_GROUPS,
+                payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const deleteQrMenu = (id) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: DELETE_QR_MENU,
                 payload: id
             })
         }
@@ -745,6 +801,20 @@ export const deleteCustomer = (id) => {
             dispatch({
                 type: DELETE_CUSTOMER,
                 payload: id
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const saveMenuGroup = (menu) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: SAVE_MENU_GROUP,
+                payload: menu
             })
         }
     } catch (error) {

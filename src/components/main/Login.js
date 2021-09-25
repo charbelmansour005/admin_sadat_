@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { useHistory } from "react-router-dom";
 import "../../styles/Login.css";
-
+import axios from "axios";
+import { Cookies } from 'react-cookie';
 const Login = () => {
   const [companyID, setCompanyID] = useState("");
   const [username, setUsername] = useState("");
@@ -10,10 +11,12 @@ const Login = () => {
   const [visible, setVisible] = useState(false);
   const [first, setFirst] = useState(true);
   const [wrongInfo, setWrongInfo] = useState(false);
+  axios.defaults.withCredentials = true;
   let history = useHistory();
   const signinHandler = (event) => {
     event.preventDefault();
     if (companyID === "1" && username === "m" && password === "m") {
+      checkSession()
       history.push("/Home");
     } else {
       document.getElementById("wrong").style.visibility = "visible";
@@ -29,7 +32,49 @@ const Login = () => {
     setVisible((prev) => !prev);
     setFirst((prev) => (prev ? false : false));
   };
-  const resetPassword = () => {};
+  const resetPassword = () => { };
+
+
+
+
+  let checkSession = () => {
+    const cookie = new Cookies();
+    let emp = {
+      "username": "charbel",
+      "password": "charbel"
+    }
+    axios.post("http://localhost:3001/api/Login", emp).then((response) => {
+      console.log(response)
+      var id = cookie.get('connect.sid')
+      if (id !== null) {
+        console.log(id);
+        console.log("user login successfull")
+      }
+      else {
+        console.log("user failed")
+      }
+    })
+  }
+
+
+  useEffect(() => {
+    // const cookie = new Cookies();
+    // console.log(cookie.get('connect.sid'));
+    // let emp = {
+    //   "username": "charbel",
+    //   "password": "charbel"
+    // }
+    // axios.post("http://localhost:3001/api/Login", emp).then((response) => {
+    //   console.log(response)
+    // })
+    // axios.get("http://localhost:3001/api/Login").then((response) => {
+    //   if (response.data.loggedIn === true) {
+    //     console.log(response)
+
+    //   }
+    // })
+
+  }, []);
 
   return (
     <div className="login-body">

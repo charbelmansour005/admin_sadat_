@@ -7,6 +7,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PersonIcon from "@material-ui/icons/Person";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import Currency from "../Setup/currency/Currency";
 import Categories from "../Setup/category/Categories";
@@ -22,7 +23,9 @@ import Roles from "../Employees/Roles/Roles";
 import EmployeeSchedule from "../Employees/EmpSchedules/EmployeeSchedule";
 import CustomerCategory from "../Customers/CustomerCategory/CustomerCategory";
 import Dashboard from "../BackOffice/Dashboard";
-
+import axios from "axios";
+import Digital from "../DigitalMenu/Digital";
+import { Router } from "@material-ui/icons";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -31,6 +34,8 @@ function getWindowDimensions() {
     height,
   };
 }
+
+
 
 function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState(
@@ -68,39 +73,119 @@ const Hm = () => {
   const [index12, setIndex12] = useState(false);
   const [index13, setIndex13] = useState(false);
   const [index14, setIndex14] = useState(false);
+  const [openUser, setUser] = useState(false)
 
   useEffect(() => {
     setIndex01(true)
     setIndex11(true)
     return () => { };
   }, []);
+
+  const changeArrow = () => {
+    if (openUser === false) {
+      setUser(true)
+    }
+    else {
+      setUser(false)
+    }
+  }
+  let logout = () => {
+    axios.get("http://localhost:3001/api/logout").then((response) => {
+      if (response) {
+        console.log(response)
+        history.push("http://localhost:3000/")
+      }
+    })
+
+    axios.get("http://localhost:3001/api/login").then((response) => {
+      if (response) {
+        console.log(response)
+      }
+    })
+  }
   return (
     <HashRouter history={history}>
       <div className="cont">
         <div className="top-bar">
           <div className="icons">
-            <div  style={{ minWidth: 35, height: 25 }}>
+            <div style={{ minWidth: 35, height: 25 }}>
               <HomeIcon />
             </div>
-            <div  style={{ minWidth: 35, height: 25 }}>
+            <div style={{ minWidth: 35, height: 25 }}>
               <NotificationsIcon />
             </div>
-            <div  style={{ minWidth: 35, height: 25 }}>
+            <div style={{ minWidth: 35, height: 25 }}>
               <SettingsIcon />
             </div>
-            <div  style={{ minWidth: 35, height: 25 }}>
+            <div onClick={() => logout()} style={{ minWidth: 35, height: 25 }}>
               <PersonIcon />
             </div>
 
-            <div className="user-holder">
+            <div onClick={() => changeArrow()} className="user-holder">
               User
               <div style={{ minWidth: 35, height: 25 }}>
-                <ArrowDropDownIcon />
+                {
+                  openUser ? <ArrowDropUp /> : <ArrowDropDownIcon />
+                }
+
               </div>
             </div>
+
+
           </div>
         </div>
-   
+
+
+        {/* 
+        {
+          openUser ? <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', width: '85%', margin: 5, position: 'fixed', marginTop: 70, marginLeft: 10 }}>
+            <div style={openUser ? slideOpen : slideClosed}>
+
+              <div className="user-dropdown"  >
+
+                <div className="user-sub-dropdown" onClick={() => alert("Logout")}>
+                  <label>
+                    Profile
+                  </label>
+                </div>
+                <div className="user-sub-dropdown" style={{ marginTop: 5 }}>
+                  <label>
+                    Change Password
+                  </label>
+                </div>
+                <div className="user-sub-dropdown" style={{ marginTop: 5 }}>
+                  <label>
+                    Settings
+                  </label>
+                </div>
+                <div className="user-sub-dropdown" style={{ marginTop: 5 }}>
+                  <label>
+                    Logout
+                  </label>
+                </div>
+                <div className="user-sub-dropdown" style={{ marginTop: 5 }}>
+                  <label>
+                    Logout
+                  </label>
+                </div>
+                <div className="user-sub-dropdown" style={{ marginTop: 5 }}>
+                  <label>
+                    Logout
+                  </label>
+                </div>
+                <div className="user-sub-dropdown" style={{ marginTop: 5 }}>
+                  <label>
+                    Logout
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div> : null
+        }
+ */}
+
+
         <div className="hm">
           <div className="side-bar" >
             <div className="index">
@@ -293,26 +378,20 @@ const Hm = () => {
               </div>
             </div>
             <div className="index">
-              <div
+              <Link to="/DigitalMenu" style={{ textDecoration: 'none', color: "black" }} ><div
                 onClick={() => {
                   setIndex05((prev) => !prev);
                 }}
-                className="index0"
-              >
+                className="index0">
+
                 Digital Menu <ArrowRightIcon style={index05 ? open : closed} />
-              </div>
-              <div className="index1" style={index05 ? slideOpen : slideClosed}>
-                Journal Voucher
-              </div>
-              <div className="index1" style={index05 ? slideOpen : slideClosed}>
-                Receipt Voucher
-              </div>
-              <div className="index1" style={index05 ? slideOpen : slideClosed}>
-                Payment Voucher
-              </div>
+              </div></Link>
+
+
             </div>
           </div>
-          <div style={{ display: "flex" }}>
+
+          <div onClick={() => setUser(false)} style={{ display: "flex" }}>
             <Switch>
               <Route path="/SalesItem" component={SalesItem} />
               <Route path="/Categories" component={Categories} />
@@ -328,8 +407,10 @@ const Hm = () => {
               <Route path="/Roles" component={Roles} />
               <Route path="/Schedule" component={EmployeeSchedule} />
               <Route exact path="/" component={Dashboard} />
+              <Route path="/DigitalMenu" component={Digital} />
             </Switch>
           </div>
+
         </div>
       </div>
     </HashRouter>
