@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../styles/Digital.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { v4 as uuidv4 } from 'uuid';
-import Axios from 'axios';
+import axios from 'axios';
 import Draggable from 'react-draggable'
 
 const ModalMenu = ({
@@ -20,8 +20,9 @@ const ModalMenu = ({
     const [menuDesc, setMenuDesc] = useState("");
     const [enDesc, setEnDescription] = useState("");
     const [sorting, setSorting] = useState("");
-    const [imageSelected, setImageSelected] = useState('')
-
+    const [imageSelected, setImageSelected] = useState(null)
+    const [file, setFile] = useState(null);
+    axios.defaults.withCredentials = true;
 
     useEffect(() => {
 
@@ -38,17 +39,32 @@ const ModalMenu = ({
 
     }
 
+    const handleChange = (event) => {
+        setImageSelected(event.target.files[0])
+        setFile(URL.createObjectURL(event.target.files[0]))
+    }
+
 
     const uploadImage = () => {
         const formData = new FormData();
 
         formData.append("file", imageSelected)
-        formData.append("upload_preset", "xw4yrog1")
-        Axios.post("http://192.34.109.55/BackEnd/images/", formData)
+        //formData.append("upload_preset", "xw4yrog1")
+        // http://192.34.109.55/BackEnd/images/
+        // axios.post("http://localhost:5000/upload", formData, {
 
-            .then((response) => {
-                console.log(response)
-            })
+        // })
+        //     .then((response) => {
+        //         console.log(response)
+        //     })
+
+        fetch("http://localhost:5000/upload", {
+            mode: "cors",
+            method: "POST",
+            body: formData
+        }).then((response) => {
+            console.log(response)
+        })
     }
 
     return (
@@ -134,12 +150,18 @@ const ModalMenu = ({
                         />
                     </div>
                 </form>
+                {/* setImageSelected(event.target.files[0]) */}
                 <div className="modal-item-Digital-desc">
-                    <input accept="image/*" type="file" onChange={(event) => setImageSelected(event.target.files[0])}  ></input>
+                    <input name="file" type="file" onChange={handleChange}></input>
                 </div>
                 <div className="modal-item-Digital-desc">
                     <button onClick={uploadImage}>Upload Image</button>
                 </div>
+                <div>
+                    <img width={100} height={100} src={file}></img>
+                </div>
+
+
             </div>
         </div>
         // </Draggable>

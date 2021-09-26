@@ -16,7 +16,7 @@ const Login = () => {
   const signinHandler = (event) => {
     event.preventDefault();
     if (companyID === "1" && username === "m" && password === "m") {
-      checkSession()
+      //checkSession()
       history.push("/Home");
     } else {
       document.getElementById("wrong").style.visibility = "visible";

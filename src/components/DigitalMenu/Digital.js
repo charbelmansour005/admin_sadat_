@@ -133,7 +133,7 @@ const Digital = () => {
         e.target.reset();
     };
     return (
-        <div id="App" style={{ height: "100%", display: 'flex' }}>
+        <div id="App" style={{ height: "100%" }}>
             <div>
                 <h1 className="item-Digital">Digital Menu</h1>
                 <div className="item-Digital-box">
@@ -197,7 +197,7 @@ const Digital = () => {
                                             groupId={groupId}
                                             handleDelete={handleDelete}
                                             handleEdit={handleEdit}
-                                            
+
                                         />
                                     </CSSTransition>
                                 )
@@ -208,14 +208,14 @@ const Digital = () => {
 
             </div>
 
-            <div>
+            <div style={{marginTop:10}}>
 
                 <DigitalMenuItem
                     groupName={menuName}
                 />
             </div>
 
-         
+
 
 
             {!first ? (

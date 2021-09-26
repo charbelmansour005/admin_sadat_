@@ -82,7 +82,7 @@
     border: 1px solid;
     border-color: var(--border);
     display: flex;
-     
+   
     border-bottom: none;
     flex-direction: column;
     user-select: none;
