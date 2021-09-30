@@ -4,7 +4,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import Draggable from 'react-draggable'
-
+import { useDispatch, useSelector } from "react-redux";
+import { getAllGroups } from '../../redux/actions'
+import Groups from "../../models/Groups";
 const ModalMenu = ({
     m,
     mod,
@@ -22,50 +24,79 @@ const ModalMenu = ({
     const [sorting, setSorting] = useState("");
     const [imageSelected, setImageSelected] = useState(null)
     const [file, setFile] = useState(null);
+    const [branch, setBranch] = useState('')
+    const { userInfo, groupCategory } = useSelector(
+        (state) => state.postReducer
+    );
+    var dispatch = useDispatch();
+    const getGroups = (item) => dispatch(getAllGroups(item));
     axios.defaults.withCredentials = true;
-
+    var db = require('../../global/globalfunctions')
     useEffect(() => {
-
+        console.log(userInfo)
     }, []);
-
 
     let resetForm = () => {
         document.getElementById("add-item-form").reset();
+        setFile(null)
         toggleClose()
     }
     let postAll = (e) => {
+        sendGroups();
+        uploadImage()
+        handleSubmit(e)
 
-        handleSubmit(e, uuidv4(), menuName, enName, menuDesc, enDesc, sorting)
 
     }
 
     const handleChange = (event) => {
         setImageSelected(event.target.files[0])
         setFile(URL.createObjectURL(event.target.files[0]))
+       
     }
 
 
-    const uploadImage = () => {
-        const formData = new FormData();
+    let uploadImage = () => {
+        if (imageSelected !== null) {
+            const formData = new FormData();
+            formData.append("file", imageSelected)
+            fetch("http://localhost:5000/upload", {
+                mode: "cors",
+                method: "POST",
+                body: formData
+            }).then((response) => {
+                console.log(response)
+            })
+        }
 
-        formData.append("file", imageSelected)
-        //formData.append("upload_preset", "xw4yrog1")
-        // http://192.34.109.55/BackEnd/images/
-        // axios.post("http://localhost:5000/upload", formData, {
-
-        // })
-        //     .then((response) => {
-        //         console.log(response)
-        //     })
-
-        fetch("http://localhost:5000/upload", {
-            mode: "cors",
+    }
+    let sendGroups = () => {
+        const apiUrl = "http://localhost:3002/api/DigitalMenu/sendGroup"
+        var group = Object.create(Groups)
+        group.mode = "w";
+        group.cusotmerid = userInfo.userid;
+        group.branchid = "1";
+        group.categoryid = "0";
+        group.nameEN = enName;
+        group.nameAR = enDesc;
+        group.descpt = menuDesc;
+        group.sort = sorting;
+        group.images = "";
+        group.search = ""   
+        fetch(apiUrl, {
             method: "POST",
-            body: formData
-        }).then((response) => {
-            console.log(response)
+            mode: "cors",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(group)
+        }).then((res) => res.json()).then((resJson) => {
+
         })
     }
+
+
 
     return (
 
@@ -79,8 +110,7 @@ const ModalMenu = ({
                     type="submit"
                     onSubmit={(e) =>
                         postAll(e)
-                    }
-                >
+                    }>
                     <div className="modal-item-Digital-header">
                         Add New Menu
                         <div onClick={() => resetForm()}>
@@ -88,17 +118,6 @@ const ModalMenu = ({
                         </div>
                     </div>
                     <div className="modal-item-Digital-body">
-
-                        <div className="modal-item-Digital-desc">
-                            Menu Name*
-                            <input
-                                id="desc"
-                                onChange={(e) => setMenuName(e.target.value)}
-                                required
-                                placeholder="Menu Name"
-                                className="modal-item-desc-input"
-                            />
-                        </div>
 
                         <div className="modal-item-Digital-desc">
                             EN Name*
@@ -119,7 +138,7 @@ const ModalMenu = ({
                             />
                         </div>
                         <div className="modal-item-Digital-desc">
-                            EN Description
+                            AR Name
                             <input
                                 onChange={(e) => setEnDescription(e.target.value)}
                                 placeholder="EN Description"
@@ -127,6 +146,7 @@ const ModalMenu = ({
                             />
 
                         </div>
+
 
                         <div className="modal-item-Digital-desc">
                             sorting
@@ -138,6 +158,43 @@ const ModalMenu = ({
                             />
 
                         </div>
+                        <div className="modal-item-Digital-desc">
+                            branch *
+                            <select
+                                onChange={(e) => setBranch(e.target.value)}
+                                required
+                                className="modal-item-function-input"
+                                defaultValue={""}
+                            >
+                                <option value="" disabled>
+                                    Select Branch
+                                </option>
+                                <option value="1">
+                                    kousba
+                                </option>
+                                <option value="Amioun">
+                                    Amioun
+                                </option>
+                                <option value="beirut">
+                                    beirut
+                                </option>
+                            </select>
+                        </div>
+                        <div className="item-right">
+                            <label className="item-file-input">
+                                Choose Image
+                                <input
+                                    name="file" type="file" accept="image/*" onChange={handleChange}
+                                />
+                            </label>
+                        </div>
+
+                        {
+                            file !== null ? <div style={{ display: 'flex', marginLeft: 10, marginTop: 10 }}>
+                                <img width={300} height={300} src={file}></img>
+                            </div> : null
+                        }
+
 
                         <div className="modal-spacer"></div>
 
@@ -150,18 +207,6 @@ const ModalMenu = ({
                         />
                     </div>
                 </form>
-                {/* setImageSelected(event.target.files[0]) */}
-                <div className="modal-item-Digital-desc">
-                    <input name="file" type="file" onChange={handleChange}></input>
-                </div>
-                <div className="modal-item-Digital-desc">
-                    <button onClick={uploadImage}>Upload Image</button>
-                </div>
-                <div>
-                    <img width={100} height={100} src={file}></img>
-                </div>
-
-
             </div>
         </div>
         // </Draggable>

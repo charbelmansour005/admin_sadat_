@@ -75,6 +75,7 @@ input::-webkit-inner-spin-button {
   width: 250px;
   height: 50px;
   padding: 10px;
+  border-bottom-color: transparent;
   text-overflow: clip;
   border-width: 0.5px;
   border-color: black;
@@ -88,17 +89,51 @@ input::-webkit-inner-spin-button {
   margin-bottom: 20px;
   transition: width 1s, border-width 2s, visibility 2s;
 }
-
+.password{
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+  border-bottom-color: transparent;
+  text-overflow: clip;
+  border-width: 0.5px;
+  border-color: black;
+  outline-width: 0;
+  border-style: solid;
+  border-radius: 10px;
+  align-self: center;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: "Ubuntu";
+  position: absolute;
+  margin-bottom: 20px;
+  transition: width 1s, border-width 2s, visibility 2s;
+}
 .username:focus {
   width: 300px;
   border-width: 2.5px;
 }
-
+.password:focus{
+  width: 300px;
+  border-width: 2.5px;
+}
+.icon{
+  display: flex;
+ align-self: flex-end;
+  width: 100%;
+  text-align: end;
+}
 .username:hover {
+  background-color: rgba(1, 139, 182, 0);
+}
+.password:hover{
   background-color: rgba(1, 139, 182, 0);
 }
 
 .username[l="1"] {
+  margin-top: 30px;
+  height: 35px;
+}
+.password[l="1"]{
   margin-top: 30px;
   height: 35px;
 }
@@ -109,6 +144,7 @@ input::-webkit-inner-spin-button {
   border-width: 0;
   outline-width: 0;
   border-radius: 30px;
+  margin-top: 10px;
   color: white;
   align-self: center;
   text-align: center;

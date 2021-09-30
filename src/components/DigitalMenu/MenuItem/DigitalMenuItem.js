@@ -12,7 +12,10 @@ import ModalMenuItem from "./ModalMenuItem";
 import ModalEditMenuItem from "./ModalEditMenuItem";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteMenuItem } from "../../../redux/actions";
-import { Switch, Route, Link, HashRouter } from "react-router-dom";
+import Menu from "../../../global/globalvars";
+import Items from "../../../models/Items";
+import Refresh from '@material-ui/icons/Refresh'
+import Loadingbar from "react-top-loading-bar";
 const DigitalMenuItem = ({ groupName }) => {
 
     const [tData, setTData] = useState([]);
@@ -20,23 +23,23 @@ const DigitalMenuItem = ({ groupName }) => {
     const [first, setFirst] = useState(true);
     const [currentItem, setCurrentItem] = useState({});
     const [modalEdit, setModalEdit] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [isLoad, setLoad] = useState(false)
 
-    // const [groupName, setGroupName] = useState('')
 
     const dispatch = useDispatch();
-    const { menuItems, QRMenu, menuName } = useSelector((state) => state.postReducer);
-    const deleteMenuItems = (id) => dispatch(deleteMenuItem(id));
-    const options = QRMenu.map(option =>
-        <option key={option.groupId} defaultValue={option.menuName}>{option.menuName}</option>
-    )
+    const { menuItems, QRMenu, menuName, userInfo } = useSelector((state) => state.postReducer);
 
+    const options = Menu.groupCategory.map(option =>
+        <option key={option.categoryid} defaultValue={option.nameEN}>{option.nameEN}</option>
+    )
 
 
     useEffect(() => {
 
-        setTData(menuItems)
-        console.log(menuItems)
-    }, [menuItems]);
+
+        setTData(Menu.groupItems)
+    }, [Menu.groupItems]);
     function toggleModal() {
         setModal((prev) => !prev);
         setFirst(false);
@@ -60,53 +63,41 @@ const DigitalMenuItem = ({ groupName }) => {
         let result = [];
 
         result = tData.filter((data) => {
-            return data.ItemName.toLowerCase().includes(value);
+            return data.nameEN[1].toLowerCase().includes(value);
         });
         setTData(result);
         if (value === '') {
-            setTData(menuItems)
+            setTData(Menu.groupItems)
         }
     }
     const handleSearchMenu = (event) => {
         let value = event.target.value.toLowerCase();
-
         let result = [];
-        let result1 = [];
-
-        result = menuItems.filter((data) => {
-            return data.groupId.toLowerCase().includes(value);
+        result = Menu.groupItems.filter((data) => {
+            return data.nameEN[0].toLowerCase().includes(value);
         });
         setTData(result);
 
         if (value === '') {
-            setTData(menuItems)
-            // result1 = menuItems.filter((data) => {
-            //     return data;
-            // })
-            // setTData(result1)
-
+            setTData(Menu.groupItems)
         }
     }
     const openInNewTab = (url) => {
         const newWindow = window.open(url, "_blank", "noopener,noreferrer");
         if (newWindow) newWindow.opener = null;
-        localStorage.setItem("menuItems",JSON.stringify(menuItems))
-        localStorage.setItem("QrMenu",JSON.stringify(QRMenu))
+        localStorage.setItem("menuItems", JSON.stringify(menuItems))
+        localStorage.setItem("menuGroup", JSON.stringify(Menu.groupCategory))
+        localStorage.setItem("menuItems", JSON.stringify(Menu.groupItems))
+        localStorage.setItem("customerId", userInfo.userid)
     };
 
     const handleDelete = (itemId) => {
-        menuItems.map((item) => {
-            if (item.itemId === itemId) {
-                deleteMenuItems(itemId);
-            }
-        });
-
-        setTData(menuItems)
+        deleteItem(itemId)
     };
     const handleEdit = (itemId) => {
 
-        menuItems.map((item) => {
-            if (item.itemId === itemId) {
+        Menu.groupItems.map((item) => {
+            if (item.itemid === itemId) {
                 setCurrentItem(item);
                 setModalEdit(true);
                 setModal(false);
@@ -114,48 +105,97 @@ const DigitalMenuItem = ({ groupName }) => {
             }
         });
     };
-    const handleModalSubmit = (
-        e,
-        itemId,
-        ItemName,
-        ItemPrice,
-        Ingredients,
-        groupId,
-
-
-    ) => {
+    const handleModalSubmit = (e,) => {
         e.preventDefault();
-        let newItem = {
-            itemId: itemId,
-            ItemName: ItemName,
-            ItemPrice: ItemPrice,
-            Ingredients: Ingredients,
-            groupId: groupId,
-
-
-        };
-
-        menuItems.push(newItem);
-        setTData(menuItems)
-        console.log(menuItems)
-
+        fetchAllItems()
         toggleModal();
         e.target.reset();
     };
+    const handleModalEdit = (e) => {
+        e.preventDefault();
+        fetchAllItems()
+
+    }
+    let fetchAllItems = () => {
+        setLoad(true)
+        setProgress(20)
+        const apiUrl = "http://localhost:3002/api/DigitalMenu/getAllItems"
+        var item = Object.create(Items)
+        item.mode = "R";
+        item.Itemid = "0";
+        item.cusotmerid = userInfo.userid;
+        item.branchid = "1";
+        item.categoryid = "0";
+        item.nameEN = "";
+        item.nameAR = "";
+        item.descpt = "";
+        item.sort = "";
+        item.prices = 0;
+        item.images = "";
+        item.search = "*"
+        fetch(apiUrl, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        }).then((res) => res.json()).then((resJson) => {
+            Menu.groupItems = resJson.data.Items.filter((item) => item.categoryid !== 0)
+            setTData(Menu.groupItems);
+            setProgress(100)
+            setLoad(false)
+        }).catch((error) => {
+            console.log(error)
+        })
+
+
+    }
+    let deleteItem = (Itemid) => {
+        const apiUrl = "http://localhost:3002/api/DigitalMenu/sendItem"
+        var item = Object.create(Items)
+        item.mode = "D";
+        item.Itemid = Itemid;
+        item.cusotmerid = userInfo.userid;
+        item.branchid = "1";
+        item.categoryid = "";
+        item.nameEN = "";
+        item.nameAR = "";
+        item.descpt = "";
+        item.sort = "";
+        item.prices = "";
+        item.images = "";
+        item.search = ""
+        fetch(apiUrl, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        }).then((res) => res.json()).then((resJson) => {
+            console.log(resJson)
+        })
+    }
     return (
         <div id="App" style={{ height: "100%", display: 'flex' }}>
+            {
+                isLoad ? <div>
+                    <Loadingbar transitionTime={300} shadow={true} height={4} onLoaderFinished={() => setProgress(0)} color="#ffb703" progress={progress}></Loadingbar>
+                </div> : null
+            }
             <div>
                 <div style={{ display: "flex", width: '100%' }}>
                     <div style={{ width: '50%' }}>
                         <h1 className="item-Digital">Menu Items</h1>
                     </div>
                     {
-                        menuItems.length > 0 ?
-
-
+                        Menu.groupItems.length > 0 ?
                             <div onClick={() =>
                                 openInNewTab("http://localhost:3000/MenuSummary")}
-                                style={{ width: '50%', justifyContent: 'flex-end', alignItems: "center", display: 'flex' }}>
+                                style={{ justifyContent: 'flex-end', alignItems: "center", display: 'flex', width: "50%" }}>
                                 <div className="item-Digital-menu">
                                     <MenuOpen
                                         style={{
@@ -167,7 +207,7 @@ const DigitalMenuItem = ({ groupName }) => {
                                             justifySelf: "center",
                                         }}
                                     />
-                                    <p style={{ marginLeft: 5 }}>Show Menu Summary</p>
+                                    <p style={{ marginLeft: 5 }}> Menu Summary</p>
                                 </div>
 
                             </div> : null
@@ -211,7 +251,19 @@ const DigitalMenuItem = ({ groupName }) => {
                             </select>
                         </div>
                         <div className="item-Digital-right">
-
+                            <div onClick={() => fetchAllItems()} className="item-Digital-add">
+                                <Refresh
+                                    style={{
+                                        marginLeft: "2px",
+                                        color: "white",
+                                        height: "25px",
+                                        width: "25px",
+                                        alignSelf: "center",
+                                        justifySelf: "center",
+                                    }}
+                                />
+                                <p>Refresh</p>
+                            </div>
                             <div onClick={() => toggleModal()} className="item-Digital-add">
                                 <AddIcon
                                     style={{
@@ -229,29 +281,32 @@ const DigitalMenuItem = ({ groupName }) => {
                     </div>
                     <div className="item-digital-table">
                         <HeaderMenuItem
-                            ItemName="ItemName"
-                            ItemPrice="ItemPrice"
-                            groupId="Group Name" />
-                            
+                            nameEN="ItemName"
+                            price="ItemPrice"
+                            categoryid="Group Name"
+                            sort="Sorting" />
 
-                        <TransitionGroup onClick={() => console.log(groupName)} id="tg" className="item-remove-digital-items">
+
+                        <TransitionGroup id="tg" className="item-remove-digital-items">
                             {tData.map(
                                 ({
-                                    itemId,
-                                    ItemName,
-                                    ItemPrice,
-                                    groupId
+                                    itemid,
+                                    nameEN,
+                                    price,
+                                    categoryid,
+                                    sort
 
                                 }) => (
                                     <CSSTransition
-                                        key={itemId}
+                                        key={itemid}
                                         timeout={500}
                                         classNames="item-trans">
                                         <TableMenuItem
-                                            ItemName={ItemName}
-                                            ItemPrice={ItemPrice}
-                                            itemId={itemId}
-                                            groupId={groupId}
+                                            nameEN={nameEN}
+                                            price={price}
+                                            itemid={itemid}
+                                            categoryid={categoryid}
+                                            sort={sort}
                                             handleDelete={handleDelete}
                                             handleEdit={handleEdit}
                                         />
@@ -290,6 +345,7 @@ const DigitalMenuItem = ({ groupName }) => {
                         unmountedStyle={unmountedStyle}
                         downStyle={downStyle}
                         upStyle={upStyle}
+                        handleSubmit={handleModalEdit}
                     />
                 ) : null
             }

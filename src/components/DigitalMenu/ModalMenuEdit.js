@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../styles/Digital.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
+import Menu from "../../global/globalvars";
+import Groups from "../../models/Groups";
 
 const ModalMenuEdit = ({
     mod,
@@ -11,6 +13,7 @@ const ModalMenuEdit = ({
     downStyle,
     upStyle,
     currentitem,
+    handleSubmit
 
 }) => {
     const [menuName, setMenuName] = useState("");
@@ -21,41 +24,31 @@ const ModalMenuEdit = ({
     const { QRMenu } = useSelector(
         (state) => state.postReducer
     );
-    let updateItem = (groupId) => {
-        if (QRMenu.length > 0) {
-            QRMenu.map((item) => {
-                if (item.groupId === groupId) {
 
-                    if (menuName === '') {
-                        item.menuName = currentitem.menuName
-                    }
-                    else {
-                        item.menuName = menuName
-                    }
+    var db = require('../../global/globalfunctions')
+    let updateItem = (groupId) => {
+        if (Menu.groupCategory.length > 0) {
+            Menu.groupCategory.map((item) => {
+                if (item.categoryid === groupId) {
                     if (enName === '') {
-                        item.enName = currentitem.enName
+                        item.nameEN = currentitem.nameEN
                     }
                     else {
-                        item.enName = enName
+                        item.nameEN = enName
                     }
 
                     if (menuDesc === '') {
-                        item.menuDesc = currentitem.menuDesc
+                        item.description = currentitem.description
                     }
                     else {
-                        item.menuDesc = menuDesc
+                        item.description = menuDesc
                     }
-                    if (enDesc === '') {
-                        item.enDesc = currentitem.enDesc
-                    }
-                    else {
-                        item.enDesc = enDesc
-                    }
+
                     if (sorting === '') {
-                        item.sorting = currentitem.sorting
+                        item.sort = currentitem.sort
                     }
                     else {
-                        item.sorting = sorting
+                        item.sort = sorting
                     }
                 }
             })
@@ -66,9 +59,58 @@ const ModalMenuEdit = ({
 
 
     }
+
     let resetForm = () => {
         document.getElementById("add-item-form").reset();
         toggleClose()
+    }
+
+    let updateAll = (e) => {
+        sendUpdatedGroup();
+        handleSubmit(e);
+        resetForm()
+    }
+    let sendUpdatedGroup = () => {
+        const apiUrl = "http://localhost:3002/api/DigitalMenu/sendGroup"
+        var group = Object.create(Groups)
+        group.mode = "w";
+        group.cusotmerid = currentitem.cusotmerid;
+        group.branchid = "1";
+
+        group.categoryid = currentitem.categoryid;
+        if (enName === "") {
+            group.nameEN = currentitem.nameEN
+        }
+        else {
+            group.nameEN = enName
+        }
+        group.nameAR = "";
+        if (menuDesc === "") {
+            group.descpt = currentitem.description
+        }
+        else {
+            group.descpt = menuDesc;
+        }
+        if (sorting === "") {
+            group.sort = currentitem.sort
+        }
+        else {
+            group.sort = sorting;
+        }
+
+        group.images = "";
+        group.search = ""
+        fetch(apiUrl, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(group)
+        }).then((res) => res.json()).then((resJson) => {
+            console.log(resJson)
+        })
     }
 
     useEffect(() => {
@@ -81,6 +123,7 @@ const ModalMenuEdit = ({
                 <form
                     id="add-item-form"
                     className="modal-item-form"
+                    onSubmit={(e)=>updateAll(e)}
                     type="submit">
                     <div className="modal-item-Digital-header">
                         Add New Menu
@@ -90,22 +133,12 @@ const ModalMenuEdit = ({
                     </div>
                     <div className="modal-item-Digital-body">
 
-                        <div className="modal-item-Digital-desc">
-                            Menu Name*
-                            <input
-                                id="desc"
-                                defaultValue={currentitem.menuName}
-                                onChange={(e) => setMenuName(e.target.value)}
-                                required
-                                placeholder="Menu Name"
-                                className="modal-item-desc-input"
-                            />
-                        </div>
+                      
 
                         <div className="modal-item-Digital-desc">
                             EN Name*
                             <input
-                                defaultValue={currentitem.enName}
+                                defaultValue={currentitem.nameEN}
                                 onChange={(e) => setEnName(e.target.value)}
                                 required
                                 placeholder="EN Name"
@@ -116,16 +149,16 @@ const ModalMenuEdit = ({
                         <div className="modal-item-Digital-desc">
                             Menu Description
                             <input
-                                defaultValue={currentitem.menuDesc}
+                                defaultValue={currentitem.description}
                                 onChange={(e) => setMenuDesc(e.target.value)}
                                 placeholder="Menu description"
                                 className="modal-item-desc-Digital-input"
                             />
                         </div>
                         <div className="modal-item-Digital-desc">
-                            EN Description
+                            AR Name
                             <input
-                                defaultValue={currentitem.enDesc}
+                                // defaultValue={currentitem.enDesc}
                                 onChange={(e) => setEnDescription(e.target.value)}
                                 placeholder="EN Description"
                                 className="modal-item-desc-Digital-input"
@@ -136,7 +169,7 @@ const ModalMenuEdit = ({
                         <div className="modal-item-Digital-desc">
                             sorting
                             <input
-                                defaultValue={currentitem.sorting}
+                                defaultValue={currentitem.sort}
                                 type="number"
                                 onChange={(e) => setSorting(e.target.value)}
                                 placeholder="sorting"
@@ -153,7 +186,6 @@ const ModalMenuEdit = ({
                         <input
                             type="submit"
                             value="Edit"
-                            onClick={() => updateItem(currentitem.groupId)}
                             className="modal-item-save"
                         />
                     </div>

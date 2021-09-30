@@ -25,35 +25,14 @@ import CustomerCategory from "../Customers/CustomerCategory/CustomerCategory";
 import Dashboard from "../BackOffice/Dashboard";
 import axios from "axios";
 import Digital from "../DigitalMenu/Digital";
-import { Router } from "@material-ui/icons";
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
 
 
 
-function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  );
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  return windowDimensions;
-}
 const Hm = () => {
+
   const closed = { animation: "closeAnimation 300ms ease-in" };
   const open = {
     animation: "openAnimation 300ms ease-in ",
@@ -78,6 +57,7 @@ const Hm = () => {
   useEffect(() => {
     setIndex01(true)
     setIndex11(true)
+
     return () => { };
   }, []);
 

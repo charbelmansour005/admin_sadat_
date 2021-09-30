@@ -1,3 +1,4 @@
+import Groups from "../models/Groups";
 
 
 export const EDIT_CAT = "EDIT-CAT";
@@ -58,6 +59,9 @@ export const DELETE_QR_MENU = "DELETE_QR_MENU";
 export const ADD_MENU_ITEM = "ADD_MENU_ITEM"
 export const DELETE_MENU_ITEM = "DELETE_MENU_ITEM"
 export const SAVE_MENU_GROUP = "SAVE_MENU_GROUP"
+export const SAVE_USER_INFO = "SAVE_USER_INFO"
+export const GET_ALL_GROUPS = "GET_ALL_GROUPS"
+export const GET_ALL_GROUP_ITEMS = "GET_ALL_GROUP_ITEMS"
 
 const tabledata = [
 
@@ -111,6 +115,8 @@ export const catPost = () => {
         console.log(error);
     }
 };
+
+
 
 
 export const importItemData = (item) => {
@@ -818,6 +824,45 @@ export const saveMenuGroup = (menu) => {
             })
         }
     } catch (error) {
+        console.log(error)
+    }
+}
+
+export const saveUserInfo = (user) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: SAVE_USER_INFO,
+                payload: user
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getAllGroups = (item) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: GET_ALL_GROUPS,
+                payload: item
+            })
+        };
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const getAllGroupItems = (item) => {
+    try {
+        return async dispatch => {
+            dispatch({
+                type: GET_ALL_GROUP_ITEMS,
+                payload: item
+            })
+        }
+    }
+    catch (error) {
         console.log(error)
     }
 }

@@ -4,17 +4,27 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 const HeaderDigital = ({
-    Description
+    nameEN,
+    sort
 }) => {
     return (
         <div className="item-head-Digital-holder">
-            <div id={"" + Description} className="item-Digital-holder">
+            <div id={"" + nameEN} className="item-Digital-holder">
                 <div className="item-head-Digital-name">
                     <div>
-                        {Description}
+                        {nameEN}
                     </div>
                 </div>
 
+
+
+            </div>
+            <div id={"" + sort} className="item-Digital-holder">
+                <div className="item-head-Digital-name">
+                    <div>
+                        {sort}
+                    </div>
+                </div>
 
 
 

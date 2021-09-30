@@ -57,7 +57,10 @@ import {
   DELETE_QR_MENU,
   ADD_MENU_ITEM,
   DELETE_MENU_ITEM,
-  SAVE_MENU_GROUP
+  SAVE_MENU_GROUP,
+  SAVE_USER_INFO,
+  GET_ALL_GROUPS,
+  GET_ALL_GROUP_ITEMS
 
 } from "./actions";
 
@@ -83,10 +86,10 @@ const initialState = {
   customerCategory: [],
   QRMenu: [],
   menuItems: [],
-  menuName: ''
-
-
-
+  menuName: '',
+  userInfo: {},
+  groupCategory: [],
+  GroupItems: []
 };
 
 function postReducer(state = initialState, action) {
@@ -407,6 +410,20 @@ function postReducer(state = initialState, action) {
     case SAVE_MENU_GROUP:
       return {
         ...state, menuName: action.payload
+      }
+
+    case SAVE_USER_INFO:
+      return {
+        ...state, userInfo: action.payload
+      }
+
+    case GET_ALL_GROUPS:
+      return {
+        ...state, groupCategory: action.payload
+      }
+    case GET_ALL_GROUP_ITEMS:
+      return {
+        ...state, GroupItems: action.payload
       }
     default:
       return state;

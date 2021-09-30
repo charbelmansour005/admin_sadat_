@@ -4,33 +4,37 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../styles/Digital.css";
 
 const TableMenuItem = ({
-    itemId,
-    ItemName,
-    ItemPrice,
-    groupId,
+    itemid,
+    nameEN,
+    price,
+    categoryid,
+    sort,
     handleDelete,
     handleEdit,
 }) => {
     return (
         <div className="item-table-Digital-holder">
-            <div id={"" + ItemName} className="item-Digital-holder">
-                <div className="item-Digital-name">{ItemName}</div>
+            <div id={"" + nameEN} className="item-Digital-holder">
+                <div className="item-Digital-name">{nameEN[1]}</div>
             </div>
-            <div id={"" + ItemPrice} className="item-Digital-holder">
-                <div className="item-Digital-name">{ItemPrice}</div>
+            <div id={"" + price} className="item-Digital-holder">
+                <div className="item-Digital-name">{price}</div>
             </div>
-            <div id={"" + groupId} className="item-Digital-holder">
-                <div className="item-Digital-name">{groupId}</div>
+            <div id={"" + categoryid} className="item-Digital-holder">
+                <div className="item-Digital-name">{nameEN[0]}</div>
+            </div>
+            <div id={"" + sort} className="item-Digital-holder">
+                <div className="item-Digital-name">{sort}</div>
             </div>
             <div className="item-Digital-group1">
                 <div>
-                    <CreateIcon onClick={() => handleEdit(itemId)} className="item-modify-Digital-icon" />
+                    <CreateIcon onClick={() => handleEdit(itemid)} className="item-modify-Digital-icon" />
                 </div>
             </div>
             <div className="item-Digital-group1">
                 <div>
                     <DeleteIcon
-                        onClick={() => handleDelete(itemId)}
+                        onClick={() => handleDelete(itemid)}
                         className="item-delete-Digital-icon"
                     />
                 </div>

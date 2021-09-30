@@ -4,6 +4,14 @@ import { useHistory } from "react-router-dom";
 import "../../styles/Login.css";
 import axios from "axios";
 import { Cookies } from 'react-cookie';
+import User from "../../models/User";
+import { useDispatch, useSelector } from "react-redux";
+import { saveUserInfo, getAllGroups, getAllGroupItems } from "../../redux/actions";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
+
 const Login = () => {
   const [companyID, setCompanyID] = useState("");
   const [username, setUsername] = useState("");
@@ -11,17 +19,28 @@ const Login = () => {
   const [visible, setVisible] = useState(false);
   const [first, setFirst] = useState(true);
   const [wrongInfo, setWrongInfo] = useState(false);
+  const [values, setValues] = React.useState({
+    password: "",
+    showPassword: false
+  })
+  const dispatch = useDispatch();
   axios.defaults.withCredentials = true;
+  const saveUser = (user) => dispatch(saveUserInfo(user));
+  const getGroups = (item) => dispatch(getAllGroups(item));
+  const getItems = (item) => dispatch(getAllGroupItems(item));
+  const { userInfo } = useSelector(
+    (state) => state.postReducer
+  );
+  var db = require('../../global/globalfunctions')
+
+
+
   let history = useHistory();
   const signinHandler = (event) => {
     event.preventDefault();
-    if (companyID === "1" && username === "m" && password === "m") {
-      //checkSession()
-      history.push("/Home");
-    } else {
-      document.getElementById("wrong").style.visibility = "visible";
-      setWrongInfo((prev) => (prev === false ? true : prev));
-    }
+    getLoginInfo()
+    resetForm()
+
   };
   const mountedStyle = { animation: "inAnimation 500ms ease-in" };
   const unmountedStyle = {
@@ -31,11 +50,47 @@ const Login = () => {
   const forgotHandler = () => {
     setVisible((prev) => !prev);
     setFirst((prev) => (prev ? false : false));
+    console.log(userInfo)
   };
   const resetPassword = () => { };
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
+  const handlePasswordChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
+  let getLoginInfo = () => {
+    const apiUrl = "http://localhost:3002/api/DigitalMenu/getUserInfo"
+    var user = Object.create(User)
+    user.username = username
+    user.userpassword = values.password
+    fetch(apiUrl, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    }).then((res) => res.json()).then((resJson) => {
 
+      if (resJson.Status === "Success") {
+        saveUser(resJson.data.Users[0]);
+        db.fetchAllGroups(resJson.data.Users[0].userid)
+        db.fetchAllItems(resJson.data.Users[0].userid)
+        history.push("/Home")
+      }
+      else {
+        alert(resJson.message)
+      }
+    })
+
+  }
 
   let checkSession = () => {
     const cookie = new Cookies();
@@ -55,26 +110,10 @@ const Login = () => {
       }
     })
   }
-
-
-  useEffect(() => {
-    // const cookie = new Cookies();
-    // console.log(cookie.get('connect.sid'));
-    // let emp = {
-    //   "username": "charbel",
-    //   "password": "charbel"
-    // }
-    // axios.post("http://localhost:3001/api/Login", emp).then((response) => {
-    //   console.log(response)
-    // })
-    // axios.get("http://localhost:3001/api/Login").then((response) => {
-    //   if (response.data.loggedIn === true) {
-    //     console.log(response)
-
-    //   }
-    // })
-
-  }, []);
+  let resetForm = () => {
+    document.getElementById('login-form').reset();
+  }
+  useEffect(() => { }, []);
 
   return (
     <div className="login-body">
@@ -94,7 +133,7 @@ const Login = () => {
         >
           Company ID, username or password incorrect
         </span>
-        <form type="submit" className="login" onSubmit={signinHandler}>
+        <form type="submit" id="login-form" className="login" onSubmit={signinHandler}>
           <input
             onChange={(event) => {
               setCompanyID(event.target.value);
@@ -113,15 +152,26 @@ const Login = () => {
             type="text"
             className="username"
           />
-          <input
-            required
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
-            placeholder="Password"
-            type="password"
-            className="username"
-          />
+          <div >
+            <input
+              required
+              // onChange={(event) => {
+              //   setPassword(event.target.value);
+              // }}
+              onChange={handlePasswordChange("password")}
+
+              placeholder="Password"
+              className="password"
+              type={values.showPassword ? "text" : "password"}
+            />
+            <IconButton
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {values.showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </div>
+
           <input type="submit" value="Sign In" className="submit-button" />
           {!visible ? (
             <span className="forgot" onClick={forgotHandler}>

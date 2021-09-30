@@ -42,6 +42,7 @@
     "react-tabs": "^3.2.2",
     "react-top-loading-bar": "^2.0.1",
     "react-transition-group": "^4.4.2",
+    "reactstrap": "^8.10.0",
     "recharts": "^2.1.2",
     "redux": "^4.1.1",
     "redux-thunk": "github:reduxjs/redux-thunk#master",

@@ -1,0 +1,134 @@
+.menuAll{
+    padding:20px auto;
+}
+.addCustomization{
+    height:400px;
+    color:#fff;
+    width:70vw;
+    background-image: linear-gradient(to right, #ff652f , #d93800);
+    z-index: 600;
+    top:0;
+    left:0;
+    position: absolute;
+}
+.xyz{
+    float:left;
+}
+.CustomizationHeader{
+    font-size:140%;
+}
+input[select]{
+    background-color: aqua;
+
+}
+.addCustomization button{
+    margin:10px 10px;
+    padding:5px 15px;
+    border-radius: 200px;
+}
+.cross{
+    font-size: 140%;
+    color:#fff;
+    float: right;
+    cursor: pointer;
+    transition: ease 0.4s all;
+    margin:0 10px;
+    position:absolute;
+}
+.cross:hover{
+    padding:4px 3px;
+    font-size: 150%;
+    box-shadow: 0 10px 10px #d93800;
+
+}
+
+.menu-section hr {
+	margin: 0 auto;
+}
+.menu-section {
+    margin: 0 20px 80px;
+   
+}
+ .menu-section-title {
+	font-size: 25px;
+	display: inline-block;
+	font-weight: 400;
+	color: #444;
+	margin: 20px 0;
+    margin-left: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    border-bottom:2px solid #ff652f;
+}
+ .menu-item {
+	margin: 17px 0;
+    font-size: 18px;
+
+    margin-right: 50px;
+  
+}
+ .menu-item-name {
+	font-weight: 400;
+	font-size: 20px;
+	color: #444;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.menu-item-description {
+	font-size: 15px;
+    width: 85%;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    color: grey;
+    margin-top: -10px;
+}
+ .menu-item-price {
+	float: right;
+
+	font-weight: 400;
+	color: #555;
+	margin-top: -36px;
+}
+.menu-group{
+    
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+    font-size: 20px;
+    color: darkgray;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    
+}
+
+.nav-item{
+   list-style-type: none;
+}
+
+.menu-group:hover{
+color: black;
+}
+.menu-cat{
+    margin-top: -55px;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-around;
+}
+@media screen and (max-width:660px){
+    .menu-cat{
+        flex-direction: column;
+        align-items: flex-end;     
+        justify-content: space-around;
+      
+    }
+    .menu-group{
+        margin-right: 10px;       
+        margin-top: 20px;
+        display: flex;
+      
+    }
+}

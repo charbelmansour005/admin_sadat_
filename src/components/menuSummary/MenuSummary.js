@@ -2,51 +2,33 @@
 import { useState, useEffect } from "react";
 import "../../App.css";
 import "../../styles/menuSummary.css"
-import { useDispatch, useSelector } from "react-redux";
-import { Nav, NavLink, Bars, Bars1, NavMenu, NavBtn, NavBtnLink } from './NavBarElements'
-import Sidebar from "./sidebar/Sidebar";
-
-
+import Menu from "../../global/globalvars";
+import MenuHeaders from "./menuheader/MenuHeaders";
 
 const MenuSummary = () => {
     const [menuItems, setMenuItems] = useState([])
     const [menuGroup, setMenuGroup] = useState([])
     const [open, setOpen] = useState(false)
+    var db = require('../../global/globalfunctions')
     useEffect(() => {
-        var items = JSON.parse(localStorage.getItem("menuItems"))
-        var qrMenu = JSON.parse(localStorage.getItem("QrMenu"))
-        setMenuItems(items)
-        setMenuGroup(qrMenu)
+
+        var customerid = localStorage.getItem("customerId")
+        db.fetchAllGroups(customerid);
+        db.fetchAllItems(customerid);
+
+        setMenuItems(Menu.groupItems);
+        setMenuGroup(Menu.groupCategory);
+
     }, []);
 
-    const options = menuGroup.map(option =>
-        <NavLink activeStyle to={"/" + option.menuName}>{option.menuName}</NavLink>
-    )
-    const openSidebar = () => {
-        if (open === false) {
-            setOpen(true)
-        }
-        else {
-            setOpen(false)
-        }
+    // const options = menuGroup.map(option =>
+    //     <NavLink activeStyle to={"/" + option.menuName}>{option.menuName}</NavLink>
+    // )
 
-    }
     return (
-        <>
-
-            <Nav>
-                <Bars onClick={openSidebar} />
-                <NavMenu>
-                    {options}
-                </NavMenu>
-                {
-                    open ?
-                        <Sidebar
-                            menuItems={menuItems}
-                            menuGroup={menuGroup} /> : null
-                }
-            </Nav>
-        </>
+        <div>
+         <MenuHeaders />
+        </div>
     )
 }
 export default MenuSummary;
