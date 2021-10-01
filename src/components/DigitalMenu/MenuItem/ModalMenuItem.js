@@ -92,7 +92,8 @@ const ModalMenuItem = ({
             },
             body: JSON.stringify(item)
         }).then((res) => res.json()).then((resJson) => {
-            console.log(resJson)
+           Menu.groupItems=resJson.data.Items
+           console.log(Menu.groupItems)
         })
     }
 

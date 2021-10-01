@@ -7,7 +7,7 @@ const TableMenuItem = ({
     itemid,
     nameEN,
     price,
-    categoryid,
+    categoryname,
     sort,
     handleDelete,
     handleEdit,
@@ -15,13 +15,13 @@ const TableMenuItem = ({
     return (
         <div className="item-table-Digital-holder">
             <div id={"" + nameEN} className="item-Digital-holder">
-                <div className="item-Digital-name">{nameEN[1]}</div>
+                <div className="item-Digital-name">{nameEN}</div>
             </div>
             <div id={"" + price} className="item-Digital-holder">
                 <div className="item-Digital-name">{price}</div>
             </div>
-            <div id={"" + categoryid} className="item-Digital-holder">
-                <div className="item-Digital-name">{nameEN[0]}</div>
+            <div id={"" + categoryname} className="item-Digital-holder">
+                <div className="item-Digital-name">{categoryname}</div>
             </div>
             <div id={"" + sort} className="item-Digital-holder">
                 <div className="item-Digital-name">{sort}</div>

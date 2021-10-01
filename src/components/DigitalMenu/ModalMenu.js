@@ -7,6 +7,8 @@ import Draggable from 'react-draggable'
 import { useDispatch, useSelector } from "react-redux";
 import { getAllGroups } from '../../redux/actions'
 import Groups from "../../models/Groups";
+import Menu from "../../global/globalvars";
+
 const ModalMenu = ({
     m,
     mod,
@@ -52,7 +54,7 @@ const ModalMenu = ({
     const handleChange = (event) => {
         setImageSelected(event.target.files[0])
         setFile(URL.createObjectURL(event.target.files[0]))
-       
+
     }
 
 
@@ -82,7 +84,7 @@ const ModalMenu = ({
         group.descpt = menuDesc;
         group.sort = sorting;
         group.images = "";
-        group.search = ""   
+        group.search = ""
         fetch(apiUrl, {
             method: "POST",
             mode: "cors",
@@ -92,7 +94,7 @@ const ModalMenu = ({
             },
             body: JSON.stringify(group)
         }).then((res) => res.json()).then((resJson) => {
-
+            Menu.groupCategory=resJson.data.Groups
         })
     }
 

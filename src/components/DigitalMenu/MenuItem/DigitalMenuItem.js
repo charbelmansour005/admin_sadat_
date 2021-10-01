@@ -158,13 +158,13 @@ const DigitalMenuItem = ({ groupName }) => {
         item.mode = "D";
         item.Itemid = Itemid;
         item.cusotmerid = userInfo.userid;
-        item.branchid = "1";
-        item.categoryid = "";
+        item.branchid = 1;
+        item.categoryid = 0;
         item.nameEN = "";
         item.nameAR = "";
         item.descpt = "";
-        item.sort = "";
-        item.prices = "";
+        item.sort = 0;
+        item.prices = 0;
         item.images = "";
         item.search = ""
         fetch(apiUrl, {
@@ -176,7 +176,8 @@ const DigitalMenuItem = ({ groupName }) => {
             },
             body: JSON.stringify(item)
         }).then((res) => res.json()).then((resJson) => {
-            console.log(resJson)
+            Menu.groupItems = resJson.data.Items
+            setTData(Menu.groupItems)
         })
     }
     return (
@@ -293,7 +294,7 @@ const DigitalMenuItem = ({ groupName }) => {
                                     itemid,
                                     nameEN,
                                     price,
-                                    categoryid,
+                                    categoryname,
                                     sort
 
                                 }) => (
@@ -305,7 +306,7 @@ const DigitalMenuItem = ({ groupName }) => {
                                             nameEN={nameEN}
                                             price={price}
                                             itemid={itemid}
-                                            categoryid={categoryid}
+                                            categoryname={categoryname}
                                             sort={sort}
                                             handleDelete={handleDelete}
                                             handleEdit={handleEdit}

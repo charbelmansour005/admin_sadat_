@@ -166,8 +166,9 @@ const Digital = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(group)
-        }).then((res) => res.status).then((resJson) => {
-            console.log(resJson)
+        }).then((res) => res.json()).then((resJson) => {
+            Menu.groupCategory = resJson.data.Groups
+            setTData(Menu.groupCategory)
         })
 
     }

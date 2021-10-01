@@ -5,25 +5,27 @@ import '../../../styles/MenuAll.css';
 import { NavLink } from 'react-router-dom';
 import MenuAll from "../menuall/MenuAll";
 import Menu from "../../../global/globalvars";
-
+import jay from '../../../assets/jay.jpg'
+import ReactRoundedImage from 'react-rounded-image'
 const MenuHeaders = () => {
     var customerid = localStorage.getItem("customerId")
     var group = JSON.parse(localStorage.getItem("menuGroup"))
     var item = JSON.parse(localStorage.getItem("menuItems"))
-    const [categ, setCateg] = useState('')
+    var firstCat = group[0].categoryid
+    var filterItem = item.filter((ite) => ite.categoryid === firstCat);
     const [load, setLoad] = useState(false);
-    const [filteredItem, setFilteredItem] = useState([])
     useEffect(() => {
+   
         var db = require('../../../global/globalfunctions')
         db.fetchAllGroups(customerid);
         db.fetchAllItems(customerid);
-        console.log(group)
-        console.log(item)
+
+        Menu.filteredCategory = filterItem;
     }, []);
 
     const options = group.map(option =>
         <li onClick={() => fetchCat(option)} className="nav-item" >
-            <a className="menu-group" href={"#menu" + option.nameEN}>{option.nameEN}
+            <a className="menu-group" href={"#" + option.nameEN}>{option.nameEN}
             </a>
         </li>
     )
@@ -33,13 +35,27 @@ const MenuHeaders = () => {
         <div class="col-xs-12 col-sm-6">
             <div className="menu-section">
                 <div className="menu-item">
-                    <div className="menu-item-name">{option.nameEN[1]}</div>
+                    <div className="menu-item-name">{option.nameEN}</div>
                     <div className="menu-item-price"> {option.price} </div>
                     <div className="menu-item-description"> {option.description}</div>
                 </div>
             </div>
         </div>
     )
+
+    const subFirstMenu = Menu.filteredCategory.map(option =>
+        <div class="col-xs-12 col-sm-6">
+            <div className="menu-section">
+                <div className="menu-item">
+                    <div className="menu-item-name">{option.nameEN}</div>
+                    <div className="menu-item-price"> {option.price} </div>
+                    <div className="menu-item-description"> {option.description}</div>
+                </div>
+            </div>
+        </div>
+    )
+
+
 
 
 
@@ -54,17 +70,28 @@ const MenuHeaders = () => {
 
     return (
         <div>
-            <section className="menuHeader">
-                <p className="menuTitle">MENU</p>
-                <ul>
-                    <li>
-                        <NavLink to="/">Home </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/menu">Menu </NavLink>
-                    </li>
-                </ul>
-            </section>
+            <div className="menuHeader" style={{ top: 0, left: 0, height: "40vh", backgroundPosition: 'center', backgroundSize: "cover", backgroundImage: "url(" + "https://i0.wp.com/www.moroccoworldnews.com/wp-content/uploads/2020/12/Best-Restaurants-in-Casablanca.jpeg?ssl=1" + ")" }}>
+                <div className="subHeader">
+                    <div>
+                        <p className="menuTitle">MENU</p>
+                    </div>
+                    <div style={{ alignSelf: "flex-start", display: "flex", alignItems: "flex-end", marginLeft: 15 }}>
+                        <div className="logo">
+                            <ReactRoundedImage image={jay} roundedColor="#321124"
+                                imageWidth="100"
+                                imageHeight="100"
+                                roundedSize="0"
+                                hoverColor="#DD1144" />
+
+                        </div>
+                        <div >
+                            <label className="quoteTitle">Quotes </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
 
             <section className="menu-options">
                 <div>
@@ -79,7 +106,7 @@ const MenuHeaders = () => {
                             <div>
                                 {
                                     Menu.filteredCategory.length > 0 ?
-                                        <h2 className="menu-section-title" >{Menu.filteredCategory[0].nameEN[0]}
+                                        <h2 className="menu-section-title" >{Menu.filteredCategory[0].categoryname}
                                         </h2>
                                         : null
                                 }
@@ -87,7 +114,19 @@ const MenuHeaders = () => {
                             </div>
                             {subMenu}
 
-                        </div> : null
+                        </div> : <div class="row" id="menu/Appetizers">
+                            <div>
+                                {
+                                    Menu.filteredCategory.length > 0 ?
+                                        <h2 className="menu-section-title" >{Menu.filteredCategory[0].categoryname}
+                                        </h2>
+                                        : null
+                                }
+
+                            </div>
+                            {subFirstMenu}
+
+                        </div>
                     }
 
                 </div>

@@ -21,9 +21,7 @@ const MenuSummary = () => {
 
     }, []);
 
-    // const options = menuGroup.map(option =>
-    //     <NavLink activeStyle to={"/" + option.menuName}>{option.menuName}</NavLink>
-    // )
+   
 
     return (
         <div>

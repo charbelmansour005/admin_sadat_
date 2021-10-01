@@ -63,7 +63,6 @@ input[select]{
  .menu-item {
 	margin: 17px 0;
     font-size: 18px;
-
     margin-right: 50px;
   
 }
@@ -85,7 +84,6 @@ input[select]{
 }
  .menu-item-price {
 	float: right;
-
 	font-weight: 400;
 	color: #555;
 	margin-top: -36px;

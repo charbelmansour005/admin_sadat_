@@ -141,7 +141,7 @@ const ModalEditMenuItem = ({
             },
             body: JSON.stringify(item)
         }).then((res) => res.json()).then((resJson) => {
-            console.log(resJson)
+            Menu.groupItems = resJson.data.Items
         })
     }
     useEffect(() => {

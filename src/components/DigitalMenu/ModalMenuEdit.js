@@ -109,7 +109,7 @@ const ModalMenuEdit = ({
             },
             body: JSON.stringify(group)
         }).then((res) => res.json()).then((resJson) => {
-            console.log(resJson)
+           Menu.groupCategory=resJson.data.Groups
         })
     }
 
