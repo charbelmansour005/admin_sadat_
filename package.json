@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@bumaga/tabs": "^0.2.0",
     "@fontsource/roboto": "^4.5.0",
