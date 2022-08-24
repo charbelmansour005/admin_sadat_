@@ -1,25 +1,22 @@
 import React from "react";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
-import "../../styles/Digital.css";
-// import { SortByAlphaTwoTone } from "@material-ui/icons";
-//I added
+import "../../../styles/Digital.css";
 
-const TableDigitalMenu = ({
+const CategoryMenuItem = ({
     indexe,
     name,
     handleDelete,
     handleEdit,
     itemid
-    // handleMenuName,
 }) => {
     return (
         <div className="item-table-Digital-holder">
-            <div id={"" + indexe} className="item-Digital-holder">
-                <div className="item-Digital-name">{indexe}</div>
-            </div>
             <div id={"" + name} className="item-Digital-holder">
                 <div className="item-Digital-name">{name}</div>
+            </div>
+            <div id={"" + indexe} className="item-Digital-holder">
+                <div className="item-Digital-name">{indexe}</div>
             </div>
             <div className="item-Digital-group1">
                 <div>
@@ -38,4 +35,4 @@ const TableDigitalMenu = ({
     );
 };
 
-export default TableDigitalMenu;
+export default CategoryMenuItem;

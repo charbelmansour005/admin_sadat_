@@ -65,30 +65,31 @@ const Login = () => {
   };
 
   let getLoginInfo = () => {
-    const apiUrl = "http://localhost:3002/api/DigitalMenu/getUserInfo"
-    var user = Object.create(User)
-    user.username = username
-    user.userpassword = values.password
-    fetch(apiUrl, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    }).then((res) => res.json()).then((resJson) => {
+    // const apiUrl = "http://localhost:3002/api/DigitalMenu/getUserInfo"
+    // var user = Object.create(User)
+    // user.username = username
+    // user.userpassword = values.password
+    // fetch(apiUrl, {
+    //   method: "POST",
+    //   mode: "cors",
+    //   headers: {
+    //     Accept: "application/json",
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(user)
+    // }).then((res) => res.json()).then((resJson) => {
 
-      if (resJson.Status === "Success") {
-        saveUser(resJson.data.Users[0]);
-        db.fetchAllGroups(resJson.data.Users[0].userid)
-        db.fetchAllItems(resJson.data.Users[0].userid)
-        history.push("/Home")
-      }
-      else {
-        alert(resJson.message)
-      }
-    })
+    //   if (resJson.Status === "Success") {
+    //     saveUser(resJson.data.Users[0]);
+    //     db.fetchAllGroups(resJson.data.Users[0].userid)
+    //     db.fetchAllItems(resJson.data.Users[0].userid)
+    //     history.push("/Home")
+    //   }
+    //   else {
+    //     alert(resJson.message)
+    //   }
+    // })
+    history.push("/Home")
 
   }
 

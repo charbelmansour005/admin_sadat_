@@ -4,13 +4,26 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 const HeaderMenuItem = ({
+    code,
     nameEN,
+    nameAR,
+    description,
     price,
-    categoryid,
-    sort
+    cur,
+    category,
+    image
 }) => {
+
     return (
         <div className="item-head-Digital-holder">
+            <div id={"" + code} className="item-Digital-holder">
+                <div className="item-head-Digital-name">
+                    <div>
+                        {code}
+                    </div>
+                </div>
+            </div>
+
             <div id={"" + nameEN} className="item-Digital-holder">
                 <div className="item-head-Digital-name">
                     <div>
@@ -18,7 +31,20 @@ const HeaderMenuItem = ({
                     </div>
                 </div>
             </div>
-
+            <div id={"" + nameAR} className="item-Digital-holder">
+                <div className="item-head-Digital-name">
+                    <div>
+                        {nameAR}
+                    </div>
+                </div>
+            </div>
+            <div id={"" + description} className="item-Digital-holder">
+                <div className="item-head-Digital-name">
+                    <div>
+                        {description}
+                    </div>
+                </div>
+            </div>
             <div id={"" + price} className="item-Digital-holder">
                 <div className="item-head-Digital-name">
                     <div>
@@ -26,26 +52,28 @@ const HeaderMenuItem = ({
                     </div>
                 </div>
             </div>
-            <div id={"" + categoryid} className="item-Digital-holder">
+            <div id={"" + cur} className="item-Digital-holder">
                 <div className="item-head-Digital-name">
                     <div>
-                        {categoryid}
+                        {cur}
                     </div>
                 </div>
             </div>
-            <div id={"" + sort} className="item-Digital-holder">
+            <div id={"" + category} className="item-Digital-holder">
                 <div className="item-head-Digital-name">
                     <div>
-                        {sort}
+                        {category}
                     </div>
                 </div>
             </div>
-            <div className="item-group1">
-                <div></div>
+            <div id={"" + image} className="item-Digital-holder">
+                <div className="item-head-Digital-name">
+                    <div>
+                        {image}
+                    </div>
+                </div>
             </div>
-            <div className="item-group1">
-                <div></div>
-            </div>
+            
         </div>
     );
 };

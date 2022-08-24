@@ -4,128 +4,97 @@ import "../../App.css";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import TableDigitalMenu from "./TableDigitalMenu";
+
 import HeaderDigital from "./HeaderDigital";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../styles/Digital.css";
 import ModalMenu from './ModalMenu';
 import ModalMenuEdit from "./ModalMenuEdit";
 import { useDispatch, useSelector } from "react-redux";
+import menuz2 from './MenuItem/menuz2'
 import DigitalMenuItem from "./MenuItem/DigitalMenuItem";
 import Menu from "../../global/globalvars";
 import Groups from "../../models/Groups";
 import Refresh from "@material-ui/icons/Refresh";
 import Loadingbar from "react-top-loading-bar";
+import TableMenuItem from "./MenuItem/TableMenuItem";
+import CategoryMenuItem from "./MenuItem/CategoryMenuItem";
+import TableMenuItemCat from "./MenuItem/TableMenuItemCat";
+
+
 const Digital = () => {
+    // call CATEG API HERE
+    // const [allCateg, setAllCateg] = useState([]);
+    const [allData, setAllData] = useState([]);
 
-    const [tData, setTData] = useState([]);
-    const [modal, setModal] = useState(false);
-    const [first, setFirst] = useState(true);
-    const [currentItem, setCurrentItem] = useState({});
-    const [modalEdit, setModalEdit] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const [isLoad, setLoad] = useState(false)
-    const { menuName, userInfo } = useSelector((state) => state.postReducer);
-
-    useEffect(() => {
-        document.addEventListener("keydown", (e) => {
-            e.key === "Escape" && setModal(false);
-            if (e.key === "+") {
-                setModal(true);
-                setFirst(false);
-            }
+    useEffect(() =>{
+        console.log('jebet data');
+        fetch("http://192.34.109.55/BlaseExtra/Api/QRGETCATEGORIES",{
+            method: "POST",
+            headers:{
+                Accept: "application/json",
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                rest:"REST1",
+            }),
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (responsejson) {
+            console.log(responsejson.CategoryList);
+            setAllData(responsejson.CategoryList);
         });
-        return () => {
-            document.removeEventListener("keydown", (e) => e);
-        };
-    }, [modal]);
-    useEffect(() => {
-        if (modal) {
-            document.getElementById("search-digital-text").tabIndex = -1;
-        } else {
-            document.getElementById("search-digital-text").tabIndex = 1;
-        }
-    }, [modal]);
-    useEffect(() => {
+    },[]);
 
-        setTData(Menu.groupCategory);
-    }, [Menu.groupCategory]);
-    function toggleModal() {
-        setModal((prev) => !prev);
-        setFirst(false);
-    }
-    function toggleEditModal() {
-        setModalEdit((prev) => !prev);
-        setModalEdit(false);
-    }
-    const mountedStyle = { animation: "inAnimation 500ms ease-in" };
-    const unmountedStyle = {
-        animation: "outAnimation 500ms ease-out",
-        animationFillMode: "forwards",
-    };
-    const downStyle = { animation: "downAnimation 300ms ease-in" };
-    const upStyle = {
-        animation: "upAnimation 300ms ease-in ",
-        animationFillMode: "forwards",
-    };
-    const handleSearch = (event) => {
-        let value = event.target.value.toLowerCase();
-        let result = [];
+    // useEffect(() =>{
+    //     console.log('jebet data');
+    //     fetch("http://192.34.109.55/BlaseExtra/Api/QRGETCATEGORIES",{
+    //         method: "POST",
+    //         headers:{
+    //             Accept: "application/json",
+    //             "Content-Type":"application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             rest:"REST1",
+    //         }),
+    //     })
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (responsejson) {
+    //         console.log(responsejson.ProductsManagement);
+    //         setAllCateg(responsejson.ProductsManagement);
+    //     });
+    // },[]);
 
-        result = tData.filter((data) => {
-            return data.nameEN.toLowerCase().includes(value);
-        });
-        setTData(result);
-        if (value === '') {
-            setTData(Menu.groupCategory)
-        }
-    }
+    // const showData = () => {
+    //     console.log('CATEGORIES')
+    //     fetch('http://192.34.109.55/BlaseExtra/Api/QRGETCATEGORIES',{
+    //         method: 'POST',
+    //         headers: {
+    //             Accept: 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             rest: "REST1",
+    //         }),
+    //     }).then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (responsejson){
+    //         console.log(responsejson.ProductsManagement);
+    //     });
+    // };
 
-
-    const handleDelete = (groupId) => {
-        deleteGroup(groupId)
-    };
-
-
-    const handleEdit = (groupId) => {
-        Menu.groupCategory.map((item) => {
-            if (item.categoryid === groupId) {
-                setCurrentItem(item);
-                setModalEdit(true);
-                setModal(false);
-                setFirst(true);
-            }
-        });
-        setTData(Menu.groupCategory);
-    };
-    const handleModalSubmit = (e) => {
-        e.preventDefault();
-        fetchAllGroups()
-        toggleModal();
-        e.target.reset();
-    };
-
-    const handleModalEdit = (e) => {
-        e.preventDefault()
-        fetchAllGroups()
-    }
-
-
-
-    let fetchAllGroups = () => {
-        setLoad(true)
-        setProgress(20)
-        const apiUrl = "http://localhost:3002/api/DigitalMenu/getAllGroups"
-        var group = Object.create(Groups)
-        group.mode = "R";
-        group.cusotmerid = userInfo.userid;
-        group.branchid = "1";
-        group.categoryid = "0";
-        group.nameEN = "";
-        group.nameAR = "";
-        group.descpt = "";
-        group.sort = "";
-        group.images = "";
-        group.search = "*"
+    let showDataSadatCategories = () => {
+        console.log('Sadat Categories') //send to nicolas
+        // setLoad(true)
+        // setProgress(20)
+        // const apiUrl = "http://localhost:3002/api/DigitalMenu/getAllItems"
+        const apiUrl = "http://192.34.109.55/BlaseExtra/Api/QRGETCATEGORIES"
+        var item = Object.create(menuz2)
+        item.rest = "REST1";
         fetch(apiUrl, {
             method: "POST",
             mode: "cors",
@@ -133,54 +102,18 @@ const Digital = () => {
                 Accept: "application/json",
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(group)
-        }).then((res) => res.json()).then((resJson) => {
-            Menu.groupCategory = resJson.data.Groups
-            setTData(Menu.groupCategory)
-            setProgress(100)
-            setLoad(false)
-        }).catch((error) => {
-            alert(error)
+            body: JSON.stringify(item)
+        }).then (function (response) {
+            return response.json();
         })
-
-
-    }
-    let deleteGroup = (categoryid) => {
-        const apiUrl = "http://localhost:3002/api/DigitalMenu/sendGroup"
-        var group = Object.create(Groups)
-        group.mode = "D";
-        group.cusotmerid = userInfo.userid;
-        group.branchid = "1";
-        group.categoryid = categoryid;
-        group.nameEN = "";
-        group.nameAR = "";
-        group.descpt = "";
-        group.sort = "";
-        group.images = "";
-        group.search = ""
-        fetch(apiUrl, {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                Accept: "application/json",
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(group)
-        }).then((res) => res.json()).then((resJson) => {
-            Menu.groupCategory = resJson.data.Groups
-            setTData(Menu.groupCategory)
-        })
-
+        .then(function (responsejson) {
+            console.log(responsejson.CategoryList);
+        });
     }
 
 
     return (
         <div id="App" className="digitalMenu">
-            {
-                isLoad ? <div>
-                    <Loadingbar transitionTime={300} shadow={true} height={4} onLoaderFinished={() => setProgress(0)} color="#ffb703" progress={progress}></Loadingbar>
-                </div> : null
-            }
             <div >
                 <h1 className="item-Digital">Digital Menu</h1>
                 <div className="item-Digital-box">
@@ -201,11 +134,11 @@ const Digital = () => {
                                 type="text"
                                 className="item-search-text"
                                 placeholder="Search by Group Name..."
-                                onChange={handleSearch}
                             />
                         </div>
                         <div className="item-Digital-right">
-                            <div onClick={() => fetchAllGroups()} className="item-Digital-add">
+                            {/* ADD ONCLICK */}
+                            <div onClick={() => showDataSadatCategories()} className="item-Digital-add">
                                 <Refresh
                                     style={{
                                         marginLeft: "2px",
@@ -219,8 +152,8 @@ const Digital = () => {
                                 <p>Refresh</p>
                             </div>
 
-
-                            <div onClick={() => toggleModal()} className="item-Digital-add">
+                                    {/* ADD ONCLICK THAT ENTERS API CALL */}
+                            <div className="item-Digital-add">
                                 <AddIcon
                                     style={{
                                         marginLeft: "2px",
@@ -237,28 +170,32 @@ const Digital = () => {
                     </div>
                     <div className="item-digital-table">
                         <HeaderDigital
-                            nameEN="Description"
-                            sort="Sorting" />
+                            indexe="Category Code"
+                            name="Category Name" />
+                        {/* <HeaderDigital
+                            indexe="Code"
+                            name="Category Name" /> */}
 
                         <TransitionGroup id="tg" className="item-remove-digital-items">
-                            {tData.map(
+                        {allData.map( //setAllData
                                 ({
-                                    categoryid,
-                                    nameEN,
-                                    sort,
-                                }) => (
+                                    // code,
+                                    indexe,
+                                    name,
 
+                                }) => (
                                     <CSSTransition
-                                        key={categoryid}
+                                        // key={code}
                                         timeout={500}
                                         classNames="item-trans">
-                                        <TableDigitalMenu
-                                            nameEN={nameEN}
-                                            categoryid={categoryid}
-                                            sort={sort}
-                                            handleDelete={handleDelete}
-                                            handleEdit={handleEdit}
-
+                                        <TableMenuItemCat
+                                            name={name}
+                                            indexe={indexe}
+                                            // cur={cur}
+                                            // categ={categ}
+                                            // sort={sort}
+                                            // handleDelete={handleDelete}
+                                            // handleEdit={handleEdit}
                                         />
                                     </CSSTransition>
                                 )
@@ -272,43 +209,9 @@ const Digital = () => {
             <div style={{ marginTop: 10 }}>
 
                 <DigitalMenuItem
-                    groupName={menuName}
+
                 />
             </div>
-
-
-
-
-            {
-                !first ? (
-
-                    <ModalMenu
-                        m="modal"
-                        toggleClose={toggleModal}
-                        mod={modal}
-                        mountedStyle={mountedStyle}
-                        unmountedStyle={unmountedStyle}
-                        downStyle={downStyle}
-                        upStyle={upStyle}
-                        handleSubmit={handleModalSubmit}
-                    />
-                ) : null
-            }
-
-            {
-                modalEdit ? (
-                    <ModalMenuEdit
-                        toggleClose={toggleEditModal}
-                        mod={modalEdit}
-                        currentitem={currentItem}
-                        mountedStyle={mountedStyle}
-                        unmountedStyle={unmountedStyle}
-                        downStyle={downStyle}
-                        upStyle={upStyle}
-                        handleSubmit={handleModalEdit}
-                    />
-                ) : null
-            }
         </div >
     )
 }

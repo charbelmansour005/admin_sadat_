@@ -14,8 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteMenuItem } from "../../../redux/actions";
 import Menu from "../../../global/globalvars";
 import Items from "../../../models/Items";
+import menuz from "../../../models/menuz";
 import Refresh from '@material-ui/icons/Refresh'
 import Loadingbar from "react-top-loading-bar";
+// ITEMS 
 const DigitalMenuItem = ({ groupName }) => {
 
     const [tData, setTData] = useState([]);
@@ -24,20 +26,19 @@ const DigitalMenuItem = ({ groupName }) => {
     const [currentItem, setCurrentItem] = useState({});
     const [modalEdit, setModalEdit] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [isLoad, setLoad] = useState(false)
+    const [isLoad, setLoad] = useState(false);
+    const [allData, setAllData] = useState([]);
 
 
     const dispatch = useDispatch();
     const { menuItems, QRMenu, menuName, userInfo } = useSelector((state) => state.postReducer);
 
-    const options = Menu.groupCategory.map(option =>
-        <option key={option.categoryid} defaultValue={option.nameEN}>{option.nameEN}</option>
-    )
+    // const options = Menu.groupCategory.map(option =>
+    //     <option key={option.categoryid} defaultValue={option.nameEN}>{option.nameEN}</option>
+    // )
 
 
     useEffect(() => {
-
-
         setTData(Menu.groupItems)
     }, [Menu.groupItems]);
     function toggleModal() {
@@ -62,26 +63,26 @@ const DigitalMenuItem = ({ groupName }) => {
         let value = event.target.value.toLowerCase();
         let result = [];
 
-        result = tData.filter((data) => {
-            return data.nameEN[1].toLowerCase().includes(value);
-        });
+        // result = tData.filter((data) => {
+        //     return data.nameEN[1].toLowerCase().includes(value);
+        // });
         setTData(result);
         if (value === '') {
             setTData(Menu.groupItems)
         }
     }
-    const handleSearchMenu = (event) => {
-        let value = event.target.value.toLowerCase();
-        let result = [];
-        result = Menu.groupItems.filter((data) => {
-            return data.nameEN[0].toLowerCase().includes(value);
-        });
-        setTData(result);
+    // const handleSearchMenu = (event) => {
+    //     let value = event.target.value.toLowerCase();
+    //     let result = [];
+    //     result = Menu.groupItems.filter((data) => {
+    //         return data.nameEN[0].toLowerCase().includes(value);
+    //     });
+    //     setTData(result);
 
-        if (value === '') {
-            setTData(Menu.groupItems)
-        }
-    }
+    //     if (value === '') {
+    //         setTData(Menu.groupItems)
+    //     }
+    // }
     const openInNewTab = (url) => {
         const newWindow = window.open(url, "_blank", "noopener,noreferrer");
         if (newWindow) newWindow.opener = null;
@@ -91,9 +92,9 @@ const DigitalMenuItem = ({ groupName }) => {
         localStorage.setItem("customerId", userInfo.userid)
     };
 
-    const handleDelete = (itemId) => {
-        deleteItem(itemId)
-    };
+    // const handleDelete = (itemId) => {
+    //     deleteItem(itemId)
+    // };
     const handleEdit = (itemId) => {
 
         Menu.groupItems.map((item) => {
@@ -107,32 +108,32 @@ const DigitalMenuItem = ({ groupName }) => {
     };
     const handleModalSubmit = (e,) => {
         e.preventDefault();
-        fetchAllItems()
+        fetchAllSadatItems()
         toggleModal();
         e.target.reset();
     };
     const handleModalEdit = (e) => {
         e.preventDefault();
-        fetchAllItems()
+        fetchAllSadatItems()
 
     }
-    let fetchAllItems = () => {
+    let fetchAllSadatItems = () => {
+        console.log('Sadat Items R MODE') //send to nicolas
         setLoad(true)
         setProgress(20)
-        const apiUrl = "http://localhost:3002/api/DigitalMenu/getAllItems"
-        var item = Object.create(Items)
+        // const apiUrl = "http://localhost:3002/api/DigitalMenu/getAllItems"
+        const apiUrl = "http://192.34.109.55/BlaseExtra/Api/QRGELLALL"
+        var item = Object.create(menuz)
+        item.rest = "REST1";
+        // item.categ = "ALL";
         item.mode = "R";
-        item.Itemid = "0";
-        item.cusotmerid = userInfo.userid;
-        item.branchid = "1";
-        item.categoryid = "0";
+        item.code = "";
         item.nameEN = "";
         item.nameAR = "";
-        item.descpt = "";
-        item.sort = "";
-        item.prices = 0;
-        item.images = "";
-        item.search = "*"
+        item.description = "";
+        item.price = 0;
+        item.category = "ALL";
+        item.rest = "REST1";
         fetch(apiUrl, {
             method: "POST",
             mode: "cors",
@@ -141,45 +142,75 @@ const DigitalMenuItem = ({ groupName }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(item)
-        }).then((res) => res.json()).then((resJson) => {
-            Menu.groupItems = resJson.data.Items.filter((item) => item.categoryid !== 0)
-            setTData(Menu.groupItems);
-            setProgress(100)
-            setLoad(false)
-        }).catch((error) => {
-            console.log(error)
+        }).then (function (response) {
+            return response.json();
         })
-
-
+        .then(function (responsejson) {
+            console.log(responsejson.ProductsManagement);
+        });
     }
-    let deleteItem = (Itemid) => {
-        const apiUrl = "http://localhost:3002/api/DigitalMenu/sendItem"
-        var item = Object.create(Items)
-        item.mode = "D";
-        item.Itemid = Itemid;
-        item.cusotmerid = userInfo.userid;
-        item.branchid = 1;
-        item.categoryid = 0;
-        item.nameEN = "";
-        item.nameAR = "";
-        item.descpt = "";
-        item.sort = 0;
-        item.prices = 0;
-        item.images = "";
-        item.search = ""
-        fetch(apiUrl, {
+
+
+    useEffect(() =>{
+        console.log('jebet data');
+        fetch("http://192.34.109.55/BlaseExtra/Api/QRGELLALL",{
             method: "POST",
-            mode: "cors",
-            headers: {
+            headers:{
                 Accept: "application/json",
-                'Content-Type': 'application/json'
+                "Content-Type":"application/json",
             },
-            body: JSON.stringify(item)
-        }).then((res) => res.json()).then((resJson) => {
-            Menu.groupItems = resJson.data.Items
-            setTData(Menu.groupItems)
+            body: JSON.stringify({
+                rest:"REST1",
+                categ:"APPETIZERS",
+                mode:"R",
+                code:"",
+                nameEN:"",
+                nameAR:"",
+                description:"",
+                price:0,
+                category:"ALL",
+            }),
         })
-    }
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (responsejson) {
+            console.log(responsejson.ProductsManagement);
+            setAllData(responsejson.ProductsManagement);
+        });
+    },[]);
+
+    
+
+    // let deleteItem = (Itemid) => {
+    //     const apiUrl = "http://localhost:3002/api/DigitalMenu/sendItem"
+    //     var item = Object.create(Items)
+    //     item.mode = "D";
+    //     item.Itemid = Itemid;
+    //     item.cusotmerid = userInfo.userid;
+    //     item.branchid = 1;
+    //     item.categoryid = "";
+    //     item.nameEN = "";
+    //     item.nameAR = "";
+    //     item.descpt = "";
+    //     item.sort = 0;
+    //     item.prices = 0;
+    //     item.images = "";
+    //     item.search = ""
+    //     fetch(apiUrl, {
+    //         method: "POST",
+    //         mode: "cors",
+    //         headers: {
+    //             Accept: "application/json",
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(item)
+    //     }).then((res) => res.json()).then((resJson) => {
+    //         Menu.groupItems = resJson.data.Items
+    //         setTData(Menu.groupItems)
+    //     })
+    // }
+
     return (
         <div id="App" style={{ height: "100%", display: 'flex' }}>
             {
@@ -240,7 +271,7 @@ const DigitalMenuItem = ({ groupName }) => {
                             />
                         </div>
 
-                        <div style={{ marginLeft: 10 }}>
+                        {/* <div style={{ marginLeft: 10 }}>
                             <select onChange={(e) => handleSearchMenu(e)} className="branch">
                                 <option disabled>
                                     Select Group Name
@@ -250,9 +281,10 @@ const DigitalMenuItem = ({ groupName }) => {
                                 </option>
                                 {options}
                             </select>
-                        </div>
+                        </div> */}
+
                         <div className="item-Digital-right">
-                            <div onClick={() => fetchAllItems()} className="item-Digital-add">
+                            <div onClick={() => fetchAllSadatItems()} className="item-Digital-add">
                                 <Refresh
                                     style={{
                                         marginLeft: "2px",
@@ -265,6 +297,7 @@ const DigitalMenuItem = ({ groupName }) => {
                                 />
                                 <p>Refresh</p>
                             </div>
+                            {/* ADD ONCLICK THAT ENTERS API CALL */}
                             <div onClick={() => toggleModal()} className="item-Digital-add">
                                 <AddIcon
                                     style={{
@@ -280,35 +313,54 @@ const DigitalMenuItem = ({ groupName }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="item-digital-table">
+                    <div className="item-digital-table"> 
+                    {/* HERE */}
                         <HeaderMenuItem
-                            nameEN="ItemName"
-                            price="ItemPrice"
-                            categoryid="Group Name"
-                            sort="Sorting" />
+                            // nameEN="ItemName"
+                            // price="ItemPrice"
+                            // categ="Category"
+                            // cur="currency"
+                            // sort="Sorting" 
+                            code="code"
+                            nameEN="nameEN"
+                            nameAR="nameAR"
+                            description="description"
+                            price="price"
+                            cur="cur"
+                            category="Category"
+                            image="image"
+                            />
 
 
                         <TransitionGroup id="tg" className="item-remove-digital-items">
-                            {tData.map(
+                            {allData.map( //setAllData
                                 ({
-                                    itemid,
+                                    // code,
+                                    code,
                                     nameEN,
+                                    nameAR,
+                                    description,
                                     price,
-                                    categoryname,
-                                    sort
+                                    cur,
+                                    category,
+                                    image,
 
                                 }) => (
                                     <CSSTransition
-                                        key={itemid}
+                                        // key={code}
                                         timeout={500}
                                         classNames="item-trans">
                                         <TableMenuItem
+                                            code={code}
                                             nameEN={nameEN}
+                                            nameAR={nameAR}
+                                            description={description}
                                             price={price}
-                                            itemid={itemid}
-                                            categoryname={categoryname}
-                                            sort={sort}
-                                            handleDelete={handleDelete}
+                                            cur={cur}
+                                            category={category}
+                                            image={image}
+                                            // sort={sort}
+                                            // handleDelete={handleDelete}
                                             handleEdit={handleEdit}
                                         />
                                     </CSSTransition>

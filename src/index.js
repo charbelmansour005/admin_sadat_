@@ -8,13 +8,13 @@ import reportWebVitals from './reportWebVitals';
 import { CookiesProvider } from 'react-cookie'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <CookiesProvider>
         <App />
       </CookiesProvider>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
