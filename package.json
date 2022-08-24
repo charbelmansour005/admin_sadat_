@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "homepage" : "https://charbelmansour005.github.io/admin_sadat_/",
+  "homepage" : "./",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
