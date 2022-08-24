@@ -14,3 +14,4 @@ class Items {
     }
 }
 module.exports = Items;
+export default Items;
