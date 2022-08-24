@@ -12,3 +12,4 @@ class Employee {
 }
 
 module.exports = Employee
+export default Employee;
